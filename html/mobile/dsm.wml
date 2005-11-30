@@ -1,0 +1,15 @@
+<?php
+  // send wml headers
+  $t = time();
+  header("Content-type: text/vnd.wap.wml");
+echo "<?xml version=\"1.0\"?>";
+echo "<!DOCTYPE wml PUBLIC \"-//WAPFORUM//DTD WML 1.1//EN\""
+   . " \"http://www.wapforum.org/DTD/wml_1.1.xml\">";
+?>
+<wml>
+  <card id="card1" title="KCCI Super Doppler">
+  <p align="center">
+  <img src="dsm.png?<?php echo $t; ?>" alt="Super Doppler" />
+  </p>
+  </card>
+</wml>

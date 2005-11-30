@@ -1,0 +1,310 @@
+body {
+	background: #9aa;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	text-align: center;
+	padding-bottom: 25px;
+}
+#wrapper        {
+        background: #fff;
+        color: #000;
+        margin: 5px auto;
+        padding: 0;
+        border: 1px solid #526968;
+        min-width: 698px; 
+        width: 698px;
+}
+#imgbar {
+	background: #eee;
+}
+#menu {
+ margin: 0;
+ padding: 0;
+/*  height: 2em; */
+}
+                                                                                
+#menu ul {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        text-align: center;
+        clear: left;
+        }
+                                                                                
+#menu ul li {
+        display: block;
+        float: left;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        }
+                                                                                
+#menu ul li a {
+        background: #fff;
+        width: 115px;
+        height: 2em;
+        border-top: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-right: none;
+        padding: 0;
+        margin: 0 0 10px 0;
+        color: #c30;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        font-weight: normal;
+        letter-spacing: 1px;
+        line-height: 2em;
+        }
+#menu ul li a:hover {
+        color: #000;
+        background: #ccc;
+        }
+body#sectionone #menu li#one a,
+body#sectiontwo #menu li#two a,
+body#sectionthree #menu li#three a,
+body#sectionfour #menu li#four a,
+body#sectionfive #menu li#five a,
+body#sectionsix #menu li#six a {
+	background: #c30;
+	border: 1px solid #c30;
+	color: #fff;
+	font-weight: bold;
+}
+#footer {
+	background: #eee;
+	font-size: smaller;
+	padding: 5px;
+}
+#leftside{
+	float:	left;
+	width:	350px;
+	text-align: left;
+    margin-left: 5px;
+}
+#rightside{
+	padding: 2px 10px 10px 0;
+	margin: 0 0 0 380px;
+	background: transparent;
+	text-align: left;
+}
+table.side {
+ float: left;
+ width: 300px;
+}
+table.full {
+ float: left;
+ width: 600px;
+}
+#justone{
+	padding: 0px 5px 5px 0;
+	margin: 5px;
+	background: transparent;
+	text-align: left;
+}
+#tvdisplay{
+	top: 5px;
+	left: 250px;
+	margin: 25px 25px 25px 25px;
+	padding: 80px 0px 0px 60px;
+	text-align: left;
+	width: 640px;
+	height: 496px;
+	border: 1px solid #c30;
+	position: absolute;
+}
+#tvcontrol{
+	top: 5px;
+	left: 5px;
+	background: #fff;
+	width: 240px;
+	position: absolute;
+}
+#radlayerstill{
+	background: #C0DBFF;
+	text-align: center;
+	padding: 5px;
+	width: 325;
+}
+#radlayerloop{
+	background: #FFC0CB;
+	text-align: center;
+	padding: 5px;
+	width: 325;
+}
+a:link, a:visited {
+        font-weight : bold;
+        text-decoration : none;
+        color: #c30;
+        background: transparent;
+        }
+ 
+a:hover {
+        font-weight : bold;
+        text-decoration : underline;
+        color: #999;
+        background: transparent;
+        }
+form {
+ margin: 0px;
+ padding: 0px;
+}
+h2	{
+ margin-bottom: 3px;
+ margin-top: 3px;
+ text-indent: 15px;
+ border-color: #990000;
+ background-color: #EFB9B9; 
+ color: #330000;
+ border-bottom: 1px solid;
+ border-top: 0px solid;
+ border-left: 3px solid;
+ border-right: 0px solid;
+ padding: 1px;
+}
+ul      {
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        border: 0;
+        }
+         
+ul li   {
+        list-style: disc inside;
+        margin: 0;
+        padding: 0;
+        line-height: 1.5em;
+        }
+                                                                                
+ul li a {
+        font-weight: normal;
+        }
+#mainNavOuter {
+        width: 100%;
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        background-color: #c00;
+        }
+
+#mainNav {
+        width: 100%;
+        font-weight: bold;
+        font-family: "Luxi Sans", verdana, helvetica, arial, sans-serif;
+        font-size: x-small;
+        }
+
+
+/* float clear hack that has been hacked for Moz 1.5x and below */
+#mainNavOuter:after {
+    content: ".";
+    display: block;
+    height: 1px;
+    margin-top: -1px;
+    overflow: hidden;
+    clear: both;
+    visibility: hidden;
+    }
+    /* Holly Hack Targets IE Win only \*/
+    * html .mainNavOuter {height: 1%;}
+    /* End Holly Hack */
+
+
+#mainNavInner {
+        width: 100%;
+        height: 7px;
+        }
+
+#mainNav ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        }
+
+#mainNav ul li {
+        background: #b70000;
+        display: block;
+        float: left;
+        padding: 0;
+        margin: 0;
+        }
+
+#mainNav li#mainFirst-active,
+#mainNav li#main-active,
+#mainNav li#mainLast-active {
+        background-color: #800000;
+        }
+
+
+#mainNav ul li a {
+        display: block;
+        float: left;
+        text-decoration: none;
+        color: #fff;
+        padding: 5px 15px;
+        font-size: 11px;
+        text-decoration: none !important;
+        }
+
+#mainNav ul li a:hover {
+        color: #000;
+}
+
+/* Site Guide Stuff */
+#guide {
+  text-align: left;
+  padding: 5px;
+}
+#guide ul {
+  margin: 5px;
+  padding-left: 15px;
+  text-align: left;
+  border: 0;
+}
+#guide ul li {
+  list-style: disc inside;
+  margin-left: 5px;
+  padding-left: 5px;
+  padding: 0;
+  line-height: 1.5em;
+}
+#guide h4 {
+  color: #00f;
+  size: 1.2em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+#guide p {
+  margin-left: 10px;
+}
+div.urllink {
+  border: 1px dashed #000;
+  padding: 5px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+div.urllink .details {
+  font-size: 0.8em;
+}
+div.urllink h5 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #f00;
+  font-size: 1.1em;
+  line-height: 1.3em;
+}
+div.urllink code {
+  margin-left: 50px;
+  margin-top: 5px;
+}
+div.urllink code a {
+  text-decoration: underline;
+}
+div.urllink img {
+  float: left;
+  margin: 0px;
+  height: 48px;
+}

@@ -1,0 +1,277 @@
+<?php 
+  include("../../config/settings.inc.php"); 
+
+/* Session Stuff */
+$expiry = 60*60*24*100; // 100 days
+session_start();
+$s = "SKCI4";
+if (isset($_SESSION['station']) )
+{
+  $s = $_SESSION['station'];
+}
+
+
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style type="text/css" media="screen">@import "../css/main.css";</style>
+</head>
+<body>
+
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+<div id="guide">
+ <h2>Web Developers Guide</h2>
+
+<p>The purpose of this page is to provide documentation for those of you that
+wish to incorporate content found on this website to yours.  This page assumes
+a basic understanding of web technologies.  If you do have any questions, please
+don't hesitate to <a href="../contact.phtml">contact us</a>.  All of the 
+applications listed below return an image.  So in most cases, you will want 
+to place the URL in an image HTML tag like so:
+<pre>
+ &lt;img src="<?php echo $baseurl; ?>insert_custom_url_here"&gt;
+</pre>
+
+<p>Determining this custom URL is the goal of the documentation below.  For those of you that are impatient, here is a simple page of <a href="webdevel_example.phtml">examples</a> with HTML included.  Again, if you have any questions, please <a href="../contact.phtml">let us know</a>!
+
+<div class="urllink">
+<img src="<?php echo $baseurl; ?>images/redhat-web-browser.png">
+<h5>Hint: Know your site's ID!</h5>
+<p class="details">Each of the participating sites in the schoolnet8.com 
+project have been assigned a 5 character identifier by the National Weather
+Service.  This ID is used for links on the website.  To find the ID for 
+your site, check out <a href="nwsli.phtml">this page</a>.</p>
+</div>
+
+<h3>Applications Interfaces Documented:</h3>
+<ul>
+ <li><a href="#county">1. County Zoom RADAR+SchoolNet</a></li>
+ <li><a href="#webcam">2. Webcameras</a></li>
+ <li><a href="#onair">3. On Air Graphic</a></li>
+ <li><a href="#lsdapp">4. Live Super Doppler8 App</a></li>
+</ul>
+
+<hr>
+<a name="onair">&nbsp;</a><h4>1. County Zoom RADAR+SchoolNet</h4>
+
+<p>These are the RADAR maps shown in the left hand column on the 
+SchoolNet8 site homepage.  The default image shown on the page is pre-rendered
+to save processing time on the server and speed the page up.  This image
+has temperatures and winds overlain, so if you want to plot a different variable
+you will need to use the dynamic plot version below.
+
+<p><b>Temperature+winds plot (fast!):</b>
+<pre>
+URL: <?php echo $baseurl; ?>static/radar/<?php echo $s; ?>/<?php echo $s; ?>_#.png
+
+- Where <?php echo $s; ?> is the site identifier you wish the image to be centered on
+- And # is the image age number.  0 being the newest and 9 the oldest (30 minutes)
+</pre>
+
+<p><b>Dynamic variable plot (slower):</b>
+<pre>
+URL: <?php echo $baseurl; ?>GIS/apps/radar/site.php?station=<?php echo $s; ?>&var=myvariable
+
+- Where <?php echo $s; ?> is the site identifier you wish the image to be centered on
+- And myvariable is the choice of 
+   tmpf -  Air Temperature    dwpf - Dew Point           alti - Altimeter
+   sped -  Wind Speed [MPH]   sknt - Wind Speed [knots]  barb - Wind Barb
+   gbarb-  Wind Gust Barb                  max_sped - Today's wind gust in MPH
+   max_sknt - Today's wind gust in knots   feel - Feels Like Temperature
+   tmpf_max - High Temperature today       tmpf_min - Low Temperature today
+   pmonth - Rainfall this month            pday - Rainfall today
+</pre>
+
+<hr>
+<a name="webcam">&nbsp;</a><h4>2. Webcameras</h4>
+
+<p>Due to bandwidth restrictions, direct access to the web cameras is not 
+available.  A process runs on our server that caches a recent image and 
+saves it on the website.  Normally, this process happens every 5 minutes, but
+during severe weather, it will happen every minute.
+
+<p>The webcamera images are available in two sizes.  
+<br /><b>320x240</b> version: <a href="<?php echo $baseurl; ?>camera/stills/"><?php echo $baseurl; ?>camera/stills/</a>
+<br /><b>640x480</b> version: <a href="http://mesonet.agron.iastate.edu/data/camera/640x480/">http://mesonet.agron.iastate.edu/data/camera/640x480/</a>
+
+<p>If you are interested in archived webcamera images, here is a URL template to rip images from the Iowa Mesonet archive.  The timestamps used here are in Greenich Mean Time (GMT/UTC).
+<br />
+<pre>
+URL: http://mesonet.agron.iastate.edu/archive/data/yyyy/mm/dd/camera/NWSLI/NWSLI_yyyymmddhhmi.jpg
+
+ - Where NWSLI is the ID used for the camera.  It matches the id of the 
+   schoolnet8 site the camera is associated with.
+</pre>
+
+<hr>
+<a name="onair">&nbsp;</a><h4>3. OnAir Application</h4>
+
+<p>This application generates an image that looks much like the onair 
+presentation you see on KCCI-TV.  This image is handy to place on your 
+website when you are looking for a detailed look at current conditions. 
+There is not much dynamic about this image.  The only CGI variable you 
+need to set is the site ID.
+
+<pre>
+  <?php echo $baseurl; ?>gen/kcci.php?station=<?php echo $s; ?>
+</pre>
+
+<hr>
+<a name="lsdapp">&nbsp;</a><h4>4. Live Super Doppler8 App</h4>
+
+<p>You can directly access the maps generated from the Live Super Doppler8 
+App. All of the
+maps are generated dynamically via a call to a web application. Here is the 
+base url you will need to use:
+<pre>
+URL: <?php echo $baseurl; ?>GIS/map.php?
+</pre>
+
+<p>The customization of this plot is done by a good number of variables
+that are available to be set.  This list may appear to be challenging
+to comprehend, but keep in mind that they are all optional.
+The processed CGI parameters are:
+
+<br /><table border=1 style="width: 100%;">
+<thead>
+<tr>
+ <th>Param:</th><th>Description:</th><th>Default:</th><th>Allowed Values:</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+ <td>radar</td>
+ <td>RADAR source.  KCCI is the KCCI Super Doppler.  The other ids 
+are National Weather Service NEXRADs.  If KCCI's radar is offline for
+some reason, the NWS radar is used.  The NWS RADARs are not available in
+archived mode.</td>
+ <td>KCCI</td>
+ <td>KCCI, DMX, DVN, ARX, MPX, FSD, OAX, EAX</td>
+</tr>
+
+<tr>
+ <td>mode</td>
+ <td>Time mode of the map</td>
+ <td>realtime</td>
+ <td>realtime, archive</td>
+</tr>
+
+<tr><td>year</td><td>Only in <i>archive mode</i>, year for time setting</td><td><?php echo date("Y"); ?></td><td>2002-<?php echo date("Y"); ?></td></tr>
+<tr><td>month</td><td>Only in <i>archive mode</i>, month for time setting</td><td><?php echo date("m"); ?></td><td>1-12</td></tr>
+<tr><td>day</td><td>Only in <i>archive mode</i>, day for time setting</td><td><?php echo date("d"); ?></td><td>1-31</td></tr>
+<tr><td>hour</td><td>Only in <i>archive mode</i>, hour for time setting</td><td><?php echo date("H"); ?></td><td>0-23</td></tr>
+<tr><td>minute</td><td>Only in <i>archive mode</i>, minute for time setting</td><td><?php echo date("i"); ?></td><td>0-59</td></tr>
+
+<tr>
+ <td>roadcond</td>
+ <td>Show road conditions?</td>
+ <td>no</td>
+ <td>any value activates</td>
+</tr>
+
+<tr>
+ <td>sitelabel</td>
+ <td>Label sites?</td>
+ <td>no</td>
+ <td>any value activates</td>
+</tr>
+
+<tr>
+ <td>zoom</td>
+ <td>Zoom factor. 0 is no zoom</td>
+ <td>0</td>
+ <td>-10 thru 10</td>
+</tr>
+
+<tr>
+ <td>width</td>
+ <td>Map image width</td>
+ <td>640</td>
+ <td>120 - 1280</td>
+</tr>
+
+<tr>
+ <td>height</td>
+ <td>Map image height</td>
+ <td>480</td>
+ <td>120 - 1024</td>
+</tr>
+
+<tr>
+ <td>extents</td>
+ <td>Map extents for the image to be drawn.  This value may be adjusted by
+math done from clicking or zooming.  Map extents are the lower left hand 
+corner and the upper right ordered like so: <i>minx,miny,maxx,maxy</i>.  The 
+trick here is that the map extents are not in latitude and longitude values,
+but meters in the UTM Zone15 North NAD83 Projection.</td>
+ <td>200000,4400000,710000,4900000</td>
+ <td>???</td>
+</tr>
+
+<tr>
+ <td>img.x</td>
+ <td>Result of user click (x coordinate) on the map</td>
+ <td>(None)</td>
+ <td>0 - $imgwidth</td>
+</tr>
+
+<tr>
+ <td>img.y</td>
+ <td>Result of user click (y coordinate) on the map</td>
+ <td>(None)</td>
+ <td>0 - $imgheight</td>
+</tr>
+
+<tr>
+ <td>street</td>
+ <td>If set, string is sent to the geocoder. Ex) 100 Main Street</td>
+ <td>(None)</td>
+ <td>string</td>
+</tr>
+
+<tr>
+ <td>city</td>
+ <td>If set, string is sent to the geocoder. Do not specify the state. Only locations in Iowa work. Ex) Ames</td>
+ <td>(None)</td>
+ <td>string</td>
+</tr>
+
+<tr>
+ <td>st[]</td>
+ <td>Station ids to be plotted on the map.  Defaults to KCCI's site ID.</td>
+ <td>SKCI4</td>
+ <td>5 character strings</td>
+</tr>
+
+<tr>
+ <td>str[]</td>
+ <td>Station ids to be removed from the st[] array.</td>
+ <td>(None)</td>
+ <td>5 character strings</td>
+</tr>
+
+<tr>
+ <td>var</td>
+ <td>Station data plotted on map.</td>
+ <td>tmpf</td>
+ <td>tmpf, dwpf. alti, splot, sped, sknt, barb, gbarb, max_sped, max_sknt, feel, tmpf_max, tmpf_min, pmonth, pday</td>
+</tr>
+
+<tr>
+ <td>download</td>
+ <td>Return a minetype (application/octet-stream) that requires the user to save the file to disk.  Default is to not do this.</td>
+ <td>(None)</td>
+ <td>any val</td>
+</tr>
+
+</tbody>
+</table>
+
+<p>That's it!  Hopefully you are able to use our content on your website!
+
+</div>
+<?php include("$nwnpath/include/footer.inc.php"); ?>

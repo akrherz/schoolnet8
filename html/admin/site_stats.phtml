@@ -1,0 +1,82 @@
+<?php
+  /*  site_stats.phtml
+   *    Generate Site statistics for admins to work with
+   *    Daryl Herzmann 2 Dec 2002
+   *    28 Feb 2003	Use gigE connection
+   *    30 Apr 2003	No more register globals
+   */
+ include("../../config/settings.inc.php");
+?>
+<html>
+<head>
+  <title>KCCI SchoolNet8 Stats</title>
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+
+<?php 
+  $station = $_GET['station'];
+  $c = pg_connect($dbhost);
+    $rs = pg_exec("SELECT count(valid) as count,
+      app from site_stats WHERE station = '". $station ."'  
+      GROUP by app");
+  pg_close($c);
+
+  include("../include/kcciLoc.php");
+  $appDict = Array(
+    "" => "Unknown",
+    "  " => "Un-registered application",
+    "01" => "Graphical Current Plot",
+    "02" => "Textual Current Page",
+    "03" => "1 Minute Data Trace",
+    "04" => "Sortable Currents Table",
+    "05" => "SchoolNet8 Homepage",
+    "06" => "Current's Homepage",
+    "07" => "Charts/Plots Homepage",
+    "08" => "SchoolNet8 Download Page",
+    "09" => "Information Homepage",
+    "10" => "WAP Mainpage",
+    "11" => "WAP Current Ob View",
+    "12" => "Dynamic Plotter",
+    "13" => "Weather Data Calendar",
+    "14" => "SchoolNet8 Viewer Page",
+    "15" => "State Fair Display",
+    "16" => "Web Site Guide",
+	"17" => "Ortho Images",
+    "18" -> "Site Guide");
+?>
+
+<a href="all_stats.phtml">Go Back</a> to All SchoolNet8 Stats.<br>
+
+<CENTER>
+<table bgcolor="#000000" border=1 cellpadding=2 cellspacing=0><tr>
+  <td bgcolor="#EEEEEE">Extended Statistics For:</td>
+  <th bgcolor="#ffffff"><font color="blue">
+    <?php echo $Scities[$station]['city'] ." (". $station .") ";  ?>
+  </font></th>
+</tr></table>
+</CENTER>
+
+<p><font class="bluet">Current Sponsor's Banner:</font><br>
+<img src="http://kcci.mesonet.agron.iastate.edu/pics/kcci_<?php echo $station; ?>.gif" border=2>
+
+<p><font class="bluet">Hits by Application Break-down:</font><br>
+<table bgcolor="#000000" border=1 cellpadding=2 cellspacing=0>
+<?php
+for( $i=0; $row = @pg_fetch_array($rs,$i); $i++) 
+{ 
+  echo '<tr><th bgcolor="#EEEEEE" align="left">'. $appDict[$row['app']] .'</th>
+    <td bgcolor="#ffffff"><b>'. $row['count'] .'</b></td></tr>';
+}
+?>
+</table>
+
+<p><font class="bluet">Hits by Day for this Month:</font><br>
+<img src="byday.php?station=<?php echo $station; ?>">
+
+<p><font class="bluet">Hits by Hour for this Month:</font><br>
+<img src="byhour.php?station=<?php echo $station; ?>">
+
+
+
+</html>

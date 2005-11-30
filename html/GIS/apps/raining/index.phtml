@@ -1,0 +1,179 @@
+<?php
+ include("../../../../config/settings.inc.php");
+ $rad = isset($_GET['rad']) ? $_GET['rad'] : 'DMX';
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>SchoolNet8 | Where's it raining?</title>
+  <link rel="stylesheet" type="text/css" href="../../../css/main.css" />
+  <meta http-equiv="refresh" content="180; URL=index.phtml?rad=<?php echo $rad; ?>">
+</head>
+<body>
+
+<?php include ("../../../bar.phtml"); ?>
+
+<div id="justone">
+
+<p>This application shows you visually where it should be raining (NEXRAD) and which
+SchoolNet sites are actually reporting rainfall.  If a dot is black, the site has received 
+<b>measurable</b> (> 0.01) rainfall in the previous 15 minutes.<br>
+This page will automatically reload every 3 minutes.</p>
+
+<form method="GET" action="index.phtml" name="rad">
+<p><b>Select RADAR source:</b>
+<select name="rad">
+  <option value="KCCI" <?php if ($rad == 'KCCI') echo 'SELECTED'; ?>>KCCI Super Doppler
+  <option value="KCCIA" <?php if ($rad == 'KCCIA') echo 'SELECTED'; ?>>KCCI Super Doppler (North)
+  <option value="KCCIB" <?php if ($rad == 'KCCIB') echo 'SELECTED'; ?>>KCCI Super Doppler (Central)
+  <option value="KCCIC" <?php if ($rad == 'KCCIC') echo 'SELECTED'; ?>>KCCI Super Doppler (South)
+  <option value="DMX" <?php if ($rad == 'DMX') echo 'SELECTED'; ?>>[DMX] Des Moines, IA
+  <option value="DMXA" <?php if ($rad == 'DMXA') echo 'SELECTED'; ?>>[DMX] Des Moines, IA (North)
+  <option value="DMXB" <?php if ($rad == 'DMXB') echo 'SELECTED'; ?>>[DMX] Des Moines, IA (Central)
+  <option value="DMXC" <?php if ($rad == 'DMXC') echo 'SELECTED'; ?>>[DMX] Des Moines, IA (South)
+</select>
+<input type="submit" value="Switch View">
+</form>
+
+<?php
+dl($mapscript);
+include('../../../../include/locs.inc.php');
+@include('/mesonet/www/html/include/nexlib.php');
+include('../../../../include/currentdb.inc.php');
+include('../lib/radar.php');
+
+$myStations = Array();
+$accum = Array();
+
+$now = time();
+$dir = "/mesonet/data/current/kcci_events/";
+$handle = @opendir("/mesonet/data/current/kcci_events/");
+while (false !== ($file = @readdir($handle))) { 
+  if ($file != "." && $file != "..") {
+    if ( $now - filemtime( $dir . $file ) < 15*60){
+      array_push($myStations, substr($file,0,5) );
+      $accum[ substr($file,0,5) ] = split("\n", implode('', file($dir . $file) ) );
+    }
+  } // End of if
+} // End of while
+@closedir($handle);
+
+$height = 480;
+$width = 640;
+
+$map = ms_newMapObj("../lib/base.map");
+$map->set("height", 480);
+$map->set("width", 640);
+
+$map->setextent($extents[$rad][0],$extents[$rad][1],$extents[$rad][2],$extents[$rad][3] );
+
+$counties = $map->getlayerbyname("counties");
+$counties->set("status", MS_ON);
+
+$dot = $map->getlayerbyname("dot");
+$dot->set("status", MS_ON);
+$dot->setProjection("init=epsg:4326");
+
+$site = $map->getlayerbyname("site");
+$site->set("status", MS_ON);
+$site->setProjection("init=epsg:4326");
+
+$radar = $map->getlayerbyname( substr($rad,0,3) );
+$radar->set("status", MS_ON);
+
+$bar = $map->getlayerbyname("bar640");
+$bar->set("status", MS_ON);
+
+$img = $map->prepareImage();
+$counties->draw($img);
+$radar->draw($img);
+
+$precip = Array();
+
+$now = time();
+$obs = new currentdb();
+$data = $obs->db;
+foreach($data as $key => $ob){
+   if ($key == "S03I4") continue;
+   $precip[$key] = Array("ts" => $ob["ts"], "pDay" => round($ob["pday"],2), 
+     "pMonth" => round($ob["pmonth"],2) );
+   $pt = ms_newPointObj();
+   $pt->setXY($Scities[$key]["lon"], $Scities[$key]["lat"], 0);
+   if ($now - $ob["ts"] > 1800){
+     $pt->draw($map, $site, $img, 1, "" );
+   } else {
+     if (floatval($ob["tmpf"]) < 32.1)
+       $pt->draw($map, $site, $img, 2, "" );
+     else
+       $pt->draw($map, $site, $img, 0, "" );
+   }
+   $pt->free();
+}
+
+
+$now = time();
+foreach($myStations as $key => $value){
+   $ob = currentOb($value);
+   $pt = ms_newPointObj();
+   $pt->setXY($cities[$value]["lon"], $cities[$value]["lat"], 0);
+   $pt->draw($map, $dot, $img, 0, $value ." (". $accum[$value][0] .")" );
+   $pt->free();
+}
+
+  $ts = strftime("%d %b %I:%M %p");
+
+$map->drawLabelCache($img);
+$bar->draw($img);
+mktitle($map, $img, 0, 10, " Previous 15min rainfall ending: ". $ts );
+
+if (substr($rad,0,4) == "KCCI"){
+  mktitle($map, $img, 0, $height - 10, "Live KCCI Super Doppler");
+}else {
+  $radTimes = Array();
+  $fcontents = file('/mesonet/data/gis/images/unproj/'. substr($rad, 0, 3) .'/'.substr($rad, 0, 3) .'.log');
+  while (list ($line_num, $line) = each ($fcontents)) {
+    $radTimes[$line_num] = substr($line, 0, 12);
+    $lastT = $line;
+  }
+  $radTS = substr($radTimes[8], 4, 2) ."/". substr($radTimes[8], 6, 2) ." ". substr($radTimes[8], 8, 4) ."Z";
+ 
+  mktitle($map, $img, 0, $height - 10, " ". $wfos[substr($rad,0,3)] ." NEXRAD Valid @: ". $radTS );
+}
+
+$url = $img->saveWebImage(MS_PNG, 0,0,-1);
+
+echo"<table><tr><td valign='top'>";
+
+echo "<p><b>Rainfall totals today.</b><br>";
+
+echo "<table>
+ <tr><th>SID</th><th>Site</th><th>Today</th><th>Month</th></tr>";
+
+$now = time();
+foreach($precip as $key => $value){
+  $pDay = round($precip[$key]["pDay"], 2);
+  if ($pDay > 0 && ($now - $precip[$key]["ts"] < 1000) ){
+    echo "<tr><th>". $key ."</th><td>". $Scities[$key]["short"] ."</td>
+     <td>". $precip[$key]["pDay"] ."</td><td>". $precip[$key]["pMonth"] ."</td></tr>\n";
+  }
+}
+echo "</table>\n";
+
+echo "</td><td valign=\"top\">\n";
+
+echo "<p><b>". sizeof($accum) ."</b> sites currently reporting precip.\n";
+
+echo "<p><img src=\"$url\">";
+
+echo "<p>Red X's are sites that are currently offline.<br>
+  White dots are sites online and above freezing, but not reporting precip.<br>
+  White triangles are sites online and <b>below</b> freezing, but not reporting precip.<br>
+  Black dots are sites reporting precip.</p>";
+
+echo "</td></tr></table>\n";
+
+?>
+
+</div>
+<?php include("../../../footer.phtml"); ?>

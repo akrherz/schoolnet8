@@ -1,0 +1,95 @@
+<?php
+  /** 1trace_fe.phtml
+   *   Does the 1 minute data traces for the KCCI network
+   * Daryl Herzmann 29 Nov 2002
+   */
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+	<TITLE>IEM | 1 Minute Time Series</TITLE>
+	<META NAME="AUTHOR" CONTENT="Daryl Herzmann">
+</HEAD>
+<body marginwidth=0 marginheight=0 margin=0 border=0>
+
+<?php include("../include/imagemaps.php"); ?>
+
+<table width="600">
+<tr bgcolor="#eee8aa"><td>
+
+
+  <form method="GET" action="1trace_fe.phtml">
+  <?php
+
+    if (strlen($month) == 0 ){
+	$month = date("m");
+    }
+    if (strlen($day) == 0 ){
+        $day = date("d");
+    }
+
+    echo " <a href=\"1trace_fe.phtml\">Select Visually</a><br> \n";
+    echo "Make plot selections:<br> ";
+    echo kcciSelect($station); 
+
+  ?>
+  <select name="year">
+    <option value="2002">2002
+  </select>
+
+  <select name="month">
+    <option value="02" <?php if ($month == "02") echo "SELECTED"; ?> >February
+    <option value="03" <?php if ($month == "03") echo "SELECTED"; ?> >March
+    <option value="04" <?php if ($month == "04") echo "SELECTED"; ?> >April
+    <option value="05" <?php if ($month == "05") echo "SELECTED"; ?> >May
+    <option value="06" <?php if ($month == "06") echo "SELECTED"; ?> >June
+    <option value="07" <?php if ($month == "07") echo "SELECTED"; ?> >July
+    <option value="08" <?php if ($month == "08") echo "SELECTED"; ?> >August
+    <option value="09" <?php if ($month == "09") echo "SELECTED"; ?> >September
+    <option value="10" <?php if ($month == "10") echo "SELECTED"; ?> >October
+    <option value="11" <?php if ($month == "11") echo "SELECTED"; ?> >November
+    <option value="12" <?php if ($month == "12") echo "SELECTED"; ?> >December
+  </select>
+
+  <select name="day">
+<?php
+  for ($k=1;$k<32;$k++){
+   echo "<option value=\"".$k."\" ";
+   if ($k == (int)$day){
+     echo "SELECTED";
+   }
+   echo ">".$k."\n";
+  }
+?>
+  </select>
+
+  <input type="submit" value="Make Plot"></form>
+
+<?php
+if (strlen($station) > 0 ) {
+
+?>
+
+</td></tr>
+</table>
+
+ <?php include("1minute.php"); ?>
+
+
+<?php
+} else {
+?>
+
+<p>or select from this map...
+
+<div align="center">
+
+<?php 
+   echo print_snet("1trace_fe.phtml?station");
+}
+?>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<?php
+include("../config/settings.inc.php");
+$sortcol = isset($_GET['sortcol']) ? $_GET["sortcol"] : "ts";
+$sortdir = isset($_GET['sortdir']) ? $_GET["sortdir"] : "down";
+$today = mktime(0,0,0, date("m"), date("d"), date("Y"));
+ include('../include/locs.inc.php');
+ include('../include/currentdb.inc.php');
+ include('../include/sponsors.inc.php');
+ $app = "04"; include("../include/dblog.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <style type="text/css" media="screen">@import "css/main.css";</style>
+  <TITLE>SchoolNet8 | Sortable Currents</TITLE>
+  <meta http-equiv="refresh" content="60; ">
+<script language="JavaScript" type="text/javascript">
+<!--//BEGIN Script
+function new_window(url) {
+	link = 
+	window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=400");
+} 
+//END Script-->
+</script>
+</HEAD>
+<body>
+
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+<div id="justone">
+<h2>Current SchoolNet8 Conditions</h2>
+<br>This page will automatically refresh every minute.  You 
+can click on a column to sort it.  You can <b>Add</b> stations
+to your <a href="<?php echo $baseurl; ?>ccfav.phtml">favorites list</a> and restrict 
+the number of sites displayed in this table.
+
+<?php
+if (strlen($sortcol) == 0) {
+  $sortcol = "ts";
+}
+$vals = Array("ts" => "Observation Time", "tmpf" => "Temperature", 
+ "relh" => "Relative Humidity", "alti" => "Pressure",
+ "sped" => "Wind Speed", "20gu" => "20 min Gust",
+ "gmph" => "Peak Gust Today", "gtim" => "Time of Peak Gust", 
+ "pday" => "Today's Precipitation", "feel" => "Feels Like", 
+ "pmonth" => "Month's Precipitation", "prate" => "Hourly Precip Rate",
+ "sname" => "Station Name");
+
+echo "<p>Sorted by: <b>". $vals[$sortcol] ."</b><br>\n";
+
+?>
+
+<form method="POST" action="<?php echo $baseurl; ?>ccfav.phtml">
+
+<table border=1 cellspacing=0 cellpadding=2 style="font-size: 10pt; float: left;">
+<tr>
+  <th rowspan="3">Add:</th>
+  <th rowspan="2">Station:</th>
+  <th rowspan="2">Ob Time [1]</th>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <th colspan="3" bgcolor="#EEEEEE">Wind [2] MPH</th>
+  <th colspan="2" bgcolor="#e6e6fa">Precipitation</th>
+
+<tr>
+  <th>Temp</th>
+  <th>RH%</th>
+  <th>Feels</th>
+  <th>Pres</th>
+  <th>Dir</th>
+  <th>Speed</th>
+  <th>Today Gust @time</th>
+  <th>Today</th>
+  <th>Month</th>
+</tr>
+
+<tr>
+  <td><a href="cc.phtml?sortcol=sname&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=sname&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="cc.phtml?sortcol=ts&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=ts&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="cc.phtml?sortcol=tmpf&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=tmpf&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="cc.phtml?sortcol=relh&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=relh&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="cc.phtml?sortcol=feel&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=feel&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="cc.phtml?sortcol=alti&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=alti&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td></td>
+
+  <td><a href="cc.phtml?sortcol=sped&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=sped&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+ 
+ <td><a href="cc.phtml?sortcol=gmph&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=gmph&sortdir=down"><img src="images/down-arrow.gif" border=0"></a>
+
+  <a href="cc.phtml?sortcol=gtim&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=gtim&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+ 
+ <td><a href="cc.phtml?sortcol=pday&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=pday&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="cc.phtml?sortcol=pmonth&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="cc.phtml?sortcol=pmonth&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+</tr>
+
+<?php
+// http://www.php.net/manual/en/function.asort.php
+
+function aSortBySecondIndex($multiArray, $secondIndex, $sortdir) {
+	while (list($firstIndex, ) = each($multiArray))
+		$indexMap[$firstIndex] = $multiArray[$firstIndex][$secondIndex];
+    if ($sortdir == "down") asort($indexMap);
+    else arsort($indexMap);
+
+	while (list($firstIndex, ) = each($indexMap))
+		if (is_numeric($firstIndex))
+			$sortedArray[] = $multiArray[$firstIndex];
+		else $sortedArray[$firstIndex] = $multiArray[$firstIndex];
+	return $sortedArray;
+}
+
+ $obs = new currentdb();
+while (list ($key, $val) = each ($obs->db))  {
+  $obs->db[$key]['sname'] =  $Scities[$key]['short'];
+}
+reset ($obs->db); 
+
+ $finalA = Array();
+ $finalA = aSortBySecondIndex($obs->db, $sortcol, $sortdir);
+ $now = time();
+ $skippedStations = Array();
+ $oddRow = true;
+while (list ($key, $val) = each ($finalA))  { 
+  $parts = $finalA[$key];
+  $tdiff = $now - $parts["ts"];
+  if ($tdiff > 3600) {
+    $skippedStations[$key] = $parts;
+    continue;
+  }
+  echo "<tr"; 
+  if ($oddRow) 
+    echo " bgcolor='#EEEEEE'"; 
+  echo ">\n ";
+  $oddRow = ! $oddRow;
+  echo "<td><input type=\"checkbox\" name=\"st[]\"  value=\"".$key."\"></td>";
+  echo "<th align=\"left\"><a href=\"javascript:new_window('". $baseurl ."gen/kcci_fe.php?station=".$key."');\">". $Scities[$key]['short'] . "</a></th>";
+
+
+  echo "<td ";
+  if ($tdiff < 300){
+    echo ">". strftime("%I:%M %p", $parts[ts]);
+  } else {
+    echo "bgcolor=\"red\">". strftime("%d %b %I:%M %p", $parts[ts]);
+  }
+  echo "</td>";
+  $gtim_t0 = intval(substr($parts["gtim"],0,2));
+  $gtim_t1 = substr($parts["gtim"],2,2);
+  $gtim_suf = "AM";
+  if ($gtim_t0 >= 12) $gtim_suf = "PM";
+  if ($gtim_t0 >= 13) $gtim_t0 -= 12;
+  if ($gtim_t0 == 0) $gtim_t0 = 12;
+  echo "<td>". $parts["tmpf"] ."</td>"
+      ."<td>". $parts["relh"] ."%</td>"
+      ."<td>". $parts["feel"] ."</td>"
+      ."<td>". $parts["alti"] ."</td>"
+      ."<td>". $parts["drctTxt"] ."</td>"
+      ."<td>". $parts["sped"] ."</td>"
+      ."<td>". $parts["gmph"] ."@ "
+      . $gtim_t0 .":". $gtim_t1 . $gtim_suf ."</td>"
+      ."<td>". $parts["pday"] ."</td>"
+      ."<td>". $parts["pmonth"] ."</td></tr>\n";
+}
+
+/** Skipped Sites */
+while (list ($key, $val) = each ($skippedStations) ) {
+  $parts = $finalA[$key];
+  $tdiff = $now - $parts["ts"];
+
+  echo "<tr"; 
+  if ($oddRow) 
+    echo " bgcolor='#EEEEEE'"; 
+  echo ">\n ";
+  $oddRow = ! $oddRow;
+  echo "<td><input type=\"checkbox\" name=\"st[]\" value=\"".$key."\"></td>";
+  echo "<th align='left'><a href=\"javascript:new_window('$urlbase/gen/kcci_fe.php?station=".$key."');\">". $Scities[$key]['short'] . "</a></th>";
+  echo "<td";
+  if ($tdiff < 300){
+    echo ">". strftime("%I:%M %p", $parts[ts]);
+  } else {
+    echo " bgcolor=\"red\">". strftime("%d %b %I:%M %p", $parts[ts]);
+  }
+  echo "</td>";
+
+  if ($parts["ts"] < $today) {
+    echo "<th colspan=10>Site Offline!</th>";
+  } else {
+
+  $gtim_t0 = intval(substr($parts["gtim"],0,2));
+  $gtim_t1 = substr($parts["gtim"],2,2);
+  $gtim_suf = "AM";
+  if ($gtim_t0 >= 12) $gtim_suf = "PM";
+  if ($gtim_t0 >= 13) $gtim_t0 -= 12;
+  echo "<td>". $parts["tmpf"] ."</td>"
+      ."<td>". $parts["relh"] ."%</td>"
+      ."<td>". $parts["feel"] ."</td>"
+      ."<td>". $parts["alti"] ."</td>"
+      ."<td>". $parts["drctTxt"] ."</td>"
+      ."<td>". $parts["sped"] ."</td>"
+      ."<td>". $parts["gmph"] ."@ "
+      . $gtim_t0 .":". $gtim_t1 . $gtim_suf ."</td>"
+      ."<td>". $parts["pday"] ."</td>"
+      ."<td>". $parts["pmonth"] ."</td></tr>\n";
+
+  }
+}
+
+?>
+
+</table>
+
+<input type="submit" value="Add to Favorites">
+<input type="reset" value="Reset">
+
+</form>
+
+<p>
+
+<b>Notes:</b><br>
+<b>1</b> Observation times listed are assigned to the observation based on the 
+Iowa Environmental Mesonet [IEM] system clock and not the observation clock which tends to drift.
+<br><b>2</b> Wind values are 1 minute averages calculated by the IEM.
+<br><b>3</b> The 20 minute wind gust is the highest wind speed observed in a
+recent 20 minute period.  The value is reset to 0 every 20 minutes, usually at
+:00, :20, and :40 after.
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

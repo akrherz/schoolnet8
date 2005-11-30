@@ -1,0 +1,79 @@
+<?php
+include("../../config/settings.inc.php");
+$app = "10"; include("../../include/dblog.inc.php");
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>SchoolNet8 | WAP Access</title>
+<style type="text/css" media="screen">@import "../css/main.css";</style>
+</head>
+<body>
+
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<h2>KCCI SchoolNet8 WAP Access</h2>
+
+<img src="../images/wap_medium.jpg" align="right" alt="WAP device showing ob">
+<p>This page contains instructions for setting up your WAP enabled device
+to receive current KCCI SchoolNet8 observations.  These instructions assume
+that you have Internet service and a basic understanding how to operate your 
+WAP device.</p>
+
+<h3>Background:</h3>
+
+<p>Our WAP data service for the KCCI SchoolNet8 has not been tested on 
+every available platform, so we are very interested in your feedback.  Output
+from our WAP application meets the v1.1 WML specification, so we are 
+confident that it will work for your WML compliant device.
+
+<h3>Instructions:</h3>
+<p>If you point your device at the following URL you will be given a list
+of KCCI SchoolNet8 sites to pick from.<br>
+<pre>
+  http://www.schoolnet8.com/wap/ob.wml
+</pre>
+
+<p>After selecting a site, you will be given the most recent 
+SchoolNet8 observation.  Two links will appear at the bottom of the page
+which link you back to the above URL or refresh your data display.
+The observation shown includes:
+<ul>
+ <li>Observation Time,</li>
+ <li>Air and dew point temperature,</li>
+ <li>"Feel's like" temperature (Heat Index or Wind Chill),</li>
+ <li>Wind speed and direction,</li> 
+ <li>Today's rainfall accumulation,</li>
+ <li>Peak wind gust,</li>
+ <li>High and low temperature.</li>
+</ul>
+If there is other data you would like included, please let us know.
+
+<h3>What is the NWSLI?</h3>
+<p>The KCCI SchoolNet8 sites have each been assigned a <i>National Weather
+Service Location Indentifier</i> (NWSLI).  You may have noticed this 5
+character abbreviation used in other applications to identify sites. 
+If you know your SchoolNet8 site's NWSLI, you can directly call the WAP 
+current ob program.  For example,
+<pre>
+  http://mesonet.agron.iastate.edu/kcci/wap/ob.wml?station=SKCI4
+</pre>
+would retrieve the most recent observation from the KCCI Studios SchoolNet8 
+site.  For a listing of SchoolNet8 sites and their NWSLIs, please visit the
+<a href="http://mesonet.agron.iastate.edu/sites/networks.php?network=KCCI&format=html" target="_new">Iowa Mesonet Network Tables</a>.
+
+<h3>Contact Information:</h3>
+<p>This application was developed by the Iowa Environmental Mesonet.  Please
+contact Daryl Herzmann <a href="akrherz@iastate.edu">akrherz@iastate.edu</a> 
+with any suggestions and comments.
+
+
+<p><b>Disclaimer:</b>  Data through this service is provided as-is and without
+warranty.
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

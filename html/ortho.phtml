@@ -1,0 +1,95 @@
+<?php
+include("../config/settings.inc.php");
+include_once("$nwnpath/include/locs.inc.php");
+include_once("$nwnpath/include/imagemap.inc.php");
+
+$station = isset($_GET["station"]) ? $_GET['station'] : 'SKCI4';
+$px = isset($_GET["px"]) ? $_GET['px']: 1;
+$size = isset($_GET["size"]) ? $_GET['size'] : "400x400";
+list($width, $height) = split("x", $size);
+$app = "17"; include("../include/dblog.inc.php"); 
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <style type="text/css" media="screen">@import "css/main.css";</style>
+  <title>SchoolNet8 | GIS Ortho Photos</title>
+</head>
+<body>
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<?php
+dl($mapscript);
+
+$map = ms_newMapObj($mapfile);
+$map->selectoutputformat("jpeg");
+$map->set("width", $width);
+$map->set("height", $height);
+
+$projInObj = ms_newprojectionobj("init=epsg:4326");
+$projOutObj = ms_newprojectionobj("init=epsg:26915");
+
+$point = ms_newpointobj();
+$point->setXY($Scities[$station]["lon"], $Scities[$station]["lat"]);
+$point->project($projInObj, $projOutObj);
+                                                                                
+//
+$dx = ($px * $width) / 2.0;
+$dy = ($px * $height) / 2.0;
+$map->setextent($point->x - $dx, $point->y - $dy,
+                  $point->x + $dx, $point->y + $dy);
+
+
+
+$wms = $map->getlayerbyname("wmsback");
+$wms->set("status", MS_ON);
+$wms->set("connection", "http://cairo.gis.iastate.edu/cgi-bin/server.cgi?format=jpeg&wmtver=1.0.0&request=map&servicename=GetMap&layers=cir" );
+
+//$wms->set("connection", "http://cairo.gis.iastate.edu/cgi-bin/server.cgi?format=jpeg&wmtver=1.0.0&request=map&servicename=GetMap&layers=naip_2004" );
+
+$img = $map->prepareImage();
+$wms->draw($img);
+
+$dot = $map->getlayerbyname("dot");
+$dot->set("status", MS_ON);
+$point->draw($map, $dot, $img, 1, "");
+
+$url = $img->saveWebImage(MS_PNG, 0,0,-1);
+?>
+
+<h3>Overhead Ortho Photography for <?php echo $Scities[$station]["city"]; ?></h3>
+
+<form method="GET" action="ortho.phtml" name="ortho">
+<table cellpadding=2 border=1 cellspacing=0>
+<tr><td align="left" valign="top">
+<b>Image Controls:</b>
+<p><b>Select Station:</b>
+<br><?php kcciSelect($station); ?>
+
+<p><b>Image Pixel Size:</b>
+<br><input type="radio" name="px" value="0.5" <?php if ($px == 0.5) echo "CHECKED"; ?>>50 centimeter
+<br><input type="radio" name="px" value="1" <?php if ($px == 1) echo "CHECKED"; ?>>1 meter
+<br><input type="radio" name="px" value="2" <?php if ($px == 2) echo "CHECKED"; ?>>2 meters
+<br><input type="radio" name="px" value="5" <?php if ($px == 5) echo "CHECKED"; ?>>5 meters
+
+<p><b>Image Size:</b>
+<br><input type="radio" name="size" value="400x400" <?php if ($size == "400x400") echo "CHECKED"; ?>>400 x 400
+<br><input type="radio" name="size" value="640x480" <?php if ($size == "640x480") echo "CHECKED"; ?>>640 x 480
+<br><input type="radio" name="size" value="800x600" <?php if ($size == "800x600") echo "CHECKED"; ?>>800 x 600
+
+<p><input type="submit" value="View Image">
+
+</td><td align="left">
+<?php echo "<img src=\"$url\">"; ?>
+<br><i>(Right click on the image to save it...)</i>
+</td></tr></table>
+
+</form>
+
+<p>Ortho imagery (circa spring 2003) is provided by the <a href="http://www.gis.iastate.edu">Iowa State University GIS Lab</a>.  The red dot represents where we believe the sensors for
+the SchoolNet8 site to be located.  For a majority of the sites, the red dot
+was the location of the GPS sensor during the site installation (often in the parking lot).
+
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

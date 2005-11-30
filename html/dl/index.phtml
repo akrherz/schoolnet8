@@ -1,0 +1,57 @@
+<?php
+ $page = $_GET['page'];
+ include("../../config/settings.inc.php");
+ include("../../include/imagemap.inc.php");
+ include('../../include/locs.inc.php');
+ $app = "08"; include("../../include/dblog.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <style type="text/css" media="screen">@import "../css/main.css";</style>
+  <TITLE>SchoolNet8 | Download</TITLE>
+</head>
+<body>
+
+<?php $THISPAGE = "download"; include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<h2>SchoolNet8 Data Download</h2>
+
+<p>With this form, you can download SchoolNet8 data.  The 
+archive starts on <b>12 Feb 2002</b> for stations that were online at that
+time.  You may want to consult a <a href="history.phtml">listing</a>
+of when the IEM started to archive data from a site.  Data from the current
+day is not dumped into this archive until Midnight.  This means that the most
+recent data is from yesterday.</p>
+
+<p><table class="full">
+ <tr><th bgcolor="#EEEEEE">Download Options:</th>
+  <td bgcolor="#bebeff"><a href="index.phtml">Observation Data</a></td>
+  <td bgcolor="#ffadad"><a href="index.phtml?page=sum">Daily Summary Data</a></td>
+ </tr>
+<tr>
+<?php 
+ if ($page == "sum") { 
+  include("sum.phtml"); 
+ } else {
+  include("obs.phtml"); 
+ }
+?>
+</td></tr></table>
+
+<br clear="all" />
+<p><ol>
+<li>For this archive, data is saved every minute.  In most cases, 
+you will not be interested in data at that temporal frequency.  You can adjust
+the sampling to cut down on the amount of data.</li>
+<li>Precipitation is measured by a non-heated tipping bucket.  Thus
+cold season precipitation is not accurately measured.</li>
+<li>Wind data before 4 August 2002 were instantaneous values.
+Wind data afterwards are 1 minute average values.</li>
+</ol></p>
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

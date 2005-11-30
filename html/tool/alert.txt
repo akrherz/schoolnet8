@@ -1,0 +1,33 @@
+Date: Mon, 31 Mar 2003 12:49:14 -0600
+From: IEM Data Manager <ldm@mesonet.agron.iastate.edu>
+Subject: [KCCI] 50 Gust BGM ELEM _ BROOKLYN
+
+// This is a test product!!!
+
+===================================================
+KCCI SchoolNet8 Wind Gust Alert
+-------------------------------
+
+  Time:  03:55 pm -- 31 March 2003
+  Site:  BGM ELEM _ BROOKLYN
+  Gust:  50 MPH
+
+
+Manson NW Webster  Links:
+ [Current Conditions & Live Super Doppler]
+   http://db1.mesonet.agron.iastate.edu/kcci/site.phtml?station=SBRI4
+ [1 Minute Data Trace]
+   http://db1.mesonet.agron.iastate.edu/kcci/plotting/1trace_fe.phtml?station=SBRI4&year=2003&month=3&day=31
+
+
+-------------------------------
+ * This email has been sent you based on your subscription to the
+ KCCI SchoolNet8 Email Alerts.  You can modify your subscription at
+ this URL.
+   http://db1.mesonet.agron.iastate.edu/kcci/tool/walerts.phtml
+
+ * Questions about this service can be sent to 
+ Daryl Herzmann akrherz@iastate.edu
+
+===================================================
+

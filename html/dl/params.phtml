@@ -1,0 +1,64 @@
+<?php
+ include("../../config/settings.inc.php");
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+	<TITLE>IEM | School Network | Parameters</TITLE>
+	<META NAME="AUTHOR" CONTENT="Daryl Herzmann">
+<style type="text/css" media="screen">@import "../css/main.css";</style>
+
+</HEAD>
+<body>
+
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<h2>SchoolNet Data Explanation</h2>
+
+<p><h4>Observation Time</h4>
+<p class="story">This is the local valid time for which the observation was taken.
+There may be some ambiguity around the times when Iowa changes from CDT->CST and
+vice-versa.</p>
+
+<p><h4>Air Temperature [tmpf]</h4>
+<p class="story">This value is simply the temperature of the air.  Values are in units
+of degrees fahrenheit.</p>
+
+<p><h4>Wind Direction [drct]</h4>
+<p class="story">Wind Direction can sometimes be a hard concept to interpret.  The 
+values are in integer degrees for where the wind is blowing from.  0&deg; 
+is a wind from the North.  90&deg; is a wind from the East.  180&deg; in
+a wind from the South.  270&deg; is a wind from the West. 
+<br>For example.  If the value is 90, this is an easterly wind.  Meaning,
+if you were facing east, the wind would be in your face.</p>
+
+<p><h4>Wind Speed [sknt]</h4>
+<p class="story">For the schoolNet sites, this value is an instantenous
+measurement of the wind speed.  Values are in knots.</p>
+
+<p><h4>Daily Precip Counter [pday]</h4>
+<p class="story">This value is the accumulated amount of precip recorded at
+the site for the local day.  Values are in inches.</p>
+
+<p><h4>Monthly Precip Counter [pmonth]</h4>
+<p class="story">This value is the accumulated amount of precip recorded at
+the site for the current month. Values are in inches.</p>
+
+<p><h4>Solar Radiation [srad]</h4>
+<p class="story">Instantaneous values of solar radiation.  Values are in Watts.
+</p>
+
+<p><h4>Relative Humidity [relh]</h4>
+<p class="story">Relative humidity is expressed as a percentage.  It is a 
+measure of the amount of water vapor currently in the air versus the 
+capacity of the air.</p>
+
+<p><h4>Altimeter [alti]</h4>
+<p class="story">Atmospheric pressure expressed in inches of mercury.</p>
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

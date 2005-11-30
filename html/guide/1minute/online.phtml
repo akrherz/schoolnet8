@@ -1,0 +1,44 @@
+<p>The SchoolNet8.com one minute data trace application is one of the few 
+sites on the internet that you can view graphs of weather observations at 
+one 
+minute resolution.  These graphs can be found here:
+
+<?php include("links/1minute.phtml"); ?>
+
+<p>Plots are available for all sites for any date in the archive that 
+we have for the site.  Some of the SchoolNet8.com sites have data dating 
+back to 10 Feb 2002.  Once you select a site and a date of your choice, 
+you are presented three plots.  Here is an example of the them.</p>
+
+<p><img src="1minute/73_2004_05_08_1.png">
+ <br />This plot contains traces of air temperature (red line), dew point 
+(blue line), and solar radiation (black line).  The values for the 
+temperature and dew point lines are defined along the left side 
+y-axis, while the solar radiation values are defined along the right 
+side y-axis.  Having multiple y-axes are needed since the units and 
+magnitudes of the temperature and radiation values are not the same.  The 
+time of day is expressed along the x-axis with a tick mark for the top of 
+each hour.  The blank space on the graph after 10 PM indicates missing 
+data.  Missing data occurs when the site no longer reports live 
+information to the internet.
+
+<p><img src="1minute/73_2004_05_08_2.png"> <br />The second plot details 
+the wind speed (red line) and direction (blue dots) along with the peak 
+wind gust (black line) for the date.  The values for wind direction are 
+expressed on the left side y-axis.  The values are in degrees from 
+north, which means that 90 degrees is an east wind, 180 degrees is a south 
+wind, and 270 degrees is a west wind.  The values for wind speed and wind 
+gust are on the right side y-axis and the values are in units of miles 
+per hour.  The black line, which represents the peak wind gust for the 
+date, will only increase during the day.  Due to the nature of how the 
+wind gusts are reported by the SchoolNet8 sites, this is the best we can 
+do.
+
+<p><img src="1minute/73_2004_05_08_3.png">
+<br />The third plot details the atmospheric pressure and rainfall 
+information for the date.  Pressure is given in units of millibars and 
+plotted on the left side y-axis. Rainfall information is shown on the 
+right side y-axis and values are expressed in inches.  The rainfall 
+trace is a filled  line plot, which makes for a nice illustration of 
+accumulating rainfall.
+

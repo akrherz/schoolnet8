@@ -1,0 +1,77 @@
+<?php
+include("../config/settings.inc.php");
+include_once("$nwnpath/include/locs.inc.php");
+include_once("$nwnpath/include/imagemap.inc.php");
+
+
+if (isset($_POST["posting"]))
+{
+ $likeleast = $_POST["likeleast"];
+ $email = $_POST["email"];
+ $howuse = $_POST["howuse"];
+ $comments = $_POST["comments"];
+
+ $body = "SchoolNet8.com Website Feedback!
+IP: ". $_ENV["REMOTE_ADDR"] ."
+Email: $email
+
+How do I use the website?
+$howuse
+
+What could be improved?
+$likeleast
+
+Comments?
+$comments
+";
+$body = wordwrap($body,70);
+
+ mail("akrherz@iastate.edu", "SchoolNet8.com Feedback", $body, "From: akrherz@iastate.edu");
+}
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <style type="text/css" media="screen">@import "css/main.css";</style>
+  <title>SchoolNet8 | User Survey</title>
+</head>
+<body>
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<div align="left" style="margin-left: 10px;">
+
+<h3>SchoolNet8.com Website Survey</h3>
+
+<?php if (! isset($_POST["posting"]) ){ ?>
+<p>In order to provide a better website, we have put together a simple
+survey to give us feedback on the site.  Feel free to provide your email
+address and we will contact you back regarding your suggestions.  If you
+would rather remain anonymous, don't fill in the email blank.
+
+<form method="POST">
+<input type="hidden" value="posting" name="posting">
+
+<p>Your email address (<i>Optional</i>):
+<br /><input type="text" name="email" size="40">
+
+<p>How do you use Schoolnet8.com?
+<br /><textarea cols="60" rows="5" name="howuse"> </textarea>
+
+<p>What could be improved with the website?
+<br /><textarea cols="60" rows="5" name="likeleast"> </textarea>
+
+<p>Other comments or suggestions?
+<br /><textarea cols="60" rows="5" name="comments"> </textarea>
+
+<p><input type="submit" value="Submit Survey">
+</form>
+<?php } else { ?>
+
+<p><b>Thank You!  Your feedback has been sent.</b>
+
+<?php } ?>
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

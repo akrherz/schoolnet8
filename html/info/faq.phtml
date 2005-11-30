@@ -1,0 +1,82 @@
+<?php
+ include("../../config/settings.inc.php");
+ include("../../include/dblog.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>SchoolNet8 | FAQ</title>
+<style type="text/css" media="screen">@import "../css/main.css";</style>
+</head>
+<body>
+
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<h3>Frequently Asked Questions</h3>
+
+<p><b>Questions:</b>
+<ol>
+<li><a href="#faq1">What is this page?</a></li>
+<li><a href="#faq2">What do these 5 character abbreviations like 'SAMI4' refer to?</a></li>
+<li><a href="#faq3">How do I reset the time on our SchoolNet8 PC?</a></li>
+<li><a href="#faq4">I am a site contact, why am I getting 'Offline' emails
+from a group called '[IEM]'?</a></li>
+
+</ol>
+
+<p><font class="bluet">Answers:</font>
+<ol>
+<li><a name="#faq1"> </a><b>What is this page?</b>
+<br>This page intends to answer frequently asked questions about the
+KCCI SchoolNet8 network.  If your question is not answered, please 
+feel free to contact the KCCI Weather Department.</li>
+
+<li><a name="#faq2"> </a><b>What do these 5 character abbreviations like 'SAMI4' refer to?</b>
+<br>KCCI SchoolNet8 information is disseminated in real time 
+to the National Weather Service [NWS].  The NWS assigns 5 character
+site identifiers to the schoolNet8 sites for reference purposes. You
+can <a href="http://mesonet.agron.iastate.edu/sites/networks.php?network=KCCI&format=html" target="_new">view a listing</a> of KCCI SchoolNet8 sites and their
+5 character identifiers.</li>
+
+<li><a name="#faq3"> </a><b>How do I reset the time on our SchoolNet8 PC?</b>
+<br><ol>
+  <li>Go to <a href="http://www.time.gov" target="_new">http://www.time.gov</a>
+   and note the current time.</li>
+  <li>Make sure that all running programs are stopped on your computer 
+   before starting.</li>
+  <li>On your PC, go to the "start" button on the lower left side of the 
+   screen and then select "Settings" and then "Control Panel".  After the
+   control panel loads, click on the "time/date" icon.</li>
+  <li>Change the time there to match the current time.  Click "Apply" and then
+   "OK".</li>
+  <li>Close all programs running on the schoolNet PC.</li>
+  <li>Open up the program called "TWICAL" by double-clicking on the icon.</li>
+  <li>Go to "Connect" and then "Connect to Weather Station".</li>
+  <li>Then go to "Tools" and "Calibration Mode".  A series of gray tabs will
+   pop up.  Click on the "Time-date/baud rate" tab and click on the button 
+   that says "make change".</li>
+  <li>Then click "Close", then "Connect -> disconnect", and then "File -> Exit".
+   Then restart your machine.</li>
+   </ol></li>
+
+<li><a name="#faq4"> </a><b>I am a site contact, why am I getting 'Offline' emails from a group called '[IEM]'?</b>
+<br>The IEM is project at Iowa State University that is also collecting data
+from our SchoolNet8 network.  They have developed many tools that make 
+administration of the SchoolNet8 network much easier.  One of these tools 
+monitors the live observations and will automatically email site contacts when
+a site ceases to report information.  This automated process has been very 
+helpful in keeping our sites on-line and reporting.  If you receive such an 
+email alert, please investigate your site and see what causing the problem.  If
+you are unable to restore your PC, feel free to contact KCCI.
+<br>After you have restored your PC, please reply by email to the site offline
+notice and let us know what happenned.  If your site continues to have problems
+staying offline, a record of previous outages and causes will be helpful for 
+us to diagnose the situation.</li>
+
+</ol>
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

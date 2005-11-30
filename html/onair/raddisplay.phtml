@@ -1,0 +1,67 @@
+<?php
+  /* raddisplay.phtml 
+	* I think the TV folks will like this :)
+    */
+$station = isset($_GET['station']) ? $_GET['station'] : 'SKCI4';
+
+ include("../../config/settings.inc.php");
+ include('../../include/locs.inc.php'); 
+ include('../../include/imagemap.inc.php');
+ include('../../include/radar_widget.php');
+
+ $rW = new radarWidget($station, "tmpf");
+ $rW->showVariableSwitch = false;
+ $rW->controlPageRefresh = false;
+
+function sel($svar, $var, $txt){
+  echo "<option value='".$var."' ";
+  if ($var == $svar) echo "selected=\"selected\"";
+  echo ">". $txt ."</option>\n";
+}
+
+?>
+<html>
+<head>
+ <title>SchoolNet8.com RadarViewer</title>
+ <link rel="stylesheet" type="text/css" href="../css/main.css" />
+<script language="JavaScript" type="text/javascript">
+<!--//BEGIN Script
+refresh_timeout = setTimeout('document.location=document.location',10000000);
+//END Script-->
+</script>
+</head>
+<body>
+
+<div id="tvcontrol">
+
+<a href="index.phtml">On-Air Control</a>
+
+<h4>Display Controls:</h4>
+
+<form name="controls" action="raddisplay.phtml">
+<p><b>Select Site:</b><br>
+<?php echo kcciSelect($station); ?>
+
+<br /><input type="submit" value="Make it so #1">
+</form>
+
+<form name="refreshset">
+<p><b>Set Refresh Interval:</b><br />
+<i>(Automatically Set After Change)</i>
+<select name="r" onChange="javascript: clearTimeout(refresh_timeout); setTimeout(this.form.r.options[this.form.r.selectedIndex].value);">
+<option value="10000000">NEVER!
+<option value="12000">2 minutes
+<option value="60000">10 minutes
+<option value="3600000">1 hour
+</select>
+</form>
+
+</div>
+
+<div id="tvdisplay" style="background: url('clean_doppler_bg.png');">
+<div style="color: #fff; margin: 0; padding: 0; font-size: 20pt; font-weight: bold;">http://www.schoolnet8.com</div>
+<br /><br />
+<?php $rW->printHTML(); ?>
+</div>
+
+</body>

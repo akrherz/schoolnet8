@@ -1,0 +1,11 @@
+To be completed by 1 Feb 2003
+
+<<< Must switch bar.phtml back before changing the site! >>>
+
+Other Changes:
+ [ ] Redo the current ob page with something more interesting.  We just
+     borrowed the IBS interface. Maybe segregate the temperatures together
+     and make more colors.  Less vertical space would be nice too.
+ [ ] Somehow incorperate the site photos and ortho photos in some fashion.
+     I really need to figure out why the ortho photos are so large after 
+     they come out of the Mapserver scripts.

@@ -1,0 +1,104 @@
+<?php
+$sortcol = $_GET['sortcol'];
+$today = mktime(0,0,0, date("m"), date("d"), date("Y"));
+include("../../config/settings.inc.php");
+ include('../../include/locs.inc.php');
+ include('../../include/currentdb.inc.php');
+ include('../../include/sponsors.inc.php');
+ $app = "04"; include("../../include/dblog.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/main.css" />
+  <TITLE>SchoolNet8 | Sortable Currents</TITLE>
+<script language="JavaScript" type="text/javascript">
+<!--//BEGIN Script
+function new_window(url) {
+	link = 
+	window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=400");
+} 
+//END Script-->
+</script>
+</HEAD>
+<body style="background: #f0f0f0; font-size: larger;">
+
+<?php
+if (strlen($sortcol) == 0) {
+  $sortcol = "ts";
+}
+$vals = Array("ts" => "Observation Time", "tmpf" => "Temperature", 
+ "relh" => "Relative Humidity", "alti" => "Pressure",
+ "sped" => "Wind Speed", "20gu" => "20 min Gust",
+ "gmph" => "Peak Gust Today", "gtim" => "Time of Peak Gust", 
+ "pday" => "Today's Precipitation", "feel" => "Feels Like", 
+ "pmonth" => "Month's Precipitation", "prate" => "Hourly Precip Rate");
+
+?>
+<center>
+<table border=1 cellspacing=0 cellpadding=2 style="font-size: 16pt;">
+<tr>
+  <th>Station:</th>
+  <th>Temperature:</th>
+  <th>Wind Gust:</th>
+  <th>Rainfall:</th>
+</tr>
+  
+<?php
+// http://www.php.net/manual/en/function.asort.php
+
+function aSortBySecondIndex($multiArray, $secondIndex) {
+	while (list($firstIndex, ) = each($multiArray))
+		$indexMap[$firstIndex] = $multiArray[$firstIndex][$secondIndex];
+	arsort($indexMap);
+	while (list($firstIndex, ) = each($indexMap))
+		if (is_numeric($firstIndex))
+			$sortedArray[] = $multiArray[$firstIndex];
+		else $sortedArray[$firstIndex] = $multiArray[$firstIndex];
+	return $sortedArray;
+}
+
+ $obs = new currentdb();
+
+ $finalA = Array();
+ $finalA = aSortBySecondIndex($obs->db, $sortcol);
+ $now = time();
+ $skippedStations = Array();
+ $oddRow = true;
+while (list ($key, $val) = each ($finalA))  { 
+  $parts = $finalA[$key];
+  $tdiff = $now - $parts["ts"];
+  if ($tdiff > 3600) {
+    $skippedStations[$key] = $parts;
+    continue;
+  }
+  echo "<tr"; 
+  if ($oddRow) 
+    echo " bgcolor='#EEEEEE'"; 
+  echo ">\n ";
+  $oddRow = ! $oddRow;
+  echo "<th align=\"left\">". $Scities[$key]['short'] . "</th>";
+
+  echo "<td>". $parts["tmpf"] ."</td>"
+      ."<td>". $parts["gmph"] ."</td>"
+      ."<td>". $parts["pday"] ."</td></tr>";
+}
+
+/** Skipped Sites */
+while (list ($key, $val) = each ($skippedStations) ) {
+  $parts = $finalA[$key];
+  $tdiff = $now - $parts["ts"];
+
+  echo "<tr"; 
+  if ($oddRow) 
+    echo " bgcolor='#EEEEEE'"; 
+  echo ">\n ";
+  $oddRow = ! $oddRow;
+  echo "<th align='left'>". $Scities[$key]['short'] . "</th>";
+  echo "<th colspan=4>Site Offline!</th></tr>";
+}
+
+?>
+
+</table>
+</center>

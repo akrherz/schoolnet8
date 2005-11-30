@@ -1,0 +1,33 @@
+<?php
+ include("../../config/settings.inc.php"); 
+ include("$nwnpath/include/sponsors.inc.php");
+ include("$nwnpath/include/locs.inc.php");
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style type="text/css" media="screen">@import "../css/main.css";</style>
+</head>
+<body>
+
+
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+<div id="justone">
+ <h2>SchoolNet8 Sites</h2>
+
+<table>
+ <tr><th>NWS ID</th><th>Site Name</th><th>Sponsor</th></tr>
+
+<?php
+while ( list($sid, $tbl) = each($Scities) )
+{
+  echo '<tr><th>'. $sid .'</th><td>'. $tbl['city'] .'</td><td><a href="'. $baseurl .'tool/clicktru.php?station='. $sid .'">'. $sponsors[$sid]['sponsor'] .'</a></td></tr>';
+
+}
+?>
+
+</table>
+
+</div>
+<?php include("$nwnpath/include/footer.inc.php"); ?>

@@ -1,0 +1,225 @@
+<?php
+ include("../config/settings.inc.php");
+/** Get vars */
+$var = isset($_GET['var']) ? $_GET['var'] : 'tmpf';
+$station = isset($_GET['station']) ? $_GET['station'] : 'SKCI4';
+$station2 = isset($_GET['station2']) ? $_GET['station2']: '';
+
+/* Session Stuff */
+$expiry = 60*60*24*100; // 100 days
+session_start();
+
+if (isset($_SESSION['station']) && ! isset($_GET['station']) )
+{
+  $station = $_SESSION['station'];
+}
+$_SESSION['station'] = $station;
+/* End Session Stuff */
+
+$uri = "site.phtml?station=". $station;
+if ($var != "tmpf")
+	$uri .= "&amp;var=$var";
+if (isset($add))
+	$uri .= "&amp;add=$add";
+$s2 = 0;
+if ($station2)
+{
+    $s2 = 1;
+	$uri .= "&amp;station2=$station2";
+}
+ include('../include/locs.inc.php');
+ include('../include/imagemap.inc.php');
+ include('../include/sponsors.inc.php');
+ include('../include/currentdb.inc.php');
+ include('../include/neighbors.inc.php');
+ include('../include/radar_widget.php');
+ include('../include/cameras.inc.php');
+ 
+ $rW = new radarWidget($station, $var);
+ 
+
+ $app = "02"; include("../include/dblog.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <style type="text/css" media="screen">@import "css/main.css";</style>
+  <title>SchoolNet8.com | <?php echo $Scities[$station]["city"]; ?></title>
+<script language="JavaScript" type="text/javascript">
+<!--//BEGIN Script
+refresh_timeout = setTimeout('document.location=document.location',60000);
+function help_window(helpitem) {
+        link =
+       window.open('<?php echo $baseurl; ?>info/mfaq.phtml#'+ helpitem, "HELP","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=440");
+}
+function new_window(url) {
+        link =
+       window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=440");
+}
+function new_window_big(url) {
+        link =
+        window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600");
+}
+function selectWindow() {
+ window.open('<?php echo $baseurl; ?>select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=450,height=600');
+}
+//END Script-->
+</script>
+</head>
+<body>
+<?php
+
+function sel($svar, $var, $txt){
+  echo "<option value='".$var."' ";
+  if ($var == $svar) echo "selected=\"selected\"";
+  echo ">". $txt ."</option>\n";
+}
+
+ $obs = new currentdb();
+ $ob1 = $obs->db[$station];
+ if (strlen($station2) > 0){
+   $s2 =1;
+   $ob2 = $obs->db[$station2];
+ }
+  
+?>
+<?php $THISPAGE = "mysite"; include("$nwnpath/include/bar.inc.php"); ?>
+ 
+<div id="leftside">
+
+<?php
+
+if (array_key_exists($station, $cameras))
+{
+	if ($cameras[$station]["active"])
+	{
+		echo "<h3>Latest Web Camera:</h3>
+<ul>
+	<li>Build custom <a href=\"$baseurl/camera/bloop.phtml?station=$station\">time lapses</a>.</li>
+	<li>View higher resolution <a href=\"$baseurl/camera/viewer.phtml?id=$station\">640x480 images</a>.</li>
+<ul>
+<img src=\"$baseurl/camera/stills/${station}.jpg\" width=\"320\" alt=\"WebCam Still\" height=\"240\" />";
+		if ($cameras[$station]["iservice"] != "")
+		{
+			echo "<br />Internet service by: <a href=\"". $cameras[$station]["iserviceurl"] ."\">". $cameras[$station]["iservice"] ."</a>";
+		}
+		if ( isset($cameras[$station]["hosted"]) )
+		{
+			echo "<br />Hosted by: <a href=\"". $cameras[$station]["hostedurl"] ."\">". $cameras[$station]["hosted"] ."</a>";
+		}
+	} else {
+	echo "<b>Sorry:</b> This webcamera is currently offline.";
+	}
+} ?>
+
+<h3>Live Super Doppler8:</h3>
+<?php $rW->printHTML(); ?>
+
+The red sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>.
+
+<p><h3>Site Resources:</h3>
+<ul>
+ <li><a href="dl/">Download Data</a></p>
+ <li><a href="<?php echo $baseurl; ?>hist.phtml?station=<?php echo $station; ?>">Historical Data Calendar</a></li>
+ <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?st[]=<?php echo $station; ?>');">Live SchoolNet8 & Super Doppler </a></li>
+ <li><a href="<?php echo $baseurl; ?>GIS/gm.phtml?station=<?php echo $station; ?>">Google Maps Application</a></li>
+ <li><a href="ortho.phtml?station=<?php echo $station; ?>">Ortho Photography!</a></li>
+ <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
+ <li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
+</ul>
+
+<h3>SchoolNet8 Neighbors:</h3>
+<ul>
+<?php
+ for ($i=0;$i<5;$i++){
+   $s = sprintf('<li><a href="%ssite.phtml?station=%s">%s</a></li>', 
+     $baseurl, $neighbors[$station][$i], $Scities[$neighbors[$station][$i]]['city']);
+   echo $s;
+ } 
+?>
+</ul>
+
+</div><div id="rightside">
+
+
+<?php   
+
+$now = time(); 
+if (isset($Scities[$station]["ftm"])) {
+ echo "<div style=\"background: #ff0; color: #f00; border: #000 dashed 1px;\"><b>Special Message</b><br />". $Scities[$station]["ftm"] ."</div>";
+} 
+
+?>
+
+<h3>Current Observation:</h3>
+<?php
+ $today = mktime(0,0,0,date("m"),date("d"),date("Y"));
+
+ if (($ob1["ts"] < $today) && ($now - $ob1["ts"] > 600))
+{
+echo "<p>Our appologies, this site is currently offline and not reporting
+current data.";
+
+} else {
+?>
+<table border="1" cellspacing="0" cellpadding="2" class="side">
+
+<tr><td><a href="javascript:help_window('site');">Site</a></td><td><?php echo $Scities[$station]["city"]; ?></td><?php if($s2) echo "<td>".$Scities[$station2]["city"]."</td>"; ?></tr>
+
+<tr><td><a href="javascript:help_window('ts');">Date/Time</a></td>
+ <td<?php if (( $now - $ob1["ts"] ) > 600 ) echo ' bgcolor="#ff0000"'; ?>>
+  <?php echo strftime("%b %d %I:%M %p", $ob1['ts']); ?></td>
+  <?php if($s2){
+    echo '<td ';
+        if (( $now - $ob2["ts"] ) > 600 ) echo ' bgcolor="#ff0000" ';
+        echo ">". strftime("%b %d %I:%M %p", $ob2['ts']) ."</td>"; } ?></tr>
+
+<tr><td><a href="javascript:help_window('temperature');">Temperature</a></td><td><?php echo $ob1['tmpf']."&deg;F"; ?></td><?php if($s2) echo "<td>". $ob2['tmpf']  ."&deg;F</td>"; ?></tr>
+
+<tr><td><a href="javascript:help_window('relhumidity');">Relative Humidity</a></td><td><?php echo $ob1['relh']." %"; ?></td><?php if($s2) echo "<td>". $ob2['relh']  ." %</td>"; ?></tr>
+            
+<tr><td><a href="javascript:help_window('dewpoint');">Dew Point</a></td><td><?php echo $ob1['dwpf']."&deg;F"; ?></td><?php if($s2) echo "<td>". $ob2['dwpf']  ."&deg;F</td>"; ?></tr>
+            
+<tr><td><a href="javascript:help_window('wind');">Wind</a></td><td><?php echo $ob1['drctTxt'] ." @ ". $ob1['sped']." mph"; ?></td><?php if($s2) echo "<td>". $ob2['drctTxt'] ." @ ". $ob2['sped']  ." mph</td>"; ?></tr>
+            
+<tr><td><a href="javascript:help_window('pressure');">Pressure</a></td><td><?php echo $ob1['alti']; ?></td><?php if($s2) echo "<td>". $ob2['alti']  ."</td>"; ?></tr>
+            
+<tr><td><a href="javascript:help_window('feelslike');">Feels Like</a></td><td><?php echo $ob1['feel']."&deg;F"; ?></td><?php if($s2) echo "<td>". $ob2['feel']  ."&deg;F</td>"; ?></tr>
+            
+<tr><td><a href="javascript:help_window('pday');">Rain for the Day</a></td><td><?php echo $ob1['pday']." in"; ?></td><?php if($s2) echo "<td>". $ob2['pday']  ." in</td>"; ?></tr>
+            
+<tr><td><a href="javascript:help_window('pmonth');">Rain for the Month</a></td><td><?php echo $ob1['pmonth']." in"; ?></td><?php if($s2) echo "<td>". $ob2['pmonth']  ." in</td>"; ?></tr>
+
+<tr><td><a href="javascript:help_window('max_tmpf');">High Temperature</a></td><td><?php echo $ob1['tmpf_max']."&deg;F"; ?></td><?php if($s2) echo "<td>". $ob2['tmpf_max']  ."&deg;F</td>"; ?></tr>
+            
+<tr><td><a href="javascript:help_window('min_tmpf');">Low Temperature</a></td><td><?php echo $ob1['tmpf_min']."&deg;F"; ?></td><?php if($s2) echo "<td>". $ob2['tmpf_min']  ."&deg;F</td>"; ?></tr>
+
+<tr><td><a href="javascript:help_window('gust');">High Wind</a></td><td><?php echo $ob1['max_drctTxt'] ." @ ". $ob1['max_sped']; ?> mph</td><?php if($s2) echo "<td>". $ob2['max_drctTxt'] ." @ ". $ob2['max_sped']  ." mph</td>"; ?></tr>
+
+<tr><td><a href="javascript:help_window('solar');">Solar</a></td><td><?php echo $ob1['srad']." W/m^2"; ?></td><?php if($s2) echo "<td>". $ob2['srad']  ." W/m^2</td>"; ?></tr>
+
+<tr><td><a href="javascript:help_window('max_solar');">High Solar</a></td><td><?php echo $ob1['max_srad']." W/m^2"; ?></td><?php if($s2) echo "<td>". $ob2['max_srad']  ." W/m^2</td>"; ?></tr>
+          </table>
+<?php } ?>
+<p>&nbsp;</p>
+
+<h3>Switch SchoolNet8 Site:</h3>
+<a href="javascript:selectWindow();">Select from map</a> -or- <b>Select from list</b>
+
+<form method="get" action="site.phtml" name="sitesel2">
+<?php
+   echo kcciSelect($station);
+   echo "<br /><input type=\"radio\" value=\"add\" name=\"add\" />Compare Station";
+   echo "<input type=\"hidden\" value=\"". $station ."\" name=\"station2\" />";
+   echo "<input type=\"hidden\" value=\"". $var ."\" name=\"var\" />";
+   echo "<input type=\"submit\" value=\"Go!\" /></form>";
+?>
+
+** This page refreshes every minute.
+</div>
+
+<br clear="all" />
+<p><i>Wanna bookmark this page?  Use this URL</i><br />
+<?php echo $baseurl . $uri; ?></p>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

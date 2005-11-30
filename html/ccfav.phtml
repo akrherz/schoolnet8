@@ -1,0 +1,258 @@
+<?php
+include("../config/settings.inc.php");
+
+$sortcol = isset($_GET["sortcol"]) ? $_GET["sortcol"] : "ts";
+$sortdir = isset($_GET['sortdir']) ? $_GET["sortdir"] : "down";
+
+/* Get vars */
+$expiry = $_POST['expiry'];
+$st = $_POST['st'];
+$str = $_POST['str'];
+
+/* Do cookie stuff */
+$expiry = 60*60*24*100; // 100 days
+session_start();
+setcookie(session_name(), session_id(), time()+$expiry, "/");
+
+if (!isset($_SESSION['stations'])){
+  $_SESSION['stations'] = Array();
+} 
+  
+if (isset($st)){
+    foreach ($st as $key => $value) {
+      if (strlen($value) > 0 && $value != "ahack") {
+        array_push( $_SESSION['stations'], $value);
+      }
+    }
+  }
+  if (isset($str)){
+   foreach ($str as $key => $value) {
+      if (strlen($value) > 0 && $value != "ahack") {
+        foreach ($_SESSION['stations'] as $key2 => $value2){
+          if ($value2 == $value){
+            unset($_SESSION['stations'][$key2]);
+          }
+        }
+      }
+    } 
+}
+
+?>
+<?php  /* /index.phtml */
+ include("../config/settings.inc.php");
+ include('../include/locs.inc.php');
+ include('../include/currentdb.inc.php');
+ include('../include/sponsors.inc.php');
+ $app = "04"; include("../include/dblog.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+ <style type="text/css" media="screen">@import "css/main.css";</style>
+
+	<TITLE>SchoolNet8 | My Favorites</TITLE>
+	<meta http-equiv="refresh" content="60; URL=ccfav.phtml?sortcol=<?php echo $sortcol; ?>">
+<script language="JavaScript" type="text/javascript">
+<!--//BEGIN Script
+function new_window(url) {
+	link = 
+	window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=400");
+} 
+function new_window_big(url) {
+	link = 
+	window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600");
+} 
+//END Script-->
+</script>
+</HEAD>
+<body>
+
+<?php 
+  include("$nwnpath/include/bar.inc.php"); 
+?>
+
+<div id="justone">
+
+<h3>My SchoolNet8 Conditions</h3>
+
+<?php
+if (strlen($sortcol) == 0) {
+  $sortcol = "ts";
+}
+$vals = Array("ts" => "Observation Time", "tmpf" => "Temperature", 
+ "relh" => "Relative Humidity", "alti" => "Pressure",
+ "sped" => "Wind Speed", "20gu" => "20 min Gust",
+ "gmph" => "Peak Gust Today", "gtim" => "Time of Peak Gust", 
+ "pday" => "Today's Precipitation", "feel" => "Feels Like", 
+ "pmonth" => "Month's Precipitation", "prate" => "Hourly Precip Rate",
+ "sname" => "Station Name");
+
+// http://www.php.net/manual/en/function.asort.php
+
+function aSortBySecondIndex($multiArray, $secondIndex, $sortdir) {
+	while (list($firstIndex, ) = each($multiArray))
+		$indexMap[$firstIndex] = $multiArray[$firstIndex][$secondIndex];
+    if ($sortdir == "down") asort($indexMap);
+    else arsort($indexMap);
+	while (list($firstIndex, ) = each($indexMap))
+		if (is_numeric($firstIndex))
+			$sortedArray[] = $multiArray[$firstIndex];
+		else $sortedArray[$firstIndex] = $multiArray[$firstIndex];
+	return $sortedArray;
+}
+
+$obs = new currentdb();
+$data = $obs->db;
+$myData = Array();
+$cgiStr = "";
+
+while( list($key, $sid) = each($_SESSION['stations']) ){
+  $myData[$sid] = $data[$sid];
+  $myData[$sid]['sname'] = $Scities[$sid]['short'];
+  $cgiStr .= "st[]=". $sid ."&";
+}
+
+ $finalA = Array();
+ if (sizeof($myData) == 0){
+   echo "<p><b>There are currently 0 sites selected in your favorites list.  You 
+    will want to go back to the <a href='cc.phtml'>Current Conditions</a> page
+    and select sites you would like listed as your favorites.</b>";
+ } else {
+  echo "<p>Sorted by: <b>". $vals[$sortcol] ."</b><br>\n";
+?>
+<form method="POST" action="ccfav.phtml">
+
+<table border=1 style="font-size: 10pt;" cellspacing=0 cellpadding=2>
+<tr>
+  <th rowspan="3">Add:</th>
+  <th rowspan="2">Station:</th>
+  <th rowspan="2">Ob Time [1]</th>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <th colspan="3" bgcolor="#EEEEEE">Wind [2] MPH</th>
+  <th colspan="2" bgcolor="#e6e6fa">Precipitation</th>
+
+<tr>
+  <th>Temp</th>
+  <th>RH%</th>
+  <th>Feels</th>
+  <th>Pres</th>
+  <th>Dir</th>
+  <th>Speed</th>
+  <th>Today Gust @time</th>
+  <th>Today</th>
+  <th>Month</th>
+</tr>
+
+<tr>
+  <td><a href="ccfav.phtml?sortcol=sname&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=sname&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="ccfav.phtml?sortcol=ts&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=ts&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="ccfav.phtml?sortcol=tmpf&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=tmpf&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="ccfav.phtml?sortcol=relh&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=relh&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="ccfav.phtml?sortcol=feel&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=feel&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="ccfav.phtml?sortcol=alti&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=alti&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td></td>
+
+  <td><a href="ccfav.phtml?sortcol=sped&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=sped&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+ 
+ <td><a href="ccfav.phtml?sortcol=gmph&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=gmph&sortdir=down"><img src="images/down-arrow.gif" border=0"></a>
+
+  <a href="ccfav.phtml?sortcol=gtim&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=gtim&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+ 
+ <td><a href="ccfav.phtml?sortcol=pday&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=pday&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+
+  <td><a href="ccfav.phtml?sortcol=pmonth&sortdir=up"><img src="images/up-arrow.gif" border=0"></a> &nbsp; 
+  <a href="ccfav.phtml?sortcol=pmonth&sortdir=down"><img src="images/down-arrow.gif" border=0"></a></td>
+</tr>
+
+<?php
+ $finalA = aSortBySecondIndex($myData, $sortcol, $sortdir);
+ $now = time();
+while (list ($key, $val) = each ($finalA))  { 
+  $parts = $finalA[$key];
+  $tdiff = $now - $parts["ts"];
+  echo "<tr>\n ";
+  echo "<td><input type=\"checkbox\" name=\"str[]\" 
+               value=\"".$key."\"></td>\n";
+  echo "<th><a href=\"javascript:new_window('". $baseurl ."gen/kcci_fe.php?station=".$key."');\">". $Scities[$key]['short'] . "</a></th>";
+
+
+  echo "<td ";
+  if ($tdiff < 300){
+    echo ">". strftime("%I:%M %p", $parts[ts]);
+  } else {
+    echo "bgcolor=\"red\">". strftime("%d %b %I:%M %p", $parts[ts]);
+  }
+  echo "</td>";
+  $gtim_t0 = intval(substr($parts["gtim"],0,2));
+  $gtim_t1 = substr($parts["gtim"],2,2);
+  $gtim_suf = "AM";
+  if ($gtim_t0 >= 12) $gtim_suf = "PM";
+  if ($gtim_t0 >= 13) $gtim_t0 -= 12;
+  echo "<td align='center'>". $parts["tmpf"] ."</td>"
+      ."<td align='center'>". $parts["relh"] ."%</td>"
+      ."<td>". $parts["feel"] ."</td>"
+      ."<td>". $parts["alti"] ."</td>"
+      ."<td>". $parts["drctTxt"] ."</td>"
+      ."<td>". $parts["sped"] ."</td>"
+      ."<td>". $parts["gmph"] ."@ "
+      . $gtim_t0 .":". $gtim_t1 . $gtim_suf ."</td>"
+      ."<td>". $parts["pday"] ."</td>"
+      ."<td>". $parts["pmonth"] ."</td></tr>\n";
+  }
+?>
+
+<tr>
+ <td></td>
+ <td></td>
+ <td></td>
+ <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=tmpf&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=dwpf&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=feel&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td></td>
+ <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=sknt&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td></td>
+ <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=max_sknt&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=pday&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=pmonth&<?php echo $cgiStr ; ?>');">Plot</a></td>
+
+</tr>
+ 
+</table>
+
+<input type="submit" value="Remove from Favorites">
+<input type="reset" value="Reset">
+
+</form>
+
+<?php } ?>
+
+<p>This page will automatically update every minute.
+You can click on a column to sort it.  You can <b>remove</b> sites
+from your favorites list by selecting sites and then clicking the remove
+button.  You can also plot a variable by clicking the link at the bottom
+of the column.
+<br>To add sites to this list, go back to the sortable
+<a href="cc.phtml">current conditions</a> page and select them there.
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

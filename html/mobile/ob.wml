@@ -1,0 +1,84 @@
+<?php  
+  // ob.wml  
+  //   KCCI specific WAP interface to current observations
+  // Daryl Herzmann 20 Dec 2002
+  //  31 Dec 2002:  Make sure this app gets counted!!!
+  //  28 Feb 2003:  Use gigE db connection
+  //  30 Apr 2003   Make sure reg_globals is off
+  //  31 May 2003   Oops, method _POST is also used and account
+  //                for lowercase station IDS
+
+  // send wml headers 
+  header("Content-type: text/vnd.wap.wml");  
+echo "<?xml version=\"1.0\"?>";  
+echo "<!DOCTYPE wml PUBLIC \"-//WAPFORUM//DTD WML 1.1//EN\""  
+   . " \"http://www.wapforum.org/DTD/wml_1.1.xml\">"; 
+$station = $_GET['station'];
+if (strlen($station) == 0){
+  $station = $_POST['station'];
+} 
+$station = strtoupper($station);
+?> 
+
+<?php include("../../include/imagemap.inc.php"); ?>
+
+<? if (strlen($station) == 0 ) { ?>
+
+<wml> 
+  <card id="card1" title="KCCI SCHOOLNET"> 
+   <p>
+     <do type="accept">
+      <go href="ob.wml" method="post">
+      <postfield name="station" value="$station"/>
+      </go>
+     </do>
+    <input title="Enter NWSLI" name="sid"/>
+    <br/>-or- Select From:
+    <br/><?php kcciSelect(""); ?>
+   </p>
+  </card> 
+</wml> 
+
+<? } else { // And we split it like that
+
+ $station = substr($station, 0, 5);
+ include('../../include/currentdb.inc.php');
+ $obs = new currentdb();
+ $ob = $obs->db[$station];
+
+ $c = pg_connect("host=10.10.10.30 dbname=kcci user=kcci password=kcciweb");
+
+  pg_exec($c, "INSERT into site_stats(station, ip, app) VALUES
+    ('". $station ."', '". $REMOTE_ADDR ."', '11')");
+
+  pg_close($c);
+
+?> 
+
+<wml> 
+  <card id="card1" title="KCCI SNET8 OB"> 
+   <p>
+     <?php echo $ob["short"] ." (". $station .") "; ?>
+     <br/><?php echo date("m-d-Y h:i A", $ob["ts"] ); ?>
+     <br/><b>Temp/DewP:</b> <?php echo $ob["tmpf"] ."/". $ob["dwpf"]; ?>
+     <br/><b>Feels Like:</b> <?php echo $ob["feel"]; ?>
+     <br/><b>Wind [mph]:</b> <?php echo $ob["drctTxt"] ." @ ". $ob["sped"]; ?>
+     <br/><b>Rain Today:</b> <?php echo $ob["pday"]; ?>
+     <br/><b>Wind Gust:</b> <?php echo $ob["drctTxt_max"] ." @ ". $ob["sped_max"]; ?>
+     <br/><b>High Temp:</b> <?php echo $ob["tmpf_max"]; ?>
+     <br/><b>Low Temp:</b> <?php echo $ob["tmpf_min"]; ?>
+     <br/><a href="ob.wml">Different Site</a>
+     <br/><anchor>
+       Refresh this page
+     <go href="ob.wml?station=<?php echo $station; ?>"/>
+     <refresh>
+       <setvar name="station" value="<?php echo $station; ?>"/>
+     </refresh>
+     </anchor>
+   </p>
+  </card> 
+</wml> 
+
+
+
+<? } ?>

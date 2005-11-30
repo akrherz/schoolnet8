@@ -1,0 +1,98 @@
+<?php
+include("../../config/settings.inc.php");
+$module = $_GET["module"];
+
+$app = "18"; include("../../include/dblog.inc.php"); 
+include("switcher.php");
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <style type="text/css" media="screen">@import "../css/main.css";</style>
+  <title>SchoolNet8 | Site Guide</title>
+<script language="JavaScript" type="text/javascript">
+//<!--
+window.name = "basewindow";
+function new_window_big(url) {
+        link =
+        window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=820,height=620");
+}
+function selectWindow() {
+ window.open('<?php echo $baseurl; ?>/select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=425,height=600');
+}
+//END Script-->
+</script>
+
+</head>
+<body>
+<?php $THISPAGE = "guide"; include("$nwnpath/include/bar.inc.php"); ?>
+<?php
+
+function printModule($module) {
+  global $pages;
+  global $baseurl;
+?>
+
+<h2><?php echo $pages[$module]; ?></h2>
+
+<h4>Objectives:</h4>
+
+<?php include("$module/ob.phtml"); ?>
+
+<h4>SchoolNet8.com Online Resources:</h4>
+
+<?php include("$module/online.phtml"); ?>
+
+<h4>Questions:</h4>
+
+<?php include("$module/qna.phtml"); ?>
+
+<h4>Other Educational Resources:</h4>
+
+<?php include("$module/links.phtml"); ?>
+
+<?php
+} 
+?>
+<div id="guide">
+
+<?php echo lessonSelect($module); ?>
+
+<?php if (isset($_GET["module"])) {
+
+  printModule($module);
+
+} else if (isset($_GET['print'])) { 
+
+  reset($pages);
+  while( list($key, $val) = each($pages) )
+  {
+    printModule($key);
+  }
+} else { ?>
+<h3>Welcome to the SchoolNet8.com Website Guide</h3>
+
+<p>Your guide to resources found on this website and links to other useful
+information on the Internet.  The guide is presented in 10 lessons designed
+to highlight various features of the website:
+
+<ul>
+<?php
+ reset($pages);
+ while (list($key,$val) = each($pages))
+ {
+   echo "<li><a href=\"index.phtml?module=$key\">$val</a></li>\n";
+ }
+?>
+</ul>
+
+<p>As with the rest of SchoolNet8.com, this guide is a work in progress.
+Your comments and feedback are <a href="<?php echo $baseurl; ?>/contact.phtml">certainly welcome</a>.
+
+
+<?php } ?>
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

@@ -1,0 +1,107 @@
+<?php  /* /index.phtml */
+ include("../config/settings.inc.php"); 
+ include("$nwnpath/include/locs.inc.php");
+ include("$nwnpath/include/sponsors.inc.php");
+ include("$nwnpath/include/cameras.inc.php");
+ include("$nwnpath/include/imagemap.inc.php");
+  srand ((float) microtime() * 10000000);
+  $station = array_rand($Scities);
+ $app = "05"; include("../include/dblog.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>SchoolNet8.com</title>
+ <style type="text/css" media="screen">@import "css/main.css";</style>
+
+<script language="JavaScript" type="text/javascript">
+//<!--
+window.name = "basewindow";
+function new_window_big(url) {
+        link = 
+        window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=820,height=620");
+} 
+function selectWindow() {
+ window.open('<?php echo $baseurl; ?>/select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=425,height=700');
+}
+//END Script-->
+</script>
+</head>
+<body>
+
+<?php $THISPAGE = "homepage"; include("$nwnpath/include/bar.inc.php"); ?>
+
+<p><b>Welcome</b> to the KCCI SchoolNet8 website sponsored 
+by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new">CIPCO</a> and its member cooperatives!</p>
+
+<div id="leftside">
+<h2>Select your site</h2>
+<table>
+<tr><td><?php echo kcciSelectAuto($station, "site.phtml?station=", "");  ?></td>
+<td>or <a href="javascript:selectWindow();">From map</a></td></tr>
+</table>
+<br />
+<h2>Live Super Doppler8</h2>
+<?php
+  /** Begin RANDOM RADAR image */
+  srand((float) microtime() * 10000000);
+  $img = sprintf('%s/static/radar/%s/%s_0.png', $baseurl, $station, $station);
+  $link = sprintf('%s/site.phtml?station=%s', $baseurl, $station);
+  $ct = sprintf('%s/tool/clicktru.php?station=%s', $baseurl, $station);
+
+  echo "<a href=\"$link\"><img src=\"$img\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" /></a>
+<ul>
+ <li><a href=\"$link\">Live Super Doppler8 for your SchoolNet8 Site</a></li>
+</ul>";
+
+
+?>
+<h2>What's new for November?</h2>
+There are a lot of neat features hidden on this website.  They 
+include a <a href="hist.phtml">historical data calendar</a>, <a href="ortho.phtml">overhead photography</a>, <a href="plotting/1trace_fe.phtml">1 minute data charts</a>, and <a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php');">custom Live Super Doppler8 views</a> for a location
+near you! Give them a try!
+
+</div>
+<div id="rightside">
+
+<h2>Popular links:</h2>
+<ul>
+ <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php');">Live Super Doppler8 App</a></li>
+ <li><a href="javascript:selectWindow();">SchoolNet8 Site Selector</a></li>
+ <li><a href="sview/">SchoolNet8 Desktop Java Viewer</a></li>
+</ul>
+
+
+<h2>Web camera sites:</h2>
+<?php 
+$leftlinks = "";
+$rightlinks = "";
+$i = 0;
+$leftside = ""; $rightside = "";
+while (list($id, $v) = each($cameras))
+{
+	if ($v["active"]) {
+	if ($i % 2 == 0) {
+	$leftside .= "<li><a href=\"$baseurl/site.phtml?station=$id\">". $v["name"] ."</a></li>";
+    } else {
+	$rightside .= "<li><a href=\"$baseurl/site.phtml?station=$id\">". $v["name"] ."</a></li>";
+    }
+	$i += 1; }
+} ?>
+<table class="side">
+<tr><td valign="top"><ul><?php echo $leftside; ?></ul></td><td valign="top"><ul><?php echo $rightside; ?></ul></td></tr>
+</table>
+
+<p>The KCCI SchoolNet8 is a collection of weather observing stations
+located at schools throughout Central Iowa that report 
+<b>live</b> information via the Internet.  
+While we make every effort to provide reliable and timely data, 
+data presented at this website is provided as-is and without warranty.</p>
+
+<p>SchoolNet8 is a contributing data network to the
+<a href="http://mesonet.agron.iastate.edu" target="_new">The Iowa Environmental Mesonet</a> 
+of <a href="http://www.iastate.edu" target="_new">Iowa State University</a>.</p>
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

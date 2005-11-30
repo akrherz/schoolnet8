@@ -1,0 +1,55 @@
+<?php
+include("../../config/settings.inc.php");
+$module = $_GET["module"];
+
+$app = "19"; include("../../include/dblog.inc.php"); 
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <style type="text/css" media="screen">@import "../css/main.css";</style>
+  <title>SchoolNet8 101</title>
+<script language="JavaScript" type="text/javascript">
+//<!--
+window.name = "basewindow";
+function new_window_big(url) {
+        link =
+        window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=820,height=620");
+}
+function selectWindow() {
+ window.open('<?php echo $baseurl; ?>/select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=425,height=600');
+}
+//END Script-->
+</script>
+
+</head>
+<body>
+<?php $THISPAGE = "101"; include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<h2>SchoolNet 101</h2>
+
+<p>SchoolNet 101 is a set of 20 lessons geared toward hands-on science exploration
+and discovery of Meteorological topics.  These topics include weather variables
+measured at the SchoolNet8 sites, weather fronts, weather sayings, forecasting,
+and much more!
+
+<p>
+<a href="guide.pdf"><img src="thumb.jpg" align="left" border="0" style="margin: 10px;"></a>
+
+<br><strong>PDF Version:</strong> <a href="guide.pdf">6.5 MB</a>
+<br><strong>Converted - HTML Version:</strong> <a href="html/guide.html">here</a>
+<br><strong>OpenOffice.org Format:</strong> <a href="guide.sxw">2.9 MB</a>
+
+
+<br clear="all" />
+
+<br>The PDF version is of the best quality and should be used for printing
+purposes.  The HTML version is rather crude and a simple conversion from
+the document format.
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

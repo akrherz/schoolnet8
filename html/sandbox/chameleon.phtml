@@ -1,0 +1,20 @@
+<?
+include( "/home/akrherz/apps/chameleon/htdocs/chameleon.php" );
+ 
+$szTemplate = "select.html";
+$szMapFile = "/home/akrherz/projects/nwnwebsite/html/GIS/apps/lib/base.map";
+ 
+class SampleApp extends Chameleon
+{
+  function SampleApp()
+  {
+    parent::Chameleon();
+    $this->moMapSession = new MapSession_RW;
+    $this->moMapSession->setTempDir( getSessionSavePath());
+  }
+}
+ 
+$oApp =  new SampleApp();
+$oApp->CWCInitialize( $szTemplate, $szMapFile  );
+$oApp->CWCExecute();
+?>

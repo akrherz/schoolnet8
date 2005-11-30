@@ -1,0 +1,60 @@
+<?php
+ include("../config/settings.inc.php");
+ include("$nwnpath/include/select_widget.php");
+ include("$nwnpath/include/imagemap.inc.php");
+ $sw = new selectWidget($nwnpath, "bogus");
+ $sw->setShowCamera(true);
+ $sw->setShowRADAR(true);
+ $sw->setShowWarnings(true);
+ $sw->logic($_GET);
+ if (strlen($sw->selectedSite) > 0){
+  header("Location: $baseurl/site.phtml?station=". $sw->selectedSite );
+  die();
+ } 
+ if (isset($_GET["station"]) ){
+  header("Location: $baseurl/site.phtml?station=". $_GET["station"] );
+  die();
+ }
+?>
+<html>
+<head>
+  <title>SchoolNet8 | Select Your Site</title>
+  <meta http-equiv="refresh" content="300">
+  <style type="text/css" media="screen">@import "css/main.css";</style>
+<script Language="JavaScript">
+ window.name = 'selector';
+ function resetButtons(){
+   document.myform.target = 'selector';
+   document.panButton.src = './images/button_pan_off.png';
+   document.zoominButton.src = './images/button_zoomin_off.png';
+   document.zoomoutButton.src = './images/button_zoomout_off.png';
+   document.zoomfullButton.src = './images/button_zoomfull_off.png';
+   document.queryButton.src = './images/button_query_off.png';
+ }
+</script>
+</head>
+<body style="margin-left: 1px;">
+<form name="myform" action="select.phtml" target="basewindow">
+<input type="hidden" name="zoom" value="0"><!-- Default to Query -->
+<input type="hidden" name="extents" value="<?php echo $sw->extents[0]
+.", ". $sw->extents[1] .", ".$sw->extents[2] .", ".$sw->extents[3] ; ?>">
+
+<b>Map Tools:</b>
+<img src="./images/button_query_on.png" name="queryButton" alt="Query Map"
+  onClick="javascript: resetButtons(); document.myform.target = 'basewindow'; document.queryButton.src = './images/button_query_on.png'; document.myform.zoom.value = 0;">
+<img src="./images/button_zoomin_off.png" name="zoominButton" alt="Zoom In"
+  onClick="javascript: resetButtons(); document.zoominButton.src = './images/button_zoomin_on.png'; document.myform.zoom.value = -2;">
+<img src="./images/button_pan_off.png" name="panButton" alt="Pan"
+  onClick="javascript: resetButtons(); document.panButton.src = './images/button_pan_on.png'; document.myform.zoom.value = 1;">
+<img src="./images/button_zoomout_off.png" name="zoomoutButton" alt="Zoom Out"
+  onClick="javascript: resetButtons(); document.zoomoutButton.src = './images/button_zoomout_on.png'; document.myform.zoom.value = 2;">
+<img src="./images/button_zoomfull_off.png" name="zoomfullButton" alt="Zoom Full"
+  onClick="javascript: resetButtons(); document.myform.zoom.value = 100; document.myform.submit(); ">
+<img src="./images/button_close.png" name="closeButton" alt="Close Window" 
+  onClick="javascript: window.close();">
+
+
+<input type="image" name="map" src="<?php echo $sw->imgurl; ?>"></form>
+Select from list: <?php echo kcciSelectAuto("", "select.phtml?station=", "", "basewindow"); ?>
+Please select your site from the map.  Sites <font color="#ff0000">in red</font> also have web cameras.  This map dynamically updates every 5 minutes.
+</body></html>

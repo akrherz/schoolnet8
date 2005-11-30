@@ -1,0 +1,191 @@
+<?php
+include('../../config/settings.inc.php');
+include('../../include/cameras.inc.php');
+$java = isset($_GET["java"]) ? $_GET["java"] : 'applet';
+$station = isset($_GET['station']) ? $_GET['station'] : 'SJEI4';
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-tRansitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>SchoolNet8 | WebCam Historical Loops</title>
+ <style type="text/css" media="screen">@import "../css/main.css";</style>
+</head>
+<body>
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<?php
+ /**
+  * bloop.phtml
+  */
+include("$nwnpath/include/forms.inc.php");
+
+
+$frames  = isset($_GET['frames']) ? $_GET['frames'] : 12;
+$interval = isset($_GET['interval']) ? $_GET['interval']: 300;
+$day = isset($_GET['day']) ? $_GET["day"] : date("d", time() - 3600);
+$month = isset($_GET['month']) ? $_GET["month"]: date("m", time() - 3600);
+$hour = isset($_GET['hour']) ? $_GET["hour"]: date("H", time() - 3600);
+$minute = isset($_GET['minute']) ? $_GET["minute"]: date("i", time() - 3600);
+$minute = $minute - ($minute % 5);
+$year = isset($_GET['year']) ? $_GET["year"]: date("Y", time() - 3600);
+$nts = mktime($hour, $minute, 0, $month, $day, $year);
+
+$now = time();
+if ($nts < $cameras[$station]["sts"] || $nts > $cameras[$station]["ets"]){
+  echo "<p><div style=\"background: #ccc;\"><b>Error:</b> Your choice of time and station is outside of the archive available for this site!</div>\n";
+  $day = date("d", $cameras[$station]["ets"] - 3600);
+  $month = date("m", $cameras[$station]["ets"] - 3600);
+  $hour = date("H", $cameras[$station]["ets"] - 3600);
+  $minute = date("i", $cameras[$station]["ets"] - 3600);
+  $year = date("Y", $cameras[$station]["ets"] - 3600);
+  $minute = $minute - ($minute % 5);
+}
+
+$nts = mktime($hour, $minute, 0, $month, $day, $year);
+
+$images = Array();
+$labels = Array();
+$files = "";
+for ($i=0; $i < (intval($frames));$i++){
+  $ts = $nts + ($i * (intval($interval) ));
+  if ($ts > $now) { /* We are in the future! */
+    $frames = $i;
+    break;
+  }
+  $uri = "http://mesonet.agron.iastate.edu/archive/data/". gmdate('Y/m/d/', $ts) ."camera/$station/". $station ."_". gmdate('YmdHi', $ts) .".jpg";
+  $labels[] = date("d M Y H:i a", $ts);
+  $images[] = $uri;
+  $files .= $uri .",";
+}
+?>
+
+<p>Still images are saved from the SchoolNet8 web cameras every 5 minutes.  
+This page gives you a tool to build animations from this archive of images.
+If your browser does not support java, please try the 'Java Script' loop tool.
+
+<form method="GET" action="bloop.phtml" name="imageform">
+
+<table>
+<tr><th>Camera (Archive Starts / Ends):</th><th>Year:</th><th>Month:</th><th>Day:</th><th>Hour:</th><th>Minute:</th></tr>
+ <tr>
+  <td><select name="station">
+ <option value="SAMI4" <?php if ($station == "SAMI4") echo "selected=\"selected\""; ?>>Ames (14 Apr 2005)
+ <option value="SBZI4" <?php if ($station == "SBZI4") echo "selected=\"selected\""; ?>>Blank Park Zoo, DSM (13 May 2004)
+ <option value="SCAI4" <?php if ($station == "SCAI4") echo "selected=\"selected\""; ?>>Carroll (25 Oct 2003)
+ <option value="SCSI4" <?php if ($station == "SCSI4") echo "selected=\"selected\""; ?>>Creston (20 Sept 2003 / 20 Feb 2004)
+ <option value="SHUI4" <?php if ($station == "SHUI4") echo "selected=\"selected\""; ?>>Humboldt (04 Dec 2003)
+ <option value="SINI4" <?php if ($station == "SINI4") echo "selected=\"selected\""; ?>>Indianola (25 Feb 2004)
+ <option value="S03I4" <?php if ($station == "S03I4") echo "selected=\"selected\""; ?>>2003 Iowa State Fair (5-21 Aug 2003)
+ <option value="SJEI4" <?php if ($station == "SJEI4") echo "selected=\"selected\""; ?>>Jefferson (23 Jul 2003)
+ <option value="SCEI4" <?php if ($station == "SCEI4") echo "selected=\"selected\""; ?>>Lake Rathbun (18 Jun 2004)
+ <option value="SMAI4" <?php if ($station == "SMAI4") echo "selected=\"selected\""; ?>>Marshalltown (1 Oct 2003 - 26 Nov 2004)
+ <option value="SMDI4" <?php if ($station == "SMDI4") echo "selected=\"selected\""; ?>>Madrid (16 Sep 2005) 
+ <option value="STQI4" <?php if ($station == "STQI4") echo "selected=\"selected\""; ?>>Meskwaki (Tama) (18 May 2005)
+ <option value="SNEI4" <?php if ($station == "SNEI4") echo "selected=\"selected\""; ?>>Newton (16 Apr 2004)
+ <option value="SPAI4" <?php if ($station == "SPAI4") echo "selected=\"selected\""; ?>>Panora (19 May 2004)
+ <option value="SPEI4" <?php if ($station == "SPEI4") echo "selected=\"selected\""; ?>>Pella (16 Oct 2003)
+ <option value="SROI4" <?php if ($station == "SROI4") echo "selected=\"selected\""; ?>>Rockwell City (25 Feb 2004)
+ <option value="SPKI4" <?php if ($station == "SPKI4") echo "selected=\"selected\""; ?>>Saylorville Lake (2 Jul 2005)
+ <option value="SWBI4" <?php if ($station == "SWBI4") echo "selected=\"selected\""; ?>>Webster City (28 Aug 2003)
+ <option value="SWII4" <?php if ($station == "SWII4") echo "selected=\"selected\""; ?>>Winterset (14 May 2004)
+</select>
+</td>
+
+<td><?php echo yearSelect(2003, $year, "year"); ?></td>
+<td><?php echo monthSelect($month); ?></td>
+<td><?php echo daySelect($day); ?></td>
+<td><?php echo localHourSelect($hour, "hour"); ?></td>
+<td><?php echo minute5Select($minute, "minute"); ?></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<th>Frames:</th><td><input type="text" maxsize="2" size="3" name="frames" value="<?php echo $frames; ?>"></td>
+<th>Loop Tool:</th>
+<td>
+<select name="java">
+  <option value="applet" <?php if ($java == "applet") echo "selected=\"selected\""; ?>>Java Applet</option>
+  <option value="script" <?php if ($java == "script") echo "selected=\"selected\""; ?>>Java Script</option>
+  <option value="none" <?php if ($java == "none") echo "selected=\"selected\""; ?>>List Images (None)</option>
+</select>
+<th>Frame Interval:</th><td>
+<select name="interval">
+  <option value="60" <?php if ($interval == 60) echo "selected=\"selected\""; ?>>1 minute</option>
+  <option value="300" <?php if ($interval == 300) echo "selected=\"selected\""; ?>>5 minutes</option>
+  <option value="900" <?php if ($interval == 900) echo "selected=\"selected\""; ?>>15 minutes</option>
+  <option value="3600" <?php if ($interval == 3600) echo "selected=\"selected\""; ?>>1 hour</option>
+  <option value="86400" <?php if ($interval == 86400) echo "selected=\"selected\""; ?>>1 day</option>
+  <option value="604800" <?php if ($interval == 604800) echo "selected=\"selected\""; ?>>1 week</option>
+</select>
+</td></tr></table>
+<input type="submit" value="Gen Loop"></form>
+
+<div style="text-align: center;">
+<?php if ($java == "applet") { ?>
+<applet codebase="http://mesonet.agron.iastate.edu/current/class/" code="AniS.class" width="450" height="400" alt="You must enable Java in your browser to view the radar loop">
+        <param name="controls" value="startstop, looprock, step, speed, toggle,
+zoom">
+        <param name="rate" value="80">
+ <param name="no_enh" value="true">
+        <param name="pause_percent" value="800">
+        <param name="filenames" value="<?php echo $files; ?>">
+</applet>
+<?php } else if ($java == "script") { ?>
+<script LANGUAGE="JavaScript1.2" type="text/javascript">
+//<!--
+modImages = new Array();
+<?php
+ $i = 0;
+ while ( list($key,$val) = each($images) ){ 
+   echo "modImages[$i] = \"". $images[$i] ."\";\n";
+   $i++;
+ } ?>
+first_image = 1;
+last_image = <?php echo sizeof($images); ?>;
+current_image = first_image;
+-->
+</script>
+<script language="JavaScript" src="../js/animation.js"></script>
+
+
+<img NAME="animation" WIDTH=320 HEIGHT=240 SRC="../images/pixel.gif" ALT="Image" border="2" />
+
+  <form METHOD="POST" NAME="control_form">
+<a HREF="JavaScript: func()" onClick="change_mode(1);reverse()"><img BORDER=0 SRC="../images/rev_button.gif" ALT="REV"></a>
+<a HREF="JavaScript: func()" onClick="stop()"><img BORDER=0 SRC="../images/stp_button.gif" ALT="STOP"></a>
+<a HREF="JavaScript: func()" onClick="change_mode(1);fwd()"><img BORDER=0 SRC="../images/fwd_button.gif" ALT="FWD"></a>
+  <font SIZE=-1 COLOR="#3300CC">Frame No:</font>
+  <input TYPE="text" NAME="frame_nr" VALUE=9 SIZE="2" onFocus="this.select()" onChange="go2image(this.value)"></input>
+  </form>
+<script LANGUAGE="JavaScript1.2" type="text/javascript">
+//<!--
+launch();
+-->
+</script>
+
+<?php 
+}  else {
+while ( list($key,$val) = each($images) ){ 
+  echo sprintf("<img src=\"%s\" style=\"margin: 2px;\">", $val);
+}
+}
+?>
+</div>
+
+<p>Images used in this loop.<br>
+<ul>
+<?php 
+reset($images);
+while ( list($key, $value) = each($images) ){
+  echo "<li><a href=\"". $images[$key] ."\">". $labels[$key] ."</a></li>";
+}
+?>
+</ul>
+</div>
+
+<?php
+include("$nwnpath/include/footer.inc.php"); ?>

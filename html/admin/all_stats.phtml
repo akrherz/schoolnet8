@@ -1,0 +1,57 @@
+<?php
+  /*  all_stats.phtml
+   *    Generate Site statistics for admins to work with
+   *    Daryl Herzmann 14 Nov 2002
+   *    28 Feb 2003	Use GigE connection
+   */
+ include("../../config/settings.inc.php");
+?>
+<html>
+<head>
+  <title>KCCI SchoolNet8 Stats</title>
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+
+<p>Back to <a href="index.phtml">Admin Home</a> 
+
+<div class="ptitle">SchoolNet8 Site Stats</div>
+
+<p>Click on the Site ID for site specific details.  The "CIPCO" site is the
+generic banner that gets displayed on pages without site specific content, 
+like the homepage or the current's sortable table.  Data is valid for the 
+current month up till the time of page load.</p>
+
+<?php 
+  $c = pg_connect($dbhost);
+    $rs = pg_exec("SELECT station, count(valid) as count,
+      count(distinct(ip)) as hosts from site_stats 
+      WHERE valid > '2002-12-01 00:00' GROUP by station");
+  pg_close($c);
+
+  include("../include/kcciLoc.php");
+?>
+
+<table width="100%" border=0 cellpadding=2 cellspacing=2>
+<tr>
+  <th>Site ID:</th>
+  <th>Station Name:</th>
+  <th align="left">Hits:</th>
+  <th align="left">Unique Hosts:</th>
+</tr>
+<?php
+  $hi = true;
+  for( $i=0; $row = @pg_fetch_array($rs,$i); $i++) 
+  {
+    echo "<tr ";
+    if ($hi)  echo 'bgcolor="#EEEEEE"';
+    echo "><td><a href=\"site_stats.phtml?station=". $row["station"] ."\">". 
+       $row["station"] ."</a></td>
+      <td>". $Scities[$row["station"]]["city"] ."</td>
+      <td>". $row["count"] ."</td>
+      <td>". $row["hosts"] ."</td></tr>";
+    $hi = ! $hi;
+  }
+?>
+</table>
+</html>

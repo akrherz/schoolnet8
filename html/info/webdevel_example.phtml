@@ -1,0 +1,36 @@
+<?php 
+ include("../../config/settings.inc.php");
+?>
+
+<h3>County Zoom RADAR+SchoolNet:</h3>
+
+<h4>Plot is centered on Colo and plots today's rainfall</h4>
+<img src="<?php echo $baseurl; ?>GIS/apps/radar/site.php?station=SCOI4&var=pday">
+<pre>
+&lt;img src="<?php echo $baseurl; ?>GIS/apps/radar/site.php?station=SCOI4&var=pday"&gt;
+</pre>
+
+<h3>Webcamera:</h3>
+
+<h4>Here is a view from Ames, pretty!</h4>
+<img src="<?php echo $baseurl; ?>camera/stills/SAMI4.jpg">
+<pre>
+&lt;img src="<?php echo $baseurl; ?>camera/stills/SAMI4.jpg"&gt;
+</pre>
+
+<h3>OnAir View:</h3>
+
+<h4>Here is like you see on TV, from Creston</h4>
+<img src="<?php echo $baseurl; ?>gen/kcci.php?station=SCSI4">
+<pre>
+&lt;img src="<?php echo $baseurl; ?>gen/kcci.php?station=SCSI4"&gt;
+</pre>
+
+<h3>Live Super Doppler8 App:</h3>
+
+<h4>Here is a plot of neighboring temps with RADAR</h4>
+
+<img src="<?php echo $baseurl; ?>GIS/map.php?zoom=1&mode=realtime&year=2005&month=5&day=31&hour=18&minute=28&extents=354593.75,4547916.6666667,482093.75,4672916.6666667;&radar=KCCI&var=tmpf&st[]=SKCI4&st[]=SPAI4&st[]=SPKI4&sitelabel=show">
+<pre>
+&lt;img src="<?php echo $baseurl; ?>GIS/map.php?zoom=1&mode=realtime&year=2005&month=5&day=31&hour=18&minute=28&extents=354593.75,4547916.6666667,482093.75,4672916.6666667;&radar=KCCI&var=tmpf&st[]=SKCI4&st[]=SPAI4&st[]=SPKI4&sitelabel=show"&gt;
+</pre>

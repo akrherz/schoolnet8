@@ -1,0 +1,67 @@
+<?php
+ include("../../config/settings.inc.php");
+ include('../../include/locs.inc.php');
+ /* Get vars */
+ $sortcol = isset($_GET['sortcol']) ? $_GET['sortcol'] : 'sid';
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+	<TITLE>SchoolNet8 | Data Archive</TITLE>
+<style type="text/css" media="screen">@import "../css/main.css";</style>
+</HEAD>
+<body>
+
+<?php 
+function aSortBySecondIndex($multiArray, $secondIndex) {
+        while (list($firstIndex, ) = each($multiArray))
+                $indexMap[$firstIndex] = $multiArray[$firstIndex][$secondIndex];
+        asort($indexMap);
+        while (list($firstIndex, ) = each($indexMap))
+                if (is_numeric($firstIndex))
+                        $sortedArray[] = $multiArray[$firstIndex];
+                else $sortedArray[$firstIndex] = $multiArray[$firstIndex];
+        return $sortedArray;
+}
+
+ include("$nwnpath/include/bar.inc.php"); 
+?>
+
+<?php
+ $data = Array();
+ $fc = file('history.dat');
+ while (list ($line_num, $line) = each ($fc)) {
+   $tokens = split (",", $line);
+   $data[ $tokens[0] ] = Array( "sid" => $tokens[0], "sname" => $Scities[$tokens[0]]["city"], "sts" => $tokens[1] );
+ } // End of while
+
+ $data = aSortBySecondIndex($data, $sortcol);
+?>
+
+<div id="justone">
+
+<h2>SchoolNet Archive Listing</h2>
+
+<p class="story">The Iowa Environmental Mesonet [IEM] began archiving schoolnet data on 12 Feb 2002.  Since
+that time, some stations have been added to the network.  Here is a listing of sites and 
+the first observation recorded in the archive.</p>
+
+  <table>
+  <tr>
+    <th><a href='history.phtml?sortcol=sid'>Site ID:</a></th>
+    <th><a href='history.phtml?sortcol=sname'>Site Name:</a></th>
+    <th><a href='history.phtml?sortcol=sts'>Archive Begins:</a></th>
+  </tr>
+
+<?php
+ while (list ($key, $val) = each ($data))  {
+  if ($key == "S03I4") continue;
+   echo "<tr><td>".$key."</td><td>". $data[$key]["sname"]."</td><td>". $data[$key]["sts"] ."</td></tr>\n";
+ }
+ echo "</table>";
+?>
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

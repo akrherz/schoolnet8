@@ -1,0 +1,112 @@
+<?php
+ include("../../config/settings.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/main.css" />
+</head>
+<body>
+
+<div id="justone" style="background: #fff;">
+
+
+<ul>
+<li><a name="site">&nbsp;</a><b>Site:</b>
+<br />A <i>site</i> refers to the location at which the observing sensors are
+located.  A site is usually the name of the school or the community that the
+school is located in.</li>
+<br /><br />
+
+<li><a name="ts">&nbsp;</a><b>Date & Time:</b>
+<br /><i>Date & Time</i> refers to the time at which the observation was 
+taken. All times on this web site are in central time zone following either
+standard or daylight savings time.</li>
+<br /><br />
+
+<li><a name="temperature">&nbsp;</a><b>Air Temperature:</b>
+<br /><i>Air temperature</i> is a measure of the amount of energy in the
+molecules composing the air. SchoolNet8 sites record temperatures via an 
+aspirated thermometer.  Temperatures are presented in units of 
+Fahrenheit.</li>
+<br /><br />
+
+<li><a name="relhumidity">&nbsp;</a><b>Relative Humidity:</b>
+<br /><i>Relative humidity</i> is a measure of the ratio between the amount of
+water vapor a parcel of air can hold versus how much it can potentially 
+hold at saturation.  This value is typically expressed as a per cent value.</li>
+<br /><br />
+
+<li><a name="dewpoint">&nbsp;</a><b>Dew Point:</b>
+<br /><i>Dew point</i> is the temperature at which 100% relative humidity (or saturation)
+would occur if the air was cooled without change in water vapor or pressure.  
+Dew points are often a good indication of the human comfort level.  Values 
+above 65 degrees fahrenheit are often very uncomfortable.</li>
+<br /><br />
+
+<li><a name="wind">&nbsp;</a><b>Wind Speed/Direction:</b>
+<br /><i>Wind speed/direction</i> are independent measures of the motion of
+the atmosphere.  On this website, <i>wind direction</i> shows you 'where the 
+wind is blowing from.'  Or in other words, the direction you would have to
+stand in order to have the wind blowing in your face.  <i>Wind speed</i> is
+a measure of the speed of the atmospheric motions expressed in miles/hour (MPH).</li>
+<br /><br />
+
+<li><a name="pressure">&nbsp;</a><b>Pressure:</b>
+<br /><i>Pressure</i> is a direct measure of the weight of the atmosphere 
+above the point of measurement.  Differences of pressure in space result 
+in winds.</li>
+<br /><br />
+
+<li><a name="feelslike">&nbsp;</a><b>Feels Like:</b>
+<br />The <i>Feels like</i> temperature tries to account for the effect 
+of wind, moisture, and air temperature on the human skin.  Values are in 
+degrees of fahrenheit.</li>
+<br /><br />
+
+<li><a name="pday">&nbsp;</a><b>Rain for the Day:</b>
+<br /><i>Rain for the day</i> is the amount of rainfall recorded during the
+current day.  Sites in the KCCI SchoolNet use non-heated tipping buckets to
+record rainfall, so cold season precip is not accurately measured.  Values 
+are reported in inches of rain.</li>
+<br /><br />
+
+<li><a name="pmonth">&nbsp;</a><b>Rain for the Month:</b>
+<br /><i>Rain for the month</i> is the amount of rainfall recored for the 
+current month.  Values are reported in inches of rain.</li>
+<br /><br />
+
+<li><a name="max_tmpf">&nbsp;</a><b>High Temperature:</b>
+<br /><i>High temperature</i> is the maximum air temperature recorded for
+the current day.  Values are in degrees of Fahrenheit.</li>
+<br /><br />
+
+<li><a name="min_tmpf">&nbsp;</a><b>Low Temperature:</b>
+<br /><i>Low temperature</i> is the minimum air temperature recorded for
+the current day.  Values are in degrees of Fahrenheit.</li>
+<br /><br />
+
+<li><a name="gust">&nbsp;</a><b>High Wind:</b>
+<br /><i>High wind</i> is the maximum recorded gust for the current day.
+Values are in miles per hour MPH.</li>
+<br /><br />
+
+<li><a name="max_solar">&nbsp;</a><b>High Solar:</b>
+<br /><i>High solar</i> is the maximum recorded value of solar radiation.
+Values are in units of watts per meter squared.</li>
+<br /><br />
+
+<li><a name="windbarbs">&nbsp;</a><b>Wind Barbs:</b>
+<br /><i>Wind barbs</i> are a convient way to express wind speed and wind 
+direction in one symbol.  The orientation of the barb to the station 
+indicates the wind direction. For example, a barb pointing south indicates
+a south wind.  The little 'flags' on the end of the barb indicate the magnitude
+of the wind speed.  Each full flag represents 10 knots of wind speed. Each half
+flag represents approximately 5 knots of wind.</li>
+<br /><br />
+
+</ul>
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

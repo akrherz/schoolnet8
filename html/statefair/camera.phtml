@@ -1,0 +1,161 @@
+<?php
+ include("../../config/settings.inc.php");
+ include("$nwnpath/include/calendar.phtml");
+ /** Produce something fun to look at with the camera! */
+$its = $_GET["ts"];
+$now = mktime(16, 0, 0, 8, 21, 2003);
+$imgurl = "http://mesonet.agron.iastate.edu/data/camera/stills/S03I4.jpg";
+if (strlen($its) > 0){
+  $iyear = substr($its, 0, 4);
+  $imonth = substr($its, 4, 2);
+  $iday = substr($its, 6, 2);
+  $ihour = substr($its, 8, 2);
+  $ts = mktime($ihour, 0, 0, $imonth, $iday, $iyear);
+  if ($ts < $now){
+    $pts = strftime("%Y%m%d%H00", $ts + (5*3600) );
+    $imgurl = "http://mesonet.agron.iastate.edu/archive/data/". strftime("%Y/%m/%d/", $ts + (5*3600) ) ."camera/S03I4/S03I4_${pts}.jpg";
+  }
+} else {
+  $ts = mktime(16, 0, 0, 8, 21, 2003);
+}
+
+
+$year = strftime("%Y", $ts);
+$month = strftime("%m", $ts);
+$day = strftime("%d", $ts);
+$sod = mktime(0,0,0,$month, $day, $year);
+
+$hoursToday = Array();
+$marker = $sod;
+while ($marker < $ts){
+  $hoursToday[] = $marker;
+  $marker = $marker + 3600;
+}
+?>
+<html>
+<head>
+  <title>Live Iowa State Fair Cam!</title>
+  <link rel="stylesheet" type="text/css" href="<?php echo $baseurl; ?>/css/main.css">
+</head>
+<body bgcolor="#f0f0f0">
+
+<?php
+  $station = "S03I4";
+  $app = 16;
+  include("$nwnpath/include/bar.inc.php");
+?>
+
+<table>
+<tr>
+<td colspan="2">
+<a href="http://www.iowastatefair.com"><img src="2003logo175.gif" border=0 width="100" align="left"></a>
+<font size="+2"><b>SchoolNet8 Iowa State Fair Web Camera</b></font>
+
+<p>By selecting your date and time, you can view historical images from our
+web camera sponsored by <a href="http://kcci.mesonet.agron.iastate.edu/kcci/tool/clicktru.php?station=S03I4">Dynamic Broadband</a>.
+
+</td></tr>
+
+
+<tr><td>
+
+ <table border="1">
+ <tr><th colspan="24">Available Times on: <?php echo strftime("%d %B %Y", $sod); ?></th></tr>
+ <tr><th colspan="12" bgcolor="#cdcdcd">AM</th><th colspan="12" bgcolor="#bababa">PM</th></tr>
+<?php
+ echo "<tr>";
+ for($i=0;$i<24;$i++){
+  $myts = mktime($i, 0, 0, $month, $day, $year);
+  $url = "camera.phtml?ts=". strftime("%Y%m%d%H00", $myts );
+  $hr = strftime("%I", $myts);
+  if ($myts > $now) {
+    echo "<td>". intval($hr) ."</td>\n";
+  } else {
+    echo "<td><a href=\"$url\">". intval($hr) ."</a></td>\n";
+  }
+ } 
+?>
+ </tr></table>
+
+</td><td rowspan="2" valign="TOP">
+
+<font size="+1">Set Date:</font><br>
+<table border=1>
+   <tr><th colspan=7> August 2003</th></tr>
+   <tr>
+     <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th>
+     <th>Thu</th><th>Fri</th><th>Sat</th></tr>
+  <tr><td></td><td></td><td></td><td></td><td></td>
+<?php
+ for($i=1;$i<=2;$i++){
+  echo "<td valign='TOP' ";
+  if ($day == $i) echo " bgcolor=\"#f00000\" ";
+  echo "><b>${i}</b></td>";
+} ?></tr>
+<tr>
+ <td><b>3</b></td>
+ <td <?php if($day == 4) echo " bgcolor=\"#f00000\" "; ?> ><b><a href="camera.phtml?ts=200308041400">4</a></b></td>
+<?php
+ for($i=5;$i<=9;$i++){
+  echo "<td valign='TOP' ";
+  if ($day == $i) echo " bgcolor=\"#f00000\" ";
+  echo "><b><a href=\"camera.phtml?ts=2003080${i}0000\">${i}</a></b></td>";
+} ?>
+</tr>
+<tr>
+<?php
+ for($i=10;$i<=16;$i++){
+  echo "<td valign='TOP' ";
+  if ($day == $i) echo " bgcolor=\"#f00000\" ";
+  echo "><b><a href=\"camera.phtml?ts=200308${i}0000\">${i}</a></b></td>";
+} ?>
+</tr>
+
+<tr>
+<?php
+ for($i=17;$i<=21;$i++){
+  echo "<td valign='TOP' ";
+  if ($day == $i) echo " bgcolor=\"#f00000\" ";
+  echo "><b><a href=\"camera.phtml?ts=200308${i}0000\">${i}</a></b></td>";
+} 
+ for($i=22;$i<=23;$i++){
+  echo "<td valign='TOP' ";
+  if ($day == $i) echo " bgcolor=\"#f00000\" ";
+  echo "><b>${i}</b></td>";
+}
+?>
+</tr>
+<tr>
+<?php
+ for($i=24;$i<=30;$i++){
+  echo "<td valign='TOP' ";
+  if ($day == $i) echo " bgcolor=\"#f00000\" ";
+  echo "><b>${i}</b></td>";
+}
+?>
+</tr>
+
+<tr>
+<?php
+ for($i=31;$i<=31;$i++){
+  echo "<td valign='TOP' ";
+  if ($day == $i) echo " bgcolor=\"#f00000\" ";
+  echo "><b>${i}</b></td>";
+} ?>
+  <td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+<p>Image archive begins at 2 PM on 4 August 2003 and ends at 4 PM
+on 21 August 2003. 
+
+<p><b>Links:</b><br>
+<li><a href="index.phtml">State Fair Weather Summary</a></li>
+
+</td></tr>
+<tr><td valign="CENTER" align="CENTER">
+  <img src="<?php echo $imgurl; ?>" border="1" width="320">
+</td></tr>
+</table>
+<br><a href="camera.phtml">View Current Image</a>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

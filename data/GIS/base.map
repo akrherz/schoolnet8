@@ -1,0 +1,1050 @@
+# base.map
+
+
+NAME base
+STATUS ON
+SIZE 450 350
+#FONTSET "/home/akrherz/projects/nwnwebsite/data/GIS/fonts/fonts.list"
+FONTSET "fonts/fonts.list"
+#EXTENT -2223813 -1746393 2207341 1701506
+EXTENT 200000 4400000 710000 4900000
+UNITS METERS
+#SHAPEPATH "/home/akrherz/projects/nwnwebsite/data/GIS/"
+SHAPEPATH "./"
+#SYMBOLSET "/home/akrherz/projects/nwnwebsite/data/GIS/symbols/stations.sym"
+SYMBOLSET "symbols/stations.sym"
+#TRANSPARENT off
+#INTERLACE off
+IMAGECOLOR 140 144 90
+
+
+#IMAGETYPE png
+
+OUTPUTFORMAT
+	NAME png
+	MIMETYPE "image/png"
+	DRIVER "GD/PNG"
+	IMAGEMODE PC256
+	TRANSPARENT OFF
+END
+OUTPUTFORMAT
+	NAME png24
+	MIMETYPE "image/png"
+	DRIVER "GD/PNG"
+	IMAGEMODE RGB
+	TRANSPARENT OFF
+END
+OUTPUTFORMAT
+	NAME jpeg
+	MIMETYPE "image/jpeg"
+	DRIVER "GD/JPEG"
+	IMAGEMODE RGB
+	FORMATOPTION "QUALITY=80"
+	TRANSPARENT OFF
+END
+
+#
+PROJECTION
+  "init=epsg:26915"
+END
+
+#
+WEB
+  HEADER q_header.html
+  TEMPLATE fancy.html
+  FOOTER q_footer.html
+  MINSCALE 90000
+  MAXSCALE 40000000
+  IMAGEPATH "/mesonet/www/html/tmp/"
+  IMAGEURL "/tmp/"
+  LOG "/tmp/fancy.log"
+END
+
+DEBUG ON
+
+####
+# Road Conditions
+#====================================================================
+LAYER
+  NAME "roadcond"
+  DATA "/mesonet/data/gis/shape/26915/iowa/iaroad_cond.shp"
+  STATUS ON
+  TYPE LINE
+  PROJECTION
+   "init=epsg:26915"
+  END
+  LABELCACHE ON
+  #CLASSITEM "cond_code"
+  CLASS
+    NAME 'normal'
+    EXPRESSION ([COND_CODE] eq 0)
+    STYLE
+      COLOR 0 255 0
+      SIZE 3
+      SYMBOL 'circle'
+    END
+  END
+  CLASS
+    NAME 'wet'
+    EXPRESSION ([COND_CODE] eq 1 or [COND_CODE] eq 2)
+    STYLE
+      COLOR 0 0 255
+      SIZE 3
+      SYMBOL 'circle'
+    END
+  END
+  CLASS
+    NAME 'partial'
+    EXPRESSION (([COND_CODE] gt 2 and [COND_CODE] lt 7) or ([COND_CODE] gt 14 and [COND_CODE] lt 19) or ([COND_CODE] gt 26 and [COND_CODE] lt 31) or ([COND_CODE] gt 38 and [COND_CODE] lt 43) or ([COND_CODE] gt 55 and [COND_CODE] lt 60))
+    STYLE
+      COLOR 255 255 0
+      SIZE 3
+      SYMBOL 'circle'
+    END
+  END
+  CLASS
+    NAME 'mostly'
+    EXPRESSION (([COND_CODE] gt 6 and [COND_CODE] lt 11) or ([COND_CODE] gt 18 and [COND_CODE] lt 23) or ([COND_CODE] gt 30 and [COND_CODE] lt 35) or ([COND_CODE] gt 42 and [COND_CODE] lt 47) or ([COND_CODE] gt 59 and [COND_CODE] lt 64))
+    STYLE
+      COLOR 238 142 0
+      SIZE 4
+      SYMBOL 'circle'
+    END
+  END
+  CLASS
+    NAME 'complete'
+    EXPRESSION (([COND_CODE] gt 10 and [COND_CODE] lt 15) or ([COND_CODE] gt 22 and [COND_CODE] lt 27) or ([COND_CODE] gt 34 and [COND_CODE] lt 39) or ([COND_CODE] gt 46 and [COND_CODE] lt 51) or ([COND_CODE] gt 63 and [COND_CODE] lt 68))
+    STYLE
+      COLOR 255 0 255
+      SIZE 5
+      SYMBOL 'circle'
+    END
+  END
+  CLASS
+    NAME 'notadvised'
+    EXPRESSION ([COND_CODE] gt 50 and [COND_CODE] lt 55)
+    STYLE
+      COLOR 152 0 0
+      SIZE 5
+      SYMBOL 'circle'
+    END
+  END
+  CLASS
+    NAME 'closed'
+    EXPRESSION ([COND_CODE] eq 55)
+    STYLE
+      COLOR 255 0 0
+      SIZE 6
+      SYMBOL 'circle'
+    END
+  END
+
+END
+
+###
+# Road conditions label
+LAYER
+  TYPE ANNOTATION
+  STATUS ON
+  DATA "/mesonet/data/gis/shape/26915/iowa/iaroad_cond_sort.shp"
+  NAME "roadcond_label"
+  PROJECTION
+   "init=epsg:26915"
+  END
+  CLASSITEM "type"
+  LABELCACHE ON
+  CLASS
+    TEXT ([int1])
+    EXPRESSION ([type] = 1 and [int1] < 100)
+    COLOR -1 -1 -1
+    SYMBOL 'interstate_shield'
+    SIZE 20
+    LABEL
+      TYPE TRUETYPE
+      FONT arial
+      POSITION CC
+      #MINDISTANCE 100
+      #MINFEATURESIZE 30
+      SIZE 10
+      BUFFER 60
+      COLOR 250 250 250
+      PARTIALS FALSE
+    END
+  END
+  CLASS
+    TEXT ([us1])
+    EXPRESSION /2/
+    COLOR -1 -1 -1
+    SYMBOL 'us_highway_shield'
+    MAXSCALE 1000000
+    LABEL
+      TYPE BITMAP
+     # FONT arial
+      POSITION CC
+      #MINDISTANCE 100
+      #MINFEATURESIZE 30
+      SIZE TINY
+      BUFFER 40
+      COLOR 0 0 0
+      PARTIALS FALSE
+    END
+  END
+END
+
+
+
+#
+LAYER
+	NAME warnings_c
+	STATUS OFF
+	TYPE LINE
+	DATA "/home/ldm/data/gis/shape/unproj/us/current_ww.shp"
+	PROJECTION
+		"init=epsg:4326"
+	END
+	#CLASSITEM "TYPE"
+	FILTERITEM "GTYPE"
+	FILTER /C/
+	CLASS
+		#EXPRESSION /SV/
+        EXPRESSION ('[type]' = 'SV' and '[sig]' = 'W')
+		COLOR	255 255 0
+		SIZE	3
+		SYMBOL	'circle'
+	END
+	CLASS
+		#EXPRESSION /FF/
+        EXPRESSION ('[type]' = 'FF' and '[sig]' = 'W')
+		COLOR	0 255 0
+		SIZE	3
+		SYMBOL	'circle'
+	END
+	CLASS
+		#EXPRESSION /TO/
+        EXPRESSION ('[type]' = 'TO' and '[sig]' = 'W')
+		COLOR	255 0 0
+		SIZE	3
+		SYMBOL	'circle'
+	END
+END
+
+#
+LAYER
+  NAME postgis_warnings_c
+  STATUS OFF
+  DEBUG ON
+  TYPE LINE
+  CONNECTIONTYPE postgis
+  CONNECTION "user=nobody dbname=postgis host=db1.mesonet.agron.iastate.edu"
+  DATA "geom from (select phenomena, geom, oid from warnings_2004 WHERE gtype = 'C' and expire > '2004-08-27 16:27' and issue < '2004-08-27 16:27' ORDER by expire, phenomena ASC) as foo using unique oid using SRID=4326"
+  CLASSITEM "PHENOMENA"
+  PROJECTION
+    "init=epsg:4326"
+  END
+  CLASS
+    EXPRESSION /SV/
+    COLOR	255 255 0
+		SIZE	3
+		SYMBOL	'circle'
+	END
+	CLASS
+		EXPRESSION /FF/
+		COLOR	0 255 0
+		SIZE	3
+		SYMBOL	'circle'
+	END
+	CLASS
+		EXPRESSION /TO/
+		COLOR	255 0 0
+		SIZE	3
+		SYMBOL	'circle'
+	END
+
+END
+
+#
+LAYER
+	NAME cities
+	STATUS OFF
+	TYPE	POLYGON
+	DATA	"shape/26915/incorporated_cities_2000.shp"
+	PROJECTION
+		"init=epsg:26915"
+	END
+	LABELITEM "NAME"
+	LABELMAXSCALE 700000
+	MAXSCALE 1000000
+	LABELCACHE	ON
+	CLASS
+		OUTLINECOLOR 0 0 0
+		COLOR 210 210 210
+		LABEL
+			TYPE BITMAP
+			SIZE MEDIUM
+			OUTLINECOLOR 250 250 250
+			COLOR 0 0 0
+			FORCE FALSE
+			BUFFER 20
+			POSITION AUTO
+			PARTIALS false
+		END
+	END
+END
+
+#
+LAYER
+  NAME counties
+  STATUS OFF
+  TYPE POLYGON
+  DATA shape/26915/iacounties.shp
+  PROJECTION
+    "init=epsg:26915"
+  END
+  LABELCACHE ON
+  LABELITEM 'CO_NAME'
+  LABELMAXSCALE 400000
+  CLASS
+    OUTLINECOLOR 250 250 250
+#    COLOR 140 144 90
+    LABEL 
+      SIZE TINY
+      TYPE BITMAP
+      POSITION LC
+#      COLOR 90 90 90
+      COLOR 250 250 250
+      PARTIALS FALSE
+      FORCE FALSE
+    END
+  END
+END
+
+#
+LAYER
+  NAME mwcounties
+  STATUS OFF
+  TYPE LINE
+  DATA shape/26915/mwcounties.shp
+  PROJECTION
+    "init=epsg:26915"
+  END
+  CLASS
+    COLOR 250 250 250
+  END
+END
+
+LAYER
+  NAME states
+  STATUS OFF
+  TYPE LINE
+  DATA shape/26915/states.shp
+  PROJECTION
+    "init=epsg:26915"
+  END
+  CLASS
+    STYLE
+      COLOR 0 0 0
+      SYMBOL 'circle'
+      SIZE 3
+    END
+  END
+END
+
+
+LAYER
+  NAME wmsback
+  STATUS ON
+  CONNECTIONTYPE WMS
+  TYPE RASTER
+  CONNECTION "http://komodo.gis.iastate.edu/server.cgi?format=png&wmtver=1.0.0&request=map&servicename=GetMap&layers=doqqs"
+  PROJECTION
+    "init=epsg:26915"
+  END
+END
+
+LAYER
+  NAME wsr88d
+  STATUS OFF
+  TYPE RASTER
+  DATA /home/ldm/data/gis/images/26915/DMX.png
+  PROJECTION
+    "init=epsg:26915"
+  END
+  OFFSITE 0 0 0
+END
+
+LAYER
+  NAME KCCI
+  STATUS OFF
+  TYPE RASTER
+  #PROCESSING "RESAMPLE=CUBIC"
+  DATA /home/ldm/data/kcci/max.png
+  #DATA /mesonet/www/html/GIS/data/images/kcci2.tif
+  PROJECTION
+    "init=epsg:26915"
+  END
+  OFFSITE 0 0 0
+  #OFFSITE 12
+  #TRANSPARENCY 50
+END
+
+
+LAYER
+  NAME KCC
+  STATUS OFF
+  TYPE RASTER
+  DATA /home/ldm/data/kcci/max.png
+  OFFSITE 0 0 0
+  TRANSPARENCY 80
+END
+
+LAYER
+  NAME DMX
+  STATUS OFF
+  TYPE RASTER
+  DATA /mesonet/data/gis/images/26915/DMX/DMX_N0R_0.png
+  OFFSITE 0 0 0
+  TRANSPARENCY 80
+  PROJECTION
+    "init=epsg:26915"
+  END
+END
+
+
+
+LAYER
+  NAME temps
+  STATUS OFF
+  TYPE POINT
+  LABELCACHE ON
+  PROJECTION
+   "init=epsg:4326"
+  END
+  CLASS
+    LABEL
+      COLOR  255 255 0
+      OUTLINECOLOR  0 0 0
+      SHADOWCOLOR 0 0 0
+      SHADOWSIZE 1 1
+      SIZE 16
+      MINSIZE 4
+      MAXSIZE 18
+      TYPE TRUETYPE
+      FONT kcci
+      ANTIALIAS TRUE
+      BUFFER 10
+      FORCE FALSE
+      POSITION UC
+      OFFSET 0 3
+    END
+  END
+  CLASS
+    LABEL
+      COLOR 160 210 234
+      OUTLINECOLOR  0 0 0
+      SHADOWCOLOR 0 0 0
+      SHADOWSIZE 1 1
+      SIZE 16
+      MINSIZE 4
+      MAXSIZE 18
+      TYPE TRUETYPE
+      FONT kcci
+      ANTIALIAS TRUE
+      BUFFER 10
+      FORCE FALSE
+      POSITION UC
+      OFFSET 0 3
+    END
+  END
+  CLASS
+    LABEL
+      COLOR  0 255 0
+      OUTLINECOLOR  0 0 0
+      SHADOWCOLOR 0 0 0
+      SHADOWSIZE 1 1
+      SIZE 16
+      MINSIZE 4
+      MAXSIZE 18
+      TYPE TRUETYPE
+      FONT kcci
+      ANTIALIAS TRUE
+      BUFFER 10
+      FORCE FALSE
+      POSITION UC
+      OFFSET 0 3
+    END
+  END
+END
+
+LAYER
+  TYPE POINT
+  NAME site
+  STATUS OFF
+  CLASS
+   SYMBOL 1
+   COLOR 255 255 255
+   SIZE 8
+  END
+  CLASS
+   SYMBOL 'x'
+   COLOR 255 255 255
+   SIZE 8
+  END
+  CLASS
+   SYMBOL 'triangle'
+   COLOR 255 255 255
+   SIZE 8
+ END
+END
+
+
+LAYER
+  NAME snet
+  STATUS OFF
+  TYPE POINT
+  LABELCACHE OFF
+  PROJECTION
+   "init=epsg:4326"
+  END
+  CLASS
+    LABEL
+      COLOR  255 255 0
+      OUTLINECOLOR  0 0 0
+      SHADOWCOLOR 0 0 0
+      SHADOWSIZE 1 1
+      SIZE 14
+      MINSIZE 4
+      MAXSIZE 18
+      TYPE TRUETYPE
+      FONT kcci
+      ANTIALIAS TRUE
+      BUFFER 2
+      FORCE FALSE
+      POSITION UC
+      OFFSET 0 3
+    END
+  END
+  CLASS
+    COLOR -1 -1 -1
+    LABEL
+      COLOR  255 255 255
+      OUTLINECOLOR 0 0 0
+      SHADOWCOLOR 0 0 0
+      SHADOWSIZE 1 1
+      SIZE 14
+      MINSIZE 4
+      MAXSIZE 18
+      TYPE TRUETYPE
+      FONT kcci
+      ANTIALIAS true
+      BUFFER 2
+      FORCE TRUE
+      POSITION LC
+    END
+  END
+END
+
+LAYER 
+  NAME barbs
+  TYPE POINT
+#  DATA datasets/snet_current
+  STATUS OFF
+  METADATA
+   LYRNAME "Winds"
+  END
+#  LABELITEM "WIND_CHR"
+#  LABELANGLEITEM "WIND_ROTAT"
+  LABELCACHE OFF
+  PROJECTION
+   "proj=latlong"
+  END
+  CLASS
+    LABEL
+      OUTLINECOLOR 255 0 255
+      COLOR 255 255 255
+      #SHADOWCOLOR 255 255 255
+      #SHADOWSIZE 1 1
+        TYPE truetype
+        FONT weather
+        ANTIALIAS TRUE
+        SIZE 45
+        POSITION UR
+        OFFSET -1 -1 # for size 30 UR
+        BUFFER 0
+        PARTIALS TRUE
+	FORCE TRUE
+    END
+  END 
+END
+
+LAYER
+  TYPE POINT
+  NAME dot
+  STATUS OFF
+  LABELCACHE ON
+  CLASS 
+   SYMBOL 1
+   COLOR 0 0 0
+   SIZE 8
+    LABEL
+      COLOR 250 250 250
+      SHADOWSIZE 1 1
+      SHADOWCOLOR 0 0 0
+      TYPE TRUETYPE
+      SIZE 16
+      FONT 'kcci'
+      POSITION AUTO
+      FORCE TRUE
+      PARTIALS FALSE
+    END
+  END
+	CLASS
+		SYMBOL 1
+		COLOR 255 0 0
+		SIZE 8
+	END
+END
+
+
+
+#LAYER
+#  NAME interstates
+#  TYPE LINE
+#  STATUS OFF
+#  PROJECTION
+#   "proj=latlong"
+#  END
+#  DATA shape/unproj/iowa/interstates.shp
+#  CLASS
+#    COLOR 255 0 0
+#    SYMBOL 'circle'
+#    SIZE 4
+#    OVERLAYSYMBOL 'circle'
+#    OVERLAYSIZE 2
+#    OVERLAYCOLOR 0 0 0
+#  END
+#END
+
+
+LAYER
+  NAME interstates
+  TYPE LINE
+  STATUS OFF
+  PROJECTION
+   "init=epsg:26915"
+  END
+  DATA shape/26915/nhpn_roads.shp
+  CLASSITEM "SIGNT1"
+  CLASS
+	EXPRESSION /I/
+    COLOR 255 0 0
+    SYMBOL 'circle'
+    SIZE 4
+    OVERLAYSYMBOL 'circle'
+    OVERLAYSIZE 2
+    OVERLAYCOLOR 0 0 0
+  END
+END
+
+LAYER
+ NAME usinterstates
+ TYPE LINE
+ STATUS OFF
+ PROJECTION
+  "init=epsg:4326"
+ END
+ DATA "shape/unproj/us/interstates.shp"
+ CLASS
+    COLOR 255 0 0
+    SYMBOL 'circle'
+    SIZE 4
+    OVERLAYSYMBOL 'circle'
+    OVERLAYSIZE 2
+    OVERLAYCOLOR 0 0 0
+  END
+END
+
+
+LAYER
+  NAME interstates_label
+  TYPE ANNOTATION
+  STATUS OFF
+  PROJECTION
+   "init=epsg:26915"
+  END
+  LABELITEM "SIGNN1"
+  CLASSITEM "SIGNT1"
+  DATA shape/26915/nhpn_roads.shp
+  CLASS
+    EXPRESSION /I/
+    COLOR -1 -1 -1
+    SYMBOL 'interstate_shield'
+    LABEL
+      TYPE TRUETYPE
+      FONT arialblk
+      POSITION CC
+      MINDISTANCE 100
+      MINFEATURESIZE 10
+      SIZE 6
+      COLOR 255 255 255
+      PARTIALS FALSE
+    END
+  END
+END
+
+
+LAYER
+  NAME roads
+  STATUS OFF
+  TYPE LINE
+  DATA "shape/26915/nhpn_roads.shp"
+  CLASSITEM "SIGNT1"
+  MAXSCALE 1000000
+  PROJECTION
+    "init=epsg:26915"
+  END
+  CLASS
+    EXPRESSION /U/
+    SYMBOL "circle"
+    COLOR 0 0 0
+    SIZE 3
+    OVERLAYSYMBOL "circle"
+    OVERLAYCOLOR 250 250 250
+    OVERLAYSIZE 1
+  END
+  CLASS
+    EXPRESSION /C|S/
+    SYMBOL "circle"
+    COLOR 0 0 0
+    SIZE 1
+    #OVERLAYSYMBOL "circle"
+    #OVERLAYCOLOR 250 250 250
+    #OVERLAYSIZE 1
+  END
+END
+
+LAYER
+  NAME roads_label
+  TYPE ANNOTATION
+  STATUS OFF
+  LABELITEM SIGNN1
+  MAXSCALE 1000000
+  DATA "shape/26915/nhpn_roads.shp"
+  CLASSITEM "SIGNT1"
+  LABELCACHE ON
+  CLASS
+    EXPRESSION /U/
+    COLOR -1 -1 -1
+    SYMBOL 'us_highway_shield'
+    LABEL
+      TYPE BITMAP
+     # FONT arial
+      POSITION CC
+      MINDISTANCE 100
+      MINFEATURESIZE 30
+      SIZE TINY
+      BUFFER 20
+      COLOR 0 0 0
+      PARTIALS FALSE
+    END
+  END
+  CLASS
+    EXPRESSION /S/
+    COLOR -1 -1 -1
+    SYMBOL 'state_highway_shield'
+    LABEL
+      TYPE BITMAP
+     # FONT arial
+      POSITION CC
+      MINDISTANCE 100
+      MINFEATURESIZE 30
+      SIZE TINY
+      BUFFER 20
+      COLOR 0 0 0
+      PARTIALS FALSE
+    END
+  END
+
+END
+
+LAYER
+  NAME credits
+  TYPE ANNOTATION
+  STATUS OFF
+  TRANSFORM FALSE
+  LABELCACHE OFF
+  CLASS
+    NAME 'credits'
+    LABEL
+      COLOR 250 250 250
+      BACKGROUNDCOLOR 0 0 200
+      SHADOWSIZE 1 1
+      SHADOWCOLOR 0 0 0
+      BACKGROUNDSHADOWCOLOR 0 0 0
+      BACKGROUNDSHADOWSIZE 1 1
+      TYPE TRUETYPE
+      SIZE 14
+      FONT 'kcci'
+      POSITION CR
+      FORCE TRUE
+      PARTIALS TRUE
+    END
+  END
+  CLASS
+    NAME 'credits2'
+    LABEL
+      COLOR 250 250 250
+      BACKGROUNDCOLOR 0 0 200
+      SHADOWSIZE 1 1
+      SHADOWCOLOR 0 0 0
+      BACKGROUNDSHADOWCOLOR 0 0 0
+      BACKGROUNDSHADOWSIZE 1 1
+      TYPE TRUETYPE
+      SIZE 10
+      FONT 'kcci'
+      POSITION CR
+      FORCE TRUE
+      PARTIALS TRUE
+    END
+  END
+END
+
+#LAYER
+#  NAME sites
+#  STATUS OFF
+#  TYPE POINT
+#  DATA "shape/unproj/locs.shp"
+#  PROJECTION
+#   "init=epsg:4326"
+#  END
+#  CLASS
+#    SIZE 10
+#    SYMBOL 'circle'
+#    COLOR 0 0 0
+#  END
+#END
+
+LAYER
+  NAME sites
+  STATUS ON
+  TYPE POINT
+  DATA "shape/unproj/locs.shp"
+  PROJECTION
+   "init=epsg:4326"
+  END
+  TOLERANCE 10000
+  #TOLERANCEUNITS dd
+  LABELITEM "SNAME"
+  LABELCACHE ON
+  CLASSITEM "SID"
+  CLASS
+    EXPRESSION /SBZI4|SPAI4|SAMI4|SCSI4|STQI4|SINI4|SPKI4|SJEI4|SNEI4|SROI4|SPEI4|SHUI4|SCEI4|SKNI4|SMDI4/
+    TEMPLATE "http://www.schoolnet8.com/site.phtml?station=[SID]"
+    COLOR 0 0 0
+    SYMBOL 'circle'
+    SIZE 6
+    OVERLAYSYMBOL 'circle'
+    OVERLAYSIZE 4
+    OVERLAYCOLOR 250 0 0
+    LABEL
+#      TYPE BITMAP
+      TYPE TRUETYPE
+#      SIZE SMALL
+      FONT Verabd
+      ANTIALIAS FALSE
+      SIZE 8
+      OUTLINECOLOR 250 250 250
+      COLOR 250 0 0
+      POSITION AUTO
+      FORCE TRUE
+      PARTIALS FALSE
+      BUFFER 0
+    END
+  END
+  CLASS
+    TEMPLATE "http://www.schoolnet8.com/site.phtml?station=[SID]"
+    COLOR 0 0 0
+    SYMBOL 'circle'
+    SIZE 6
+    OVERLAYSYMBOL 'circle'
+    OVERLAYSIZE 4
+    OVERLAYCOLOR 250 250 0
+    LABEL
+#      TYPE BITMAP
+      TYPE TRUETYPE
+#      SIZE SMALL
+      FONT Verabd
+      ANTIALIAS FALSE
+      SIZE 8
+      OUTLINECOLOR 250 250 250
+      COLOR 0 0 0
+      POSITION AUTO
+      FORCE TRUE
+      PARTIALS FALSE
+      BUFFER 0
+    END
+  END
+END
+
+
+LAYER 
+  NAME logo
+  TYPE POINT
+  STATUS OFF
+  TRANSFORM FALSE
+  TRANSPARENCY 10
+  CLASS
+    SYMBOL 'kcci8'
+    SIZE 40
+  END
+END
+
+
+LAYER 
+  NAME doppler8
+  TYPE POINT
+  STATUS OFF
+  TRANSFORM FALSE
+#  TRANSPARENCY 10
+  CLASS
+    STYLE
+      SYMBOL 'doppler8'
+      SIZE 50
+    END
+  END
+END
+
+LAYER 
+  NAME "roadcond_key"
+  TYPE POINT
+  STATUS OFF
+  TRANSFORM FALSE
+#  TRANSPARENCY 10
+  FEATURE
+    POINTS 85 375 END
+  END
+  CLASS
+    STYLE
+      SYMBOL 'roadcond'
+      #SIZE 50
+    END
+  END
+END
+
+
+LAYER
+  TYPE LINE
+  NAME RECT
+  STATUS OFF
+  PROJECTION
+    "proj=tmerc"
+    "lat_0=41.5"
+    "lon_0=-93.65"
+    "x_0=0"
+    "y_0=0"
+    "k=0.9999"
+  END
+  CLASS
+    COLOR 255 255 255
+    OUTLINECOLOR 255 255 255   
+    SYMBOL 'circle'
+    SIZE 3
+  END
+END
+
+
+LAYER
+  TYPE POINT
+  NAME pointonly
+  STATUS OFF
+  CLASS 
+   SYMBOL 1
+   COLOR 250 250 250
+   SIZE 8
+   OVERLAYSYMBOL 1
+   OVERLAYSIZE 6
+   OVERLAYCOLOR 0 0 0
+   LABEL
+    COLOR -1 -1 -1
+   END
+  END
+END
+
+LAYER
+  NAME bar320
+  TYPE POLYGON
+  TRANSFORM FALSE
+  STATUS OFF
+  FEATURE
+    POINTS 0 0 0 20 320  20 320 0 0 0 END
+    POINTS 0 240 0 220 320 220 320 240 0 240 END
+  END
+  TRANSPARENCY 70
+  LABELCACHE FALSE
+  CLASS
+    COLOR 0 0 0
+  END
+END
+
+LAYER
+  NAME bar640t
+  TYPE POLYGON
+  TRANSFORM FALSE
+  STATUS OFF
+  FEATURE
+    POINTS 0 0 0 18 640 18 640 0 0 0 END
+  END
+  TRANSPARENCY 70
+  LABELCACHE FALSE
+  CLASS
+    COLOR 0 0 0
+  END
+END
+
+LAYER
+  NAME barlsd
+  TYPE POLYGON
+  TRANSFORM FALSE
+  STATUS OFF
+  FEATURE
+    POINTS 320 38 320 60 640 60 640 38 320 38 END
+  END
+  LABELCACHE FALSE
+  CLASS
+    COLOR 0 0 0
+  END
+END
+
+LAYER
+  NAME subtitlebar
+  TYPE POLYGON
+  TRANSFORM FALSE
+  STATUS OFF
+  FEATURE
+    POINTS 330 60 640 60 640 78 330 78 END
+  END
+  LABELCACHE FALSE
+  CLASS
+    COLOR 185 50 75
+  END
+END
+
+
+LAYER
+  NAME bar640
+  TYPE POLYGON
+  TRANSFORM FALSE
+  STATUS OFF
+  FEATURE
+    POINTS 0 0 0 18 640 18 640 0 0 0 END
+    POINTS 0 480 0 460 640 460 640 480 0 480 END
+  END
+  TRANSPARENCY 70
+  LABELCACHE FALSE
+  CLASS
+    COLOR 0 0 0
+  END
+END
+
+
+
+END

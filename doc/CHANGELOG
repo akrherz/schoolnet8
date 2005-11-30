@@ -1,0 +1,105 @@
+======================================================================
+Updates for Dec 2003
+  [x] Well, we are now XHTML 1.0 valid!, well maybe not completely
+  [ ] Wheres it raining?
+  [ ] Replicated OnAir Display
+  [x] New site selector with a KCCI Radar background and TEMPLATE driven
+  [x] New contacts page
+
+======================================================================
+Updates for November
+  [x] Geez, I am back to using the CHANGELOG, where have I been?
+  [x] Cleaned up the pages, they are hopefully prettier now...
+  [x] It was actually implemented last month, but be sure to mention
+      the ability to download summary data
+  [x] Cleaned up the Current Conditions page
+  [x] Site RADAR image has interstates and state roads labeled.
+  [x] The zoomed and rapid update plot are now working again
+  [x] Color highlights for currents listing, faster load...
+  [x] The Web camera application is 'smarter'.  It will give you 
+      a warning if you select a date outside of the archive.  You 
+      also get a listing of images used for the loop...
+
+======================================================================
+To be completed by 1 May 2003
+
+<< We are now working on the dedicated server with a whole bunch of 
+changes.  This can be run from a multiple of different ways.  It will
+be up to KCCI to see how they want it to run it...
+
+  [x] Site RADAR image is bigger with +2 font size bigger fonts.
+  [x] Front Page has new and exciting stuff on it!
+  [x] Fix bad link to zoomed in DSM mesoplot image
+  [x] The Where's it raining app got an overhaul...
+  [?] All links are specific and point to one location! We can always offload
+  [?] Must have everything run without register_globals!  Big Change...
+  [x] No more use of gifs
+
+Other Changes:
+  [ ] 
+
+======================================================================
+To be completed by 1 Apr 2003
+
+<<< Must switch bar.phtml back before changing the site! >>>
+
+Other Changes:
+  [x] Added new functionality of having alerts being directly sent to
+      a personal email account.  This is the feature.
+  [x] jpgraph has been updated to version 1.11
+
+
+======================================================================
+To be completed by 1 Mar 2003
+
+<<< Must switch bar.phtml back before changing the site! >>>
+
+Other Changes:
+  [x] The site.phtml page has been revamped with a live doppler image and
+      direct links to other plots and data.  This should be lots of fun to
+      play with.
+  [x] Altimeter is now on the dynamic plotter, this was an RFE
+  [x] Wind barbs are on the plot, this was an RFE
+  [x] Change all db requests to use GigE connection
+  [x] The bottom of the site.phtml page contains a link showing how to 
+      bookmark that page
+  [x] Site Calibration Documents are now on-line
+  [x] The admin page contains links to previous month site stats.
+
+======================================================================
+To be completed by 1 Feb 2003
+
+<<< Must switch bar.phtml back before changing the site! >>>
+
+Changes allready sent to live server:
+ [x] AM/PM in variable gtim not set correct for gusts over the noon hour
+
+Other Changes:
+ [x] Created a "Dynamic Plotter" GIS application to generate images
+     of a users selection.
+ [x] Ported over the "My conditions" application from the IEM side.
+ [x] Cleaned up the current.phtml page
+ [x] Misc cleanups, more precise with wording.
+
+======================================================================
+To be completed by 1 Jan 2003
+
+<<< Must switch bar.phtml back before changing the site! >>>
+
+Changes already sent to live server:
+ [x] Wind direction does not appear on the current ob printout.
+
+Other Changes:
+ [Mar] Redo the current ob page with something more interesting.  We just
+     borrowed the IBS interface. Maybe segregate the temperatures together
+     and make more colors.  Less vertical space would be nice too.
+ [x] Make all of the URL links relative, so that the _dev site actually
+     works.  I will work on this.
+ [x] Build up the WAP interface.  I have created a wap directory and will
+     be working on the current ob page.  Also generating the select box,
+     so that users need not know the site ID.
+ [x] Create a footer.php include just like the header and put it in on all
+     the pages.  The footer should have some more info, link to a
+     disclaimer, and link to the IEM.
+ [x] Make download worker.php more robust with error checking...
+ [x] Switch the use of "KCCI" and "CIPCO".  It will make life easier.

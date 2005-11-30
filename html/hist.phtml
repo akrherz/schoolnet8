@@ -1,0 +1,152 @@
+<?php
+  /* hist.phtml */
+
+include("../config/settings.inc.php");
+include("$nwnpath/include/calendar.phtml");
+include("$nwnpath/include/imagemap.inc.php");
+include("$nwnpath/include/locs.inc.php");
+include("$nwnpath/include/forms.inc.php");
+include("$nwnpath/include/mlib.php");
+$app = "13"; include("$nwnpath/include/dblog.inc.php");
+
+/* Get vars */
+$year = isset($_GET['year']) ? intval($_GET['year']) : date("Y", time() - 86400);
+$month = isset($_GET['month']) ? intval($_GET['month']) : date("m", time() - 86400);
+$day = isset($_GET['day']) ? intval($_GET['day']) : date("d", time() - 86400);
+$station = isset($_GET['station']) ? substr($_GET['station'],0,5) : 'SKCI4';
+$mode = isset($_GET['mode']) ? $_GET['mode'] : 'monthly';
+$sortvar = isset($_GET['sortvar']) ? $_GET['sortvar'] : 'station';
+
+$ts = mktime(0,0,0, $month, $day, $year);
+$dateStr = strftime("%Y-%m-%d", $ts);
+$nicedate = strftime("%d %B %Y", $ts);
+
+$c = pg_connect($iemaccess);
+if ($mode == "monthly"){
+ $sql = "SELECT *, to_char(day, 'YYYYMMDD') as dvalid
+   from summary_". $year ." WHERE station = '". $station ."' and
+   extract(month from day) = ". $month ." and
+   extract(year from day) = ". $year ."
+   ORDER by day ASC";
+} else {
+ $sortorder = "ASC";
+ if ($sortvar == "pday" || $sortvar == "max_tmpf" || $sortvar == "max_gust"){
+   $sortorder = "DESC";
+ }
+ $sql = "SELECT *, to_char(day, 'YYYYMMDD') as dvalid
+   from summary_". $year ." WHERE network = 'KCCI' and
+   day = '". $dateStr ."'  ORDER by $sortvar $sortorder";
+}
+
+$rs = pg_exec($c, $sql);
+
+if ($mode == "monthly") {
+ $db = Array();
+ for( $i=0; $row = @pg_fetch_array($rs,$i); $i++){
+  $qc = $row["max_tmpf_qc"];
+  if ($row["max_tmpf"] == -99) $row["max_tmpf"] = "M";
+  if ($row["min_tmpf"] == 99) $row["min_tmpf"] = "M";
+  $str = "";
+  if (strstr($qc, 'H'))
+    $str .= "<strike>High: ". $row["max_tmpf"] ."</strike>" ;
+  else
+    $str .= "High: ". $row["max_tmpf"] ;
+
+  $qc = $row["min_tmpf_qc"];
+  if (strstr($qc, 'L'))
+    $str .= "<br><strike>Low: ". $row["min_tmpf"] ."</strike>";
+  else
+    $str .= "<br>Low: ". $row["min_tmpf"] ;
+  $str .= "<br>Rain: ". $row["pday"];
+
+  if (strlen($row["max_gust"]) > 0) {
+    $gtim = strtotime(substr($row["max_gust_ts"],0,16));
+    $gs = date("h:i a", $gtim);
+    $g = round($row["max_gust"] * 1.15,0);
+    $str .= "<br>Gust:<br> ". drct2txt($row["max_drct"]) ." @ ". $g .
+         "<br>(". $gs .")";
+  }
+  $db[ $row["dvalid"] ] = $str ;
+
+ $htmlout = printMonth($ts, $db, $baseurl .'hist.phtml?station='. $station , $baseurl ."hist.phtml?mode=daily&year=$year&month=$month&day=");
+ } /* End of for */
+} else {
+ $uri = "hist.phtml?year=$year&month=$month&day=$day&mode=daily&sortvar=";
+ $htmlout = "<table border=\"1\" style=\"float: left;\">\n<tr><th><a href=\"". $uri ."station\">Location:</a></th><th><a href=\"". $uri ."max_tmpf\">High:</a></th><th><a href=\"". $uri ."min_tmpf\">Low:</a></th><th><a href=\"". $uri ."pday\">Rainfall</a></th><th><a href=\"". $uri ."max_gust\">Peak Gust:</a></th><th><a href=\"". $uri ."max_gust_ts\">Time of Gust</a></th></tr>\n";
+ for( $i=0; $row = @pg_fetch_array($rs,$i); $i++){
+  $qc = $row["max_tmpf_qc"];
+  if ($row["max_tmpf"] == -99) $row["max_tmpf"] = "M";
+  if ($row["min_tmpf"] == 99) $row["min_tmpf"] = "M";
+  $htmlout .= "<tr><td><a href=\"hist.phtml?year=$year&month=$month&mode=monthly&station=". $row["station"] ."\">". $Scities[$row["station"]]["city"] ."</a></td>";
+
+  if (strstr($qc, 'H') || $row["max_tmpf"] == -99 )
+    $htmlout .= "<td><strike>". $row["max_tmpf"] ."</strike></td>" ;
+  else
+    $htmlout .= "<td>". $row["max_tmpf"] ."</td>";
+
+  $qc = $row["min_tmpf_qc"];
+  if (strstr($qc, 'L') || $row["min_tmpf"] == 99 )
+    $htmlout .= "<td><strike>". $row["min_tmpf"] ."</strike></td>";
+  else
+    $htmlout .= "<td>". $row["min_tmpf"] ."</td>";
+  if ($row["pday"] == -99)
+    $htmlout .= "<td>M</td>";
+  else
+    $htmlout .= "<td>". $row["pday"] ."</td>";
+
+  if (strlen($row["max_gust"]) > 0) {
+    $gtim = strtotime(substr($row["max_gust_ts"],0,16));
+    $gs = date("h:i a", $gtim);
+    $g = round($row["max_gust"] * 1.15,0);
+
+    $htmlout .= "<td>". drct2txt($row["max_drct"]) ." @ ". $g .
+         "</td><td>". $gs ."</td>";
+  }
+  $htmlout .= "</tr>";
+ } /* End of for loop */
+ $htmlout .= "</table>\n";
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>SchoolNet8 Weather Data Calendar</title>
+ <style type="text/css" media="screen">@import "css/main.css";</style>
+</head>
+<body>
+<?php 
+  include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<h2>SchoolNet8 Weather Data Calendar</h2>
+
+<?php
+if ($mode == "monthly"){
+  echo "The calendar chart below shows the daily reported climate variables.  You can click on a date to display the values for all SchoolNet8 sites for that day.";
+  echo "<p><b>Display Calendar For:</b>";
+  echo kcciSelectAuto($station, $baseurl .'/hist.phtml?station=', '&amp;year='. $year .'&amp;month='. $month);
+  echo "<br />Switch to <a href=\"".$baseurl ."site.phtml?station=". $station ."\">Current Site Conditions</a><br>";
+} else {
+  echo "The chart below lists out the reported summary values for a particular date for all SchoolNet8 sites.";
+  echo "<p>Switch date shown:<form name=\"ds\" method=\"get\"><input type=\"hidden\" value=\"daily\" name=\"mode\">". yearSelect(2002, $year, "year") . monthSelect($month, "month") . daySelect($day, "day") ."<input type=\"submit\" value=\"Switch Date\"></form>";
+echo "<p>Date show in table: $nicedate";
+}
+
+echo $htmlout;
+?>
+<br clear="all"/>
+<p><b>Notes:</b>
+<li>This data is <b>NOT</b> considered official and is intended for educational use only.</li>
+<li>Due to some complexities with the wind gusts, peak gusts before 12:15 AM 
+are not included.</li>
+<li>Values that are <strike>crossed out</strike> failed a crude quality control routine.</li>
+<li>You may wish to consult a <a href="<?php echo $baseurl; ?>dl/history.phtml">listing</a> of when stations came online.</li>
+<li>Peak wind gusts are unavailable prior to 11 July 2002.</li>
+
+</div>
+
+<?php
+  include("$nwnpath/include/footer.inc.php"); 
+?>

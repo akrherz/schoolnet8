@@ -1,0 +1,128 @@
+<?php
+$expiry = 60*60*24*100; // 100 days
+session_start();
+
+$hidecams = Array();
+if (isset($_SESSION['hidecams']) && ! isset($_GET['cams']) )
+{
+  $hidecams = $_SESSION['hidecams'];
+}
+else if (isset($_GET['cams']))
+{
+  $hidecams = $_GET['cams'];
+}
+$_SESSION['hidecams'] = $hidecams;
+
+include('../../config/settings.inc.php'); 
+include("$nwnpath/include/cameras.inc.php"); 
+include("$nwnpath/include/forms.inc.php"); 
+
+/* CGI GET Requests */
+ $year = isset($_GET["year"]) ? $_GET["year"] : date("Y");
+ $month = isset($_GET["month"]) ? $_GET["month"] : date("m");
+ $day = isset($_GET["day"]) ? $_GET["day"] : date("d");
+ $hour = isset($_GET["hour"]) ? $_GET["hour"] : date("H");
+ $minute = isset($_GET["minute"]) ? $_GET["minute"] : date("i");
+ $isarchive = isset($_GET["archive"]);
+ $app = "02"; include("$nwnpath/include/dblog.inc.php");
+
+ while (list($id, $val) = each($cameras))
+ {
+        $cameras[$id]["url"] = sprintf("$baseurl/camera/stills/%s.jpg?%s", $id, time() );
+
+ if ($isarchive)
+ {
+    $ts5 = mktime($hour, $minute - ($minute % 5), 0, $month, $day, $year);
+
+    $url5 = "http://mesonet.agron.iastate.edu/archive/data/". gmdate("Y/m/d/", $ts5) ."camera/$id/${id}_". gmdate("YmdHi", $ts5) .".jpg";
+
+    $cameras[$id]["url"] = $url5;
+    $cameras[$id]["active"] = true;
+ }
+
+}/* End of while */
+
+ksort($cameras);
+reset($cameras);
+
+
+?>
+<html>
+<head>
+  <style type="text/css" media="screen">@import "../css/main.css";</style>
+  <title>SchoolNet8 | Web Cameras</title>
+</head>
+<body id="sectionsix">
+<?php $app = "02"; $THISPAGE = "webcam"; include("$nwnpath/include/bar.inc.php"); ?>
+
+<div style="text-align: left; padding-left: 10px;">
+<p>The sponsorship of <a href="http://www.cipco.net">CIPCO</a> has allowed us to place 18 web cameras in
+Central Iowa with more cameras on the way!
+<br /><b>Web Camera Tools:</b>
+<ul>
+	<li>You can create <a href="bloop.phtml">dynamic loops</a> for any of these
+cameras using our 5 minute image archive.</li>
+	<li>You can <a href="viewer.phtml">view 640x480 high resolution images</a> in this handly Javascript viewer.</li>
+  <li>You can also view historical images by selecting a time below.</li>
+</ul>
+
+<form method="GET" action="index.phtml">
+<table>
+<thead><tr><th>&nbsp;</th><th>Year:</th><th>Month:</th><th>Day:</th><th>Hour:</th><th>Minute</th><td></td></tr></thead>
+<tbody>
+<tr>
+<td><input type="checkbox" value="yes" name="archive" <?php if($isarchive) echo
+"CHECKED=CHECKED"; ?>>Archived Images</td>
+<td><?php echo yearSelect(2003, $year, "year"); ?></td>
+<td><?php echo monthSelect($month, "month"); ?></td>
+<td><?php echo daySelect($day, "day"); ?></td>
+<td><?php echo localHourSelect($hour, "hour"); ?></td>
+<td><?php echo minute5Select($minute, "minute"); ?></td>
+<td><input type="submit" value="GO!"></td>
+</tr>
+</tbody></table>
+</form>
+
+
+</div>
+
+<form method="GET" action="index.phtml" name="cameras">
+<input type="hidden" value="ba" name="cams[]">
+<table style="float: left;">
+<?php
+ $i=1;
+ $misstxt = "Cameras Missing: ";
+ while (list($id, $v) = each($cameras))
+ {
+   if (isset($v["removed"])){
+     continue;
+   }
+   if (! $v["active"]  ){
+     $misstxt .= $v["name"] ." , ";
+     continue;
+   }
+   if ($i) echo "<tr>";
+   if ($isarchive)
+   { /* Always show cameras in archive mode! */
+     echo sprintf("<td> <b>%s</b> (%s County)<br /><img src=\"%s\"></td>", $v["name"], $v["county"], $v["url"]);
+   }
+   else {
+     echo sprintf("<td><input name='cams[]' type='checkbox' value='%s' ", $id);
+     if (in_array($id, $hidecams)) 
+     {
+      echo sprintf("checked='checked'>Hide? <b>%s</b> (%s County)<br />", $v["name"], $v["county"] );
+     } 
+     else 
+     {
+      echo sprintf(">Hide? <b>%s</b> (%s County)<img src=\"%s\"></td>", $v["name"], $v["county"], $v["url"]);
+     }
+   }
+   if (! $i) echo "</tr>";
+   $i = ! $i;
+ }
+?>
+</table>
+<input type='submit' value='Update Page!'>
+</form>
+<p style="clear: left; text-align: left;"><?php echo $misstxt; ?></p>
+<?php include("$nwnpath/include/footer.inc.php"); ?>

@@ -1,0 +1,178 @@
+<?php
+  // walerts.phtml
+  //   Generate a page to sign up for Wind alerts
+
+
+include("../../config/settings.inc.php");
+include("../../include/locs.inc.php");
+
+$uid = $_GET['uid'];
+$status = $_GET['status'];
+$email = $_GET['email'];
+$initials = strtoupper($_GET['initials']);
+$st = $_GET['st'];
+$str = $_GET['str'];
+$selectall = $_GET['selectall'];
+if (ereg(" ", $email)) die("No spaces allowed in your email!");
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<style type="text/css" media="screen">@import "../css/main.css";</style>
+
+  <TITLE>SchoolNet8 Wind Gust Alerts</TITLE>
+</HEAD>
+<body>
+
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<br><a href='walerts.phtml'>SchoolNet8 Wind Alerts</a><br>
+
+
+<?php
+$c = pg_connect($iemkccidb);
+
+// If they posted stations, lets work with them...
+//--------------------------------------------------------------------
+if (strlen($selectall) > 0){
+  $st = Array();
+  foreach($Scities as $key => $value){
+    $st[] = $key; 
+  }
+}
+if (sizeof($st) > 0){
+
+  $ost = Array();
+  $rs = pg_exec($c, "SELECT * from walerts WHERE uid = ". $uid );
+  for( $i=0; $row = @pg_fetch_array($rs,$i); $i++) {
+    $ost[] = $row['sid'];
+  }
+
+  // Loop through old cities looking for sites that have been removed
+  foreach ($ost as $osid){
+    if (! in_array($osid, $st) ){
+      pg_exec($c, "DELETE from walerts WHERE uid = ". $uid ." 
+       and sid = '". $osid ."' ");
+      echo "<br>Removed Site: ". $Scities[$osid]['city'];
+    } 
+  } 
+
+
+  foreach ($st as $sid){
+    if (array_key_exists($sid, $Scities) && ! in_array($sid, $ost) ){ // Valid City
+      pg_exec($c, "INSERT into walerts(sid, uid) 
+          VALUES ('".$sid."','".$uid."')");
+      echo "<br>Added Site: ". $Scities[$sid]['city'];
+    }    
+  }
+}
+
+
+
+// If there is no uid, then give them default options
+//--------------------------------------------------------------------
+if (strlen($uid) == 0 && strlen($status) == 0 ){
+?>
+<p><b>SchoolNet8 Automated Wind Alerts!</b>
+
+<p>You can sign up to receive an automated email alert when a KCCI SchoolNet8
+site reports a gust of 50 MPH or greater.  This service will generate email
+reports like <a href="alert.txt">this one</a>.
+
+<p>Please fill out this form to initialize your email account to receive the
+automated alerts.  Once you have, you can then customize which sites you want
+to be notified about.<br>
+<form method="GET" action="walerts.phtml">
+<table>
+  <tr><th>Email Address</th>
+   <td><input type="text" name="email" size="50"></td></tr>
+  <tr><th>Your Initials:</th>
+   <td><input type="text" name="initials" maxlength="3" size="4"> 3 characters for simple email security</td></tr>
+  <tr><th>User Status:</th>
+   <td>
+      <input type="radio" name="status" value="new" CHECKED>I am a new user of this system
+      <br><input type="radio" name="status" value="old">I have previously registered and would like to edit my options
+      <br><input type="radio" name="status" value="remove">Remove my email address from this system
+  </td></tr>
+  <tr><td colspan=2><input type="submit" value="Submit Form"><input type="reset"></td></tr>
+</table>
+</form>
+
+<p><b>Notice:</b>  While we make every
+effort to provide accurate data, errors can and do occur.  Data provided from
+this service is intended for educational use only.  Your email address and 
+initials will not be shared with third parties.
+
+<?php
+// Posted email and initials
+// ---------------------------------------------------------------------
+}else if (strlen($status) > 0) {
+  if ($status == 'new') {
+    // Check to see if userid exists
+    $rs = pg_exec($c, "SELECT * from accounts WHERE email = '". $email ."' ");
+    if (pg_numrows($rs) > 0)
+      die("Email Already taken");
+
+    // Create Account
+    pg_exec($c, "INSERT into accounts(email, initials, never) values
+     ('". $email ."' , '". $initials ."', 'F')");
+
+    // Pull back the uid
+    $rs = pg_exec($c, "SELECT * from accounts WHERE email = '". $email ."' ");
+    $row = pg_fetch_array($rs, 0);
+    $uid = $row['uid'];
+  } else {
+    // Verify account info
+    $rs = pg_exec($c, "SELECT * from accounts WHERE email = '". $email ."'
+      and initials = '". $initials ."' ");
+    if (pg_numrows($rs) == 0) {
+      die("Could not find matching information");
+    } else {
+      $row = pg_fetch_array($rs, 0);
+      $uid = $row['uid'];
+      $email = $row['email'];
+      if ($status == "remove") { // Remove this user  
+        pg_exec($c, "DELETE from accounts WHERE uid = ". $uid );
+        pg_exec($c, "DELETE from walerts WHERE uid = ". $uid );
+        die("Your account has been removed from the system!");
+      }
+    }
+  }
+
+}
+
+if ($uid > 0) {
+  // Pull in currently registered stations
+  $st = Array();
+  $rs = pg_exec($c, "SELECT * from walerts WHERE uid = ". $uid );
+  for( $i=0; $row = @pg_fetch_array($rs,$i); $i++) {
+    $st[] = $row['sid'];
+  }
+?>
+<p>Account options for email address: <?php echo $email; ?>
+<br>Select sites you wish to receive alerts from.  If you unselect it, 
+you will not receive alerts from the site.
+
+<p>
+<form method="GET" action="walerts.phtml">
+<input type="hidden" name="uid" value="<?php echo $uid; ?>">
+<input type="hidden" name="email" value="<?php echo $email; ?>">
+<input type="checkbox" name="selectall" value="yes">Select All Sites<br>
+<?php
+  include("../../include/counties.php");
+
+echo "<input type=\"submit\" value=\"Modify Stations\">
+<input type=\"reset\">
+
+</form>";
+
+
+}
+?>
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

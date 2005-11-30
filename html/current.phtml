@@ -1,0 +1,132 @@
+<?php  /* /index.phtml */
+ include("../config/settings.inc.php");
+ include('../include/locs.inc.php');
+ include('../include/sponsors.inc.php');
+ $app = "06"; include("../include/dblog.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <style type="text/css" media="screen">@import "css/main.css";</style>
+
+<script language="JavaScript" type="text/javascript">
+<!--//BEGIN Script
+function new_window(url) {
+	link = 
+	window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=440");
+} 
+function new_window_big(url) {
+	link = 
+	window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600");
+}
+function selectWindow() {
+ window.open('<?php echo $baseurl; ?>/select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=450,height=600');}
+//END Script-->
+</script>
+</head>
+<body>
+
+<?php $THISPAGE = "current"; include("$nwnpath/include/bar.inc.php"); ?>
+<div id="leftside">
+
+
+<p>KCCI SchoolNet8 stations report weather information live via the Internet.
+You can access this information in a variety of ways.</p>
+
+<h2>Textual Listings:</h2>
+<ul>
+<li><a href="javascript: selectWindow();">View Single Site Conditions</a>
+<br>The most recent conditions from your SchoolNet8 site.</li>
+<li><a href="<?php echo $sorturl; ?>cc.phtml">View All Sites (Sortable Currents)</a>
+<br>Quickly browse conditions from all SchoolNet8 sites in a sortable
+HTML table.</li>
+</ul>
+
+<h2>Graphical Products:</h2>
+
+<ul>
+<li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php');">View On-Air Graphic</a> 
+<br>In a new window, open a graphical view of the latest station information.</li>
+<li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php');">Live Super Doppler8 App</a> 
+<br>Pick your sites and your variable to plot, this application does the 
+rest!</li>
+<!--
+<li><a href="<?php echo $baseurl; ?>GIS/apps/raining/index.phtml">Where's it raining?</a>
+<br>Compare current radar with 15 minute rainfall totals.</li>
+-->
+</ul>
+
+<h2>Unique Data Access:</h2>
+<ul>
+<li><a href="<?php echo $baseurl; ?>sview/">SchoolNet8 Viewer</a><br>Download this free Sun Java&trade; application to monitor SchoolNet8 data
+and live Super Doppler on your desktop!</li>
+<li><a href="<?php echo $baseurl; ?>wap/index.phtml">Obs for wireless users!</a> <br>Information how you can get current KCCI SchoolNet8 obs with your wireless WAP enabled device.</li>
+<li><a href="<?php echo $baseurl; ?>tool/walerts.phtml">Email Wind Gust Alerts</a>
+<br>Stay alert, with severe wind gusts from SchoolNet8 automatically
+ emailed to your account.</li>
+</ul>
+
+ <h2>Rainfall Totals:</h2>
+ (<i>Sites are unable to measure snowfall</i>)
+<form name="df">
+<b>Hourly:</b><br />
+<ul>
+<li><a href="http://mesonet.agron.iastate.edu/cgi-bin/precip/catSNET.py">Text listing</a></li>
+</ul>
+<b>Daily:</b><br />
+<select name="ba" onChange="location=this.form.ba.options[this.form.ba.selectedIndex].value">
+<option value="#">--Select Date--
+<option value="http://mesonet.agron.iastate.edu/data/snet/precToday.gif">Today
+  <?php
+  echo "<option value=\"http://mesonet.agron.iastate.edu/archive/data/". date("Y/m/d/", (date("U") - 86400 ) ) ."snetPrec.gif\">Yesterday\n";
+  for ($i=2;$i<8;$i++){
+    echo "<option value=\"http://mesonet.agron.iastate.edu/archive/data/". date("Y/m/d/", (date("U") - $i*86400 ) ) ."snetPrec.gif\">". date("M d", (date("U") - $i*86400 ) )  ."\n";
+  }
+  ?>
+</select></form>
+
+</div><div id="rightside">
+
+<h2>Current Data:</h2>
+<ul>
+ <li><a href="http://mesonet.agron.iastate.edu/GIS/data/datasets/snet_current.zip">GIS Shapefile</a></li>
+</ul>
+
+<h2>Historical Data:</h2>
+<ul>
+ <li><a href="<?php echo $baseurl; ?>dl/index.phtml">Download</a> from the archive!</a></li>
+ <li><a href="<?php echo $baseurl; ?>hist.phtml">Monthly Charts</a> of daily extremes</li>
+</ul>
+
+<h2>Station Plots:</h2>
+<ul>
+ <li><a href="http://mesonet.agron.iastate.edu/data/snet/mesonet.gif">20 Min Mesonet</a></li>
+ <li>&nbsp; &nbsp; <a href="http://mesonet.agron.iastate.edu/GIS/apps/mesoplot/plot.php">Rapid Update</a></li>
+ <li>&nbsp; &nbsp; <a href="http://mesonet.agron.iastate.edu/GIS/apps/mesoplot/plot.php?zoom=1">DSM Metro</a></li>
+ <li><a href="http://mesonet.agron.iastate.edu/data/snet/solarRad.gif">Solar Radiation</a></li>
+ <li>Barometer: <a href="http://mesonet.agron.iastate.edu/data/snet/snet_altm.gif">millibar</a> or <a href="/dat
+a/snet/snet_alti.gif">inches</a></li>
+ <li><a href="http://mesonet.agron.iastate.edu/data/snetRADAR_0.gif">Des Moines NEXRAD Overlay</a>  
+  [<a href="http://mesonet.agron.iastate.edu/data/20snetloop.html">Loop</a>]</li>
+</ul>
+
+<h2>Comparisons:</h2>
+<i>(between SchoolNet8 stations and Iowa airport stations)</i>
+<ul>
+ <li><a href="http://mesonet.agron.iastate.edu/data/snet/Tcompare.gif">Temperatures</a></li>
+ <li><a href="http://mesonet.agron.iastate.edu/data/snet/Dcompare.gif">Dew Points</a></li>
+ <li>Barometer: <a href="http://mesonet.agron.iastate.edu/data/snet/Pcompare.gif">millibar</a> or <a href="http://mesonet.agron.iastate.edu/data/snet/P2compare.gif">inches</a></li>
+</ul>
+
+
+<h2>Time Series:</h2>
+<ul>
+ <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml">1 minute data trace!</a>
+ <br>A detailed look at how conditions are changing minute-by-minute at your site.</li>
+</ul>
+
+</div>
+
+<br clear="all" />
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

@@ -1,0 +1,4 @@
+# Robots file for KCCI SchoolNet8 website
+ 
+User-agent: *
+Disallow: /usage/

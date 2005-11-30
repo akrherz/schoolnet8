@@ -1,0 +1,99 @@
+<?php
+  /** 1trace_fe.phtml
+   */
+
+include("../../config/settings.inc.php");
+$app = "03"; include("../../include/dblog.inc.php");
+$station = $_GET['station'];
+include("../../include/imagemap.inc.php");
+include("../../include/forms.inc.php");
+
+include("../../include/select_widget.php");
+$sw = new selectWidget($nwnpath, "bogus");
+$sw->performQuery($_GET);
+if (strlen($sw->selectedSite) > 0)
+{
+  $station = $sw->selectedSite;
+}
+else 
+{
+ $sw->setShowCamera(false);
+ $sw->setShowRADAR(false);
+ $sw->drawMap();
+}
+
+/** Vars */
+$year = $_GET['year'];
+$month = $_GET['month'];
+$day = $_GET['day'];
+
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+ <TITLE>SchoolNet8 | 1 Minute Time Series</TITLE>
+<style type="text/css" media="screen">@import "../css/main.css";</style>
+</HEAD>
+<body>
+
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<p>This application generates charts showing various variables throughout a date of your choice. Note that the archive begins 12 Feb 2002.</p>
+
+  <form method="GET" action="1trace_fe.phtml" name="select">
+  <?php
+
+    if (strlen($month) == 0 ){
+	$month = date("m");
+    }
+    if (strlen($day) == 0 ){
+        $day = date("d");
+    }
+    if (strlen($year) == 0 ){
+        $year = date("Y");
+    }
+?>
+
+<table border=1 cellspacing=0 cellpadding=2 align="center">
+<tr>
+	<th>Select Site or <a href="1trace_fe.phtml">Show Map</a></th>
+	<th colspan=3>Select The Date:</th>
+	<td rowspan=2><input type="submit" value="Make Plot"></td></tr>
+
+<tr>
+	<td><?php echo kcciSelect($station); ?></td>
+	<td><?php echo yearSelect(2002, $year, "year"); ?></td>
+	<td><?php echo monthSelect($month, "month"); ?></td>
+	<td><?php echo daySelect($day, "month"); ?></td></tr>
+</table>
+
+<?php
+if (strlen($station) > 0 ) {
+
+?>
+
+<p>
+ <?php include("1minute.php"); ?>
+
+
+<p><b>Note:</b> The wind speeds are indicated every minute by the red line. 
+The blue dots represent wind direction and are shown every 10 minutes.</p>
+
+
+<?php
+} else {
+?>
+
+<p>or select from this map...
+
+<div align="center">
+<input type="image" name="map" src="<?php echo $sw->imgurl; ?>">
+</div>
+
+<?php }  ?>
+
+</form>
+
+
+<?php include("$nwnpath/include/footer.inc.php");
