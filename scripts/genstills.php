@@ -81,7 +81,6 @@ foreach($Scities as $key => $value)
 //  $rlbl->draw($img);
   $interstates->draw($img);
   $ilbl->draw($img);
-  $counties->draw($img);
   $map->drawLabelCache($img);
 
   if ($validRADAR)
@@ -92,6 +91,7 @@ foreach($Scities as $key => $value)
     $dmx->draw($img);
     //missingkcci($map,$img);
   }
+  $counties->draw($img);
 	$warnings_c->draw($img);
 
   foreach($obs->db as $key => $ob)
