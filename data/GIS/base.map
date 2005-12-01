@@ -49,6 +49,17 @@ PROJECTION
 END
 
 #
+LEGEND
+  STATUS EMBED
+  OUTLINECOLOR 0 0 0
+  IMAGECOLOR 0 0 0
+  LABEL
+    COLOR 255 255 255
+  END
+  POSITION LR
+END
+
+#
 WEB
   HEADER q_header.html
   TEMPLATE fancy.html
@@ -60,7 +71,6 @@ WEB
   LOG "/tmp/fancy.log"
 END
 
-DEBUG ON
 
 ####
 # Road Conditions
@@ -68,7 +78,7 @@ DEBUG ON
 LAYER
   NAME "roadcond"
   DATA "/mesonet/data/gis/shape/26915/iowa/iaroad_cond.shp"
-  STATUS ON
+  STATUS OFF
   TYPE LINE
   PROJECTION
    "init=epsg:26915"
@@ -206,22 +216,69 @@ LAYER
 	FILTERITEM "GTYPE"
 	FILTER /C/
 	CLASS
-		#EXPRESSION /SV/
+		NAME "Svr T'storm Warn"
         EXPRESSION ('[type]' = 'SV' and '[sig]' = 'W')
 		COLOR	255 255 0
 		SIZE	3
 		SYMBOL	'circle'
 	END
 	CLASS
-		#EXPRESSION /FF/
+		NAME "Flash Flood Warn"
         EXPRESSION ('[type]' = 'FF' and '[sig]' = 'W')
 		COLOR	0 255 0
 		SIZE	3
 		SYMBOL	'circle'
 	END
 	CLASS
-		#EXPRESSION /TO/
+		NAME "Tornado Warn"
         EXPRESSION ('[type]' = 'TO' and '[sig]' = 'W')
+		COLOR	255 0 0
+		SIZE	3
+		SYMBOL	'circle'
+	END
+    # Advisories
+    CLASS
+        NAME "Winter Advisory"
+        EXPRESSION (('[type]' = 'BZ' or '[type]' = 'SN' or '[type]' = 'WS' or '[type]' = 'BS' or '[type]' = 'SB' or '[type]' = 'IP' or '[type]' = 'HP' or '[type]' = 'ZR' or '[type]' = 'IS') and '[sig]' = 'Y')
+        STYLE
+		  COLOR	176 224 230
+		  SIZE	3
+		  SYMBOL	'circle'
+        END
+        STYLE
+		  COLOR	255 255 255
+		  SIZE	1
+		  SYMBOL	'circle'
+        END
+	END
+    # Heavy Snow
+    CLASS
+        NAME "Heavy Snow Warn"
+        EXPRESSION ('[type]' = 'HS' and '[sig]' = 'W')
+        COLOR 138 43 226
+        SIZE 3
+        SYMBOL 'circle'
+    END
+    # WW Warning
+    CLASS
+        NAME "Winter Storm Warn"
+        EXPRESSION (('[type]' = 'WS' or '[type]' = 'WW') and '[sig]' = 'W')
+		COLOR	255 105 180
+		SIZE	3
+		SYMBOL	'circle'
+	END
+    # Sleet Fz
+    CLASS
+        NAME "Ice/Frz/Sleet Warn"
+        EXPRESSION (('[type]' = 'IP' or '[type]' = 'HP' or '[type]' = 'ZR' or '[type]' = 'IS') and '[sig]' = 'W')
+		COLOR	255 20 147
+		SIZE	3
+		SYMBOL	'circle'
+	END
+    # Blizzard
+    CLASS
+        NAME "Blizzard Warn"
+        EXPRESSION ('[type]' = 'BZ' and '[sig]' = 'W')
 		COLOR	255 0 0
 		SIZE	3
 		SYMBOL	'circle'
@@ -232,7 +289,6 @@ END
 LAYER
   NAME postgis_warnings_c
   STATUS OFF
-  DEBUG ON
   TYPE LINE
   CONNECTIONTYPE postgis
   CONNECTION "user=nobody dbname=postgis host=db1.mesonet.agron.iastate.edu"
