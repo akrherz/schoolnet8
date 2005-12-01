@@ -13,4 +13,5 @@ endif
 
 #rm images/*.png >& /dev/null
 /usr/local/bin/php -q genstills.php
+/usr/local/bin/php -q genLSD.php
 

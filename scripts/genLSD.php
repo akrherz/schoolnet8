@@ -69,6 +69,7 @@ $states->draw($img);
 $warnings_c->draw($img);
 
 $subbar->draw($img);
+ putenv("TZ=CST6CDT");
 mktitle($map, $img, 350, 70, date("h:i A d M Y") );
 doppler8logo($map, $img, 425, 45, 65);
 

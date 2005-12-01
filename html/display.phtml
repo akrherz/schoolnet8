@@ -1,0 +1,105 @@
+<?php 
+  include("../config/settings.inc.php"); 
+  $loop = isset($_GET["loop"]) ? $_GET["loop"] : "single";
+  $product = isset($_GET["product"]) ? $_GET["product"]: "iowa";
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <style type="text/css" media="screen">@import "css/main.css";</style>
+  <title>SchoolNet8 | Live RADAR Views</title>
+  <meta http-equiv="refresh" content="300;">
+</head>
+<body>
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<div align="left" style="margin-left: 10px;">
+
+<div style="padding: 5px;">
+
+<form method="GET" action="display.phtml" name="control_form">
+<b>View:</b> <select name="product">
+ <option value="iowa" <?php if ($product == "iowa") echo "SELECTED"; ?>>Statewide Live Super Doppler
+ <option value="metro" <?php if ($product == "metro") echo "SELECTED"; ?>>Des Moines Metro View
+ <option value="NW" <?php if ($product == "NW") echo "SELECTED"; ?>>Northwest Iowa
+ <option value="NE" <?php if ($product == "NE") echo "SELECTED"; ?>>Northeast Iowa
+ <option value="SE" <?php if ($product == "SE") echo "SELECTED"; ?>>Southeast Iowa
+ <option value="SW" <?php if ($product == "SW") echo "SELECTED"; ?>>Southwest Iowa
+</select>
+<b>Options:</b> <select name="loop">
+ <option value="still" <?php if ($loop == "still") echo "SELECTED"; ?>>Latest Image
+ <option value="applet" <?php if ($loop == "applet") echo "SELECTED"; ?>>Loop with Java Applet
+ <option value="javascript" <?php if ($loop == "javascript") echo "SELECTED"; ?>>Loop with Java Script
+ <option value="list" <?php if ($loop == "list") echo "SELECTED"; ?>>List Images
+</select>
+<input type="submit" value="View Maps">
+
+</div>
+<br />
+
+<?php
+$files = "";
+$images = Array();
+for($i=10;$i>=0;$i--){
+  $files .= "http://mesonet.agron.iastate.edu/data/kccirad/${product}_$i.png ,";
+  $images[] = "http://mesonet.agron.iastate.edu/data/kccirad/${product}_$i.png";
+}
+
+if ($loop == "applet") {
+echo "<applet codebase=\"http://mesonet.agron.iastate.edu/current/class/\" code=\"AniS.class\" width=\"650\" height=\"600\" alt=\"You must enable Java in your browser to view the radar loop\">
+ <param name=\"controls\" value=\"startstop, looprock, step, speed, toggle, zoom\">
+ <param name=\"rate\" value=\"80\">
+ <param name=\"no_enh\" value=\"true\">
+ <param name=\"pause_percent\" value=\"800\">
+ <param name=\"filenames\" value=\"$files\">
+</applet>";
+
+} else if ($loop == "javascript") { ?>
+<script LANGUAGE="JavaScript1.2" type="text/javascript">
+//<!--
+modImages = new Array();
+<?php
+ $i = 0;
+ while ( list($key,$val) = each($images) ){
+   echo "modImages[$i] = \"". $images[$i] ."\";\n";
+   $i++;
+ } ?>
+first_image = 1;
+last_image = <?php echo sizeof($images); ?>;
+current_image = first_image;
+-->
+</script>
+<script language="JavaScript" src="js/animation.js"></script>
+
+
+<img NAME="animation" WIDTH=640 HEIGHT=480 SRC="images/pixel.gif" ALT="Image" border="2" />
+<br />
+
+<a HREF="JavaScript: func()" onClick="change_mode(1);reverse()"><img BORDER=0 SRC="images/rev_button.gif" ALT="REV"></a>
+<a HREF="JavaScript: func()" onClick="stop()"><img BORDER=0 SRC="images/stp_button.gif" ALT="STOP"></a>
+<a HREF="JavaScript: func()" onClick="change_mode(1);fwd()"><img BORDER=0 SRC="images/fwd_button.gif" ALT="FWD"></a>
+  <font SIZE=-1 COLOR="#3300CC">Frame No:</font>
+  <input TYPE="text" NAME="frame_nr" VALUE=9 SIZE="2" onFocus="this.select()" onChange="go2image(this.value)"></input>
+<script LANGUAGE="JavaScript1.2" type="text/javascript">
+//<!--
+launch();
+-->
+</script>
+
+
+
+<?php
+} else if ($loop == "list") {
+  reset($images);
+  while ( list($key,$val) = each($images) ){
+    echo "<img src=\"$val\"><br /><br />";
+  }
+
+} else {
+  echo "<img src=\"http://mesonet.agron.iastate.edu/data/kccirad/${product}_0.png\">";
+
+}
+?>
+</div>
+<?php include("$nwnpath/include/footer.inc.php"); ?>
