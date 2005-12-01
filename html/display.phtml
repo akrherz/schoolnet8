@@ -1,5 +1,7 @@
 <?php 
   include("../config/settings.inc.php"); 
+  $app = "22"; include("../include/dblog.inc.php");
+  $THISPAGE = "none";
   $loop = isset($_GET["loop"]) ? $_GET["loop"] : "single";
   $product = isset($_GET["product"]) ? $_GET["product"]: "iowa";
 ?>

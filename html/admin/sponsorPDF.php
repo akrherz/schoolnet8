@@ -243,7 +243,8 @@ function FancyTable3($header,$rs)
     "18" => "Site Guide",
     "19" => "Site Index",
     "20" => "Website Guide",
-    "21" => "GoogleMap Test Interface");
+    "21" => "GoogleMap Test Interface",
+    "22" => "Live Doppler static RADAR Viewer");
 
    for( $i=0; $row = @pg_fetch_array($rs,$i); $i++)
         {
