@@ -20,7 +20,8 @@ $street = isset($_GET["street"]) && strlen($_GET["street"]) > 0 ? $_GET["street"
 $city = isset($_GET["city"]) && strlen($_GET["city"]) > 0 ? $_GET["city"] : "";
 //$img_x = $_GET["img_x"];
 //$img_y = $_GET["img_y"];
-$showRoadCond = isset($_GET["roadcond"]);
+//$showRoadCond = isset($_GET["roadcond"]);
+$showRoadCond = 0;
 $showSiteLabel = isset($_GET["sitelabel"]);
 
 if ($mode == "archive")
