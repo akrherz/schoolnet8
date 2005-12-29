@@ -61,7 +61,7 @@ function printMonth($its, $db, $thisApp, $dailyApp){
     } else {
       $s .= "<b>". strftime("%d", $now) ."</b>";
     }
-    $s .= "<br />". $db[$key] ."</td>";
+    $s .= "<br />". @$db[$key] ."</td>";
     $now = $now + 86400;
   } // End of first week
   $s .= "</tr>"; 
@@ -82,7 +82,7 @@ function printMonth($its, $db, $thisApp, $dailyApp){
     } else {
       $s .= "<b>". strftime("%d", $now) ."</b>";
     }
-      $s .= "<br />". $db[$key] ."</td>";
+      $s .= "<br />". @$db[$key] ."</td>";
       $now = $now + 86400;
     } // End of week
     $s .= "</tr>\n";
