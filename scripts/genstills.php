@@ -128,10 +128,10 @@ foreach($Scities as $key => $value)
   $img->free();
 }
 
-chdir("/tmp");
+chdir("/tmp/radimages");
 foreach($Scities as $sid => $value)
 {
-  system("/home/ldm/bin/pqinsert radimages/${sid}.png");
+  system("/home/ldm/bin/pqinsert -p 'plot cr 000000000000 kcci/radar/${sid}/${sid}_0 bogus png' ${sid}.png");
 }
 
 ?>
