@@ -28,7 +28,7 @@ class currentdb
   var $fname = '';
   var $db = Array();
 
-  function currentdb($fname='/home/ldm/data/kcci/kcci2.dat')
+  function currentdb($fname='/home/ldm/data/csv/kcci2.dat')
   {
     $this->fname = $fname;
     $this->parse();
