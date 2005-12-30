@@ -56,7 +56,7 @@ function skntChar($sknt){
 
 function kccidopplerrecent() {
 #  return FALSE;
-  $fc =  file('/home/ldm/data/kcci/time.txt');
+  $fc =  file('/home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt');
   $ts = strtotime($fc[0]);
   if ( (time() - $ts) > 1200 || (time() - $ts) < -1200 )
     return FALSE;
