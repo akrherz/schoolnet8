@@ -316,7 +316,7 @@ if ($radar == "KCCI" && ($tvgood || $mode == "archive") )
 {
   if ($radar == "KCCI") $radar = "DMX";
   $lradar = $map->getlayerbyname("wsr88d");
-  $lradar->set("data", "/home/ldm/data/gis/images/26915/$radar.png");
+  $lradar->set("data", "/home/ldm/data/gis/images/4326/$radar/n0r_0.tif");
 }
 $lradar->set("status", 1);
 if (isset($radarts))
