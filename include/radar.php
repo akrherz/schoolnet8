@@ -56,9 +56,12 @@ function skntChar($sknt){
 
 function kccidopplerrecent() {
 #  return FALSE;
+  putenv("TZ=GMT");
   $fc =  file('/home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt');
   $ts = strtotime($fc[0]);
-  if ( (time() - $ts) > 1200 || (time() - $ts) < -1200 )
+  $d = time() - $ts;
+  putenv("TZ=CST6CDT");
+  if ( $d > 1200 || $d < -1200 )
     return FALSE;
   return TRUE;
 }
