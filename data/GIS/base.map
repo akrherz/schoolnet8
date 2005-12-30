@@ -421,9 +421,9 @@ LAYER
   NAME wsr88d
   STATUS OFF
   TYPE RASTER
-  DATA /home/ldm/data/gis/images/26915/DMX.png
+  DATA /home/ldm/data/gis/images/4326/DMX/n0r_0.tif
   PROJECTION
-    "init=epsg:26915"
+    "init=epsg:4326"
   END
   OFFSITE 0 0 0
 END
@@ -433,7 +433,7 @@ LAYER
   STATUS OFF
   TYPE RASTER
   #PROCESSING "RESAMPLE=CUBIC"
-  DATA /home/ldm/data/kcci/max.png
+  DATA /home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_0.png
   #DATA /mesonet/www/html/GIS/data/images/kcci2.tif
   PROJECTION
     "init=epsg:26915"
@@ -445,19 +445,10 @@ END
 
 
 LAYER
-  NAME KCC
-  STATUS OFF
-  TYPE RASTER
-  DATA /home/ldm/data/kcci/max.png
-  OFFSITE 0 0 0
-  TRANSPARENCY 80
-END
-
-LAYER
   NAME DMX
   STATUS OFF
   TYPE RASTER
-  DATA /mesonet/data/gis/images/26915/DMX/DMX_N0R_0.png
+  DATA /home/ldm/data/gis/images/26915/DMX/DMX_N0R_0.png
   OFFSITE 0 0 0
   TRANSPARENCY 80
   PROJECTION
