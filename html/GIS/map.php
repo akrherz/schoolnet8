@@ -11,6 +11,8 @@ if ($fa[0] > 3.0)
 include("$nwnpath/include/forms.inc.php");
 dl($mapscript);
 
+$ERROR = "";
+$layers = isset($_GET["layers"]) ? $_GET["layers"] : Array();
 $radar = isset($_GET["radar"]) ? strtoupper($_GET["radar"]) : "KCCI";
 $mode = isset($_GET["mode"]) ? $_GET["mode"] : "realtime";
 $year = isset($_GET["year"]) ? $_GET["year"] : date("Y");
@@ -262,7 +264,14 @@ $map->set("width", 640);
 
 $arExtents = explode(",", $extents);
 $map->setextent($arExtents[0], $arExtents[1], $arExtents[2], $arExtents[3]);
- 
+
+$goes_conus_vis4km = $map->getlayerbyname("goes_conus_vis4km");
+$goes_conus_vis4km->set("status", (in_array("goes_conus_vis4km",$layers) && $mode != "archive") );
+
+$goes_conus_ir4km = $map->getlayerbyname("goes_conus_ir4km");
+$goes_conus_ir4km->set("status", (in_array("goes_conus_ir4km",$layers) && $mode != "archive") );
+
+
 $counties = $map->getlayerbyname("counties");
 $counties->set("status", MS_ON);
 
@@ -278,6 +287,8 @@ $bclass = $barbs->getClass(0);
 $cities = $map->getlayerbyname("cities");
 $cities->set("status", 1);
 
+$states = $map->getlayerbyname("states");
+$states->set("status", 1);
 
 
 if ($showRoadCond)
@@ -342,6 +353,8 @@ if (isset($radarts))
 $wc->set("status", 1);
 
 $img = $map->prepareImage();
+$goes_conus_vis4km->draw($img);
+$goes_conus_ir4km->draw($img);
 $cities->draw($img);
 
 if (! $showRoadCond)
@@ -370,6 +383,7 @@ if ($showRoadCond)
 }
 
 $counties->draw($img);
+$states->draw($img);
 $wc->draw($img);
 
 foreach($myStations as $key => $value){

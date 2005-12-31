@@ -6,6 +6,9 @@ include("../../../../config/settings.inc.php");
 dl($mapscript);
 $app = "12"; include("$nwnpath/include/dblog.inc.php"); 
 include("$nwnpath/include/forms.inc.php");
+
+$ERROR = "";
+$layers = isset($_GET["layers"]) ? $_GET["layers"] : Array();
 $radar = isset($_GET["radar"]) ? strtoupper($_GET["radar"]) : "KCCI";
 $refresh = isset($_GET["refresh"]) ? intval($_GET["refresh"]): 60;
 $mode = isset($_GET["mode"]) ? $_GET["mode"] : "realtime";
@@ -208,7 +211,8 @@ if ($showSiteLabel)
   $cgiStr .= "sitelabel=show&";
 }
 
-$mapurl =  "${baseurl}GIS/map.php?zoom=1&mode=$mode&year=$year&month=$month&day=$day&hour=$hour&minute=$minute&extents=$extents;&radar=$radar&var=$var&$cgiStr";
+$lstr = implode(",", $layers);
+$mapurl =  "${baseurl}GIS/map.php?layers[]=$lstr&zoom=1&mode=$mode&year=$year&month=$month&day=$day&hour=$hour&minute=$minute&extents=$extents&radar=$radar&var=$var&$cgiStr";
 
 
 ?>
@@ -381,9 +385,13 @@ function setLayerDisplay( layerName, d ) {
   <option value="ARX" <?php if ($radar == "ARX") echo "SELECTED"; ?>>NWS - LaCrosse, WI</option>
   <option value="MPX" <?php if ($radar == "MPX") echo "SELECTED"; ?>>NWS - Minneapolis, MN</option>
 </select>
-
+<!--
 <br /><input type="checkbox" value="show" name="roadcond" <?php if ($showRoadCond) echo "checked=\"checked\""; ?>>Show Road Conditions
+-->
 <br /><input type="checkbox" value="show" name="sitelabel" <?php if ($showSiteLabel) echo "checked=\"checked\""; ?>>Show Site Labels
+
+<br /><input type="checkbox" value="goes_conus_vis4km" name="layers[]" <?php if (in_array("goes_conus_vis4km", $layers) && $mode != "archive") echo "checked=\"checked\""; ?>>Visible Satellite
+<br /><input type="checkbox" value="goes_conus_ir4km" name="layers[]" <?php if (in_array("goes_conus_ir4km", $layers) && $mode != "archive") echo "checked=\"checked\""; ?>>Infrared Satellite
 
 <br /><input type="submit" value="Generate Map">
 
@@ -415,7 +423,7 @@ function setLayerDisplay( layerName, d ) {
  <tr>
   <td colspan=2>
 <div class="ftext">Key for Weather Warnings: <b style="border: #f00 2px solid; background: #8c905a;">Tornado</b> <b style="border: #ff0 solid 2px; background: #8c905a;">Severe Thunderstorm</b> <b style="border: #0f0 solid 2px; background: #8c905a;">Flash Flood</b></div>
-<?php if (isset($ERROR)) { ?>
+<?php if (strlen($ERROR) > 0) { ?>
 <div style="background: #ff0; color: #f00; border: #000 dashed 1px;">
 <?php echo $ERROR; ?>
 </div>
