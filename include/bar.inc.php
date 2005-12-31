@@ -1,6 +1,6 @@
 <?php include("$nwnpath/include/webring.html"); ?>
 <div id="wrapper">
-<div id="imgbar"><?php if (isset($station)) {
+<div id="imgbar"><?php if (isset($station) && $station != "") {
 	include_once("$nwnpath/include/locs.inc.php");
 	include_once("$nwnpath/include/sponsors.inc.php");
 	echo '<a href="'. $baseurl .'tool/clicktru.php?station='.$station.'" target="_new"><img src="'. $baseurl .'pics/kcci_'. $station .'.gif" alt="Banner" border="0"/></a>';
