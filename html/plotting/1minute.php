@@ -11,7 +11,7 @@ if (strlen($station) > 3){
 }
 $station = intval($station);
 
-if (strlen($year) == 4 && strlen($month) > 0 && strlen(day) > 0 ){
+if (strlen($year) == 4 && strlen($month) > 0 && strlen($day) > 0 ){
   $myTime = strtotime($year."-".$month."-".$day);
 } else {
   $myTime = strtotime(date("Y-m-d"));
@@ -247,7 +247,7 @@ $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
 $graph->yscale->SetGrace(10);
 
 $graph->tabtitle->Set(' '. $Scities[$Sconv[$station]]['city'] ." on ". $titleDate .' ');
-$graph->tabtitle->SetFont(FF_VERA,FS_BOLD,12);
+$graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->legend->SetLayout(LEGEND_HOR);
 $graph->legend->SetPos(0.01,0.91, 'left', 'top');
@@ -305,7 +305,7 @@ $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
 $graph->xaxis->SetPos("min");
 
 $graph->tabtitle->Set(' '. $Scities[$Sconv[$station]]['city'] ." on ". $titleDate .' ');
-$graph->tabtitle->SetFont(FF_VERA,FS_BOLD,12);
+$graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->legend->SetLayout(LEGEND_HOR);
 $graph->legend->SetPos(0.01,0.91, 'left', 'top');
@@ -379,7 +379,7 @@ $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
 $graph->xaxis->SetPos("min");
 
 $graph->tabtitle->Set(' '. $Scities[$Sconv[$station]]['city'] ." on ". $titleDate .' ');
-$graph->tabtitle->SetFont(FF_VERA,FS_BOLD,12);
+$graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->legend->SetLayout(LEGEND_HOR);
 $graph->legend->SetPos(0.01,0.91, 'left', 'top');
