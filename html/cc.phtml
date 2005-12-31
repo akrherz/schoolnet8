@@ -157,9 +157,9 @@ while (list ($key, $val) = each ($finalA))  {
 
   echo "<td ";
   if ($tdiff < 300){
-    echo ">". strftime("%I:%M %p", $parts[ts]);
+    echo ">". strftime("%I:%M %p", $parts['ts']);
   } else {
-    echo "bgcolor=\"red\">". strftime("%d %b %I:%M %p", $parts[ts]);
+    echo "bgcolor=\"red\">". strftime("%d %b %I:%M %p", $parts['ts']);
   }
   echo "</td>";
   $gtim_t0 = intval(substr($parts["gtim"],0,2));
@@ -191,12 +191,12 @@ while (list ($key, $val) = each ($skippedStations) ) {
   echo ">\n ";
   $oddRow = ! $oddRow;
   echo "<td><input type=\"checkbox\" name=\"st[]\" value=\"".$key."\"></td>";
-  echo "<th align='left'><a href=\"javascript:new_window('$urlbase/gen/kcci_fe.php?station=".$key."');\">". $Scities[$key]['short'] . "</a></th>";
+  echo "<th align='left'><a href=\"javascript:new_window('$baseurl/gen/kcci_fe.php?station=".$key."');\">". $Scities[$key]['short'] . "</a></th>";
   echo "<td";
   if ($tdiff < 300){
-    echo ">". strftime("%I:%M %p", $parts[ts]);
+    echo ">". strftime("%I:%M %p", $parts['ts']);
   } else {
-    echo " bgcolor=\"red\">". strftime("%d %b %I:%M %p", $parts[ts]);
+    echo " bgcolor=\"red\">". strftime("%d %b %I:%M %p", $parts['ts']);
   }
   echo "</td>";
 
