@@ -9,12 +9,12 @@ $iemaccess = 'host=db1.mesonet.agron.iastate.edu dbname=iem user=nobody';
 //$server = 'http://www.schoolnet8.com';
 //$baseurl = 'http://www.schoolnet8.com/';
 //$basecgi = 'http://www.schoolnet8.com/cgi-bin/nwnwebsite/';
-//$server = 'http://ics128-198.icsincorporated.com';
-//$baseurl = 'http://ics128-198.icsincorporated.com/nwnwebsite/';
-//$basecgi = 'http://ics128-198.icsincorporated.com/cgi-bin/nwnwebsite/';
-$server = 'http://akrherz-laptop.agron.iastate.edu';
-$baseurl = 'http://akrherz-laptop.agron.iastate.edu/nwnwebsite/';
-$basecgi = 'http://akrherz-laptop.agron.iastate.edu/cgi-bin/nwnwebsite/';
+$server = 'http://ics128-198.icsincorporated.com';
+$baseurl = 'http://ics128-198.icsincorporated.com/nwnwebsite/';
+$basecgi = 'http://ics128-198.icsincorporated.com/cgi-bin/nwnwebsite/';
+//$server = 'http://akrherz-laptop.agron.iastate.edu';
+//$baseurl = 'http://akrherz-laptop.agron.iastate.edu/nwnwebsite/';
+//$basecgi = 'http://akrherz-laptop.agron.iastate.edu/cgi-bin/nwnwebsite/';
 $backupbaseurl = 'http://mesonet.agron.iastate.edu/nwnwebsite/';
 
 $nwnpath = '/home/akrherz/projects/nwnwebsite/';

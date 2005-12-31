@@ -70,7 +70,7 @@ if ($FMT == "tif.Z") then
 
   foreach i (9 8 7 6 5 4 3 2 1 0)
     set j = `echo "${i} + 1" | bc `
-    cp /home/ldm/data/${BASE}${i}.${FMT} /home/ldm/data/${BASE}${j}.${FMT}
+    mv /home/ldm/data/${BASE}${i}.${FMT} /home/ldm/data/${BASE}${j}.${FMT}
   end
 
   cp /tmp/file.$$.Z /home/ldm/data/${BASE}0.${FMT}
@@ -84,14 +84,11 @@ endif
 
   foreach i (9 8 7 6 5 4 3 2 1 0)
     set j = `echo "${i} + 1" | bc `
-    cp /home/ldm/data/${BASE}${i}.${FMT} /home/ldm/data/${BASE}${j}.${FMT}
+    mv /home/ldm/data/${BASE}${i}.${FMT} /home/ldm/data/${BASE}${j}.${FMT}
   end
 
-  cp /tmp/file.$$ /home/ldm/data/${BASE}0.${FMT}
+  mv /tmp/file.$$ /home/ldm/data/${BASE}0.${FMT}
 
-endif
-
-rm -f /tmp/file.$$
 
 
 # Generic archive writer
