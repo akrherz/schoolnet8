@@ -1,8 +1,9 @@
 <?php
- $page = $_GET['page'];
+ $page = isset($_GET['page']) ? $_GET["page"]: "obs";
  include("../../config/settings.inc.php");
  include("../../include/imagemap.inc.php");
  include('../../include/locs.inc.php');
+ include("$nwnpath/include/forms.inc.php");
  $app = "08"; include("../../include/dblog.inc.php"); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
