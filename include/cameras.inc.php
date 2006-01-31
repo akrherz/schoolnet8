@@ -2,7 +2,7 @@
 $cameras = Array(
   "SAMI4" => Array("sts" => mktime(16,0,0,4,14,2005), "ets" => time(),
                 "name" => "Ames", "active" => true,
-                "ip" => "129.186.26.175", "county" => "Story"),
+                "ip" => "129.186.185.13", "county" => "Story"),
   "SBZI4" => Array("sts" => mktime(19,0,0,5,13,2004), "ets" => time(),
 		"name" => "Blank Park Zoo", "active" => true,
 		"ip" => "63.227.72.138", "county" => "Polk"),
@@ -88,7 +88,7 @@ $cameras = Array(
 		"name" => "Tama", "active" => true,
 		"ip" => "169.203.116.12", "county" => "Tama"),
   "SWBI4" => Array("sts" => mktime(0,0,0, 8,28,2003), "ets" => time(),
-		"name" => "Webster City", "active" => false,
+		"name" => "Webster City", "active" => true,
 		"iservice" => "WMNTEL.NET", "iserviceurl" => "http://www.wmtel.net",
 		"ip" => "216.51.195.93", "county" => "Hamilton"),
   "SWII4" => Array("sts" => mktime(17,30,0, 5,14,2004), "ets" => time(),
