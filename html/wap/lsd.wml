@@ -4,8 +4,8 @@
 <wml>
   <card id="card1" title="KCCI SCHOOLNET">
    <p>
-     <img src="lsd.php?sector=<?php echo $sector; ?>" />
+     <img src="lsd.php?sector=<?php echo $sector; ?>"/>
    </p>
-   <p><ol><li><a href="lsd.wml?sector=metro">DSM Metro</a></li><li><a href="lsd.wml?sector=nw">Northwest</a></li><li><a href="lsd.wml?sector=ne">Northeast</a></li><li><a href="lsd.wml?sector=sw">Southwest</a></li><li><a href="lsd.wml?sector=se">Southeast</a></li></ol></p>
+   <p><a href="lsd.wml?sector=iowa">DSM Metro</a><br /><a href="lsd.wml?sector=metro">DSM Metro</a><br /><a href="lsd.wml?sector=nw">Northwest</a><br /><a href="lsd.wml?sector=ne">Northeast</a><br /><a href="lsd.wml?sector=sw">Southwest</a><br /><a href="lsd.wml?sector=se">Southeast</a></p>
   </card>
 </wml>
