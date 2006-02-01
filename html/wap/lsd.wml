@@ -6,6 +6,6 @@
    <p>
      <img src="lsd.php?sector=<?php echo $sector; ?>" />
    </p>
-   <p><ol><<li><a href="lsd.wml?sector=metro">DSM Metro</a></li>li><a href="lsd.wml?sector=nw">Northwest</a></li><li><a href="lsd.wml?sector=ne">Northeast</a></li><li><a href="lsd.wml?sector=sw">Southwest</a></li><li><a href="lsd.wml?sector=se">Southeast</a></li></ol></p>
+   <p><ol><li><a href="lsd.wml?sector=metro">DSM Metro</a></li>li><a href="lsd.wml?sector=nw">Northwest</a></li><li><a href="lsd.wml?sector=ne">Northeast</a></li><li><a href="lsd.wml?sector=sw">Southwest</a></li><li><a href="lsd.wml?sector=se">Southeast</a></li></ol></p>
   </card>
 </wml>
