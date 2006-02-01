@@ -1,7 +1,7 @@
 <?php
  $sector = isset($_GET["sector"]) ? $_GET["sector"] : "iowa";
  header("Content-type: text/vnd.wap.wml"); 
- $e = "&q=". time(); 
+ $e = "&amp;q=". time(); 
 ?>
 <wml>
   <card id="card1" title="KCCI SCHOOLNET">
