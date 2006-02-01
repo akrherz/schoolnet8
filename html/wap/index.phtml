@@ -19,7 +19,8 @@ $app = "10"; include("../../include/dblog.inc.php");
 
 <img src="../images/wap_medium.jpg" align="right" alt="WAP device showing ob">
 <p>This page contains instructions for setting up your WAP enabled device
-to receive current KCCI SchoolNet8 observations.  These instructions assume
+to receive current KCCI SchoolNet8 observations and view Live Super Doppler8
+radar.  These instructions assume
 that you have Internet service and a basic understanding how to operate your 
 WAP device.</p>
 
@@ -31,13 +32,14 @@ from our WAP application meets the v1.1 WML specification, so we are
 confident that it will work for your WML compliant device.
 
 <h3>Instructions:</h3>
-<p>If you point your device at the following URL you will be given a list
-of KCCI SchoolNet8 sites to pick from.<br>
+<p>If you point your device at the following URL,<br>
 <pre>
-  http://www.schoolnet8.com/wap/ob.wml
+  http://www.schoolnet8.com/wap/i.wml
 </pre>
 
-<p>After selecting a site, you will be given the most recent 
+<br />you will be given options to either view Live Super Doppler or to 
+view SchoolNet8 observations. After selecting a site on the SchoolNet8
+observations page, you will be given the most recent 
 SchoolNet8 observation.  Two links will appear at the bottom of the page
 which link you back to the above URL or refresh your data display.
 The observation shown includes:
@@ -59,7 +61,7 @@ character abbreviation used in other applications to identify sites.
 If you know your SchoolNet8 site's NWSLI, you can directly call the WAP 
 current ob program.  For example,
 <pre>
-  http://mesonet.agron.iastate.edu/kcci/wap/ob.wml?station=SKCI4
+  http://www.schoolnet8.com/wap/ob.wml?station=SKCI4
 </pre>
 would retrieve the most recent observation from the KCCI Studios SchoolNet8 
 site.  For a listing of SchoolNet8 sites and their NWSLIs, please visit the
@@ -67,7 +69,7 @@ site.  For a listing of SchoolNet8 sites and their NWSLIs, please visit the
 
 <h3>Contact Information:</h3>
 <p>This application was developed by the Iowa Environmental Mesonet.  Please
-contact Daryl Herzmann <a href="akrherz@iastate.edu">akrherz@iastate.edu</a> 
+contact Daryl Herzmann <a href="mailto:akrherz@iastate.edu">akrherz@iastate.edu</a> 
 with any suggestions and comments.
 
 
