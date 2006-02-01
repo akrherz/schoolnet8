@@ -1,12 +1,14 @@
 <?php
  $sector = isset($_GET["sector"]) ? $_GET["sector"] : "iowa";
- header("Content-type: text/vnd.wap.wml"); ?>
+ header("Content-type: text/vnd.wap.wml"); 
+ $e = "&q=".now(); 
+?>
 <wml>
   <card id="card1" title="KCCI SCHOOLNET">
    <p>Mobile SchoolNet8<br />Sponsored by CIPCO</p>
    <p>
-     <img src="lsd.php?sector=<?php echo $sector; ?>"/>
+     <img src="lsd.php?sector=<?php echo $sector . $e; ?>"/>
    </p>
-   <p><a href="lsd.wml?sector=iowa">Iowa</a><br /><a href="lsd.wml?sector=metro">DSM Metro</a><br /><a href="lsd.wml?sector=nw">Northwest</a><br /><a href="lsd.wml?sector=ne">Northeast</a><br /><a href="lsd.wml?sector=sw">Southwest</a><br /><a href="lsd.wml?sector=se">Southeast</a></p>
+   <p><a href="lsd.wml?sector=iowa<?php echo $e; ?>">Iowa</a><br /><a href="lsd.wml?sector=metro<?php echo $e; ?>">DSM Metro</a><br /><a href="lsd.wml?sector=nw<?php echo $e; ?>">Northwest</a><br /><a href="lsd.wml?sector=ne<?php echo $e; ?>">Northeast</a><br /><a href="lsd.wml?sector=sw<?php echo $e; ?>">Southwest</a><br /><a href="lsd.wml?sector=se<?php echo $e; ?>">Southeast</a><br /><a href="i.wml">Home</a></p>
   </card>
 </wml>

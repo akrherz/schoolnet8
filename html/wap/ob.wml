@@ -58,6 +58,7 @@ if (strlen($station) == 0)
      <br/><b>Wind Gust:</b> <?php echo $ob["max_drctTxt"] ." @ ". $ob["max_sped"]; ?>
      <br/><b>High Temp:</b> <?php echo $ob["tmpf_max"]; ?>
      <br/><b>Low Temp:</b> <?php echo $ob["tmpf_min"]; ?>
+     <br/><a href="i.wml">Home</a>
      <br/><a href="ob.wml">Different Site</a>
      <br/><anchor>
        Refresh this page
