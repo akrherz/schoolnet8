@@ -6,7 +6,7 @@ $cameras = Array(
   "SBZI4" => Array("sts" => mktime(19,0,0,5,13,2004), "ets" => time(),
 		"name" => "Blank Park Zoo", "active" => true,
 		"ip" => "63.227.72.138", "county" => "Polk"),
-  "SCAI4" => Array("sts" => mktime(0,0,0,10,25,2003), "ets" => time(),
+  "SCAI4" => Array("sts" => mktime(0,0,0,10,25,2003), "ets" => mktime(4,30,0,5,11,2005),
 		"name" => "Carroll", "active" => false,
 		"iservice" => "Glidden REC", 
 		"iserviceurl" => "http://www.gliddenrec.com",

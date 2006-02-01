@@ -8,7 +8,7 @@ Current Obs
 
 KCCI LSD
   dsl.79.171.networkiowa.com  user:radar ~/insert.csh (every minute)
-  LDM: "gis ac 200512292215 gis/images/26915/KCCI/KCCI_N0R_0.png GIS/kcci/KCCI_200512292215.png png"
+  LDM: "lsd ac 200512292215 gis/images/26915/KCCI/KCCI_N0R_0.png GIS/kcci/KCCI_200512292215.png png"
   write: /home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_0.png
   * Handled by generic writer... *
   write: /mesonet/ARCHIVE/data/YYYY/mm/dd/GIS/kcci/KCCI_YYYYMMDDHHMI.png
@@ -92,11 +92,11 @@ endif
 
 
 # Generic archive writer
-EXP	^(data|plot|gis|webcam) acr? ([0-9][0-9][0-9][0-9])([0-2][0-9])([0-3][0-9])([0-3][0-9])([0-5][0-9]) (.*) (.*) (.*)
+EXP	^(lsd|data|plot|gis|webcam) acr? ([0-9][0-9][0-9][0-9])([0-2][0-9])([0-3][0-9])([0-3][0-9])([0-5][0-9]) (.*) (.*) (.*)
         FILE    -overwrite      /mesonet/ARCHIVE/data/\2/\3/\4/\8
 
 # Generic Current data
-EXP	^(data|plot|gis|webcam) a?cr? ............ (.*) (.*) (.*)
+EXP	^(lsd|data|plot|gis|webcam) a?cr? ............ (.*) (.*) (.*)
 	FILE -overwrite -close data/\2
 
 # For Zip files

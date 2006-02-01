@@ -25,6 +25,7 @@ include("$nwnpath/include/forms.inc.php");
  $minute = isset($_GET["minute"]) ? $_GET["minute"] : date("i");
  $isarchive = isset($_GET["archive"]);
  $app = "02"; include("$nwnpath/include/dblog.inc.php");
+ $ts = mktime($hour, $minute, 0, $month, $day, $year);
 
  while (list($id, $val) = each($cameras))
  {
@@ -97,7 +98,7 @@ cameras using our 5 minute image archive.</li>
    if (isset($v["removed"])){
      continue;
    }
-   if (! $v["active"]  ){
+   if (! $v["active"]  && ($v["ets"] > $ts) ){
      $misstxt .= $v["name"] ." , ";
      continue;
    }
