@@ -2,8 +2,7 @@
 <wml>
   <card id="card1" title="KCCI SCHOOLNET">
    <p>
-     <img src="lsd.php">
+     <img src="lsd.php" />
    </p>
   </card>
 </wml>
-
