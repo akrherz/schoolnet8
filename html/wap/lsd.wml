@@ -3,7 +3,7 @@
  header("Content-type: text/vnd.wap.wml"); ?>
 <wml>
   <card id="card1" title="KCCI SCHOOLNET">
-   <p>Sponsored by CIPCO</p>
+   <p>Mobile SchoolNet8<br />Sponsored by CIPCO</p>
    <p>
      <img src="lsd.php?sector=<?php echo $sector; ?>"/>
    </p>
