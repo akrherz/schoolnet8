@@ -1,10 +1,10 @@
 <?php
 
 $dbhost = 'host=127.0.0.1 dbname=kcci user=kcci password=kcciweb';
-$summarydb = 'host=db1.mesonet.agron.iastate.edu dbname=summary user=nobody';
-$iemkccidb = 'host=db1.mesonet.agron.iastate.edu dbname=kcci user=nobody';
-$iemdbhost = 'host=db1.mesonet.agron.iastate.edu user=nobody dbname=snet';
-$iemaccess = 'host=db1.mesonet.agron.iastate.edu dbname=iem user=nobody';
+$summarydb = 'host=mesonet-db1.agron.iastate.edu dbname=summary user=nobody';
+$iemkccidb = 'host=mesonet-db1.agron.iastate.edu dbname=kcci user=nobody';
+$iemdbhost = 'host=mesonet-db1.agron.iastate.edu user=nobody dbname=snet';
+$iemaccess = 'host=mesonet-db1.agron.iastate.edu dbname=iem user=nobody';
 
 //$server = 'http://www.schoolnet8.com';
 //$baseurl = 'http://www.schoolnet8.com/';
