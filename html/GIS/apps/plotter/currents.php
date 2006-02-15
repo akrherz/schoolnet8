@@ -23,8 +23,8 @@ $street = isset($_GET["street"]) && strlen($_GET["street"]) > 0 ? $_GET["street"
 $city = isset($_GET["city"]) && strlen($_GET["city"]) > 0 ? $_GET["city"] : "";
 //$img_x = $_GET["img_x"];
 //$img_y = $_GET["img_y"];
-//$showRoadCond = isset($_GET["roadcond"]);
-$showRoadCond = 0;
+$showRoadCond = isset($_GET["roadcond"]);
+//$showRoadCond = 0;
 $showSiteLabel = isset($_GET["sitelabel"]);
 
 if ($mode == "archive")
@@ -385,9 +385,7 @@ function setLayerDisplay( layerName, d ) {
   <option value="ARX" <?php if ($radar == "ARX") echo "SELECTED"; ?>>NWS - LaCrosse, WI</option>
   <option value="MPX" <?php if ($radar == "MPX") echo "SELECTED"; ?>>NWS - Minneapolis, MN</option>
 </select>
-<!--
 <br /><input type="checkbox" value="show" name="roadcond" <?php if ($showRoadCond) echo "checked=\"checked\""; ?>>Show Road Conditions
--->
 <br /><input type="checkbox" value="show" name="sitelabel" <?php if ($showSiteLabel) echo "checked=\"checked\""; ?>>Show Site Labels
 
 <br /><input type="checkbox" value="goes_conus_vis4km" name="layers[]" <?php if (in_array("goes_conus_vis4km", $layers) && $mode != "archive") echo "checked=\"checked\""; ?>>Visible Satellite
