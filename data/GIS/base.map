@@ -77,7 +77,7 @@ END
 #====================================================================
 LAYER
   NAME "roadcond"
-  DATA "/mesonet/data/gis/shape/26915/iowa/iaroad_cond.shp"
+  DATA "/home/ldm/data/gis/shape/26915/ia/iaroad_cond.shp"
   STATUS OFF
   TYPE LINE
   PROJECTION
