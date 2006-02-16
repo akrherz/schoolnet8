@@ -35,7 +35,7 @@ $sponsors = Array(
 "SFOI4" => Array("name"=> "Nodaway Valley / Fontanelle", "sponsor" => "Farmers Electric Cooperative", "url" => "http://www.farmersrec.com/"),
 "SGLI4" => Array("name"=> "Glidden-Ralston / Glidden", "sponsor" => "Glidden REC", "url" => "http://www.gliddenrec.com"),
 "SGRI4" => Array("name"=> "Dallas Center / Grimes", "sponsor" => "CIPCO", "url" => "http://www.cipco.net/"),
-"SHUI4" => Array("name"=> "Humboldt", "sponsor" => "Humboldt County REC", "url" => "http://www.humboldtrec.com/"),
+"SHUI4" => Array("name"=> "Humboldt", "sponsor" => "Humboldt County REC", "url" => "http://www.humboldtrec.coop/"),
 "SIFI4" => Array("name"=> "Rock Run Elementary / Iowa Falls", "sponsor" => "Midland Power Cooperative", "url" => "http://www.midlandpower.com/"),
 "SINI4" => Array("name"=> "Emerson Elementary / Indianola", "sponsor" => "Clarke Electric Cooperative, Inc", "url" => "http://www.clarkeelectric.org/"),
 "SOGI4" => Array("name"=> "Ogden", "sponsor" => "Midland Power Cooperative", "url" => "http://www.midlandpower.com/"),
