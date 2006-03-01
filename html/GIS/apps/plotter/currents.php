@@ -369,7 +369,7 @@ function setLayerDisplay( layerName, d ) {
      </select>
 
 <br />Add Sites:
-<br /><select name="st[]" size="5" multiple>
+<br /><select name="st[]" size="3" multiple>
         <?php echo $strStr; ?>
      </select>
 
