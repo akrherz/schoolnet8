@@ -8,7 +8,7 @@ $app = "12"; include("$nwnpath/include/dblog.inc.php");
 include("$nwnpath/include/forms.inc.php");
 
 $ERROR = "";
-$layers = isset($_GET["layers"]) ? $_GET["layers"] : Array();
+$layers = isset($_GET["layers"]) ? $_GET["layers"] : Array("nws_warnings");
 $radar = isset($_GET["radar"]) ? strtoupper($_GET["radar"]) : "KCCI";
 $refresh = isset($_GET["refresh"]) ? intval($_GET["refresh"]): 60;
 $mode = isset($_GET["mode"]) ? $_GET["mode"] : "realtime";
