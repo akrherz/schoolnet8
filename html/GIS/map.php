@@ -350,7 +350,7 @@ if (isset($radarts))
 } else {
   $wc = $map->getlayerbyname("warnings_c");
 }
-$wc->set("status", 1);
+$wc->set("status", in_array("nws_warnings",$layers) );
 
 $img = $map->prepareImage();
 $goes_conus_vis4km->draw($img);
