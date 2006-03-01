@@ -258,7 +258,7 @@ function refresh()
 
 //-->
 </script>
-
+  <style type="text/css" media="screen">@import "../../../css/main.css";</style>
 </head>
 <body onload="doLoad()">
 
@@ -413,14 +413,9 @@ function setLayerDisplay( layerName, d ) {
    <td align="center" bgcolor="#000080"><a href="<?php echo $baseurl; ?>tool/clicktru.php?station=CIPCO" target="_new"><img src="<?php echo $baseurl; ?>pics/banner.gif" border="0"></a></td>
 	</tr>
 	<tr>
-<td bgcolor="#000000">
+<td valign="top">
 <div id="imgmain" style="z-index: 1;"><img name="mymap" src="<?php echo $mapurl; ?>" width="640" height="480"></div>
 <div id="imgmain2" style="margin-top: -480px; z-index: 2;"><input type="image" name="img" src="<?php echo $baseurl; ?>/images/trans640x480.png" width="640" height="480"></div>
-</td>
- </tr>
-
- <tr>
-  <td colspan=2>
 <div class="ftext">Key for Weather Warnings: <b style="border: #f00 2px solid; background: #8c905a;">Tornado</b> <b style="border: #ff0 solid 2px; background: #8c905a;">Severe Thunderstorm</b> <b style="border: #0f0 solid 2px; background: #8c905a;">Flash Flood</b></div>
 <?php if (strlen($ERROR) > 0) { ?>
 <div style="background: #ff0; color: #f00; border: #000 dashed 1px;">
