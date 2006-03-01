@@ -385,9 +385,10 @@ function setLayerDisplay( layerName, d ) {
   <option value="ARX" <?php if ($radar == "ARX") echo "SELECTED"; ?>>NWS - LaCrosse, WI</option>
   <option value="MPX" <?php if ($radar == "MPX") echo "SELECTED"; ?>>NWS - Minneapolis, MN</option>
 </select>
-<br /><input type="checkbox" value="show" name="roadcond" <?php if ($showRoadCond) echo "checked=\"checked\""; ?>>Show Road Conditions
 <br /><input type="checkbox" value="show" name="sitelabel" <?php if ($showSiteLabel) echo "checked=\"checked\""; ?>>Show Site Labels
-
+<br /><input type="checkbox" value="nws_warnings" name="layers[]" <?php if (in_array("nws_warnings", $layers) && $mode != "archive") echo "checked=\"checked\""; ?>>NWS Warnings
+<br /><b>- Other Realtime Layers:</b>
+<br /><input type="checkbox" value="show" name="roadcond" <?php if ($showRoadCond) echo "checked=\"checked\""; ?>>Show Road Conditions
 <br /><input type="checkbox" value="goes_conus_vis4km" name="layers[]" <?php if (in_array("goes_conus_vis4km", $layers) && $mode != "archive") echo "checked=\"checked\""; ?>>Visible Satellite
 <br /><input type="checkbox" value="goes_conus_ir4km" name="layers[]" <?php if (in_array("goes_conus_ir4km", $layers) && $mode != "archive") echo "checked=\"checked\""; ?>>Infrared Satellite
 
