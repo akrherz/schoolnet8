@@ -94,8 +94,8 @@ $cameras = Array(
   "SWII4" => Array("sts" => mktime(17,30,0, 5,14,2004), "ets" => time(),
 		"name" => "Winterset", "active" => true,
 		"iservice" => "I-rule.net", "iserviceurl" => "http://www.i-rule.net/",
-        "sponsor" => "Madison County Chamber and Development Group", 
-        "sponsorurl" => "http://www.madisoncounty.com",
+        "hosted" => "Madison County Chamber and Development Group", 
+        "hostedurl" => "http://www.madisoncounty.com",
 		"ip" => "209.234.86.215", "county" => "Madison"),
  );
 
