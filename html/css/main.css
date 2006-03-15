@@ -22,6 +22,7 @@ body {
 	background: #eee;
 	font-size: smaller;
 	padding: 5px;
+    clear: both;
 }
 #leftside{
 	float:	left;
