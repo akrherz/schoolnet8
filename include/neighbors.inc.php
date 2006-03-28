@@ -72,6 +72,7 @@ $neighbors = Array(
 'SNEI4' => Array('SBXI4', 'SSUI4', 'SPEI4', 'SMAI4', 'SKNI4'),
 'SNVI4' => Array('SCOI4', 'SAMI4', 'SBOI4', 'SAKI4', 'SBXI4'),
 'SUNI4' => Array('SMAI4', 'SCOI4', 'SIFI4', 'SBXI4', 'SNVI4'),
+'SBXI4' => Array('SNEI4', 'SCOI4', 'SMAI4', 'SNVI4', 'SSUI4'),
 );
 
 ?>
