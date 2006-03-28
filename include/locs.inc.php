@@ -9,6 +9,7 @@
 "SATI4" => array("short" => "Anita", "city" => "Anita", "id" => "SATI4"	 , "lat" => "41.4535", "lon" => "-94.7691", "online" => true),
 "SAKI4" => array("short" => "Ankeny", "city" => "Ankeny / Christian Academy", "id" =>  "SAKI4" , "lat" => "41.7323333333", "lon" => "-93.62275", "online" => true),
 "SAUI4" => array("short" => "Audubon", "city" => "Audubon Community", "id" =>  "SAUI4", "lat" => "41.7125833333", "lon" => "-94.9222833333", "online" => true),
+"SBXI4" => array("short" => "Baxter", "city" => "Baxter", "id" =>  "SBXI4", "lat" => "41.8264", "lon" => "-93.1513", "online" => true),
 "SUNI4" => array("short" => "Union", "city" => "BCLUW MS Union", "id" =>  "SUNI4", "lat" => "42.2438", "lon" => "-93.0675", "online" => true),
 "SCBI4" => array("short" => "Coon Rapids", "city" => "Coon Rapids / Bayard", "id" =>  "SCBI4"	, "lat" => "41.87865", "lon" => "-94.6811333333", "online" => true),   
 "SBDI4" => array("short" => "Bedford", "city" => "Bedford", "id" =>  "SBDI4"	, "lat" => "40.67217", "lon" => "-94.72363", "online" => true),	   
@@ -136,7 +137,8 @@ $Sconv = array(
 170 => 'SMDI4',
 171 => 'SEGI4',
 172 => 'SUNI4',
-173 => 'STQI4');
+173 => 'STQI4',
+238 => 'SBXI4');
 
 $SconvBack = array(
 "SAGI4" => '128',
@@ -205,5 +207,6 @@ $SconvBack = array(
 "SMDI4" => '170',
 "SEGI4" => '171',
 "SUNI4" => '172',
-"STQI4" => '173');
+"STQI4" => '173',
+"SBXI4" => '238');
 ?>
