@@ -110,11 +110,11 @@ if ($mode == "monthly") {
 /* Begin Page Output */
   $TITLE = "Weather Data Calendar";
   include("$nwnpath/include/header.inc.php"); 
-  include("$nwnpath/include/bar.inc.php"); ?>
-
+  include("$nwnpath/include/bar.inc.php"); 
+?>
 <div id="justone">
-
-<h2>SchoolNet8 Weather Data Calendar</h2>
+<h2>Data Calendar for <?php echo $Scities[$station]["city"]; ?></h2>
+<div class="hide">
 
 <?php
 if ($mode == "monthly"){
@@ -127,9 +127,10 @@ if ($mode == "monthly"){
   echo "<p>Switch date shown:<form name=\"ds\" method=\"get\"><input type=\"hidden\" value=\"daily\" name=\"mode\">". yearSelect(2002, $year, "year") . monthSelect($month, "month") . daySelect($day, "day") ."<input type=\"submit\" value=\"Switch Date\"></form>";
 echo "<p>Date show in table: $nicedate";
 }
-
+echo "</div>";
 echo $htmlout;
 ?>
+<div class="hide">
 <br clear="all"/>
 <p><b>Notes:</b>
 <li>This data is <b>NOT</b> considered official and is intended for educational use only.</li>
@@ -138,6 +139,7 @@ are not included.</li>
 <li>Values that are <strike>crossed out</strike> failed a crude quality control routine.</li>
 <li>You may wish to consult a <a href="<?php echo $baseurl; ?>dl/history.phtml">listing</a> of when stations came online.</li>
 <li>Peak wind gusts are unavailable prior to 11 July 2002.</li>
+</div>
 
 </div>
 

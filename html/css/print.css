@@ -4,7 +4,6 @@ body {
 	background: white;
 	text-align: left;
 	color: black;
-	line-height: 150%;
 	border: 0;
 	border-top: 0;
 	margin: 0;
@@ -12,10 +11,21 @@ body {
 	width: 7in;
   	 }
 
-#header img	{
+#mainNavOuter {
 	display: none;
-	}
-
+}
+#webring {
+	display: none;
+}
+div.hide {
+	display: none;
+}
+#imgbar{
+	display: none;
+}
+#footer{
+	display: none;
+}
 #sidebar	, #subnav, #menu, .hide {
 	display: none;
    	}
@@ -78,7 +88,7 @@ a:link, a:visited {
 
 h1, h2, h3, h4, h5, h6	{
 	font-weight: bold;
-	margin-top: 1em;
+	margin-top: 0px;
 	margin-bottom: 2pt;
 	letter-spacing: 1pt;
 	}
