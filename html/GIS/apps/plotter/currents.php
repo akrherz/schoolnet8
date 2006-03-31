@@ -211,7 +211,7 @@ if ($showSiteLabel)
   $cgiStr .= "sitelabel=show&";
 }
 
-$lstr = implode(",", $layers);
+$lstr = implode("&layers[]=", $layers);
 $mapurl =  "${baseurl}GIS/map.php?layers[]=$lstr&zoom=1&mode=$mode&year=$year&month=$month&day=$day&hour=$hour&minute=$minute&extents=$extents&radar=$radar&var=$var&$cgiStr";
 
 
