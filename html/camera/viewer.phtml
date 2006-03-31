@@ -81,12 +81,9 @@ init();
 <body>
 
 
-<div style="float: left; background-color: #fff; text-align: left; padding: 5px; width: 160px;">
-
-<b>JavaScript Camera Viewer.</b>
-
 <form name="main" target="JavaScript: func()">
-<p><b>Select Camera:</b>
+<div style="float: left; background-color: #fff; text-align: left; padding: 5px; width: 160px;">
+<b>Select Camera:</b>
 <?php while (list($cid, $v) = each($cameras) )
 {
 	if ($v["active"]){
@@ -109,10 +106,10 @@ init();
 <?php if (substr($_SERVER["REMOTE_ADDR"],0,7) != "204.227" ) { ?>
 <img name="logo" src="<?php echo $baseurl; ?>/images/clogos/<?php echo $id; ?>_cam.png" style="position: absolute; left: 550px; top: 35px; z-index: 3;">
 <?php } ?>
-<img name="camera" src="http://mesonet.agron.iastate.edu/data/camera/640x480/<?php echo $id; ?>.jpg" style="position: absolute; left: 145px; top: 0px; z-index: 2; border: 10px #000 solid;">
+<img name="camera" src="http://mesonet.agron.iastate.edu/data/camera/640x480/<?php echo $id; ?>.jpg" style="position: absolute; left: 165px; top: 0px; z-index: 2; border: 10px #000 solid;">
 
 
-<div style="position: absolute; top: 530px; left: 10px; text-align:left; background-color: #fff; padding: 5px;">
+<div style="position: absolute; top: 600px; left: 10px; text-align:left; background-color: #fff; padding: 5px;">
 
 <b>Links:</b> <a href="<?php echo $baseurl; ?>">SchoolNet8.com</a>  |  <a href="<?php echo $baseurl; ?>/camera/">Web Cameras</a>
 
