@@ -3,15 +3,19 @@
   //  Unification of 1 minute SNET plots!
   // 
 
-  include ("../include/kcciLoc.php");
-  include ("../include/mlib.php");
+  include ("../../include/locs.inc.php");
+  include ("../../include/mlib.php");
+$station = 'SBDI4';
+$year = 2006;
+$month = 3;
+$day = 19;
 
 if (strlen($station) > 3){
     $station = $SconvBack[$station];
 }
 $station = intval($station);
 
-if (strlen($year) == 4 && strlen($month) > 0 && strlen(day) > 0 ){
+if (strlen($year) == 4 && strlen($month) > 0 && strlen($day) > 0 ){
   $myTime = strtotime($year."-".$month."-".$day);
 } else {
   $myTime = strtotime(date("Y-m-d"));
@@ -27,7 +31,9 @@ if ($wA > $myTime){
 }
 
 
-$fcontents = file('/mesonet/ARCHIVE/raw/snet/'.$dirRef.'/'.$station.'.dat');
+$fcontents = @file('http://mesonet.agron.iastate.edu/archive/raw/snet/'.$dirRef.'/'.$station.'.dat');
+
+
 
 // BUILD Arrays to hold minute-by-minute data
 $tmpf = Array();
@@ -77,23 +83,23 @@ while (list ($line_num, $line) = each ($fcontents)) {
   $thisTime = $parts[0];
   $thisDate = $parts[1];
   $dateTokens = split("/", $thisDate);
-  $strDate = "20". $dateTokens[2] ."-". $dateTokens[0] ."-". $dateTokens[1]; 
+  $strDate = "20". $dateTokens[2] ."-". $dateTokens[0] ."-". $dateTokens[1];
   $timestamp = strtotime($strDate ." ". $thisTime );
 #  echo $thisTime ."||";
-  
-  $thisTmpf = intval( substr($parts[6],0,3) );
+
+  if (substr($parts[6], 0, 2) == "0-"){
+    $thisTmpf = intval( substr($parts[6], 1, 2) ) ;
+  } else {
+    $thisTmpf = intval( substr($parts[6], 0, 3) ) ;
+  }
   $thisRelH = intval( substr($parts[7],0,3) );
   $thisSR = intval( substr($parts[4],0,3) ) * 10;
   $thisMPH = intval( substr($parts[3],0,-3) );
   if ($thisMPH > $peaksped) $peaksped = $thisMPH;
   $thisDRCT = $dirTrans[$parts[2]];
-  $thisGust = intval($parts[12]);
-  if ($i < 15){ 
-     $thisGust = "";
-  } else {
-    if ($thisGust < $peakGust)  $thisGust = $peakGust;
-    else $peakGust = $thisGust;
-  }
+  $thisGust = $parts[12];
+  if ($thisGust < $peakgust)  $thisGust = $peakGust;
+  else $peakgust = $thisGust;
   if (sizeof($parts) > 13) $hasgust = 1;
   $thisALTI = substr($parts[8],0,-1);
   $thisPREC = substr($parts[9],0,-2);
@@ -102,17 +108,17 @@ while (list ($line_num, $line) = each ($fcontents)) {
   if ($thisRelH > 0){
     $thisDwpf = dwpf($thisTmpf, $thisRelH);
   } else {
-    $thisDwpf = " ";
+    $thisDwpf = "";
   }
   if ($thisTmpf < -50 || $thisTmpf > 150 ){
-    $thisTmpf = " ";
+    $thisTmpf = "";
   } else {
     if ($max_yaxis < $thisTmpf){
       $max_yaxis = $thisTmpf;
     }
   }
   if ($thisDwpf < -50 || $thisDwpf > 150 ){
-    $thisDwpf = " ";
+    $thisDwpf = "";
   }  else {
     if ($min_yaxis > $thisDwpf){
       $min_yaxis = $thisDwpf;
@@ -120,8 +126,8 @@ while (list ($line_num, $line) = each ($fcontents)) {
   }
 
   $shouldbe = intval( $start ) + 60 * $i;
- 
-  
+
+
   // We are good, write data, increment i
   if ( $shouldbe == $timestamp ){
 #    echo " EQUALS <br>";
@@ -141,22 +147,22 @@ while (list ($line_num, $line) = each ($fcontents)) {
     if ($alti[$i] < 900)   $alti[$i] = " ";
     $i++;
     continue;
-  
+
   // Missed an ob, leave blank numbers, inc i
   } else if (($timestamp - $shouldbe) > 0) {
 #    echo " TROUBLE <br>";
     $tester = $shouldbe + 60;
     while ($tester <= $timestamp ){
       $tester = $tester + 60 ;
-      $tmpf[$i] = " ";
-      $dwpf[$i] = " ";
-      $sr[$i] = " ";
+      $tmpf[$i] = "";
+      $dwpf[$i] = "";
+      $sr[$i] = "";
       $xlabel[$i] ="";
       $drct[$i] = "-199";
-      $mph[$i] = " ";
-      $gust[$i] = " ";
-      $prec[$i] = " ";
-      $alti[$i] = " ";
+      $mph[$i] = "";
+      $gust[$i] = "";
+      $prec[$i] = "";
+      $alti[$i] = "";
       $i++;
       $missing++;
     }
@@ -177,12 +183,12 @@ while (list ($line_num, $line) = each ($fcontents)) {
 
     $i++;
     continue;
-    
+
     $line_num--;
   } else if (($timestamp - $shouldbe) < 0) {
 #    echo "DUP <br>";
      $dups++;
-    
+
   }
 
 } // End of while
@@ -211,9 +217,9 @@ if ($sr[0] == ""){
 }
 
 
-include ("../plotting/jpgraph/jpgraph.php");
-include ("../plotting/jpgraph/jpgraph_line.php");
-include ("../plotting/jpgraph/jpgraph_scatter.php");
+include ("../../include/jpgraph/jpgraph.php");
+include ("../../include/jpgraph/jpgraph_line.php");
+include ("../../include/jpgraph/jpgraph_scatter.php");
 
 // Create the graph. These two calls are always required
 $graph = new Graph(590,360,"example1");
@@ -229,27 +235,27 @@ $graph->xaxis->SetTickLabels($xlabel);
 $graph->xaxis->SetTextTickInterval(60);
 
 $graph->xaxis->SetLabelAngle(90);
-$graph->yaxis->scale->ticks->SetPrecision(1);
+//$graph->yaxis->scale->ticks->SetPrecision(1);
 $graph->yscale->SetGrace(10);
 $graph->title->Set($Scities[$Sconv[$station]]['city'] ." Time Series");
 $graph->subtitle->Set($titleDate );
 
 $graph->legend->SetLayout(LEGEND_HOR);
 $graph->legend->Pos(0.075,0.0925);
-$graph->yaxis->scale->ticks->SetPrecision(0);
+//$graph->yaxis->scale->ticks->SetPrecision(0);
 
-$graph->title->SetFont(FF_ARIAL,FS_BOLD,14);
-$graph->subtitle->SetFont(FF_ARIAL,FS_BOLD,12);
+$graph->title->SetFont(FF_FONT1,FS_BOLD,14);
+$graph->subtitle->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->yaxis->SetTitle("Temperature [F]");
 
-$graph->yaxis->title->SetFont(FF_ARIAL,FS_BOLD,14);
-$graph->yaxis->SetFont(FF_ARIAL,FS_BOLD,14);
+$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD,14);
+$graph->yaxis->SetFont(FF_FONT1,FS_BOLD,14);
 $graph->xaxis->SetTitle("Valid Local Time");
 $graph->xaxis->SetTitleMargin(45);
-$graph->xaxis->SetFont(FF_ARIAL,FS_NORMAL,14);
+$graph->xaxis->SetFont(FF_FONT1,FS_NORMAL,14);
 $graph->yaxis->SetTitleMargin(35);
-$graph->xaxis->title->SetFont(FF_ARIAL,FS_BOLD,14);
+$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD,14);
 $graph->xaxis->SetPos("min");
 
 // Create the linear plot
@@ -280,7 +286,7 @@ $graph->img->SetMargin(55,40,55,80);
 $graph->xaxis->SetTickLabels($xlabel);
 $graph->xaxis->SetTextTickInterval(60);
 $graph->xaxis->SetLabelAngle(90);
-$graph->yaxis->scale->ticks->SetPrecision(1);
+//$graph->yaxis->scale->ticks->SetPrecision(1);
 $graph->title->Set($Scities[$Sconv[$station]]['city'] ." Time Series");
 $graph->subtitle->Set($titleDate );
 
@@ -288,29 +294,29 @@ $graph->legend->SetLayout(LEGEND_HOR);
 $graph->legend->Pos(0.075,0.105);
 
 $graph->yaxis->scale->ticks->Set(90,15);
-$graph->yaxis->scale->ticks->SetPrecision(0);
+//$graph->yaxis->scale->ticks->SetPrecision(0);
 $graph->y2axis->scale->ticks->Set(5,1);
-$graph->y2axis->scale->ticks->SetPrecision(0);
+//$graph->y2axis->scale->ticks->SetPrecision(0);
 
 $graph->yaxis->SetColor("blue");
 $graph->y2axis->SetColor("red");
 
-$graph->title->SetFont(FF_ARIAL,FS_BOLD,14);
-$graph->subtitle->SetFont(FF_ARIAL,FS_BOLD,12);
+$graph->title->SetFont(FF_FONT1,FS_BOLD,14);
+$graph->subtitle->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->yaxis->SetTitle("Wind Direction");
 $graph->y2axis->SetTitle("Wind Speed [MPH]");
 
-$graph->yaxis->title->SetFont(FF_ARIAL,FS_BOLD,12);
-$graph->y2axis->title->SetFont(FF_ARIAL,FS_BOLD,12);
-$graph->yaxis->SetFont(FF_ARIAL,FS_BOLD,12);
-$graph->y2axis->SetFont(FF_ARIAL,FS_BOLD,12);
+$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
+$graph->y2axis->title->SetFont(FF_FONT1,FS_BOLD,12);
+$graph->yaxis->SetFont(FF_FONT1,FS_BOLD,12);
+$graph->y2axis->SetFont(FF_FONT1,FS_BOLD,12);
 $graph->xaxis->SetTitle("Valid Local Time");
 $graph->xaxis->SetTitleMargin(45);
 $graph->yaxis->SetTitleMargin(35);
 $graph->y2axis->SetTitleMargin(28);
-$graph->xaxis->title->SetFont(FF_ARIAL,FS_NORMAL,14);
-$graph->xaxis->SetFont(FF_ARIAL,FS_NORMAL,14);
+$graph->xaxis->title->SetFont(FF_FONT1,FS_NORMAL,14);
+$graph->xaxis->SetFont(FF_FONT1,FS_NORMAL,14);
 $graph->xaxis->SetPos("min");
 
 // Create the linear plot
@@ -356,30 +362,30 @@ $graph->legend->SetLayout(LEGEND_HOR);
 $graph->legend->Pos(0.075,0.125);
 
 $graph->y2axis->scale->ticks->Set(1,0.25);
-$graph->y2axis->scale->ticks->SetPrecision(1);
+//$graph->y2axis->scale->ticks->SetPrecision(1);
 $graph->yaxis->scale->ticks->Set(2,0.1);
-$graph->yaxis->scale->ticks->SetPrecision(0);
+//$graph->yaxis->scale->ticks->SetPrecision(0);
 
 $graph->yaxis->SetColor("black");
 $graph->yscale->SetGrace(20);
 $graph->y2axis->SetColor("blue");
 
-$graph->title->SetFont(FF_ARIAL,FS_BOLD,14);
-$graph->subtitle->SetFont(FF_ARIAL,FS_BOLD,12);
+$graph->title->SetFont(FF_FONT1,FS_BOLD,14);
+$graph->subtitle->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->yaxis->SetTitle("Pressure [millibars]");
-$graph->yaxis->SetFont(FF_ARIAL,FS_NORMAL,12);
-$graph->yaxis->title->SetFont(FF_ARIAL,FS_NORMAL,12);
+$graph->yaxis->SetFont(FF_FONT1,FS_NORMAL,12);
+$graph->yaxis->title->SetFont(FF_FONT1,FS_NORMAL,12);
 //$graph->y2axis->SetTitle("Accumulated Precipitation [inches]");
-$graph->y2axis->SetFont(FF_ARIAL,FS_NORMAL,14);
+$graph->y2axis->SetFont(FF_FONT1,FS_NORMAL,14);
 
-//$graph->yaxis->title->SetFont(FF_ARIAL,FS_BOLD,12);
+//$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
 $graph->xaxis->SetTitle("Valid Local Time");
 $graph->xaxis->SetTitleMargin(45);
 $graph->yaxis->SetTitleMargin(40);
 //$graph->y2axis->SetTitleMargin(28);
-$graph->xaxis->title->SetFont(FF_ARIAL,FS_NORMAL,14);
-$graph->xaxis->SetFont(FF_ARIAL,FS_NORMAL,14);
+$graph->xaxis->title->SetFont(FF_FONT1,FS_NORMAL,14);
+$graph->xaxis->SetFont(FF_FONT1,FS_NORMAL,14);
 $graph->xaxis->SetPos("min");
 
 // Create the linear plot
