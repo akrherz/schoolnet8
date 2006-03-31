@@ -15,12 +15,24 @@ body {
   min-width: 698px; 
   width: 698px;
 }
+#wrapper:after {
+    content: "."; 
+    display: block;
+    height: 0;
+    overflow: hidden;
+    clear: both; 
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+    * html #wrapper {height: 1%;}
+    /* End Holly Hack */
 #imgbar {
 	background: #eee;
 }
 #footer {
 	background: #eee;
-	font-size: smaller;
+	font-size: x-small;
 	padding: 5px;
     clear: both;
 }
@@ -137,7 +149,6 @@ ul li a {
 #mainNav {
         width: 100%;
         font-weight: bold;
-        font-family: "Luxi Sans", verdana, helvetica, arial, sans-serif;
         font-size: x-small;
         }
 
@@ -189,7 +200,6 @@ ul li a {
         text-decoration: none;
         color: #fff;
         padding: 5px 15px;
-        font-size: 11px;
         text-decoration: none !important;
         }
 
