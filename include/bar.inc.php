@@ -16,15 +16,15 @@ if (isset($station) && $station != "") {
 <div id="mainNavInner">
 
 <ul>
- <li id="mainFirst<?php if ($THISPAGE == "homepage") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>">Home</a></li>
- <li id="main<?php if ($THISPAGE == "mysite") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>site.phtml">My Site</a></li>
- <li id="main<?php if ($THISPAGE == "current") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>current.phtml">Currents</a></li>
- <li id="main<?php if ($THISPAGE == "download") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>dl/index.phtml">Download</a></li>
- <li id="main<?php if ($THISPAGE == "info") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>info/index.phtml">Info</a></li>
- <li id="main<?php if ($THISPAGE == "guide") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>guide/index.phtml">Site Guide</a></li>
- <li id="main<?php if ($THISPAGE == "siteindex") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>guide/siteindex.phtml">Site Index</a></li>
- <li id="main<?php if ($THISPAGE == "101") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>schoolnet101/index.phtml">SNET 101</a></li>
- <li id="mainLast<?php if ($THISPAGE == "webcam") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>camera/index.phtml">WebCams</a></li>
+ <li class="mainFirst<?php if ($THISPAGE == "homepage") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>">Home</a></li>
+ <li class="main<?php if ($THISPAGE == "mysite") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>site.phtml">My Site</a></li>
+ <li class="main<?php if ($THISPAGE == "current") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>current.phtml">Currents</a></li>
+ <li class="main<?php if ($THISPAGE == "download") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>dl/index.phtml">Download</a></li>
+ <li class="main<?php if ($THISPAGE == "info") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>info/index.phtml">Info</a></li>
+ <li class="main<?php if ($THISPAGE == "guide") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>guide/index.phtml">Site Guide</a></li>
+ <li class="main<?php if ($THISPAGE == "siteindex") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>guide/siteindex.phtml">Site Index</a></li>
+ <li class="main<?php if ($THISPAGE == "101") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>schoolnet101/index.phtml">SNET 101</a></li>
+ <li class="mainLast<?php if ($THISPAGE == "webcam") echo "-active"; ?>"><a href="<?php echo $baseurl; ?>camera/index.phtml">WebCams</a></li>
 </ul>
 
 </div>

@@ -4,9 +4,9 @@ function kcciSelectAuto($selected, $pre, $post, $target=""){
 
 include("locs.inc.php");
 if (strlen($target) == 0) { 
-  $s = "<form name=\"autoselect\"><select name=\"station\" onChange=\"location=this.form.station.options[this.form.station.selectedIndex].value\">\n";
+  $s = "<form name=\"autoselect\" action=\"#\"><select name=\"station\" onchange=\"location=this.form.station.options[this.form.station.selectedIndex].value\">\n";
 } else {
-  $s = "<form name=\"autoselect\"><select name=\"station\" onChange=\"window.open(this.form.station.options[this.form.station.selectedIndex].value, 'basewindow');\">\n";
+  $s = "<form name=\"autoselect\" action=\"#\"><select name=\"station\" onchange=\"window.open(this.form.station.options[this.form.station.selectedIndex].value, 'basewindow');\">\n";
 }
 
 for ($i = 0; $i < count($Scities); $i++) {

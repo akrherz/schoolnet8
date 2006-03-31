@@ -135,9 +135,6 @@ ul li   {
  padding: 0;
 }
                                                                                 
-ul li a {
-        font-weight: normal;
-        }
 #mainNavOuter {
         width: 100%;
         background-position: bottom right;
@@ -148,7 +145,6 @@ ul li a {
 #mainNav {
         width: 100%;
         font-weight: bold;
-        font-size: x-small;
         }
 
 
@@ -186,9 +182,9 @@ ul li a {
         margin: 0;
         }
 
-#mainNav li#mainFirst-active,
-#mainNav li#main-active,
-#mainNav li#mainLast-active {
+#mainNav li.mainFirst-active,
+#mainNav li.main-active,
+#mainNav li.mainLast-active {
         background-color: #000080;
         }
 
@@ -196,10 +192,12 @@ ul li a {
 #mainNav ul li a {
         display: block;
         float: left;
+	font-size: small;
         text-decoration: none;
         color: #fff;
-        padding: 5px 15px;
-        text-decoration: none !important;
+        padding-left: 5px;
+        padding-right: 15px;
+        text-decoration: none;
         }
 
 #mainNav ul li a:hover {
