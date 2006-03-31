@@ -1,6 +1,5 @@
 <?php
 include("../../config/settings.inc.php");
-$module = $_GET["module"];
 
 $app = "18"; include("../../include/dblog.inc.php"); 
 include("switcher.php");
@@ -57,11 +56,15 @@ function printModule($module) {
 ?>
 <div id="guide">
 
-<?php echo lessonSelect($module); ?>
+
+<?php 
+$module = isset($_GET["module"]) ? $_GET["module"]: 0;
+echo lessonSelect($module); 
+?>
 
 <?php if (isset($_GET["module"])) {
 
-  printModule($module);
+  printModule($_GET["module"]);
 
 } else if (isset($_GET['print'])) { 
 
