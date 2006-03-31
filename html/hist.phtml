@@ -106,16 +106,10 @@ if ($mode == "monthly") {
  } /* End of for loop */
  $htmlout .= "</table>\n";
 }
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>SchoolNet8 Weather Data Calendar</title>
- <style type="text/css" media="screen">@import "css/main.css";</style>
-</head>
-<body>
-<?php 
+
+/* Begin Page Output */
+  $TITLE = "Weather Data Calendar";
+  include("$nwnpath/include/header.inc.php"); 
   include("$nwnpath/include/bar.inc.php"); ?>
 
 <div id="justone">
