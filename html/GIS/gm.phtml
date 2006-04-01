@@ -43,7 +43,7 @@ link presented in the popup window takes you to the site's homepage.</p>
 
     function createMarker(point, site_name, site_abrev, lon, lat, sponsor, ui) {
       var marker = new GMarker(point);
-      var html = "<a href='<?php echo $baseurl; ?>/site.phtml?station="+ site_abrev +"'>" + site_name + "</a><br />Sponsored by <a href='<?php echo $baseurl; ?>tool/clicktru.php?station="+ site_abrev +"'>"+ sponsor +"</a><br />"+ ui +"<br /><a href='javascript: map.centerAndZoom(new GPoint("+ lon +", "+ lat +"), 3);'>Zoom To Site!</a><br />&nbsp;";
+      var html = "<div style=\" border: 3px; width: 320px;\"><a href='<?php echo $baseurl; ?>/site.phtml?station="+ site_abrev +"'>" + site_name + "</a></div><br />Sponsored by <a href='<?php echo $baseurl; ?>tool/clicktru.php?station="+ site_abrev +"'>"+ sponsor +"</a><br />"+ ui +"<br /><a href='javascript: map.centerAndZoom(new GPoint("+ lon +", "+ lat +"), 3);'>Zoom To Site!</a><br />&nbsp;";
       GEvent.addListener(marker, "click", function() {
          marker.openInfoWindowHtml(html);
       });
