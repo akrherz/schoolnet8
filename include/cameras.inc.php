@@ -64,7 +64,7 @@ $cameras = Array(
 		"ip" => "216.203.127.250", "county" => "Marshall"),
   "SMDI4" => Array("sts" => mktime(0,0,0,9, 16,2005),
          "ets" => time(),
-        "name" => "Madrid", "active" => true, "removed" => false,
+        "name" => "Madrid", "active" => true,
         "ip" => "69.66.30.247", "county" => "Boone"),
   "SPAI4" => Array("sts" => mktime(22,0,0,5,19,2004), "ets" => time(),
 		"name" => "Panora", "active" => true,
