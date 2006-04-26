@@ -226,7 +226,7 @@ if (strlen($var) == 0){
 
 $varDef = Array("tmpf" => "Current Temperatures",
   "dwpf" => "Current Dew Points",
-  "alti" => "Altimeter",
+  "alti" => "Pressure",
   "splot" => "Current Station Plot",
   "sped" => "Current Wind Speed [MPH]",
   "sknt" => "Current Wind Speed [knts]",

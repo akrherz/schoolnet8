@@ -39,7 +39,7 @@ $rnd = Array("tmpf" => 0,
 
 $varDef = Array("tmpf" => "Current Temperatures",
   "dwpf" => "Current Dew Points",
-  "alti" => "Altimeter",
+  "alti" => "Pressure",
   "sped" => "Current Wind Speed [MPH]",
   "sknt" => "Current Wind Speed [knts]",
   "barb" => "Current Wind Barbs [knts]",

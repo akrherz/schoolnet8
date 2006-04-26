@@ -183,7 +183,7 @@ if (sizeof($myStations) == 0) {
 
 $varDef = Array("tmpf" => "Current Temperatures",
   "dwpf" => "Current Dew Points",
-  "alti" => "Altimeter",
+  "alti" => "Pressure",
   "sped" => "Current Wind Speed [MPH]",
   "sknt" => "Current Wind Speed [knts]",
   "barb" => "Current Wind Barbs [knts]",
@@ -336,7 +336,7 @@ function setLayerDisplay( layerName, d ) {
           sel($var, "dwpf", "Dew Point");
           sel($var, "splot", "Station Plot");
           sel($var, "feel", "Feels Like");
-          sel($var, "alti", "Altimeter");
+          sel($var, "alti", "Pressure");
           sel($var, "sped", "Wind Speed [MPH]");
           sel($var, "barb", "Wind Barb");
           sel($var, "gbarb", "Wind Gust Barb");
