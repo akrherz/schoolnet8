@@ -44,7 +44,7 @@ current_image = first_image;
           sel($var, "tmpf", "Temperature");
           sel($var, "dwpf", "Dew Point");
           sel($var, "feel", "Feels Like");
-          sel($var, "alti", "Altimeter");
+          sel($var, "alti", "Pressure");
           sel($var, "sped", "Wind Speed [MPH]");
           sel($var, "barb", "Wind Barb");
           sel($var, "gbarb", "Wind Gust Barb");

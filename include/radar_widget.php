@@ -57,7 +57,7 @@ current_image = first_image;
           sel($this->var, "tmpf", "Temperature");
           sel($this->var, "dwpf", "Dew Point");
           sel($this->var, "feel", "Feels Like");
-          sel($this->var, "alti", "Altimeter");
+          sel($this->var, "alti", "Pressure");
           sel($this->var, "sped", "Wind Speed [MPH]");
           sel($this->var, "barb", "Wind Barb");
           sel($this->var, "gbarb", "Wind Gust Barb");
