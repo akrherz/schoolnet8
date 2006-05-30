@@ -66,7 +66,7 @@ $sponsors = Array(
 "SPKI4" => Array("name"=> "Polk City", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
 "SROI4" => Array("name"=> "Rockwell City", "sponsor" => "Calhoun County Electric Cooperative", "url" => "http://www.calhouncountyrec.com/"),
 "SSUI4" => Array("name"=> "Sully Christian", "sponsor" => "Pella Cooperative Electric ", "url" => "http://www.pella-cea.org/"),
-"SWAI4" => Array("name"=> "Wall Lake", "sponsor" => "Sac County REC", "url" => "http://www.sacrec.com/"),
+"SWAI4" => Array("name"=> "Wall Lake", "sponsor" => "Sac County REC", "url" => "http://www.sacrec.coop/"),
 "SWBI4" => Array("name"=> "Webster City", "sponsor" => "Prairie Energy Cooperative", "url" => "http://www.prairieenergy.com"),
 "SWII4" => Array("name"=> "Winterset Community", "sponsor" => "Farmers Electric Cooperative", "url" => "http://www.farmersrec.com/"),
 "KCCI" => Array("name"=> "KCCI", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
