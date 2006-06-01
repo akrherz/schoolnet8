@@ -10,7 +10,7 @@ html, body, h2, h3, h4, div, p, ul, li, input {
 	font-family: "Gill Sans MT", "Gill sans", "Trebuchet ms", sans-serif;
 }
 #wrapper        {
-  background: #fff;
+  background: #eee;
   color: #000;
   margin: 5px auto;
   padding: 0;
@@ -262,4 +262,19 @@ div.urllink img {
   float: left;
   margin: 0px;
   height: 48px;
+}
+div.nb {
+  border: 1px #ccc solid;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 10px;
+  background: #fff url(http://www.schoolnet8.com/images/bg1.png) left top repeat-x; 
+}
+div.nb h3 {
+  margin: 0px;
+  padding: 0px;
+  padding-left: 5px;
+}
+div.nb .nb_content {
+  padding: 5px;
 }
