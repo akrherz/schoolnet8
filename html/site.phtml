@@ -3,7 +3,6 @@
 /** Get vars */
 $var = isset($_GET['var']) ? $_GET['var'] : 'tmpf';
 $station = isset($_GET['station']) ? $_GET['station'] : 'SKCI4';
-$station2 = isset($_GET['station2']) ? $_GET['station2']: '';
 
 /* Session Stuff */
 $expiry = 60*60*24*100; // 100 days
@@ -19,8 +18,13 @@ $_SESSION['station'] = $station;
 $uri = "site.phtml?station=". $station;
 if ($var != "tmpf")
 	$uri .= "&amp;var=$var";
-if (isset($add))
-	$uri .= "&amp;add=$add";
+if (isset($_GET["add"])) {
+	$uri .= "&amp;add=add";
+    $station2 = isset($_GET['station2']) ? $_GET['station2']: '';
+} else {
+   $station2 = '';
+}
+
 $s2 = 0;
 if ($station2)
 {
@@ -93,13 +97,13 @@ if (array_key_exists($station, $cameras))
 {
 	if ($cameras[$station]["active"])
 	{
-		echo "<h3>Latest Web Camera:</h3>
+		echo "<div class=\"nb\"><h3>Latest Web Camera:</h3><div class=\"nb_content\">
 <ul>
-	<li>Build custom <a href=\"$baseurl/camera/bloop.phtml?station=$station\">time lapses</a>.</li>
+	<li>Build <a href=\"$baseurl/camera/bloop.phtml?station=$station\">time lapses</a> or view <a href=\"camera/lapses.phtml\">today's movies</a></li>
 	<li>View higher resolution <a href=\"$baseurl/camera/viewer.phtml?id=$station\">640x480 images</a>.</li>
 <ul>
 <img src=\"$baseurl/camera/stills/${station}.jpg\" width=\"320\" alt=\"WebCam Still\" height=\"240\" />";
-		if ($cameras[$station]["iservice"] != "")
+		if (isset($cameras[$station]["iservice"]) )
 		{
 			echo "<br />Internet service by: <a href=\"". $cameras[$station]["iserviceurl"] ."\">". $cameras[$station]["iservice"] ."</a>";
 		}
@@ -107,17 +111,23 @@ if (array_key_exists($station, $cameras))
 		{
 			echo "<br />Hosted by: <a href=\"". $cameras[$station]["hostedurl"] ."\">". $cameras[$station]["hosted"] ."</a>";
 		}
+      echo "</div></div>";
 	} else {
-	echo "<b>Sorry:</b> This webcamera is currently offline.";
+	echo "<b>Sorry:</b> This webcamera is currently offline.</div></div>";
 	}
 } ?>
 
+<div class="nb">
 <h3>Live Super Doppler8:</h3>
+<div class="nb_content">
 <?php $rW->printHTML(); ?>
 
 The red sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>.
+</div></div>
 
-<p><h3>Site Resources:</h3>
+<div class="nb">
+<h3>Site Resources:</h3>
+<div class="nb_content">
 <ul>
  <li><a href="dl/">Download Data</a>
  <li><a href="<?php echo $baseurl; ?>hist.phtml?station=<?php echo $station; ?>">Historical Data Calendar</a></li>
@@ -127,8 +137,11 @@ The red sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>
  <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
  <li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
 </ul>
+</div></div>
 
+<div class="nb">
 <h3>SchoolNet8 Neighbors:</h3>
+<div class="nb_content">
 <ul>
 <?php
  for ($i=0;$i<5;$i++){
@@ -138,6 +151,7 @@ The red sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>
  } 
 ?>
 </ul>
+</div></div>
 
 </div><div id="rightside">
 <?php   
@@ -149,7 +163,9 @@ if (isset($Scities[$station]["ftm"])) {
 
 ?>
 
+<div class="nb">
 <h3>Current Observation:</h3>
+<div class="nb_content">
 <?php
  $today = mktime(0,0,0,date("m"),date("d"),date("Y"));
 
@@ -200,8 +216,11 @@ current data.";
           </table>
 <?php } ?>
 <p>&nbsp;</p>
+</div></div>
 
+<div class="nb">
 <h3>Switch SchoolNet8 Site:</h3>
+<div class="nb_content">
 <a href="javascript:selectWindow();">Select from map</a> -or- <b>Select from list</b>
 
 <form method="get" action="site.phtml" name="sitesel2">
@@ -214,7 +233,10 @@ current data.";
 ?>
 
 ** This page refreshes every minute.
+</div></div>
+
 </div>
+
 
 <br clear="all" />
 <p><i>Wanna bookmark this page?  Use this URL</i><br />
