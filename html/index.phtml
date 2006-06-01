@@ -35,13 +35,19 @@ function selectWindow() {
 by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new">CIPCO</a> and Iowa <a href="https://touchstoneenergy.cooperative.com/public/index.html">Touchstone Energy</a> cooperatives!</p>
 
 <div id="leftside">
-<h2>Select your site</h2>
+
+<div class="nb">
+<h3>Select your site</h3>
+<div class="nb_content">
 <table>
 <tr><td><?php echo kcciSelectAuto($station, "site.phtml?station=", "");  ?></td>
 <td>or <a href="javascript:selectWindow();">From map</a></td></tr>
 </table>
-<br />
-<h2>Live Super Doppler8</h2>
+</div></div>
+
+<div class="nb">
+<h3>Live Super Doppler8</h3>
+<div class="nb_content">
 <?php
   /** Begin RANDOM RADAR image */
   srand((float) microtime() * 10000000);
@@ -53,24 +59,33 @@ by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new
 <ul>
  <li><a href=\"$link\">Live Super Doppler8 for your SchoolNet8 Site</a></li>
 </ul>";
-
-
 ?>
-<h2>May Feature</h2>
-What can you do with nearly 70 School based weather sites and 18 web cameras? The answer is a whole lot!  This website has a number of exciting ways to view information from these resources.  Click the image above this text to start exploring the website.
+</div></div>
+
+<div class="nb">
+<h3>What's new for June?</h3>
+<div class="nb_content">
+<a href="webcam/lapses.phtml"><img src="images/webcam_anim.gif" border="0" style="margin: 5px; float: left; text-align: left;"></a>  You can now <a href="camera/lapses.phtml">download and view movies</a> from our network
+of 18 <a href="camera/">live webcameras</a>.  These movies are the same ones you can
+see watching the weather on KCCI!  We are also adding a number of webcameras in the month of June, so check back for updates!
+</div></div>
 
 </div>
 <div id="rightside">
 
-<h2>Popular links:</h2>
+<div class="nb">
+<h3>Popular links:</h3>
+<div class="nb_content">
 <ul>
  <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php');">Live Super Doppler8 App</a></li>
  <li><a href="display.phtml">Loopable Live Super Doppler8</a></li>
  <li><a href="sview/">SchoolNet8 Desktop Java Viewer</a></li>
 </ul>
+</div></div>
 
-
-<h2>Web camera sites:</h2>
+<div class="nb">
+<h3>Web camera sites:</h3>
+<div class="nb_content">
 <?php 
 $leftlinks = "";
 $rightlinks = "";
@@ -89,6 +104,9 @@ while (list($id, $v) = each($cameras))
 <table class="side">
 <tr><td valign="top"><ul><?php echo $leftside; ?></ul></td><td valign="top"><ul><?php echo $rightside; ?></ul></td></tr>
 </table>
+
+<p>View the <a href="http://mesonet.agron.iastate.edu/cool/">best web camera lapses</a> from our archive.
+</div></div>
 
 <p>The KCCI SchoolNet8 is a collection of weather observing stations
 located at schools throughout Central Iowa that report 

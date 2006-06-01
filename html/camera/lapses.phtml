@@ -1,0 +1,80 @@
+<?php
+ include("../../config/settings.inc.php");
+ include("../../include/imagemap.inc.php");
+ include('../../include/locs.inc.php');
+ $app = "09"; include("../../include/dblog.inc.php"); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<style type="text/css" media="screen">@import "../css/main.css";</style>
+  <TITLE>SchoolNet8 | Daily Webcam Lapses</TITLE>
+  <META NAME="AUTHOR" CONTENT="Daryl Herzmann">
+</HEAD>
+<body>
+
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<div class="nb">
+<h3>Daily webcamera lapses</h3>
+<div class="nb_content">
+Each day an automated process captures a movie from each of the webcameras.
+These movies are available for viewing here.  Currently, we are only generating
+movies in Windows Media Video format.  If you have trouble playing them, please
+<a href="../contact.phtml">let us know</a>!
+</div>
+</div>
+
+<div class="nb">
+<h3>View Lapses</h3>
+<div class="nb_content">
+<table border="1px" cellpadding="1px" cellspacing="0">
+<tr><th rowspan="2">Webcam Site:</th><th>Sunrise</th><th>Morning</th><th>Afternoon</th><th>Evening</th></tr>
+<tr><th>5:30-7 AM</th><th>9-11 AM</th><th>1-4 PM</th><th>5-8 PM</th></tr>
+<?php
+$c = Array(
+  "ames" => "Ames",
+  "zoo" => "Blank Park Zoo",
+  "rathbun" => "Lake Rathbun",
+  "creston" => "Creston",
+  "glidden" => "Glidden",
+  "humboldt" => "Humboldt",
+  "indy" => "Indianola",
+  "jeff" => "Jefferson",
+  "knoxville" => "Knoxville",
+  "madrid" => "Madrid",
+  "newton" => "Newton",
+  "panora" => "Panora",
+  "pella" => "Pella",
+  "saylor" => "Saylorville Lake",
+  "rock" => "Rockwell City",
+  "tama" => "Tama",
+  "web" => "Webster City",
+  "winterset" => "Winterset");
+$iter = Array("sunrise", "morning", "afternoon", "eve");
+
+while( list($key, $value) = each($c) )
+{
+  echo "<tr><th>$value</th>";
+  reset($iter);
+  while( list($k, $v) = each($iter) )
+  {
+    echo "<td><a href=\"http://mesonet.agron.iastate.edu/onsite/lapses/auto/${key}_${v}.wmv\"><img src=\"../images/wmv_thumb.jpg\" style=\"border: 0px;\"></a></td>";
+  }
+  echo "</tr>";
+}
+
+?>
+&nbsp;
+</table>
+
+<p>The Iowa Environmental Mesonet has a collection of <a href="http://mesonet.agron.iastate.edu/cool/">the best lapses</a> online.  These include tornadoes, cool clouds, and other interesting phenomena.
+
+</div></div>
+
+</div>
+<br clear="all" />
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>
