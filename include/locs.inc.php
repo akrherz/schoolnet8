@@ -63,6 +63,7 @@
 "SPKI4" => array("short" => "North Polk", "city" => "North Polk / West Elem", "id" =>  "SPKI4", "lat" => "41.778", "lon" => "-93.725", "online" => true),
 "SPYI4" => array("short" => "Perry", "city" => "Perry", "id" =>  "SPYI4", "lat" => "41.8400001525879", "lon" => "-94.0800018310547", "online" => true),
 "SROI4" => array("short" => "Rockwell City", "city" => "Rockwell City", "id" =>  "SROI4", "lat" => "42.3922166667", "lon" => "-94.6439166667", "online" => true),
+"SSTI4" => array("short" => "Stuart", "city" => "Stuart", "id" =>  "SSTI4", "lat" => "41.5039", "lon" => "-94.3183", "online" => true),
 "SSUI4" => array("short" => "Sully", "city" => "Sully Christian", "id" =>  "SSUI4", "lat" => "41.5736166667", "lon" => "-92.8387", "online" => true),
 "STQI4" => array("short" => "Meskwaki SS Tama", "city" => "Meskwaki Settlement School Tama", "id" =>  "STQI4", "lat" => "41.99262", "lon" => "-92.6465", "online" => true),
 "SWAI4" => array("short" => "Wall Lake", "city" => "Wall Lake-View-Auburn", "id" => "SWAI4", "lat" => "42.27195", "lon" => "-95.0950833333", "online" => true),
@@ -138,7 +139,8 @@ $Sconv = array(
 171 => 'SEGI4',
 172 => 'SUNI4',
 173 => 'STQI4',
-238 => 'SBXI4');
+238 => 'SBXI4',
+239 => 'SSTI4');
 
 $SconvBack = array(
 "SAGI4" => '128',
@@ -208,5 +210,6 @@ $SconvBack = array(
 "SEGI4" => '171',
 "SUNI4" => '172',
 "STQI4" => '173',
-"SBXI4" => '238');
+"SBXI4" => '238',
+"SSTI4" => '239');
 ?>

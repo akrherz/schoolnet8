@@ -26,7 +26,6 @@ $neighbors = Array(
 'SMUI4' => Array('SOSI4', 'SAFI4', 'SWII4', 'SLEI4', 'SLOI4'),
 'SOCI4' => Array('SPEI4', 'SALI4', 'SMNI4', 'SSUI4', 'SKNI4'),
 'SOSI4' => Array('SMUI4', 'SLEI4', 'SINI4', 'SWII4', 'SAFI4'),
-'SPAI4' => Array('SADI4', 'SJEI4', 'SPYI4', 'SCBI4', 'SAEI4'),
 'SPEI4' => Array('SSUI4', 'SKNI4', 'SOCI4', 'SNEI4', 'SALI4'),
 'SROI4' => Array('SFAI4', 'SMSI4', 'SGLI4', 'SCAI4', 'SWAI4'),
 'SSUI4' => Array('SPEI4', 'SNEI4', 'SMNI4', 'SOCI4', 'SKNI4'),
@@ -41,12 +40,9 @@ $neighbors = Array(
 'SKCI4' => Array('SDRI4', 'SBZI4', 'SIAI4', 'SJCI4', 'SAKI4'),
 'SWII4' => Array('SAEI4', 'SMUI4', 'SJCI4', 'SAFI4', 'SIAI4'),
 'SJEI4' => Array('SPAI4', 'SCBI4', 'SPYI4', 'SFAI4', 'SOGI4'),
-'SADI4' => Array('SATI4', 'SFOI4', 'SPAI4', 'SCBI4', 'SAUI4'),
-'SATI4' => Array('SADI4', 'SFOI4', 'SAUI4', 'SCBI4', 'SCNI4'),
 'SAUI4' => Array('SCBI4', 'SATI4', 'SCAI4', 'SADI4', 'SGLI4'),
 'SCNI4' => Array('SBDI4', 'SFOI4', 'SCSI4', 'SATI4', 'SADI4'),
 'SMLI4' => Array('SAGI4', 'SHUI4', 'SMSI4', 'SROI4', 'SLUI4'),
-'SFOI4' => Array('SADI4', 'SATI4', 'SCSI4', 'SCNI4', 'SPAI4'),
 'SAGI4' => Array('SLUI4', 'SHUI4', 'SMLI4', 'SEGI4', 'SFDI4'),
 'SBKI4' => Array('SCGI4', 'SLMI4', 'SEGI4', 'SWBI4', 'SIFI4'),
 'SCGI4' => Array('SBKI4', 'SEGI4', 'SWBI4', 'SLMI4', 'SLUI4'),
@@ -73,6 +69,12 @@ $neighbors = Array(
 'SNVI4' => Array('SCOI4', 'SAMI4', 'SBOI4', 'SAKI4', 'SBXI4'),
 'SUNI4' => Array('SMAI4', 'SCOI4', 'SIFI4', 'SBXI4', 'SNVI4'),
 'SBXI4' => Array('SNEI4', 'SCOI4', 'SMAI4', 'SNVI4', 'SSUI4'),
+'SADI4' => Array('SATI4', 'SFOI4', 'SSTI4', 'SPAI4', 'SCBI4'),
+'SATI4' => Array('SADI4', 'SFOI4', 'SAUI4', 'SCBI4', 'SSTI4'),
+'SFOI4' => Array('SADI4', 'SATI4', 'SCSI4', 'SSTI4', 'SCNI4'),
+'SPAI4' => Array('SSTI4', 'SADI4', 'SJEI4', 'SPYI4', 'SCBI4'),
+'SWII4' => Array('SAEI4', 'SMUI4', 'SJCI4', 'SSTI4', 'SAFI4'),
+'SSTI4' => Array('SPAI4', 'SADI4', 'SAEI4', 'SFOI4', 'SWII4'),
 );
 
 ?>
