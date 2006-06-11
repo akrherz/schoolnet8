@@ -20,7 +20,7 @@
 "SBRI4" => array("short" => "Brooklyn", "city" => "Brooklyn / BGM", "id" => "SBRI4"	, "lat" => "41.73895", "lon" => "-92.4466833333", "online" => true),	   
 "SCAI4" => array("short" => "Carroll", "city" => "Carroll / Kuemper Catholic", "id" =>  "SCAI4"	  , "lat" => "42.0749666667", "lon" => "-94.8701333333", "online" => true),  
 "SCEI4" => array("short" => "Centerville", "city" => "Centerville", "id" =>  "SCEI4"	  , "lat" => "40.7308", "lon" => "-92.8726", "online" => true),  
-"SCHI4" => array("short" => "Chariton", "city" => "Chariton / Van Allen Elem", "id" =>  "SCHI4"	, "lat" => "41.0234666667", "lon" => "-93.3117333333", "online" => true, "ftm" => "Site is offline awaiting computer repair."),   
+"SCHI4" => array("short" => "Chariton", "city" => "Chariton / Van Allen Elem", "id" =>  "SCHI4"	, "lat" => "41.0234666667", "lon" => "-93.3117333333", "online" => true),   
 "SCGI4" => array("short" => "Clarion", "city" => "Clarion / Clarion Goldfield", "id" =>  "SCGI4" , "lat" => "42.7349333333", "lon" => "-93.7297666667", "online" => true),	   
 "SCOI4" => array("short" => "Colo", "city" => "Colo Elem", "id" =>  "SCOI4"	, "lat" => "42.0107", "lon" => "-93.3182666667", "online" => true),	   
 "SCNI4" => array("short" => "Corning", "city" => "Corning Community", "id" => "SCNI4"	 , "lat" => "40.9917", "lon" => "-94.73975", "online" => true),	   
