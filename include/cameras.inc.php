@@ -11,7 +11,7 @@ $cameras = Array(
 		"iservice" => "Glidden REC", 
 		"iserviceurl" => "http://www.gliddenrec.com",
 		"ip" => "216.203.109.40", "county" => "Carroll"),
-  "SCAI4" => Array("sts" => mktime(14,0,0,6,11,2006), "ets" => time(),
+  "SCHI4" => Array("sts" => mktime(14,0,0,6,11,2006), "ets" => time(),
         "name" => "Chariton", "active" => true, "removed" => false,
         "ip" => "69.66.60.199", "county" => "Lucas"),
   "SCSI4" => Array("sts" => mktime(0,0,0, 9,20,2003), 
