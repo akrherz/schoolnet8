@@ -55,7 +55,7 @@ $dot = $map->getlayerbyname("dot");
 $dot->set("status", MS_ON);
 $point->draw($map, $dot, $img, 1, "");
 
-$url = $img->saveWebImage(MS_PNG, 0,0,-1);
+$url = $img->saveWebImage();
 ?>
 
 <h3>Overhead Ortho Photography for <?php echo $Scities[$station]["city"]; ?></h3>
