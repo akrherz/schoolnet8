@@ -1,4 +1,3 @@
-
 <?php
 
 /* $Id: sunrise.inc.php 597 2005-10-26 22:57:30Z bb $
@@ -192,7 +191,7 @@ class Astro_Sunrise {
     // Local time
     $hour = intval($V);
     $min  = intval(($V - $hour) * 60);
-
+    if ($hour > 12) $hour -= 12;
     return sprintf('%02d:%02d', $hour, $min);
 
   }    // function calcSunrise
