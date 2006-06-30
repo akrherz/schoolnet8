@@ -219,6 +219,52 @@ current data.";
 </div></div>
 
 <div class="nb">
+<h3>Climatology for Today:</h3>
+<div class="nb_content">
+<?php
+ /* Unserialize climate data! */
+ $cfname = sprintf("%s/include/climate_files/%s.txt", $nwnpath, strtolower($Scities[$station]['climate_site']) );
+ $climate = unserialize( file_get_contents($cfname) );
+ $cdict = $climate["2000-". date("m-d")];
+ $avg_month_precip = 0;
+ $mon = date("m");
+ for ($q=1; $q <= intval(date("d")); $q++)
+ {
+    $avg_month_precip += floatval( $climate[sprintf("2000-%s-%02d",$mon,$q)]["precip"] );
+ }
+?>
+<table width="100%">
+<tr><th colspan="4">High Temperature</th></tr>
+<tr>
+  <td>Average:</td>
+  <td><?php echo sprintf("%.1f", $cdict["high"]); ?></td>
+  <td>Record:</td>
+  <td><?php echo sprintf("%s (%s)", $cdict["max_high"], $cdict["max_high_yr"]); ?></td>
+</tr>
+<tr><th colspan="4">Low Temperature</th></tr>
+<tr>
+  <td>Average:</td>
+  <td><?php echo sprintf("%.1f", $cdict["low"]); ?></td>
+  <td>Record:</td>
+  <td><?php echo sprintf("%s (%s)", $cdict["min_low"], $cdict["min_low_yr"]); ?></td>
+</tr>
+<tr><th colspan="4">Precipitation:</th></tr>
+<tr>
+  <td>Average:</td>
+  <td><?php echo sprintf("%.2f", $cdict["precip"]); ?>"</td>
+  <td>Record:</td>
+  <td><?php echo sprintf("%s\" (%s)", $cdict["max_precip"], $cdict["max_precip_yr"]); ?></td>
+</tr>
+<tr>
+ <td colspan="3">Average monthly precip<br /> <?php echo date("M"); ?>-01 to <?php echo date("M-d"); ?></td>
+ <td><?php echo sprintf("%.2f", $avg_month_precip ); ?>"</td>
+</tr>
+
+</table>
+&nbsp;
+</div></div>
+
+<div class="nb">
 <h3>Switch SchoolNet8 Site:</h3>
 <div class="nb_content">
 <a href="javascript:selectWindow();">Select from map</a> -or- <b>Select from list</b>
