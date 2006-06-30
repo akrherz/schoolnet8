@@ -3,7 +3,7 @@
 select '"'||id||'" => array("short" => "'||plot_name||'", "city" => "'||name||'", "lat" => '||latitude||', "lon" => '||longitude||', "online" => true, "nwn_id" => '||nwn_id||', "climate_site" => "'||climate_site||'"),' from stations WHERE network = 'KCCI' ORDER by id ASC;
 
 */
-        $Scities = array(
+$Scities = array(
  "S03I4" => array("short" => "State Fair", "city" => "Iowa State Fair 2003", "lat" => 41.59611, "lon" => -93.555, "online" => false, "nwn_id" => 899, "climate_site" => "IA0241"),
  "SADI4" => array("short" => "Adair", "city" => "Adair Casey", "lat" => 41.51995, "lon" => -94.5838166667, "online" => true, "nwn_id" => 43, "climate_site" => "IA3509"),
  "SAEI4" => array("short" => "Adel", "city" => "Adel / ADM MS", "lat" => 41.6182166667, "lon" => -94.0225833333, "online" => true, "nwn_id" => 51, "climate_site" => "IA6566"),
@@ -96,7 +96,7 @@ School Tama", "lat" => 41.99262, "lon" => -92.6465, "online" => true, "nwn_id" =
  "SWII4" => array("short" => "Winterset", "city" => "Winterset Community", "lat" => 41.3334166667, "lon" => -94.0148, "online" => true, "nwn_id" => 42, "climate_site" => "IA9132"),
 );
 
-function find_nwnid($id)
+function find_nwsli($id)
 {
   reset($Scities);
   while( list($k,$d) = each($Scities))
