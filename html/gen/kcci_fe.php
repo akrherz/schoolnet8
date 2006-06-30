@@ -1,7 +1,7 @@
 <?php
 
-$min = $_GET['min'];
-$station = $_GET['station'];
+$min = isset($_GET['min']) ? $_GET["min"]: 1;
+$station = isset($_GET['station']) ? $_GET["station"]: 'SKCI4';
 
 ?>
 <html>
@@ -33,14 +33,14 @@ $station = $_GET['station'];
   echo "SchoolNet Site: ";
 echo "<select  onChange=\"location=this.form.station.options[this.form.station.selectedIndex].value\" name=\"station\">\n";
 
-for ($i = 0; $i < count($Scities); $i++) {
-  $city = current($Scities);
-  echo "<option value=\"". $baseurl ."gen/kcci_fe.php?min=".$min."&station=". $city["id"] ."\"";
-  if ($station == $city["id"]){
+reset($Scities);
+while( list($id,$d) = each($Scities))
+{
+  echo "<option value=\"". $baseurl ."gen/kcci_fe.php?min=".$min."&station=". $id ."\"";
+  if ($station == $id){
         echo " SELECTED ";
   }
-  echo " >". $city["city"] ."\n";
-  next($Scities);
+  echo " >". $d["city"] ."\n";
 }
 
 echo "</select>\n";
