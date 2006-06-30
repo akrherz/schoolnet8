@@ -3,7 +3,6 @@
 function kcciSelectAuto($selected, $pre, $post, $target=""){
 
 include_once("locs.inc.php");
-global $Scities;
 if (strlen($target) == 0) { 
   $s = "<form name=\"autoselect\" action=\"#\"><select name=\"station\" onchange=\"location=this.form.station.options[this.form.station.selectedIndex].value\">\n";
 } else {
