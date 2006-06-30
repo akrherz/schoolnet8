@@ -3,11 +3,11 @@
 
 /** Vars */
 
-  include ("../../include/locs.inc.php");
-  include ("../../include/mlib.php");
+  include_once("../../include/locs.inc.php");
+  include_once("../../include/mlib.php");
 
 if (strlen($station) > 3){
-    $station = $SconvBack[$station];
+    $station = $Scities[$station]["nwn_id"];
 }
 $station = intval($station);
 
@@ -246,7 +246,7 @@ $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->yscale->SetGrace(10);
 
-$graph->tabtitle->Set(' '. $Scities[$Sconv[$station]]['city'] ." on ". $titleDate .' ');
+$graph->tabtitle->Set(' '. $Scities[$nwsli]['city'] ." on ". $titleDate .' ');
 $graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->legend->SetLayout(LEGEND_HOR);
@@ -304,7 +304,7 @@ $graph->xaxis->SetTitle("Valid Local Time");
 $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
 $graph->xaxis->SetPos("min");
 
-$graph->tabtitle->Set(' '. $Scities[$Sconv[$station]]['city'] ." on ". $titleDate .' ');
+$graph->tabtitle->Set(' '. $Scities[$nwsli]['city'] ." on ". $titleDate .' ');
 $graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->legend->SetLayout(LEGEND_HOR);
@@ -378,7 +378,7 @@ $graph->xaxis->SetTitle("Valid Local Time");
 $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
 $graph->xaxis->SetPos("min");
 
-$graph->tabtitle->Set(' '. $Scities[$Sconv[$station]]['city'] ." on ". $titleDate .' ');
+$graph->tabtitle->Set(' '. $Scities[$nwsli]['city'] ." on ". $titleDate .' ');
 $graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,12);
 
 $graph->legend->SetLayout(LEGEND_HOR);

@@ -11,7 +11,7 @@ $month = 3;
 $day = 19;
 
 if (strlen($station) > 3){
-    $station = $SconvBack[$station];
+    $station = $Scities[$station]["nwn_id"];
 }
 $station = intval($station);
 
@@ -237,7 +237,7 @@ $graph->xaxis->SetTextTickInterval(60);
 $graph->xaxis->SetLabelAngle(90);
 //$graph->yaxis->scale->ticks->SetPrecision(1);
 $graph->yscale->SetGrace(10);
-$graph->title->Set($Scities[$Sconv[$station]]['city'] ." Time Series");
+$graph->title->Set($Scities[$nwsli]['city'] ." Time Series");
 $graph->subtitle->Set($titleDate );
 
 $graph->legend->SetLayout(LEGEND_HOR);
@@ -287,7 +287,7 @@ $graph->xaxis->SetTickLabels($xlabel);
 $graph->xaxis->SetTextTickInterval(60);
 $graph->xaxis->SetLabelAngle(90);
 //$graph->yaxis->scale->ticks->SetPrecision(1);
-$graph->title->Set($Scities[$Sconv[$station]]['city'] ." Time Series");
+$graph->title->Set($Scities[$nwsli]['city'] ." Time Series");
 $graph->subtitle->Set($titleDate );
 
 $graph->legend->SetLayout(LEGEND_HOR);
@@ -355,7 +355,7 @@ $graph->img->SetMargin(55,40,55,80);
 $graph->xaxis->SetTickLabels($xlabel);
 $graph->xaxis->SetTextTickInterval(60);
 $graph->xaxis->SetLabelAngle(90);
-$graph->title->Set($Scities[$Sconv[$station]]['city'] ." Time Series");
+$graph->title->Set($Scities[$nwsli]['city'] ." Time Series");
 $graph->subtitle->Set($titleDate );
 
 $graph->legend->SetLayout(LEGEND_HOR);
