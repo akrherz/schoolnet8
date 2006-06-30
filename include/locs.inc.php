@@ -4,7 +4,7 @@ select '"'||id||'" => array("short" => "'||plot_name||'", "city" => "'||name||'"
 
 */
 $Scities = array(
- "S03I4" => array("short" => "State Fair", "city" => "Iowa State Fair 2003", "lat" => 41.59611, "lon" => -93.555, "online" => false, "nwn_id" => 899, "climate_site" => "IA0241"),
+// "S03I4" => array("short" => "State Fair", "city" => "Iowa State Fair 2003", "lat" => 41.59611, "lon" => -93.555, "online" => false, "nwn_id" => 899, "climate_site" => "IA0241"),
  "SADI4" => array("short" => "Adair", "city" => "Adair Casey", "lat" => 41.51995, "lon" => -94.5838166667, "online" => true, "nwn_id" => 43, "climate_site" => "IA3509"),
  "SAEI4" => array("short" => "Adel", "city" => "Adel / ADM MS", "lat" => 41.6182166667, "lon" => -94.0225833333, "online" => true, "nwn_id" => 51, "climate_site" => "IA6566"),
  "SAFI4" => array("short" => "Afton", "city" => "Afton / East Union", "lat" => 41.0250833333, "lon" => -94.1804333333, "online" => true, "nwn_id" => 44, "climate_site" => "IA5769"),
