@@ -13,7 +13,8 @@ else if (isset($_GET['cams']))
 }
 $_SESSION['hidecams'] = $hidecams;
 
-include('../../config/settings.inc.php'); 
+include('../../config/settings.inc.php');
+$app = "23"; include("$nwnpath/include/dblog.inc.php");
 include("$nwnpath/include/cameras.inc.php"); 
 include("$nwnpath/include/forms.inc.php"); 
 

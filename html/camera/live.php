@@ -1,6 +1,7 @@
 <?php
 /** live.php request a live shot! */
 include("../../config/settings.inc.php");
+$app = "26"; include("$nwnpath/include/dblog.inc.php");
 include("../../include/cameras.inc.php");
 
 $id = isset($_GET["id"]) ? $_GET["id"] : "SMAI4";
