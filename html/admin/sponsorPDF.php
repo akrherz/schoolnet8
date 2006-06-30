@@ -338,14 +338,14 @@ $pdf->Ln(10);
 $header = array('Station', 'Sponsor', 'Hits', 'Hosts', 'Click Thrus');
 $pdf->FancyTable($header,array_slice($data, 0, 33), false );
 $pdf->Ln(10);
-$pdf->Cell(40,10,'Continued on next page...');
+//$pdf->Cell(40,10,'Continued on next page...');
 
 $pdf->AddPage();
 $pdf->FancyTable($header,array_slice($data, 33), true);
 $pdf->Ln(10);
-$pdf->Cell(40,10,'Continued on next page...');
+//$pdf->Cell(40,10,'Continued on next page...');
 
-$pdf->AddPage();
+//$pdf->AddPage();
 $header = array('Sponsor', 'Hits', 'Click Thrus');
 $pdf->Cell(40,10,'Stats by Sponsor');
 $pdf->Ln(10);
