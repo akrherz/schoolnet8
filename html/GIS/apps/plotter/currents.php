@@ -6,6 +6,8 @@ include("../../../../config/settings.inc.php");
 dl($mapscript);
 $app = "12"; include("$nwnpath/include/dblog.inc.php"); 
 include("$nwnpath/include/forms.inc.php");
+include("$nwnpath/include/locs.inc.php");
+include("$nwnpath/include/radar.php");
 
 $ERROR = "";
 $layers = isset($_GET["layers"]) ? $_GET["layers"] : Array("nws_warnings");
@@ -26,6 +28,7 @@ $city = isset($_GET["city"]) && strlen($_GET["city"]) > 0 ? $_GET["city"] : "";
 $showRoadCond = isset($_GET["roadcond"]);
 //$showRoadCond = 0;
 $showSiteLabel = isset($_GET["sitelabel"]);
+$var = isset($_GET['var']) ? $_GET["var"]: "tmpf";
 
 if ($mode == "archive")
 {
@@ -127,18 +130,44 @@ function findradarts($t)
   return 0;
 }
 
-//$st = $_GET['st'];
+/* Do we have a list of stations to plot? 
+  $st are stations in our plotting list
+  $str are stations to remove from our plotting list
+  $myStations will hold eventual list of sites we want to plot
+*/
 $st = isset($_GET['st']) ? $_GET['st'] : Array();
+$str = isset($_GET['str']) ? $_GET['str'] : Array();
+$myStations = Array();
+
+/* If no stations are set from CGI, use our cookie value! */
 if (isset($_SESSION['lsd_st']) && ! isset($_GET['st']) )
 {
   $st = $_SESSION['lsd_st'];
 }
-$_SESSION['lsd_st'] = $st; 
 
-$var = isset($_GET['var']) ? $_GET["var"]: "tmpf";
+$formStr = "";
+$cgiStr = "";
 
-include("$nwnpath/include/locs.inc.php");
-include("$nwnpath/include/radar.php");
+/* Rip thru our stations list and remove any vagrants */
+foreach ($st as $key => $value) {
+  if (strlen($value) > 0 && $value != "ahack") {
+    if (! in_array($value, $str) ){
+      $myStations[$value] = "hi";
+    }
+  }
+}
+/* Save our final list in the SESSION */
+$_SESSION['lsd_st'] = array_keys($myStations); 
+
+/* Generate form stuff */
+reset($myStations);
+foreach ($myStations as $key => $value) {
+  if (strlen($value) > 0 && $value != "ahack") {
+    $formStr .= "<input type='hidden' name='st[]' value='".$key."'>\n";
+    $cgiStr .= "st[]=". $key ."&";
+  }
+}
+
 
 /* Lets check to see if we specified a timestamp! */
 if ( $mode == "archive" )
@@ -151,35 +180,6 @@ if ( $mode == "archive" )
       $MISSINGRADAR = true;
     }
 }
-
-$myStations = Array();
-$formStr = "";
-$cgiStr = "";
-$str = isset($_GET['str']) ? $_GET['str'] : Array();
-
-if ( isset($st) ) {
-  foreach ($st as $key => $value) {
-    if (strlen($value) > 0 && $value != "ahack") {
-      if (! in_array($value, $str) ){
-        $myStations[$value] = "hi";
-      }
-    }
-  }
-} else {
-  $myStations["SKCI4"] = 'hi';
-}
-
-foreach ($myStations as $key => $value) {
-  if (strlen($value) > 0 && $value != "ahack") {
-    $formStr .= "<input type='hidden' name='st[]' value='".$key."'>\n";
-    $cgiStr .= "st[]=". $key ."&";
-  }
-}
-
-if (sizeof($myStations) == 0) {
-  $myStations["SKCI4"] = 'hi';
-}
-
 
 $varDef = Array("tmpf" => "Current Temperatures",
   "dwpf" => "Current Dew Points",

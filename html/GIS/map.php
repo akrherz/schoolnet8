@@ -182,25 +182,29 @@ if (isset($radarts))
 }
 
 
+/* Do we have a list of stations to plot? 
+  $st are stations in our plotting list
+  $str are stations to remove from our plotting list
+  $myStations will hold eventual list of sites we want to plot
+*/
+$st = isset($_GET['st']) ? $_GET['st'] : Array();
+$str = isset($_GET['str']) ? $_GET['str'] : Array();
 $myStations = Array();
+
 $formStr = "";
 $cgiStr = "";
-if (! isset($str) ){
-  $str = Array();
-}
 
-if ( isset($st) ) {
-  foreach ($st as $key => $value) {
-    if (strlen($value) > 0 && $value != "ahack") {
-      if (! in_array($value, $str) ){
-        $myStations[$value] = "hi";
-      }
+/* Rip thru our stations list and remove any vagrants */
+foreach ($st as $key => $value) {
+  if (strlen($value) > 0 && $value != "ahack") {
+    if (! in_array($value, $str) ){
+      $myStations[$value] = "hi";
     }
   }
-} else {
-  $myStations["SKCI4"] = 'hi';
 }
 
+/* Generate form stuff */
+reset($myStations);
 foreach ($myStations as $key => $value) {
   if (strlen($value) > 0 && $value != "ahack") {
     $formStr .= "<input type='hidden' name='st[]' value='".$key."'>\n";
@@ -208,9 +212,7 @@ foreach ($myStations as $key => $value) {
   }
 }
 
-if (sizeof($myStations) == 0) {
-  $myStations["SKCI4"] = 'hi';
-}
+
 if ($showRoadCond)
 {
   $cgiStr .= "roadcond=show&";
