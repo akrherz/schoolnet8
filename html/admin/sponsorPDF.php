@@ -47,7 +47,7 @@ function Header()
 //Load data
 function LoadData()
 {
-  global $sponsors, $station, $month, $byS, $Scities, $dbhost;
+  global $sponsors, $station,  $byS, $Scities, $dbhost;
   $c = pg_connect($dbhost);
   pg_exec($c, "set enable_seqscan=off");
   $q0 = "SELECT station, hits, 
@@ -67,8 +67,8 @@ function LoadData()
 		$data[$j]['short'] = $Scities[$data[$j]['station']]['short'];
 		$data[$j]['sponsor'] = $sponsors[$data[$j]['station']]['sponsor'];
 		$byS[$sponsors[$row['station']]['sponsor']]['sponsor'] = $sponsors[$data[$j]['station']]['sponsor'];
-		$byS[$sponsors[$row['station']]['sponsor']]['hits'] += $row['hits'];
-		$byS[$sponsors[$row['station']]['sponsor']]['c_count'] += $data[$j]['c_count'];
+		@$byS[$sponsors[$row['station']]['sponsor']]['hits'] += $row['hits'];
+		@$byS[$sponsors[$row['station']]['sponsor']]['c_count'] += $data[$j]['c_count'];
 		$j += 1;
    }
  
@@ -87,7 +87,7 @@ function WriteHTML($html)
         if($i%2==0)
         {
             //Text
-            if($this->HREF)
+            if (isset($this->HREF))
                 $this->PutLink($this->HREF,$e);
             else
                 $this->Write(5,$e);
@@ -177,10 +177,10 @@ function FancyTable2($header,$data)
         $this->SetTextColor(0);
         $this->SetFont('');
         //Data
-        $fill=0;
+        $fill=0;$tHits=0;$tClick=0;
         foreach($data as $row)
         {
-           if ($row['station'] == "CIPCO") $tHosts = $row['hosts'];
+           if (@$row['station'] == "CIPCO") $tHosts = $row['hosts'];
            $tHits += $row['hits'];
            $tClick += $row['c_count'];
 
@@ -244,7 +244,14 @@ function FancyTable3($header,$rs)
     "19" => "Site Index",
     "20" => "Website Guide",
     "21" => "GoogleMap Test Interface",
-    "22" => "Live Doppler static RADAR Viewer");
+    "22" => "Live Doppler static RADAR Viewer",
+    "23" => "Web Camera Mainpage",
+    "24" => "Web Camera Dynamic Loops",
+    "25" => "Web Camera 640x480 page",
+    "26" => "Web Camera Live Shots",
+    "27" => "Web Camera Lapses",
+
+);
 
    for( $i=0; $row = @pg_fetch_array($rs,$i); $i++)
         {
@@ -285,10 +292,11 @@ function CloseTag($tag)
 function SetStyle($tag,$enable)
 {
     //Modify style and select corresponding font
+    if (! isset($this->$tag)) $this->$tag = 0;
     $this->$tag+=($enable ? 1 : -1);
     $style='';
     foreach(array('B','I','U') as $s)
-        if($this->$s>0)
+        if(isset($this->$s))
             $style.=$s;
     $this->SetFont('',$style);
 }
@@ -312,9 +320,6 @@ $Scities["CIPCO"] = Array("short" => "CIPCO Logo", "city" => "CIPCO", "id" =>  "
 $sponsors["CIPCO"] = Array("name"=> "CIPCO Logo", "sponsor" => "CIPCO");
 $byS = Array();
 
-if (strlen($month) == 0){
- $month = 12;
-}
 
 $html = '
   <BR>A hit is one page load showing that sponsors logo.
