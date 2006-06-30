@@ -1,5 +1,6 @@
 <?php
  include("../config/settings.inc.php");
+ include("$nwnpath/include/sunrise.inc.php");
 /** Get vars */
 $var = isset($_GET['var']) ? $_GET['var'] : 'tmpf';
 $station = isset($_GET['station']) ? $_GET['station'] : 'SKCI4';
@@ -136,6 +137,7 @@ The red sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>
  <li><a href="ortho.phtml?station=<?php echo $station; ?>">Ortho Photography!</a></li>
  <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
  <li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
+ <li><a href="http://www.crh.noaa.gov/forecast/MapClick.php?FcstType=text&textField1=<?php echo $Scities[$station]['lat']; ?>&textField2=<?php echo $Scities[$station]['lon']; ?>&site=dmx">National Weather Service 7-Day Forecast</a></li>
 </ul>
 </div></div>
 
@@ -219,7 +221,7 @@ current data.";
 </div></div>
 
 <div class="nb">
-<h3>Climatology for Today:</h3>
+<h3>Climatology for <?php echo date("F d"); ?>:</h3>
 <div class="nb_content">
 <?php
  /* Unserialize climate data! */
@@ -233,7 +235,7 @@ current data.";
     $avg_month_precip += floatval( $climate[sprintf("2000-%s-%02d",$mon,$q)]["precip"] );
  }
 ?>
-<table width="100%">
+<table class="side">
 <tr><th colspan="4">High Temperature</th></tr>
 <tr>
   <td>Average:</td>
@@ -261,7 +263,13 @@ current data.";
 </tr>
 
 </table>
-&nbsp;
+<?php 
+ $astro = new Astro_Sunrise();
+ $astro->setDate(date("Y"), date("m"), date("d"));
+ $astro->setCoords( $Scities[$station]['lat'], $Scities[$station]['lon']);
+ $astro->setTimezone(date('Z') / 3600 );
+ echo sprintf("Sunrise: %s AM &nbsp; &nbsp; Sunset: %s PM", $astro->getSunrise(), $astro->getSunset() );
+?>
 </div></div>
 
 <div class="nb">
