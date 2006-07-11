@@ -11,7 +11,8 @@ function radarWidget($station, $var){
 
 function printHTML(){
   global $baseurl;
-  $imgbase = "$baseurl/static/radar/". $this->station ."/". $this->station;
+  global $backupbaseurl;
+  $imgbase = "$backupbaseurl/static/radar/". $this->station ."/". $this->station;
   $t = time();
 ?>
 <script LANGUAGE="JavaScript1.2" type="text/javascript">
