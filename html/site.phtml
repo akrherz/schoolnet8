@@ -103,7 +103,7 @@ if (array_key_exists($station, $cameras))
 	<li>Build <a href=\"$baseurl/camera/bloop.phtml?station=$station\">time lapses</a> or view <a href=\"camera/lapses.phtml\">today's movies</a></li>
 	<li>View higher resolution <a href=\"$baseurl/camera/viewer.phtml?id=$station\">640x480 images</a>.</li>
 <ul>
-<img src=\"$baseurl/camera/stills/${station}.jpg\" width=\"320\" alt=\"WebCam Still\" height=\"240\" />";
+<img src=\"$backupbaseurl/camera/stills/${station}.jpg\" width=\"320\" alt=\"WebCam Still\" height=\"240\" />";
 		if (isset($cameras[$station]["iservice"]) )
 		{
 			echo "<br />Internet service by: <a href=\"". $cameras[$station]["iserviceurl"] ."\">". $cameras[$station]["iservice"] ."</a>";
