@@ -1,5 +1,14 @@
 <?php
  include("../config/settings.inc.php");
+$fa = file('/proc/loadavg');
+$fa = explode(" ", $fa[0] );
+if ($fa[0] > 3.0)
+{
+  header("Location: ". $backupbaseurl ."/site.phtml?". $_ENV["QUERY_STRING"]  );
+  exit(0);
+}
+
+
  include("$nwnpath/include/sunrise.inc.php");
 /** Get vars */
 $var = isset($_GET['var']) ? $_GET['var'] : 'tmpf';
