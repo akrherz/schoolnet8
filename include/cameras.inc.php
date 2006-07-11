@@ -66,7 +66,7 @@ $cameras = Array(
 		"name" => "Newton", "active" => true,
 		"iservice" => "Consumers Energy", 
 		"iserviceurl" => "http://www.consumersenergy.net/",
-		"ip" => "216.203.109.40", "county" => "Jasper"),
+		"ip" => "216.203.113.56", "county" => "Jasper"),
   "SMAI4" => Array("sts" => mktime(0,0,0,10, 1,2003), 
          "ets" => mktime(14,0,0,10, 26,2004),
 		"name" => "Marshalltown", "active" => false, "removed" => true,
