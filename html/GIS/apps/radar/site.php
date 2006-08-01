@@ -4,8 +4,8 @@ include("../../../../config/settings.inc.php");
 //_________________ vars
 $station = isset($_GET['station']) ? $_GET['station'] : "SKCI4";
 $var = isset($_GET['var']) ? $_GET['var'] : "tmpf";
-$width = $_GET['width'];
-$height = $_GET['height'];
+$width = isset($_GET['width']) ? $_GET["width"]: 320;
+$height = isset($_GET['height']) ? $_GET["height"]: 240;
 
 //__________________ Includes ----------------
 include("$nwnpath/include/locs.inc.php");
@@ -15,17 +15,6 @@ dl($mapscript);
 
 $obs = new currentdb();
 $obs->timecheck();
-
-if (strlen($width) == 0){
-  $width = 320;
-} else {
-  $width = 640;
-}
-if (strlen($height) == 0){
-  $height = 240;
-} else {
-  $height = 480;
-}
 
 
 $rnd = Array("tmpf" => 0,
