@@ -234,15 +234,17 @@ current data.";
 <div class="nb_content">
 <?php
  /* Unserialize climate data! */
- $cfname = sprintf("%s/include/climate_files/%s.txt", $nwnpath, strtolower($Scities[$station]['climate_site']) );
+ //$cfname = sprintf("%s/include/climate_files/%s.txt", $nwnpath, strtolower($Scities[$station]['climate_site']) );
+ $cfname = sprintf("%s/include/climate_files/2000-%s.txt", $nwnpath, date("m-d") );
  $climate = unserialize( file_get_contents($cfname) );
- $cdict = $climate["2000-". date("m-d")];
- $avg_month_precip = 0;
- $mon = date("m");
- for ($q=1; $q <= intval(date("d")); $q++)
- {
-    $avg_month_precip += floatval( $climate[sprintf("2000-%s-%02d",$mon,$q)]["precip"] );
- }
+ //$cdict = $climate["2000-". date("m-d")];
+ $cdict = $climate[ strtolower($Scities[$station]['climate_site']) ];
+ $avg_month_precip = $cdict["mtd"];
+ //$mon = date("m");
+ //for ($q=1; $q <= intval(date("d")); $q++)
+ //{
+ //   $avg_month_precip += floatval( $climate[sprintf("2000-%s-%02d",$mon,$q)]["precip"] );
+ //}
 ?>
 <table class="side">
 <tr><th colspan="4">High Temperature</th></tr>
