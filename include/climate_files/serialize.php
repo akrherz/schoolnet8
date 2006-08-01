@@ -1,15 +1,25 @@
 <?php
 /* Serialize the climate data to files we can update! */
-$pg = pg_connect("dbname=coop host=10.10.10.20");
+$pg = pg_connect("user=nobody dbname=coop host=mesonet-db1.agron.iastate.edu");
 
-$rs = pg_query($pg, "SELECT * from climate51");
+$rs = pg_query($pg, "SELECT * from climate51 ORDER by station, valid ASC");
 
+$q = 0;
+$cur = "";
 $db = Array();
 for( $i=0; $row = @pg_fetch_array($rs,$i); $i++)
 {
   $id = $row["station"];
-  if (! array_key_exists($id, $db)) $db[$id] = Array();
-  $db[$id][ $row["valid"] ] = $row;
+  $v = $row["valid"];
+  $p = floatval($row["precip"]);
+  $k = sprintf("%s-%s", substr($v,0,7), $id);
+  echo "$k - $cur - $v - $q \n";
+  if ($k == $cur){ $q += $p; }
+  else {$q = $p;}
+  $cur = $k;
+  if (! array_key_exists($v, $db)) $db[$v] = Array();
+  $row["mtd"] = $q;
+  $db[ $row["valid"] ][$id] = $row;
 }
 
 reset($db);
