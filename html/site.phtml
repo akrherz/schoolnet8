@@ -236,7 +236,7 @@ current data.";
  /* Unserialize climate data! */
  //$cfname = sprintf("%s/include/climate_files/%s.txt", $nwnpath, strtolower($Scities[$station]['climate_site']) );
  $cfname = sprintf("%s/include/climate_files/2000-%s.txt", $nwnpath, date("m-d") );
- $climate = unserialize( file_get_contents($cfname) );
+ $climate = unserialize( fread(fopen($cfname, 'r'), filesize($cfname) ) );
  //$cdict = $climate["2000-". date("m-d")];
  $cdict = $climate[ strtolower($Scities[$station]['climate_site']) ];
  $avg_month_precip = $cdict["mtd"];
