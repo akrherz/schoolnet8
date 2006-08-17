@@ -65,7 +65,7 @@ $sponsors = Array(
 "SPEI4" => Array("name"=> "Pella M.S.", "sponsor" => "Pella Cooperative Electric ", "url" => "http://www.pella-cea.org/"),
 "SPKI4" => Array("name"=> "Polk City", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
 "SROI4" => Array("name"=> "Rockwell City", "sponsor" => "Calhoun County Electric Cooperative", "url" => "http://www.calhouncountyrec.com/"),
-"SSTI4" => Array("name"=> "Stuart", "sponsor" => "Stuart Municipal Utilities", "url" => "http://www.cipco.net/utilitiesmembersimeca.asp"),
+"SSTI4" => Array("name"=> "Stuart", "sponsor" => "Stuart Municipal Utilities", "url" => "http://www.stuartia.com"),
 "SSUI4" => Array("name"=> "Sully Christian", "sponsor" => "Pella Cooperative Electric ", "url" => "http://www.pella-cea.org/"),
 "SWAI4" => Array("name"=> "Wall Lake", "sponsor" => "Sac County REC", "url" => "http://www.sacrec.coop/"),
 "SWBI4" => Array("name"=> "Webster City", "sponsor" => "Prairie Energy Cooperative", "url" => "http://www.prairieenergy.com"),
