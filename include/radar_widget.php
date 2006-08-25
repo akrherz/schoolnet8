@@ -6,6 +6,7 @@ class radarWidget
 
 function radarWidget($station, $var){
 	$this->station = $station;
+	$this->station2 = "";
 	$this->var = $var;
 }
 
