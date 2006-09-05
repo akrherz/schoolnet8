@@ -42,7 +42,7 @@ $cameras = Array(
 		"iserviceurl" => "http://www.trvnet.net/",
 		"ip" => "64.71.77.200", "county" => "Humboldt"),
   "SINI4" => Array("sts" => mktime(0,0,0, 2,25,2004), "ets" => time(),
-		"name" => "Indianola", "active" => false,
+		"name" => "Indianola", "active" => true,
 		"iservice" => "Clarke Electric Cooperative, Inc", 
 		"iserviceurl" => "http://www.clarkeelectric.org/",
 		"hosted" => "Indianola Municipal Utilities",
