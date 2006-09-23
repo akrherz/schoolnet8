@@ -67,7 +67,7 @@ $cameras = Array(
   "SKNI4" => Array("sts" => mktime(17,0,0,9, 26,2005), 
         "ets" => time(),
 		"name" => "Knoxville", "active" => true,
-		"hosted" => "Sideways Karting Center",
+		"hosted" => "Slideways Karting Center",
 		"hostedurl" => "http://www.slidewayskartingcenter.com",
 		"ip" => "71.7.58.111", "county" => "Marion"),
   "SNEI4" => Array("sts" => mktime(19,0,0, 4,16,2004), "ets" => time(),
