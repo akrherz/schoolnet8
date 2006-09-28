@@ -43,6 +43,7 @@ $sponsors = Array(
 "SJEI4" => Array("name"=> "Jefferson Scranton H.S.", "sponsor" => "Midland Power Cooperative", "url" => "http://www.midlandpower.com/"),
 "SJWI4" => Array("name"=> "Jewell", "sponsor" => "Midland Power Cooperative", "url" => "http://www.midlandpower.com/"),
 "SJCI4" => Array("name"=> "Jordan Creek WDM", "sponsor" => "CIPCO", "url" => "http://www.cipco.net/"),
+"SDCI4" => Array("name"=> "Des Moines Christian", "sponsor" => "CIPCO", "url" => "http://www.cipco.net/"),
 "SKCI4" => Array("name"=> "KCCI Studios in Des Moines", "sponsor" => "CIPCO", "url" => "http://www.cipco.net/"),
 "S03I4" => Array("name"=> "Iowa State Fair", "sponsor" => "Dynamic Broadband", "url" => "http://www.dybb.com/"),
 "SKNI4" => Array("name"=> "West Elementary / Knoxville", "sponsor" => "Pella Cooperative Electric ", "url" => "http://www.pella-cea.org/"),

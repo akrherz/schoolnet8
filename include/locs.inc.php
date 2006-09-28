@@ -30,6 +30,7 @@ $Scities = array(
  "SCNI4" => array("short" => "Corning", "city" => "Corning Community", "lat" => 40.9917, "lon" => -94.73975, "online" => true, "nwn_id" => 79, "climate_site" => "IA1833"),
  "SCOI4" => array("short" => "Colo", "city" => "Colo Elem", "lat" => 42.0107, "lon" => -93.3182666667, "online" => true, "nwn_id" => 67, "climate_site" => "IA5198"),
  "SCSI4" => array("short" => "Creston", "city" => "Creston HS", "lat" => 41.0731833333, "lon" => -94.3695833333, "online" => true, "nwn_id" => 68, "climate_site" => "IA3438"),
+ "SDCI4" => array("short" => "DSM Christian", "city" => "Des Moines / Christian", "lat" => 41.63, "lon" => -93.8014, "online" => true, "nwn_id" => 263, "climate_site" => "IA0241"),
  "SDRI4" => array("short" => "River Woods", "city" => "Des Moines / River Woods", "lat" => 41.5578833333, "lon" => -93.57745, "online" => true, "nwn_id" => 60, "climate_site" => "IA0241"),
  "SEGI4" => array("short" => "Eagle Grove", "city" => "Eagle Grove", "lat" => 42.6653, "lon" => -93.9124, "online" => true, "nwn_id" => 171, "climate_site" => "IA1541"),
  "SFAI4" => array("short" => "Farnhamville", "city" => "Farnhamville / Prairie Valley", "lat" => 42.33715, "lon" => -94.41475, "online" => true, "nwn_id" => 84, "climate_site" => "IA7161"),
