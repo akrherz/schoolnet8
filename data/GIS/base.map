@@ -206,7 +206,7 @@ LAYER
   NAME iowa_map_cities
   STATUS OFF
   TYPE POINT
-  DATA "shape/26915/iowa_map_cities.shp"
+  DATA "/mesonet/data/gis/static/shape/26915/iowa/iowa_map_cities.shp"
   PROJECTION
    "init=epsg:26915"
   END
@@ -346,7 +346,7 @@ LAYER
 	NAME cities
 	STATUS OFF
 	TYPE	POLYGON
-	DATA	"shape/26915/incorporated_cities_2000.shp"
+	DATA	"/mesonet/data/gis/static/shape/26915/iowa/incorporated_cities_2000.shp"
 	PROJECTION
 		"init=epsg:26915"
 	END
@@ -375,7 +375,7 @@ LAYER
   NAME counties
   STATUS OFF
   TYPE POLYGON
-  DATA shape/26915/iacounties.shp
+  DATA /mesonet/data/gis/static/shape/26915/iowa/iacounties.shp
   PROJECTION
     "init=epsg:26915"
   END
@@ -402,7 +402,7 @@ LAYER
   NAME mwcounties
   STATUS OFF
   TYPE LINE
-  DATA shape/26915/mwcounties.shp
+  DATA /mesonet/data/gis/static/shape/26915/us/mwcounties.shp
   PROJECTION
     "init=epsg:26915"
   END
@@ -415,7 +415,7 @@ LAYER
   NAME states
   STATUS OFF
   TYPE LINE
-  DATA shape/26915/states.shp
+  DATA /mesonet/data/gis/static/shape/26915/us/states.shp
   PROJECTION
     "init=epsg:26915"
   END
@@ -722,7 +722,7 @@ LAYER
   PROJECTION
    "init=epsg:26915"
   END
-  DATA shape/26915/nhpn_roads.shp
+  DATA /mesonet/data/gis/static/shape/26915/iowa/nhpn_roads.shp
   CLASSITEM "SIGNT1"
   CLASS
 	EXPRESSION /I/
@@ -742,7 +742,7 @@ LAYER
  PROJECTION
   "init=epsg:4326"
  END
- DATA "shape/unproj/us/interstates.shp"
+ DATA "/mesonet/data/gis/static/shape/4326/us/interstates.shp"
  CLASS
     COLOR 255 0 0
     SYMBOL 'circle'
@@ -763,7 +763,7 @@ LAYER
   END
   LABELITEM "SIGNN1"
   CLASSITEM "SIGNT1"
-  DATA shape/26915/nhpn_roads.shp
+  DATA /mesonet/data/gis/static/shape/26915/iowa/nhpn_roads.shp
   CLASS
     EXPRESSION /I/
     COLOR -1 -1 -1
@@ -786,7 +786,7 @@ LAYER
   NAME roads
   STATUS OFF
   TYPE LINE
-  DATA "shape/26915/nhpn_roads.shp"
+  DATA "/mesonet/data/gis/static/shape/26915/iowa/nhpn_roads.shp"
   CLASSITEM "SIGNT1"
   MAXSCALE 1000000
   PROJECTION
@@ -818,7 +818,7 @@ LAYER
   STATUS OFF
   LABELITEM SIGNN1
   MAXSCALE 1000000
-  DATA "shape/26915/nhpn_roads.shp"
+  DATA "/mesonet/data/gis/static/shape/26915/iowa/nhpn_roads.shp"
   CLASSITEM "SIGNT1"
   LABELCACHE ON
   CLASS
@@ -917,7 +917,7 @@ LAYER
   NAME sites
   STATUS ON
   TYPE POINT
-  DATA "shape/unproj/locs.shp"
+  DATA "shape/locs.shp"
   PROJECTION
    "init=epsg:4326"
   END
@@ -927,7 +927,7 @@ LAYER
   LABELCACHE ON
   CLASSITEM "SID"
   CLASS
-    EXPRESSION /SCGI4|SCHI4|SBZI4|SPAI4|SAMI4|SCSI4|STQI4|SINI4|SPKI4|SJEI4|SNEI4|SROI4|SPEI4|SHUI4|SCEI4|SMDI4|SGLI4|SWBI4|SWII4|SNVI4/
+    EXPRESSION /SCGI4|SCHI4|SBZI4|SPAI4|SAMI4|SCSI4|STQI4|SINI4|SPKI4|SJEI4|SNEI4|SROI4|SPEI4|SHUI4|SCEI4|SMDI4|SGLI4|SWBI4|SWII4|SNVI4|SBOI4/
     TEMPLATE "http://www.schoolnet8.com/site.phtml?station=[SID]"
     COLOR 0 0 0
     SYMBOL 'circle'
