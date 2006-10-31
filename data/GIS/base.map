@@ -4,15 +4,11 @@
 NAME base
 STATUS ON
 SIZE 450 350
-#FONTSET "/home/akrherz/projects/nwnwebsite/data/GIS/fonts/fonts.list"
-FONTSET "fonts/fonts.list"
-#EXTENT -2223813 -1746393 2207341 1701506
+FONTSET "/mesonet/data/gis/static/fonts/fonts.list"
 EXTENT 200000 4400000 710000 4900000
 UNITS METERS
-#SHAPEPATH "/home/akrherz/projects/nwnwebsite/data/GIS/"
 SHAPEPATH "./"
-#SYMBOLSET "/home/akrherz/projects/nwnwebsite/data/GIS/symbols/stations.sym"
-SYMBOLSET "symbols/stations.sym"
+SYMBOLSET "/mesonet/data/gis/static/symbols/stations.sym"
 #TRANSPARENT off
 #INTERLACE off
 IMAGECOLOR 140 144 90
@@ -927,7 +923,7 @@ LAYER
   LABELCACHE ON
   CLASSITEM "SID"
   CLASS
-    EXPRESSION /SCGI4|SCHI4|SBZI4|SPAI4|SAMI4|SCSI4|STQI4|SINI4|SPKI4|SJEI4|SNEI4|SROI4|SPEI4|SHUI4|SCEI4|SMDI4|SGLI4|SWBI4|SWII4|SNVI4|SBOI4/
+    EXPRESSION /SCGI4|SCHI4|SBZI4|SPAI4|SAMI4|SCSI4|STQI4|SINI4|SPKI4|SJEI4|SNEI4|SROI4|SPEI4|SHUI4|SCEI4|SMDI4|SGLI4|SWBI4|SWII4|SNVI4|SBOI4|SAGI4|SKNI4/
     TEMPLATE "http://www.schoolnet8.com/site.phtml?station=[SID]"
     COLOR 0 0 0
     SYMBOL 'circle'
@@ -939,8 +935,8 @@ LAYER
 #      TYPE BITMAP
       TYPE TRUETYPE
 #      SIZE SMALL
-      FONT Verabd
-      ANTIALIAS FALSE
+      FONT fritqat
+      ANTIALIAS TRUE
       SIZE 8
       OUTLINECOLOR 250 250 250
       COLOR 250 0 0
@@ -962,8 +958,8 @@ LAYER
 #      TYPE BITMAP
       TYPE TRUETYPE
 #      SIZE SMALL
-      FONT Verabd
-      ANTIALIAS FALSE
+      FONT fritqat
+      ANTIALIAS TRUE
       SIZE 8
       OUTLINECOLOR 250 250 250
       COLOR 0 0 0
