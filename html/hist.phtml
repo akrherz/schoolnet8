@@ -12,7 +12,7 @@ $app = "13"; include("$nwnpath/include/dblog.inc.php");
 /* Get vars */
 $year = isset($_GET['year']) ? intval($_GET['year']) : date("Y", time() - 86400);
 $month = isset($_GET['month']) ? intval($_GET['month']) : date("m", time() - 86400);
-$day = isset($_GET['day']) ? intval($_GET['day']) : date("d", time() - 86400);
+$day = isset($_GET['day']) ? intval($_GET['day']) : 1;
 $station = isset($_GET['station']) ? substr($_GET['station'],0,5) : 'SKCI4';
 $mode = isset($_GET['mode']) ? $_GET['mode'] : 'monthly';
 $sortvar = isset($_GET['sortvar']) ? $_GET['sortvar'] : 'station';
@@ -94,7 +94,7 @@ if ($mode == "monthly") {
   else
     $htmlout .= "<td>". $row["pday"] ."</td>";
 
-  if (strlen($row["max_gust"]) > 0) {
+  if (strlen($row["max_gust"]) > 0 && $row["max_gust_ts"] != "") {
     $gtim = strtotime(substr($row["max_gust_ts"],0,16));
     $gs = date("h:i a", $gtim);
     $g = round($row["max_gust"] * 1.15,0);
@@ -119,8 +119,12 @@ if ($mode == "monthly") {
 <?php
 if ($mode == "monthly"){
   echo "The calendar chart below shows the daily reported climate variables.  You can click on a date to display the values for all SchoolNet8 sites for that day.";
-  echo "<p><b>Display Calendar For:</b>";
-  echo kcciSelectAuto($station, $baseurl .'/hist.phtml?station=', '&amp;year='. $year .'&amp;month='. $month);
+  echo "<p><b>Display Calendar For:</b><br />";
+  echo "<form method='GET' name='changeme'>";
+  echo kcciSelect($station);
+  echo "&nbsp; Year: &nbsp; ". yearSelect(2002, $year, "year");
+  echo "&nbsp; Month: &nbsp; ". monthSelect($month, "month");
+  echo "<input type='submit' value='Change'></form>";
   echo "<br />Switch to <a href=\"".$baseurl ."site.phtml?station=". $station ."\">Current Site Conditions</a><br>";
 } else {
   echo "The chart below lists out the reported summary values for a particular date for all SchoolNet8 sites.";
