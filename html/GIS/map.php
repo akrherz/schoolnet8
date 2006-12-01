@@ -394,6 +394,7 @@ foreach($myStations as $key => $value){
   if (! isset($obs->db[$key])) continue;
   $bzz = $obs->db[$key];
   if (sizeof($bzz) == 0) continue;
+  if ($bzz[$var] == -99) continue;
 
   $lat = $Scities[$key]["lat"];
   $lon = $Scities[$key]["lon"];
