@@ -30,7 +30,6 @@ include("$nwnpath/include/forms.inc.php");
 
  while (list($id, $val) = each($cameras))
  {
-        $cameras[$id]["url"] = sprintf("$baseurl/camera/stills/%s.jpg?%s", $id, time() );
 
  if ($isarchive)
  {
@@ -40,6 +39,11 @@ include("$nwnpath/include/forms.inc.php");
 
     $cameras[$id]["url"] = $url5;
     $cameras[$id]["active"] = true;
+ } else if ($cameras[$id]["active"]) {
+    if ( filemtime("/home/ldm/data/camera/stills/${id}.jpg") < (time() - 1200)){
+      $cameras[$id]["active"] = false;
+    }
+    $cameras[$id]["url"] = sprintf("$baseurl/camera/stills/%s.jpg?%s", $id, time() );
  }
 
 }/* End of while */
