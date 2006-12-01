@@ -394,7 +394,6 @@ foreach($myStations as $key => $value){
   if (! isset($obs->db[$key])) continue;
   $bzz = $obs->db[$key];
   if (sizeof($bzz) == 0) continue;
-  if ($bzz[$var] == -99) continue;
 
   $lat = $Scities[$key]["lat"];
   $lon = $Scities[$key]["lon"];
@@ -438,6 +437,7 @@ foreach($myStations as $key => $value){
      $pt->draw($map, $snet, $img, 0, $bzz[$var] );
      $pt->free();
     } else if ($var == "splot") {
+     if ($bzz["tmpf"] == -99) continue;
      /* Draw the barb */
      $pt = ms_newPointObj();
      $pt->setXY($lon, $lat, 0);
@@ -467,6 +467,7 @@ foreach($myStations as $key => $value){
      $pt->free();
 
     } else {
+     if ($bzz[$var] == -99) continue;
      $pt = ms_newPointObj();
      $pt->setXY($lon, $lat, 0);
      $pt->draw($map, $snet, $img, 0, round($bzz[$var], $rnd[$var]) );
