@@ -486,7 +486,7 @@ if (($tvgood || $mode == "archive") && $radar == "KCCI")
 } else 
 {
   $subbar->draw($img);
-  mktitle($map, $img, 350, 70, $rlabel[$radar] );
+  if ($radar != "NONE") mktitle($map, $img, 350, 70, $rlabel[$radar] );
 }
 
 if ($showRoadCond)

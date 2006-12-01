@@ -386,6 +386,7 @@ function setLayerDisplay( layerName, d ) {
   <option value="MPX" <?php if ($radar == "MPX") echo "SELECTED"; ?>>NWS - Minneapolis, MN</option>
 </select>
 <br /><input type="checkbox" value="show" name="sitelabel" <?php if ($showSiteLabel) echo "checked=\"checked\""; ?>>Show Site Labels
+<input type="hidden" value="bogus" name="layers[]">
 <br /><input type="checkbox" value="nws_warnings" name="layers[]" <?php if (in_array("nws_warnings", $layers) ) echo "checked=\"checked\""; ?>>NWS Warnings
 <br /><b>- Realtime-Only Layers:</b>
 <br /><input type="checkbox" value="show" name="roadcond" <?php if ($showRoadCond) echo "checked=\"checked\""; ?>>Road Conditions
