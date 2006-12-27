@@ -73,7 +73,7 @@ $sponsors = Array(
 "SWII4" => Array("name"=> "Winterset Community", "sponsor" => "Farmers Electric Cooperative", "url" => "http://www.farmersrec.com/"),
 "KCCI" => Array("name"=> "KCCI", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
 "SIAI4" => Array("name"=> "Iowa Christian Academy", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
-"SBMI4" => Array("name"=> "Bloomfield", "sponsor" => "Southern Iowa Electric Cooperative, Inc", "url" => "http://southerniowarec.coop/"),
+"SBMI4" => Array("name"=> "Bloomfield", "sponsor" => "Touchstone Energy Cooperatives", "url" => "http://www.touchstoneenergy.com/"),
 "SAGI4" => Array("name"=> "Algona", "sponsor" => "Humboldt County REC", "url" => "http://www.humboldtrec.coop/"),
 "STQI4" => Array("name"=> "Meskwaki Settlement School Tama", "sponsor" => "T.I.P. Rural Electric Cooperative", "url" => "http://www.tiprec.com"),
 "CIPCO" => Array("name"=> "KCCI", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
