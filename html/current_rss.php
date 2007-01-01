@@ -54,7 +54,7 @@ while (list ($key, $val) = each ($finalA))  {
   {
     $s .= sprintf("<title>%s; Currently Not Reporting</title>", $Scities[$key]['short']  );
   } else {
-    $s .= sprintf("<title>%s; Temp: %s F, Rainfall: %s %s</title>", $Scities[$key]['short'], $val["tmpf"], $val["pday"] );
+    $s .= sprintf("<title>%s; Temp: %s F, Rainfall: %s</title>", $Scities[$key]['short'], $val["tmpf"], $val["pday"] );
   }
   $s .= "<author>KCCI</author>";
   $s .= "<link>http://www.schoolnet8.com/site.phtml?station=". $key ."</link>";
