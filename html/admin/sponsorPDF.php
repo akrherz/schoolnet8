@@ -250,6 +250,7 @@ function FancyTable3($header,$rs)
     "25" => "Web Camera 640x480 page",
     "26" => "Web Camera Live Shots",
     "27" => "Web Camera Lapses",
+    "28" => "Current Data RSS",
 
 );
 
