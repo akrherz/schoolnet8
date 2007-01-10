@@ -80,7 +80,7 @@ $cameras = Array(
 		"ip" => "216.203.113.56", "county" => "Jasper"),
   "SNVI4" => Array("sts" => mktime(18,10,0,7, 22,2006),
          "ets" => time(),
-        "name" => "Nevada", "active" => false,
+        "name" => "Nevada", "active" => true,
         "ip" => "69.66.56.19", "county" => "Story"),
   "SMAI4" => Array("sts" => mktime(0,0,0,10, 1,2003), 
          "ets" => mktime(14,0,0,10, 26,2004),
