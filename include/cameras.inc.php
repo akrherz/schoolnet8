@@ -74,7 +74,7 @@ $cameras = Array(
 		"hostedurl" => "http://www.slidewayskartingcenter.com",
 		"ip" => "69.66.146.121", "county" => "Marion"),
   "SNEI4" => Array("sts" => mktime(19,0,0, 4,16,2004), "ets" => time(),
-		"name" => "Newton", "active" => true,
+		"name" => "Newton", "active" => false,
 		"iservice" => "Consumers Energy", 
 		"iserviceurl" => "http://www.consumersenergy.net/",
 		"ip" => "216.203.113.56", "county" => "Jasper"),
