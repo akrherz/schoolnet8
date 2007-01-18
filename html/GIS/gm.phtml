@@ -29,9 +29,53 @@ link presented in the popup window takes you to the site's homepage.</p>
 
 <script type="text/javascript">
     //<![CDATA[
+
+CustomGetTileUrl=function(a,b,c) {
+if (typeof(window['this.myMercZoomLevel'])=="undefined") this.myMercZoomLevel=0; 
+if (typeof(window['this.myStyles'])=="undefined") this.myStyles="default"; 
+var lULP = new GPoint(a.x*256,(a.y+1)*256);
+var lLRP = new GPoint((a.x+1)*256,a.y*256);
+var lUL = G_NORMAL_MAP.getProjection().fromPixelToLatLng(lULP,b,c);
+var lLR = G_NORMAL_MAP.getProjection().fromPixelToLatLng(lLRP,b,c);
+// switch between Mercator and DD if merczoomlevel is set
+if (this.myMercZoomLevel!=0 && map.getZoom() < this.myMercZoomLevel) {
+    var lBbox=dd2MercMetersLng(lUL.lngDegrees)+","+dd2MercMetersLat(lUL.latDegrees)+","+dd2MercMetersLng(lLR.lngDegrees)+","+dd2MercMetersLat(lLR.latDegrees);
+    var lSRS="EPSG:54004";
+} else {
+    var lBbox=lUL.x+","+lUL.y+","+lLR.x+","+lLR.y;
+    var lSRS="EPSG:4326";
+}
+var lURL=this.myBaseURL;
+lURL+="&REQUEST=GetMap";
+lURL+="&SERVICE=WMS";
+lURL+="&reaspect=false&VERSION=1.1.1";
+lURL+="&LAYERS="+this.myLayers;
+lURL+="&STYLES="+this.myStyles; lURL+="&FORMAT="+this.myFormat;
+lURL+="&BGCOLOR=0xFFFFFF";
+lURL+="&TRANSPARENT=TRUE";
+lURL+="&SRS="+lSRS;
+lURL+="&BBOX="+lBbox;
+lURL+="&WIDTH=256";
+lURL+="&HEIGHT=256";
+lURL+="&GroupName="+this.myLayers;
+return lURL;
+}
+
+
+
     var map = new GMap2(document.getElementById("map"));
     map.addControl(new GLargeMapControl());
     map.addControl(new GMapTypeControl());
+
+  var tileNEX= new GTileLayer(new GCopyrightCollection(""),1,17);
+  tileNEX.myLayers='nexrad-n0r';
+  tileNEX.myFormat='image/png';
+  tileNEX.myBaseURL='http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?';
+  tileNEX.getTileUrl=CustomGetTileUrl;
+
+var layer4=[G_SATELLITE_MAP.getTileLayers()[0],G_HYBRID_MAP.getTileLayers()[1],tileNEX];
+var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Nexrad", G_SATELLITE_MAP);
+map.addMapType(custommap4);
 
     //var wms = new WMSSpec(map.mapTypes[2], "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?", "RADAR", "nexrad-n0r", "", "image/png" );
     //wms.BaseSpecOverride = map.mapTypes[0];
