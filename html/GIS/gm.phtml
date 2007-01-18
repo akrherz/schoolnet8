@@ -11,7 +11,7 @@ $defaultzoom = isset($_GET["station"]) ? 4 : 10;
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
    <style type="text/css" media="screen">@import "../css/main.css";</style>
-    <script src="http://maps.google.com/maps?file=api&v=1&key=<?php echo $GMAPS_KEY; ?>" type="text/javascript"></script>
+    <script src="http://maps.google.com/maps?file=api&v=2&key=<?php echo $GMAPS_KEY; ?>" type="text/javascript"></script>
     <script src="GMaps_WMSSpec_0.6.js?v=11" type="text/javascript"></script>
   </head>
   <body>
@@ -29,17 +29,17 @@ link presented in the popup window takes you to the site's homepage.</p>
 
 <script type="text/javascript">
     //<![CDATA[
-    var map = new GMap(document.getElementById("map"));
+    var map = new GMap2(document.getElementById("map"));
     map.addControl(new GLargeMapControl());
     map.addControl(new GMapTypeControl());
 
-    var wms = new WMSSpec(map.mapTypes[2], "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?", "RADAR", "nexrad-n0r", "", "image/png" );
-    wms.BaseSpecOverride = map.mapTypes[0];
-    wms.reverse = true;
+    //var wms = new WMSSpec(map.mapTypes[2], "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?", "RADAR", "nexrad-n0r", "", "image/png" );
+    //wms.BaseSpecOverride = map.mapTypes[0];
+    //wms.reverse = true;
     //map.mapTypes[map.mapTypes.length] = wms; 
-    map.mapTypes.push(wms);
+    //map.mapTypes.push(wms);
 
-    map.centerAndZoom(new GPoint(<?php echo $Scities[$station]["lon"]; ?>, <?php echo $Scities[$station]["lat"]; ?>), <?php echo $defaultzoom; ?>);
+    map.setCenter(new GLatLng(<?php echo $Scities[$station]["lat"]; ?>, <?php echo $Scities[$station]["lon"]; ?>), <?php echo $defaultzoom; ?>);
 
     function createMarker(point, site_name, site_abrev, lon, lat, sponsor, ui) {
       var marker = new GMarker(point);
