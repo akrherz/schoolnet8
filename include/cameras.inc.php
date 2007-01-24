@@ -69,7 +69,7 @@ $cameras = Array(
 		"ip" => "69.66.225.18", "county" => "Appanoose"),
   "SLOI4" => Array("sts" => mktime(18,0,0,1, 24,2007), "ets" => time(),
         "name" => "Lamoni", "active" => true,
-		"iservice" => "Green River Mutual",
+		"iservice" => "Grand River Mutual",
 		"iserviceurl" => "http://www.grm.net/",
         "ip" => "216.139.122.154", "county" => "Decatur"),
   "SKNI4" => Array("sts" => mktime(17,0,0,9, 26,2005), 
