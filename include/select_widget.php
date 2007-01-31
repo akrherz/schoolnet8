@@ -157,7 +157,7 @@ class selectWidget
 	if ($this->showWarnings) $warnings->draw($img);
 
     if ($this->showRADAR && $this->showKCCI){
-      $fc =  file('/home/ldm/data/kcci/time.txt');
+      $fc =  file('/home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt');
       $ts = strtotime($fc[0]);
       $credits = $this->map->getLayerByName("credits");
       $c = $credits->getClass(0);
@@ -170,6 +170,7 @@ class selectWidget
     }
 
     $this->map->drawLabelCache($img);
+
     $this->imgurl = $img->saveWebImage();
 
   }
@@ -182,7 +183,7 @@ class selectWidget
     $this->showRADAR = $choice;
     if ($choice == true)
     {
-      $fc =  file('/home/ldm/data/kcci/time.txt');
+      $fc =  file('/home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt');
       $diff = time() - strtotime($fc[0]);
       $this->showKCCI = true;
       if ($diff > 500) 
