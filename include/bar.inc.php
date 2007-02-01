@@ -1,6 +1,7 @@
 <?php include("$nwnpath/include/webring.html"); ?>
 <div id="wrapper">
 <div id="imgbar"><?php 
+if (! isset($THISPAGE)) $THISPAGE = "";
 if (isset($station) && $station != "") {
 	include_once("$nwnpath/include/locs.inc.php");
 	include_once("$nwnpath/include/sponsors.inc.php");
