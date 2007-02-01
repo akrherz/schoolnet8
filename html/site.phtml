@@ -98,7 +98,6 @@ function sel($svar, $var, $txt){
   
 ?>
 <?php $THISPAGE = "mysite"; include("$nwnpath/include/bar.inc.php"); ?>
- 
 <div id="leftside">
 
 <?php
@@ -139,34 +138,8 @@ if (array_key_exists($station, $cameras))
 The red sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>.
 </div></div>
 
-<div class="nb">
-<h3>Site Resources:</h3>
-<div class="nb_content">
-<ul>
- <li><a href="<?php echo $baseurl; ?>dl/">Download Data</a>
- <li><a href="<?php echo $baseurl; ?>hist.phtml?station=<?php echo $station; ?>">Historical Data Calendar</a></li>
- <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?st[]=<?php echo $station; ?>');">Live SchoolNet8 & Super Doppler </a></li>
- <li><a href="<?php echo $baseurl; ?>GIS/gm.phtml?station=<?php echo $station; ?>">Google Maps Application</a></li>
- <li><a href="<?php echo $baseurl; ?>ortho.phtml?station=<?php echo $station; ?>">Ortho Photography!</a></li>
- <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
- <li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
- <li><a href="http://www.crh.noaa.gov/forecast/MapClick.php?FcstType=text&textField1=<?php echo $Scities[$station]['lat']; ?>&textField2=<?php echo $Scities[$station]['lon']; ?>&site=dmx">National Weather Service 7-Day Forecast</a></li>
-</ul>
-</div></div>
 
-<div class="nb">
-<h3>SchoolNet8 Neighbors:</h3>
-<div class="nb_content">
-<ul>
-<?php
- for ($i=0;$i<5;$i++){
-   $s = sprintf('<li><a href="%ssite.phtml?station=%s">%s</a></li>', 
-     $baseurl, $neighbors[$station][$i], $Scities[$neighbors[$station][$i]]['city']);
-   echo $s;
- } 
-?>
-</ul>
-</div></div>
+
 
 </div><div id="rightside">
 <?php   
@@ -287,6 +260,49 @@ current data.";
 ?>
 </div></div>
 
+
+
+</div>
+
+<div class="nb" style="clear: both;">
+<h3 style="text-align: left;">National Weather Service Forecast:</h3>
+<div class="nb_content">
+<?php include("../data/fx/${station}.html"); ?>
+</div></div>
+
+<div id="leftside">
+
+<div class="nb">
+<h3>Site Resources:</h3>
+<div class="nb_content">
+<ul>
+ <li><a href="<?php echo $baseurl; ?>dl/">Download Data</a>
+ <li><a href="<?php echo $baseurl; ?>hist.phtml?station=<?php echo $station; ?>">Historical Data Calendar</a></li>
+ <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?st[]=<?php echo $station; ?>');">Live SchoolNet8 & Super Doppler </a></li>
+ <li><a href="<?php echo $baseurl; ?>GIS/gm.phtml?station=<?php echo $station; ?>">Google Maps Application</a></li>
+ <li><a href="<?php echo $baseurl; ?>ortho.phtml?station=<?php echo $station; ?>">Ortho Photography!</a></li>
+ <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
+ <li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
+ <li><a href="http://www.crh.noaa.gov/forecast/MapClick.php?FcstType=text&textField1=<?php echo $Scities[$station]['lat']; ?>&textField2=<?php echo $Scities[$station]['lon']; ?>&site=dmx">National Weather Service 7-Day Forecast</a></li>
+</ul>
+</div></div>
+
+<div class="nb">
+<h3>SchoolNet8 Neighbors:</h3>
+<div class="nb_content">
+<ul>
+<?php
+ for ($i=0;$i<5;$i++){
+   $s = sprintf('<li><a href="%ssite.phtml?station=%s">%s</a></li>', 
+     $baseurl, $neighbors[$station][$i], $Scities[$neighbors[$station][$i]]['city']);
+   echo $s;
+ } 
+?>
+</ul>
+</div></div>
+
+</div><div id="rightside">
+
 <div class="nb">
 <h3>Switch SchoolNet8 Site:</h3>
 <div class="nb_content">
@@ -304,7 +320,6 @@ current data.";
 </div></div>
 
 </div>
-
 
 <br clear="all" />
 <p><i>Wanna bookmark this page?  Use this URL</i><br />
