@@ -85,15 +85,15 @@ init();
 <form name="main" target="JavaScript: func()">
 <div style="float: left; background-color: #fff; text-align: left; padding: 5px; width: 160px;">
 <b>Select Camera:</b>
-<?php while (list($cid, $v) = each($cameras) )
-{
-	if ($v["active"]){
+<?php 
+while (list($cid, $v) = each($cameras) ) {
+ if ($v["active"]){
 	echo "<br /><input type=\"radio\" name=\"id\" value=\"$cid\" ";
-	if ($cid == $id) echo "checked=\"checked\"";
-	echo " onClick=\"refreshCamera();\">". $v["name"];
-	}
-} ?>
-
+	if ($cid == $id) { echo "checked=\"checked\""; }
+	echo " onClick=\"refreshCamera();\">". $v["name"] ."\n";
+  }
+} 
+?>
 
 <p><b>Overlay RADAR?</b>
 <br /><input name="s" type="radio" checked="checked" onclick="document.radar.style.visibility='hidden';">HIDE
