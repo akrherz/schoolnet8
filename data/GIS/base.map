@@ -398,7 +398,7 @@ LAYER
   NAME mwcounties
   STATUS OFF
   TYPE LINE
-  DATA /mesonet/data/gis/static/shape/26915/us/mwcounties.shp
+  DATA /mesonet/data/gis/static/shape/26915/us/counties.shp
   PROJECTION
     "init=epsg:26915"
   END
