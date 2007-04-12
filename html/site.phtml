@@ -150,7 +150,7 @@ The red sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>
 
 $now = time(); 
 if (isset($Scities[$station]["ftm"])) {
- echo "<div style=\"background: #ff0; color: #f00; border: #000 dashed 1px;\"><b>Special Message</b><br />". $Scities[$station]["ftm"] ."</div>";
+ echo "<div style=\"background: #ff0; color: #f00; padding: 2px; border: #000 dashed 1px;\"><b>Special Message</b><br />". $Scities[$station]["ftm"] ."</div>";
 } 
 
 ?>
@@ -221,11 +221,6 @@ current data.";
  //$cdict = $climate["2000-". date("m-d")];
  $cdict = $climate[ strtolower($Scities[$station]['climate_site']) ];
  $avg_month_precip = $cdict["mtd"];
- //$mon = date("m");
- //for ($q=1; $q <= intval(date("d")); $q++)
- //{
- //   $avg_month_precip += floatval( $climate[sprintf("2000-%s-%02d",$mon,$q)]["precip"] );
- //}
 ?>
 <table class="side">
 <tr><th colspan="4">High Temperature</th></tr>
