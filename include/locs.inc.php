@@ -41,7 +41,7 @@ $Scities = array(
  "SHUI4" => array("short" => "Humboldt", "city" => "Humboldt / Taft Elem", "lat" => 42.7158833333, "lon" => -94.2286166667, "online" => true, "nwn_id" => 59, "climate_site" => "IA3980"),
  "SIAI4" => array("short" => "ICA", "city" => "Iowa Christian", "lat" => 41.5800333333, "lon" => -93.7393333333, "online" => true, "nwn_id" => 93, "climate_site" => "IA0241"),
  "SIFI4" => array("short" => "Iowa Falls", "city" => "Iowa Falls / Rock Run Elem", "lat" => 42.5296, "lon" => -93.2652833333, "online" => true, "nwn_id" => 77, "climate_site" => "IA4142"),
- "SINI4" => array("short" => "Indianola", "city" => "Indianola / Emerson Elem", "lat" => 41.36505, "lon" => -93.548, "online" => true, "nwn_id" => 38, "climate_site" => "IA4063", "ftm" => "The web camera is in need of a home in Indianola. If you know of a high, sturdy, and internet accessible location, please <a href=\"contact.phtml\">let us know</a>. Thanks."),
+ "SINI4" => array("short" => "Indianola", "city" => "Indianola / Emerson Elem", "lat" => 41.36505, "lon" => -93.548, "online" => true, "nwn_id" => 38, "climate_site" => "IA4063"),
  "SJCI4" => array("short" => "Jordan Creek", "city" => "Jordan Creek", "lat" => 41.5595, "lon" => -93.7583, "online" => true, "nwn_id" => 155, "climate_site" => "IA0241"),
  "SJEI4" => array("short" => "Jefferson", "city" => "Jefferson Scranton HS", "lat" => 42.0023833333, "lon" => -94.3755833333, "online" => true, "nwn_id" => 37, "climate_site" => "IA4228"),
  "SJWI4" => array("short" => "South Hamilton", "city" => "Jewell / South Hamilton", "lat" => 42.3033, "lon" => -93.6475666667, "online" => true, "nwn_id" => 85, "climate_site" => "IA8806"),
