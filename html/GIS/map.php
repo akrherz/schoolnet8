@@ -50,7 +50,7 @@ function findradarts($t)
      . gmdate("YmdHi", $t) . ".png";
   if (is_file($fp)) { 
 	  copy($fp, "/tmp/KCCI_". gmdate("YmdHi", $t) .".png");
-	  copy("/home/ldm/data/kcci/max.wld", "/tmp/KCCI_". gmdate("YmdHi", $t) .".wld" );
+	  copy("/home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_0.wld", "/tmp/KCCI_". gmdate("YmdHi", $t) .".wld" );
       return $t; }
 
   for($i= $t - 240; $i < $t + 240; $i = $i + 60)
@@ -60,7 +60,7 @@ function findradarts($t)
     if (is_file($fp))
     {
 	  copy($fp, "/tmp/KCCI_". gmdate("YmdHi", $i) .".png");
-	  copy("/home/ldm/data/kcci/max.wld", "/tmp/KCCI_". gmdate("YmdHi", $i) .".wld" );
+	  copy("/home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_0.wld", "/tmp/KCCI_". gmdate("YmdHi", $i) .".wld" );
       return $i;
     } 
   }
