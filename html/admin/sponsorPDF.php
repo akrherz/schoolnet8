@@ -251,6 +251,7 @@ function FancyTable3($header,$rs)
     "26" => "Web Camera Live Shots",
     "27" => "Web Camera Lapses",
     "28" => "Current Data RSS",
+    "29" => "Monthly climate chart",
 
 );
 
