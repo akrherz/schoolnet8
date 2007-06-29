@@ -26,7 +26,7 @@ $cameras = Array(
         "name" => "Clarion", "active" => true,
 		"iservice" => "Paradigm Benefits", 
 		"iserviceurl" => "http://www.paradigmbenefit.com",
-        "ip" => "12.207.138.18", "county" => "Wright"),
+        "ip" => "12.202.68.5", "county" => "Wright"),
   "SCSI4" => Array("sts" => mktime(0,0,0, 9,20,2003), 
 					"ets" => time(),
 		"name" => "Creston", "active" => true,
