@@ -5,7 +5,7 @@ include("$nwnpath/include/sponsors.inc.php");
 include("$nwnpath/include/cameras.inc.php");
 $app = "21"; include("$nwnpath/include/dblog.inc.php"); 
 $station = isset($_GET["station"]) ? $_GET["station"] : "SAMI4";
-$defaultzoom = isset($_GET["station"]) ? 10 : 4;
+$defaultzoom = isset($_GET["station"]) ? 10 : 7;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -107,7 +107,6 @@ function createMarker(point, site_name, site_abrev, lon, lat, sponsor, ui) {
    myicon = new GIcon(icon);
    if (ui.length > 0){
      myicon.image = "http://labs.google.com/ridefinder/images/mm_20_red.png";
-     //tabs.push( new GInfoWindowTab("Webcam", ui) );
    }
    var marker = new GMarker(point, myicon);
 
