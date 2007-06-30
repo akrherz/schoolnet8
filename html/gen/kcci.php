@@ -6,17 +6,18 @@ header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");                          // HTTP/1.0
 
-$station = $_GET['station'];
+$site = isset($_GET['station']) ? $_GET["station"]: "SKCI4";
 
  include("../../config/settings.inc.php");
- include("../../include/locs.inc.php");
- include("../../include/currentdb.inc.php");
- $site = substr($station, 0, 5);
- if (strlen($site) == 0)  $site = 'SKCI4';
+ include("$nwnpath/include/locs.inc.php");
+ include("$nwnpath/include/currentdb.inc.php");
 
  $obs = new currentdb();
  $data = $obs->db;
  $myOb = $data[$site];
+ $now = time();
+ $offline = 0;
+ if ($now - $myOb["ts"] > 600) $offline = 1;
 
  $tmpf = $myOb["tmpf"];
  $relh = $myOb["relh"];
@@ -55,14 +56,18 @@ $station = $_GET['station'];
 
         $kcci_logo = imagecreatefrompng ("Ames320.png");
         imagecopy($gif, $kcci_logo, 0, 0, 0, 0, 320, 320);
+   
+  ImageTTFText($gif, 10, 0, 169 , 34, $white, "./kcci.ttf", strtoupper(substr($Scities[$site]["short"], 0, 16)) );
 
-        $wlogo = imagecreatefrompng ("dirs/Wind_". strtolower($drct) .".png");
-        imagecolortransparent( $wlogo, $black);
-        imagecopy($gif, $wlogo, 96, 23, 0, 0, 139, 139);
+if (! $offline)
+{
+  // Time
+  ImageTTFText($gif, 14, 0, 150 , 235, $white, "./kcci.ttf", $time );
 
-//imagettftext ( resource image, int size, int angle, int x, int y, int col, string fontfile, string text)
+  $wlogo = imagecreatefrompng ("dirs/Wind_". strtolower($drct) .".png");
+  imagecolortransparent( $wlogo, $black);
+  imagecopy($gif, $wlogo, 96, 23, 0, 0, 139, 139);
 
- ImageTTFText($gif, 10, 0, 169 , 34, $white, "./kcci.ttf", strtoupper(substr($Scities[$site]["short"], 0, 16)) );
 
  // Box to hold current dew Point!
 // imagerectangle ( $gif, 10, 40, 40, 60, $black);
@@ -119,8 +124,6 @@ $station = $_GET['station'];
  ImageTTFText($gif, $fs, 0, $x0 + $x_pad , 80, $white, $Font, $sped );
 
 
-// Time
- ImageTTFText($gif, 14, 0, 150 , 235, $white, "./kcci.ttf", $time );
 
 // TempF
  $size = imagettfbbox($fs, 0, $Font, $tmpf);
@@ -195,6 +198,9 @@ $windDirs = Array(
 //	$dy = abs($size[5] - $size[3]);
 //	$x_pad = ($width - $dx) / 2 ;
 //  ImageTTFText($gif, 8, 0, 10 , 85, $red, "./kcci.tff",$Scities[$site]["city"] );
+}
+
+ImageTTFText($gif, 14, 0, 150 , 235, $white, "./kcci.ttf", "Site is Offline" );
 
 	ImagePng($gif);
 	ImageDestroy($gif);
