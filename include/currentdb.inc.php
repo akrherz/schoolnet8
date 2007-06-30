@@ -4,7 +4,7 @@
  *   - Library for current observations
  */
 
-function &array_combine ( $keys, $values )
+function &array_combine2 ( $keys, $values )
 {
  // if ( count($keys) != count($values) )
  //  return false;
@@ -42,7 +42,7 @@ class currentdb
     {
       $vals = explode(',', $lines[$i]);
       $this->db[ substr($lines[$i],0,5) ] = 
-          array_combine($cols, $vals );
+          array_combine2($cols, $vals );
     }
   } // End of parse
   
