@@ -5,7 +5,7 @@ include("$nwnpath/include/sponsors.inc.php");
 include("$nwnpath/include/cameras.inc.php");
 $app = "21"; include("$nwnpath/include/dblog.inc.php"); 
 $station = isset($_GET["station"]) ? $_GET["station"] : "SAMI4";
-$defaultzoom = isset($_GET["station"]) ? 4 : 10;
+$defaultzoom = isset($_GET["station"]) ? 10 : 4;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,11 +19,11 @@ $defaultzoom = isset($_GET["station"]) ? 4 : 10;
 <div id="justone">
 <h2>Google Maps Interface</h2>
     
-<div id="map" style="margin-left: 20px; width: 640px; height: 480px"></div>
+<div id="map" style="border: 1px solid #000; margin-left: 5px; width: 670px; height: 530px"></div>
 
-
-<p>This page is a test interface using  <a href="http://maps.google.com">Google Maps</a>.  You can click on an icon to get the name of the SchoolNet8 site. The
-link presented in the popup window takes you to the site's homepage.</p>
+<p>You can click on an icon to get the name of the SchoolNet8 site. The
+link presented in the popup window takes you to the site's homepage. The red
+icons have a web camera near to the site.</p>
 </div>
 <?php include("$nwnpath/include/footer.inc.php"); ?>
 
@@ -45,6 +45,7 @@ if (this.myMercZoomLevel!=0 && map.getZoom() < this.myMercZoomLevel) {
     var lBbox=lUL.x+","+lUL.y+","+lLR.x+","+lLR.y;
     var lSRS="EPSG:4326";
 }
+var ts = new Date();
 var lURL=this.myBaseURL;
 lURL+="&REQUEST=GetMap";
 lURL+="&SERVICE=WMS";
@@ -58,6 +59,7 @@ lURL+="&BBOX="+lBbox;
 lURL+="&WIDTH=256";
 lURL+="&HEIGHT=256";
 lURL+="&GroupName="+this.myLayers;
+lURL+="&bogus="+ ts.getTime() ;
 return lURL;
 }
 
@@ -66,6 +68,7 @@ return lURL;
     var map = new GMap2(document.getElementById("map"));
     map.addControl(new GLargeMapControl());
     map.addControl(new GMapTypeControl());
+    map.addControl(new GOverviewMapControl());
 
   var tileNEX= new GTileLayer(new GCopyrightCollection(""),1,17);
   tileNEX.myLayers='nexrad-n0r';
@@ -73,26 +76,46 @@ return lURL;
   tileNEX.myBaseURL='http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?';
   tileNEX.getTileUrl=CustomGetTileUrl;
 
-var layer4=[G_SATELLITE_MAP.getTileLayers()[0],G_HYBRID_MAP.getTileLayers()[1],tileNEX];
+//var layer4=[G_SATELLITE_MAP.getTileLayers()[0],G_HYBRID_MAP.getTileLayers()[1],tileNEX];
+var layer4=[G_NORMAL_MAP.getTileLayers()[0],tileNEX]; 
 var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Nexrad", G_SATELLITE_MAP);
 map.addMapType(custommap4);
 
-    //var wms = new WMSSpec(map.mapTypes[2], "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?", "RADAR", "nexrad-n0r", "", "image/png" );
-    //wms.BaseSpecOverride = map.mapTypes[0];
-    //wms.reverse = true;
-    //map.mapTypes[map.mapTypes.length] = wms; 
-    //map.mapTypes.push(wms);
+map.setCenter(new GLatLng(<?php echo $Scities[$station]["lat"]; ?>, <?php echo $Scities[$station]["lon"]; ?>), <?php echo $defaultzoom; ?>);
 
-    map.setCenter(new GLatLng(<?php echo $Scities[$station]["lat"]; ?>, <?php echo $Scities[$station]["lon"]; ?>), <?php echo $defaultzoom; ?>);
+var icon = new GIcon();
+icon.image = "http://labs.google.com/ridefinder/images/mm_20_blue.png";
+icon.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
+icon.iconSize = new GSize(12, 20);
+icon.shadowSize = new GSize(22, 20);
+icon.iconAnchor = new GPoint(6, 20);
+icon.infoWindowAnchor = new GPoint(5, 1);
 
-    function createMarker(point, site_name, site_abrev, lon, lat, sponsor, ui) {
-      var marker = new GMarker(point);
-      var html = "<div style=\" border: 3px; width: 320px;\"><a href='<?php echo $baseurl; ?>/site.phtml?station="+ site_abrev +"'>" + site_name + "</a></div><br />Sponsored by <a href='<?php echo $baseurl; ?>tool/clicktru.php?station="+ site_abrev +"'>"+ sponsor +"</a><br />"+ ui +"<br /><a href='javascript: map.centerAndZoom(new GPoint("+ lon +", "+ lat +"), 3);'>Zoom To Site!</a><br />&nbsp;";
-      GEvent.addListener(marker, "click", function() {
-         marker.openInfoWindowHtml(html);
-      });
-      return marker;
-    }
+function tester(nwsli, marker, site_name, sponsor, ui) {
+  var tabs = [];
+  var html = "<div style=\" border: 3px; width: 320px;\"><a href='<?php echo $baseurl; ?>/site.phtml?station="+ nwsli +"'>" + site_name + "</a><img src=\"<?php echo $baseurl; ?>/gen/kcci.php?station="+nwsli+"\"><br />Sponsored by <a href='<?php echo $baseurl; ?>tool/clicktru.php?station="+ nwsli +"'>"+ sponsor +"</a></div>";
+  tabs.push( new GInfoWindowTab("Current Ob", html) );
+   if (ui.length > 0){
+     tabs.push( new GInfoWindowTab("Webcam", ui) );
+   }
+
+  marker.openInfoWindowTabsHtml(tabs);
+}
+
+function createMarker(point, site_name, site_abrev, lon, lat, sponsor, ui) {
+
+   myicon = new GIcon(icon);
+   if (ui.length > 0){
+     myicon.image = "http://labs.google.com/ridefinder/images/mm_20_red.png";
+     //tabs.push( new GInfoWindowTab("Webcam", ui) );
+   }
+   var marker = new GMarker(point, myicon);
+
+   GEvent.addListener(marker, "click", function() {
+       tester(site_abrev, marker, site_name, sponsor, ui);
+   });
+   return marker;
+}
 
 <?php 
 while (list($k,$v) = each($Scities)) {
@@ -108,7 +131,17 @@ if (array_key_exists($k, $cameras))
 } ?>'
 );
   map.addOverlay(marker);
+
 <?php } ?>
+
+/* This causes the map to be redrawn every 5 minutes when viewing NEXRAD */
+function myRefreshTileLayer() {
+   if (map.getCurrentMapType() == custommap4) {
+     map.setMapType(G_NORMAL_MAP);
+     map.setMapType(custommap4); 
+   }
+}
+var taskid = setInterval("myRefreshTileLayer()", 300000 ); 
 
     //]]>
     </script>
