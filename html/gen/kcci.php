@@ -199,9 +199,9 @@ $windDirs = Array(
 //	$x_pad = ($width - $dx) / 2 ;
 //  ImageTTFText($gif, 8, 0, 10 , 85, $red, "./kcci.tff",$Scities[$site]["city"] );
 }
-
+else {
 ImageTTFText($gif, 14, 0, 150 , 235, $white, "./kcci.ttf", "Site is Offline" );
-
+}
 	ImagePng($gif);
 	ImageDestroy($gif);
 ?>
