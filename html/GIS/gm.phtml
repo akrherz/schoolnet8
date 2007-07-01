@@ -92,7 +92,7 @@ icon.infoWindowAnchor = new GPoint(5, 1);
 
 function tester(nwsli, marker, site_name, sponsor, ui) {
   var tabs = [];
-  var html = "<a href='<?php echo $baseurl; ?>/site.phtml?station="+ nwsli +"'>" + site_name + "</a><br /><img height=\"240\" width=\"320\" src=\"<?php echo $baseurl; ?>/gen/kcci.php?station="+nwsli+"\"><br />Sponsored by <a href='<?php echo $baseurl; ?>tool/clicktru.php?station="+ nwsli +"'>"+ sponsor +"</a>";
+  var html = "<div style=\" border: 3px; width: 320px;\"><a href='<?php echo $baseurl; ?>/site.phtml?station="+ nwsli +"'>" + site_name + "</a></div><br /><img src=\"<?php echo $baseurl; ?>/gen/kcci.php?station="+nwsli+"\"><br />Sponsored by <a href='<?php echo $baseurl; ?>tool/clicktru.php?station="+ nwsli +"'>"+ sponsor +"</a>";
   tabs.push( new GInfoWindowTab("Current Ob", html) );
    if (ui.length > 0){
      tabs.push( new GInfoWindowTab("Webcam", ui) );
