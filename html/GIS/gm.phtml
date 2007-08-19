@@ -37,13 +37,11 @@ var lLRP = new GPoint((a.x+1)*256,a.y*256);
 var lUL = G_NORMAL_MAP.getProjection().fromPixelToLatLng(lULP,b,c);
 var lLR = G_NORMAL_MAP.getProjection().fromPixelToLatLng(lLRP,b,c);
 // switch between Mercator and DD if merczoomlevel is set
-if (this.myMercZoomLevel!=0 && map.getZoom() < this.myMercZoomLevel) {
-    var lBbox=dd2MercMetersLng(lUL.lngDegrees)+","+dd2MercMetersLat(lUL.latDegrees)+","+dd2MercMetersLng(lLR.lngDegrees)+","+dd2MercMetersLat(lLR.latDegrees);
-    var lSRS="EPSG:54004";
-} else {
-    var lBbox=lUL.x+","+lUL.y+","+lLR.x+","+lLR.y;
-    var lSRS="EPSG:4326";
-}
+var lBbox=dd2MercMetersLng(lUL.lngDegrees)+","+dd2MercMetersLat(lUL.latDegrees)+","+dd2MercMetersLng(lLR.lngDegrees)+","+dd2MercMetersLat(lLR.latDegrees);
+var lSRS="EPSG:900913";
+
+    //var lBbox=lUL.x+","+lUL.y+","+lLR.x+","+lLR.y;
+    //var lSRS="EPSG:4326";
 var ts = new Date();
 var lURL=this.myBaseURL;
 lURL+="&REQUEST=GetMap";
@@ -70,7 +68,7 @@ return lURL;
     map.addControl(new GOverviewMapControl());
 
   var tileNEX= new GTileLayer(new GCopyrightCollection(""),1,17);
-  tileNEX.myLayers='nexrad-n0r';
+  tileNEX.myLayers='nexrad-n0r-900913';
   tileNEX.myFormat='image/png';
   tileNEX.myBaseURL='http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?';
   tileNEX.getTileUrl=CustomGetTileUrl;
