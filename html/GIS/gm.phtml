@@ -49,10 +49,8 @@ var lLRP = new GPoint((a.x+1)*256,a.y*256);
 var lUL = G_NORMAL_MAP.getProjection().fromPixelToLatLng(lULP,b,c);
 var lLR = G_NORMAL_MAP.getProjection().fromPixelToLatLng(lLRP,b,c);
 // switch between Mercator and DD if merczoomlevel is set
-alert(lUL.lngDegrees);
-alert(lLR.lngDegrees);
 
-var lBbox=dd2MercMetersLng(lUL.lngDegrees)+","+dd2MercMetersLat(lUL.latDegrees)+","+dd2MercMetersLng(lLR.lngDegrees)+","+dd2MercMetersLat(lLR.latDegrees);
+var lBbox=dd2MercMetersLng(lUL.x)+","+dd2MercMetersLat(lUL.y)+","+dd2MercMetersLng(lLR.x)+","+dd2MercMetersLat(lLR.y);
 var lSRS="EPSG:900913";
 
     //var lBbox=lUL.x+","+lUL.y+","+lLR.x+","+lLR.y;
