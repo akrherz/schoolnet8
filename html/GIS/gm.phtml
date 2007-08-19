@@ -29,6 +29,18 @@ icons have a web camera near to the site.</p>
 <script type="text/javascript">
     //<![CDATA[
 
+var MAGIC_NUMBER=6356752.3142;
+var DEG2RAD=0.0174532922519943;
+var PI=3.14159267;
+function dd2MercMetersLng(p_lng) {
+return MAGIC_NUMBER*(p_lng*DEG2RAD);
+}
+function dd2MercMetersLat(p_lat) {
+if (p_lat >= 85) p_lat=85;
+if (p_lat <= -85) p_lat=-85;
+return MAGIC_NUMBER*Math.log(Math.tan(((p_lat*DEG2RAD)+(PI/2)) /2));
+}
+
 CustomGetTileUrl=function(a,b,c) {
 if (typeof(window['this.myMercZoomLevel'])=="undefined") this.myMercZoomLevel=0; 
 if (typeof(window['this.myStyles'])=="undefined") this.myStyles="default"; 
