@@ -13,7 +13,7 @@ $Scities = array(
  "SALI4" => array("short" => "Albia", "city" => "Albia Lincoln Center", "lat" => 41.0290833333, "lon" => -92.8054166667, "online" => true, "nwn_id" => 83, "climate_site" => "IA0112"),
  "SAMI4" => array("short" => "Ames", "city" => "Ames / St Cecilia", "lat" => 42.0503516667, "lon" => -93.6186833333, "online" => true, "nwn_id" => 82, "climate_site" => "IA0200"),
  "SATI4" => array("short" => "Anita", "city" => "Anita", "lat" => 41.4535, "lon" => -94.7691, "online" => true, "nwn_id" => 148, "climate_site" => "IA0364"),
- "SAUI4" => array("short" => "Audubon", "city" => "Audubon Community", "lat" => 41.7125833333, "lon" => -94.9222833333, "online" => true, "nwn_id" => 72, "climate_site" => "IA0385", "ftm" => "This site is offline for the summer due to construction at the school."),
+ "SAUI4" => array("short" => "Audubon", "city" => "Audubon Community", "lat" => 41.7125833333, "lon" => -94.9222833333, "online" => true, "nwn_id" => 72, "climate_site" => "IA0385"), 
  "SBDI4" => array("short" => "Bedford", "city" => "Bedford", "lat" => 40.6721666667, "lon" => -94.7236333333, "online" => true, "nwn_id" => 123, "climate_site" => "IA0576"),
  "SBKI4" => array("short" => "Belmond", "city" => "Belmond Klemme", "lat" => 42.8497666667, "lon" => -93.6037, "online" => true, "nwn_id" => 92, "climate_site" => "IA1541"),
  "SBMI4" => array("short" => "Bloomfield", "city" => "Davis County / Bloomfield", "lat" => 40.7506, "lon" => -92.4136, "online" => true, "nwn_id" => 124, "climate_site" => "IA0753"),
