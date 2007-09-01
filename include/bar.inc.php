@@ -15,11 +15,7 @@ if (isset($station) && $station != "") {
 }
 ?></div>
 
-<div id="mainNavOuter">
-<div id="mainNav">
-<div id="mainNavInner">
-
-<ul>
+<ul id="linkbar">
  <li class="<?php if ($THISPAGE == "homepage") echo "selected"; ?>"><a href="<?php echo $baseurl; ?>">Home</a></li>
  <li class="<?php if ($THISPAGE == "mysite") echo "selected"; ?>"><a href="<?php echo $baseurl; ?>site.phtml">My Site</a></li>
  <li class="<?php if ($THISPAGE == "current") echo "selected"; ?>"><a href="<?php echo $baseurl; ?>current.phtml">Currents</a></li>
@@ -28,7 +24,3 @@ if (isset($station) && $station != "") {
  <li class="<?php if ($THISPAGE == "training") echo "selected"; ?>"><a href="<?php echo $baseurl; ?>training/">Training</a></li>
  <li class="<?php if ($THISPAGE == "webcam") echo "selected"; ?>"><a href="<?php echo $baseurl; ?>camera/index.phtml">WebCams</a></li>
 </ul>
-
-</div>
-</div>
-</div>

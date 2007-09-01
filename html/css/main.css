@@ -135,55 +135,6 @@ ul li   {
  padding: 0;
 }
                                                                                 
-#mainNavOuter {
-        width: 100%;
-        background-position: bottom right;
-        background-repeat: no-repeat;
-        }
-
-#mainNav {
-        width: 100%;
-        font-weight: bold;
-        }
-
-
-/* float clear hack that has been hacked for Moz 1.5x and below */
-#mainNavOuter:after {
-    content: ".";
-    display: block;
-    height: 1px;
-    margin-top: -1px;
-    overflow: hidden;
-    clear: both;
-    visibility: hidden;
-    }
-    /* Holly Hack Targets IE Win only \*/
-    * html .mainNavOuter {height: 1%;}
-    /* End Holly Hack */
-
-
-#mainNavInner {
-        width: 100%;
-        height: 20px;
-        }
-
-#mainNav ul {
-        padding: 0;
-        margin-top: 3px;
-        margin-left: 20px;
-        list-style-type: none;
-        }
-
-#mainNav ul li {
-        display: block;
-        padding: 0;
-        margin: 0;
-        }
-
-#mainNav li.selected a {
-  border-bottom: 2px solid #f00;
-        }
-
 #iemwebring {
   font-size: 85%;
   padding: 0;
@@ -202,18 +153,26 @@ ul li   {
   display: inline;
 }
 
-
-#mainNav ul li a {
-        display: block;
-        float: left;
-        text-decoration: none;
-        padding-left: 10px;
-        padding-right: 10px;
-        }
-
-#mainNav ul li a:hover {
-        color: #e00;
+#linkbar {
+  font-size: 85%;
+  padding: 0;
+  text-align: center;
+  clear: both;
+  margin-top: 1px;
+  margin-bottom: 5px;
 }
+#linkbar a {
+  padding: 0 0 0 .4em;
+  text-decoration: none;
+  border: none;
+}
+#linkbar li {
+  list-style: none;
+  display: inline;
+}
+
+
+
 
 /* Site Guide Stuff */
 #guide {
