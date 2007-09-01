@@ -1,0 +1,53 @@
+<?php
+include("../../../config/settings.inc.php");
+$station = '';
+$name = "website";
+$width = 742;
+$height = 487;
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<style type="text/css" media="screen">@import "../../css/main.css";</style>
+  <TITLE>SchoolNet8 Training: Website Video Guide</TITLE>
+   <script type="text/javascript" src="swfobject.js"></script>
+   <script type="text/javascript" src="<?php echo $name; ?>.js"></script>
+   <link rel="stylesheet" type="text/css" href="FlashTemplate.css"/>
+</HEAD>
+<body>
+<?php include("$nwnpath/include/bar.inc.php"); ?>
+
+<div id="justone">
+
+<h3>SchoolNet8 Training Videos:</h3>
+<?php include("../menu.php"); echo lessonSelect($name); ?>
+<p>
+      <div id="flashcontent">                   
+                        <div id="cs_noexpressUpdate">
+                          <p>The Camtasia Studio video content presented here re
+quires JavaScript to be enabled and the  latest version of the Macromedia Flash 
+Player. If you are you using a browser with JavaScript disabled please enable it
+ now. Otherwise, please update your version of the free Flash Player by <a href=
+"http://www.macromedia.com/go/getflashplayer">downloading here</a>. </p>
+                    </div>
+           </div>
+      <script type="text/javascript">
+                  // <![CDATA[          
+         var fo = new SWFObject( "<?php echo $name; ?>_controller.swf", "<?php echo $name; ?>_controller.swf", "<?php echo $width; ?>", "<?php echo $height; ?>", "7", "#FFFFFF", false, "best" );
+         fo.addVariable( "csConfigFile", "<?php echo $name; ?>_config.xml"  ); 
+         fo.addVariable( "csColor"     , "FFFFFF"           );
+         fo.addVariable( "csPreloader" , "<?php echo $name; ?>_preload.swf" );
+         if( args.movie )
+         {
+            fo.addVariable( "csFilesetBookmark", args.movie );
+         }
+         fo.write("flashcontent");                        
+         // ]]>
+
+           </script>    
+
+
+</div>
+
+<?php include("$nwnpath/include/footer.inc.php"); ?>

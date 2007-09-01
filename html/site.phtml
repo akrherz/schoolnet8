@@ -106,7 +106,7 @@ if (array_key_exists($station, $cameras))
 {
     /* Age of file on disk, will be good enough! */
     if ( filemtime("/home/ldm/data/camera/stills/${station}.jpg") < (time() - 1200) ){
-	echo "<div class=\"nb\"><div class=\"nb_content\"><b>Sorry:</b> This webcamera is currently offline.</div></div>";
+	echo "<div class=\"nb\"><h3>Latest Web Camera:</h3><div class=\"nb_content\"><b>Sorry:</b> This webcamera is currently offline.</div></div>";
     }
 	else if ($cameras[$station]["active"])
 	{

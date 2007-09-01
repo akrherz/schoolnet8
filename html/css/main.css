@@ -10,7 +10,7 @@ html, body, h2, h3, h4, div, p, ul, li, input {
 	font-family: "Gill Sans MT", "Gill sans", "Trebuchet ms", sans-serif;
 }
 #wrapper        {
-  background: #eee;
+  background: #fff url(../images/hbar.gif) repeat-x;
   color: #000;
   margin: 5px auto;
   padding: 0;
@@ -30,9 +30,19 @@ html, body, h2, h3, h4, div, p, ul, li, input {
     /* Holly Hack Targets IE Win only \*/
     * html #wrapper {height: 1%;}
     /* End Holly Hack */
-#imgbar {
-	background: #eee;
-}
+a:link, a:visited {
+        font-weight : bold;
+        text-decoration : underline;
+        color: #03c;
+        background: transparent;
+        }
+ 
+a:hover {
+        font-weight : bold;
+        text-decoration : underline;
+        color: #000;
+        background: transparent;
+        }
 #footer {
 	background: #eee;
 	font-size: x-small;
@@ -95,19 +105,6 @@ table.full {
 	padding: 5px;
 	width: 325px;
 }
-a:link, a:visited {
-        font-weight : bold;
-        text-decoration : underline;
-        color: #03c;
-        background: transparent;
-        }
- 
-a:hover {
-        font-weight : bold;
-        text-decoration : underline;
-        color: #000;
-        background: transparent;
-        }
 form {
  margin: 0px;
  padding: 0px;
@@ -142,7 +139,6 @@ ul li   {
         width: 100%;
         background-position: bottom right;
         background-repeat: no-repeat;
-        background-color: #00c;
         }
 
 #mainNav {
@@ -173,38 +169,50 @@ ul li   {
 
 #mainNav ul {
         padding: 0;
-        margin: 0;
+        margin-top: 3px;
+        margin-left: 20px;
         list-style-type: none;
         }
 
 #mainNav ul li {
-        background: #0000b7;
         display: block;
-        float: left;
         padding: 0;
         margin: 0;
         }
 
-#mainNav li.mainFirst-active,
-#mainNav li.main-active,
-#mainNav li.mainLast-active {
-        background-color: #000080;
+#mainNav li.selected a {
+  border-bottom: 2px solid #f00;
         }
+
+#iemwebring {
+  font-size: 85%;
+  padding: 0;
+  text-align: center;
+  clear: both;
+  margin-top: 1px;
+  margin-bottom: 5px;
+}
+#iemwebring a {
+  padding: 0 0 0 .4em;
+  text-decoration: none;
+  border: none;
+}
+#iemwebring li {
+  list-style: none;
+  display: inline;
+}
 
 
 #mainNav ul li a {
         display: block;
         float: left;
-	font-size: small;
         text-decoration: none;
-        color: #fff;
-        padding-left: 5px;
-        padding-right: 15px;
-        text-decoration: none;
+        padding-left: 10px;
+        padding-right: 10px;
         }
 
 #mainNav ul li a:hover {
-        color: #0ff;
+        color: #e00;
 }
 
 /* Site Guide Stuff */
@@ -268,12 +276,12 @@ div.nb {
   padding: 0px;
   margin: 0px;
   margin-bottom: 10px;
-  background: #fff url(http://www.schoolnet8.com/images/bg1.png) left top repeat-x; 
+  background: #fff url(../images/sbar.gif) left top repeat-x; 
 }
 div.nb h3 {
   margin: 0px;
-  padding: 0px;
-  padding-left: 5px;
+  padding: 5px;
+  color: #ee0;
 }
 div.nb .nb_content {
   padding: 5px;
