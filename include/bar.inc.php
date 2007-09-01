@@ -1,8 +1,5 @@
 <div id="wrapper">
 <?php include("$nwnpath/include/webring.html"); ?>
-
-
-
 <div id="imgbar"><?php 
 if (! isset($THISPAGE)) $THISPAGE = "";
 if (isset($station) && $station != "") {
