@@ -12,7 +12,8 @@ html, body, h2, h3, h4, div, p, ul, li, input {
 #wrapper        {
   background: #fff url(../images/hbar.gif) repeat-x;
   color: #000;
-  margin: 5px auto;
+  margin-left: 5px;
+  margin-right: 5px;
   padding: 0;
   border: 1px solid #526968;
   min-width: 698px; 
