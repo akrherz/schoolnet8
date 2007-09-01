@@ -140,7 +140,6 @@ ul li   {
   padding: 0;
   text-align: center;
   clear: both;
-  margin-top: 1px;
   margin-bottom: 5px;
 }
 #iemwebring a {
@@ -171,7 +170,9 @@ ul li   {
   display: inline;
 }
 
-
+#imgbar {
+  margin: 0px;
+}
 
 
 /* Site Guide Stuff */
