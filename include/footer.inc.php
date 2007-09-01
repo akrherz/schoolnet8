@@ -1,5 +1,12 @@
 <div id="footer">
-SchoolNet8.com sponsored by: <a href="<?php echo $baseurl; ?>tool/clicktru.php?station=KCCI" target="_new" class="ftext">CIPCO</a>
+<?php
+if (isset($station) && $station != "") {
+  	include_once("$nwnpath/include/locs.inc.php");
+	include_once("$nwnpath/include/sponsors.inc.php");
+  echo "<b><a href=\"$baseurl/site.phtml?station=$station\">". $Scities[$station]["city"] ."</a></b> SchoolNet8 Site is sponsored by <a href=\"". $baseurl ."tool/clicktru.php?station=$station\">". $sponsors[$station]["sponsor"] ."</a>";
+}
+?>
+<br />SchoolNet8.com sponsored by: <a href="<?php echo $baseurl; ?>tool/clicktru.php?station=KCCI" target="_new" class="ftext">CIPCO</a>
 &nbsp; &nbsp; Page Loaded: <?php echo date("d F Y  h:i A"); ?> [<a href="<?php echo $baseurl; ?>contact.phtml">Contact Info</a>]
 </div>
 </div>
