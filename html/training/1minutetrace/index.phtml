@@ -2,7 +2,7 @@
 include("../../../config/settings.inc.php");
 $station = '';
 $name = "1minutetrace";
-$width = 742;
+$width = 724;
 $height = 487;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -34,7 +34,7 @@ Player. If you are you using a browser with JavaScript disabled please enable it
            </div>
       <script type="text/javascript">
                   // <![CDATA[          
-         var fo = new SWFObject( "<?php echo $name; ?>_controller.swf", "<?php echo $name; ?>_controller.swf", "<?php echo $width; ?>", "<?php echo $height; ?>", "7", "#FFFFFF", false, "best" );
+         var fo = new SWFObject( "<?php echo $name; ?>_controller.swf", "<?php echo $name; ?>_controller.swf", "<?php echo $width; ?>", "<?php echo $height; ?>", "8", "#FFFFFF", false, "best" );
          fo.addVariable( "csConfigFile", "<?php echo $name; ?>_config.xml"  ); 
          fo.addVariable( "csColor"     , "FFFFFF"           );
          fo.addVariable( "csPreloader" , "<?php echo $name; ?>_preload.swf" );
