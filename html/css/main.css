@@ -138,6 +138,7 @@ ul li   {
                                                                                 
 #iemwebring {
   font-size: 85%;
+  line-height: 0.9em;
   padding: 0;
   text-align: center;
   clear: both;
@@ -159,7 +160,6 @@ ul li   {
   text-align: center;
   clear: both;
   margin-top: 1px;
-  margin-bottom: 5px;
 }
 #linkbar a {
   padding: 0 0 0 .4em;
@@ -172,7 +172,7 @@ ul li   {
 }
 
 #imgbar {
-  margin: 0px;
+  margin: 5px;
 }
 
 
