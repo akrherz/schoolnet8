@@ -72,7 +72,7 @@ $Scities = array(
  "SSUI4" => array("short" => "Sully", "city" => "Sully Christian", "lat" => 41.5736166667, "lon" => -92.8387, "online" => true, "nwn_id" => 80, "climate_site" => "IA3473"),
  "STQI4" => array("short" => "Meskwaki SS Tama", "city" => "Meskwaki Settlement School Tama", "lat" => 41.99262, "lon" => -92.6465, "online" => true, "nwn_id" => 173, "climate_site" => "IA8296"),
  "SUNI4" => array("short" => "Union", "city" => "BCLUW MS Union", "lat" => 42.2438, "lon" => -93.0675, "online" => true, "nwn_id" => 172, "climate_site" => "IA5198"),
- "SWAI4" => array("short" => "Wall Lake", "city" => "Wall Lake-View-Auburn", "lat" => 42.27195, "lon" => -95.0950833333, "online" => true, "nwn_id" => 71, "climate_site" => "IA7312"),
+ "SWAI4" => array("short" => "Wall Lake", "city" => "East Sac County", "lat" => 42.27195, "lon" => -95.0950833333, "online" => true, "nwn_id" => 71, "climate_site" => "IA7312"),
  "SWBI4" => array("short" => "Webster City", "city" => "Webster City Community", "lat" => 42.4654333333, "lon" => -93.8221666667, "online" => true, "nwn_id" => 69, "climate_site" => "IA8806"),
  "SWII4" => array("short" => "Winterset", "city" => "Winterset Community", "lat" => 41.3334166667, "lon" => -94.0148, "online" => true, "nwn_id" => 42, "climate_site" => "IA9132"),
 );
