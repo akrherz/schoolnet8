@@ -46,8 +46,6 @@ $cameras = Array(
 		"ip" => "64.71.77.200", "county" => "Humboldt"),
   "SINI4" => Array("sts" => mktime(0,0,0, 2,25,2004), "ets" => time(),
 		"name" => "Indianola", "active" => true,
-		"iservice" => "Clarke Electric Cooperative, Inc", 
-		"iserviceurl" => "http://www.clarkeelectric.org/",
 		"hosted" => "Simpson College",
 		"hostedurl" => "http://www.simpson.edu",
 		"ip" => "198.206.243.122", "county" => "Warren"),
