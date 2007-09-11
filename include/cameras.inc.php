@@ -128,7 +128,7 @@ $cameras = Array(
 		"iservice" => "I-rule.net", "iserviceurl" => "http://www.i-rule.net/",
         "hosted" => "Madison County Chamber and Development Group", 
         "hostedurl" => "http://www.madisoncounty.com",
-		"ip" => "209.234.86.215", "county" => "Madison"),
+		"ip" => "71.38.162.157", "county" => "Madison"),
  );
 
 ?>
