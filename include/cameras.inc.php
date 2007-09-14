@@ -125,10 +125,9 @@ $cameras = Array(
 		"ip" => "216.51.195.93", "county" => "Hamilton"),
   "SWII4" => Array("sts" => mktime(17,30,0, 5,14,2004), "ets" => time(),
 		"name" => "Winterset", "active" => true,
-		"iservice" => "I-rule.net", "iserviceurl" => "http://www.i-rule.net/",
         "hosted" => "Madison County Chamber and Development Group", 
         "hostedurl" => "http://www.madisoncounty.com",
-		"ip" => "71.38.162.157", "county" => "Madison"),
+		"ip" => "66.6.127.190", "county" => "Madison"),
  );
 
 ?>
