@@ -76,6 +76,7 @@ $sponsors = Array(
 "SBMI4" => Array("name"=> "Bloomfield", "sponsor" => "Touchstone Energy Cooperatives", "url" => "http://www.touchstoneenergy.com/"),
 "SAGI4" => Array("name"=> "Algona", "sponsor" => "Humboldt County REC", "url" => "http://www.humboldtrec.coop/"),
 "STQI4" => Array("name"=> "Meskwaki Settlement School Tama", "sponsor" => "T.I.P. Rural Electric Cooperative", "url" => "http://www.tiprec.com"),
+"SWGI4" => Array("name"=> "Woodward", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
 "CIPCO" => Array("name"=> "KCCI", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
 "TOUCH" => Array("name"=> "KCCI", "sponsor" => "Touchtone Cooperative", "url" => "https://touchstoneenergy.cooperative.com/public/index.html"),
 );
