@@ -76,8 +76,7 @@ $Scities = array(
  "SWBI4" => array("short" => "Webster City", "city" => "Webster City Community", "lat" => 42.4654333333, "lon" => -93.8221666667, "online" => true, "nwn_id" => 69, "climate_site" => "IA8806"),
  "SWII4" => array("short" => "Winterset", "city" => "Winterset Community", "lat" => 41.3334166667, "lon" => -94.0148, "online" => true, "nwn_id" => 42, "climate_site" => "IA9132"),
   "SWGI4" => array("short" => "Woodward", "city" => "Woodward-Granger", "lat" => 41.8568,
- "lon" => -93.9208, "online" => true, "nwn_id" => 296, "climate_site" => "IA6566
-"),
+ "lon" => -93.9208, "online" => true, "nwn_id" => 296, "climate_site" => "IA6566"),
 
 );
 
