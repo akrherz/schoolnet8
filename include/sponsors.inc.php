@@ -10,6 +10,7 @@ $sponsors = Array(
 "SATI4" => Array("name"=> "Anita", "sponsor" => "Farmers Electric Cooperative", "url" => "http://www.farmersrec.com/"),
 "SAKI4" => Array("name"=> "Ankeny Christian Academy", "sponsor" => "Consumers Energy", "url" => "http://www.consumersenergy.net/"),
 "SBXI4" => Array("name"=> "Baxter", "sponsor" => "Consumers Energy", "url" => "http://www.consumersenergy.net/"),
+"SBSI4" => Array("name"=> "Bussey", "sponsor" => "Marion County Community Foundation", "url" => "http://www.mccfiowa.org/"),
 "SCEI4" => Array("name"=> "Centerville", "sponsor" => "Pella Cooperative Electric ", "url" => "http://www.pella-cea.org/"),
 "SALI4" => Array("name"=> "Albia Lincoln Center", "sponsor" => "Touchstone Energy Cooperatives", "url" => "http://www.touchstoneenergy.com/"),
 "SPYI4" => Array("name"=> "Perry", "sponsor" => "Touchstone Energy Cooperatives", "url" => "http://www.touchstoneenergy.com/"),

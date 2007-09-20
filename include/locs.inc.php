@@ -20,6 +20,7 @@ $Scities = array(
  "SBOI4" => array("short" => "Boone", "city" => "Boone / United Community", "lat" => 42.02555, "lon" => -93.77575, "online" => true, "nwn_id" => 55, "climate_site" => "IA0200"),
  "SBRI4" => array("short" => "Brooklyn", "city" => "Brooklyn / BGM", "lat" => 41.73895, "lon" => -92.4466833333, "online" => true, "nwn_id" => 86, "climate_site" => "IA0600"),
  "SBXI4" => array("short" => "Baxter", "city" => "Baxter", "lat" => 41.8264, "lon" => -93.1513, "online" => true, "nwn_id" => 238, "climate_site" => "IA5992"),
+ "SBSI4" => array("short" => "Bussey", "city" => "Twin Cedars", "lat" => 41.20539, "lon" => -92.885, "online" => true, "nwn_id" => 297, "climate_site" => "IA0112"),
  "SBZI4" => array("short" => "B. P. Zoo", "city" => "Blank Park Zoo, DSM", "lat" => 41.5255, "lon" => -93.6214, "online" => true, "nwn_id" => 133, "climate_site" => "IA0241"),
  "SCAI4" => array("short" => "Carroll", "city" => "Carroll / Kuemper Catholic", "lat" => 42.0749666667, "lon" => -94.8701333333, "online" => true, "nwn_id" => 62, "climate_site" => "IA1233"),
  "SCBI4" => array("short" => "Coon Rapids", "city" => "Coon Rapids / Bayard", "lat" => 41.87865, "lon" => -94.6811333333, "online" => true, "nwn_id" => 73, "climate_site" => "IA1233"),
