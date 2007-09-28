@@ -30,6 +30,7 @@ include("$nwnpath/include/forms.inc.php");
 
  while (list($id, $val) = each($cameras))
  {
+ if ($cameras[$id]["network"] != "KCCI") continue;
 
  if ($isarchive)
  {
@@ -95,7 +96,8 @@ reset($cameras);
  $misstxt = "Cameras Missing: ";
  while (list($id, $v) = each($cameras))
  {
-   if (isset($v["removed"])){
+ if ($cameras[$id]["network"] != "KCCI") continue;
+   if ($v["removed"]){
      continue;
    }
    if (! $v["active"]  && ($v["ets"] > $ts) ){
