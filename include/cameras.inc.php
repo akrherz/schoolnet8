@@ -76,7 +76,6 @@ $cxref = Array(
 );
 
 $cameras = Array(
-
 "KCCI-024" => Array("sts" => mktime(14,0,0,7, 11,2006), "ets" => time(),
     "name" => "Algona", "removed" => False, "active" => True, "lat" => 43.06895, "lon" => -94.237418,
     "hosted" => "",
@@ -100,7 +99,7 @@ $cameras = Array(
     "iservice" => "",
     "iserviceurl" => "", "network" => "KELO",
     "sponsor" => "", "sponsorurl" => "",
-    "ip" => "137.216.254.38", "county" => "None", "port" => "80"), 
+    "ip" => "137.216.254.38", "county" => "Brookings", "port" => "80"), 
 "KCCI-030" => Array("sts" => mktime(11,0,0,9, 28,2007), "ets" => time(),
     "name" => "Bussey", "removed" => False, "active" => True, "lat" => 41.20539, "lon" => -92.885,
     "hosted" => "",
@@ -108,7 +107,7 @@ $cameras = Array(
     "iservice" => "",
     "iserviceurl" => "", "network" => "KCCI",
     "sponsor" => "", "sponsorurl" => "",
-    "ip" => "209.56.232.244", "county" => "None", "port" => "80"), 
+    "ip" => "209.56.232.244", "county" => "Marion", "port" => "80"), 
 "KCCI-007" => Array("sts" => mktime(0,0,0,10, 25,2003), "ets" => mktime(4,0,0,5, 11,2005),
     "name" => "Carroll", "removed" => True, "active" => False, "lat" => 42.07, "lon" => -94.87,
     "hosted" => "",
