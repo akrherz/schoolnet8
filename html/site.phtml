@@ -102,37 +102,37 @@ function sel($svar, $var, $txt){
 
 <?php
 /* webcam section */
-if (array_key_exists($station, $cameras))
-{
-    /* Age of file on disk, will be good enough! */
-    if ( filemtime("/home/ldm/data/camera/stills/${station}.jpg") < (time() - 1200) ){
+$cid = $cxref[$station][0];
+/* Age of file on disk, will be good enough! */
+if ( filemtime("/home/ldm/data/camera/stills/${cid}.jpg") < (time() - 1200) ){
 	echo "<div class=\"nb\"><h3>Latest Web Camera:</h3><div class=\"nb_content\"><b>Sorry:</b> This webcamera is currently offline.</div></div>";
-    }
-	else if ($cameras[$station]["active"])
-	{
+}
+else if ($cameras[$cid]["active"])
+{
 		echo "<div class=\"nb\"><h3>Latest Web Camera:</h3><div class=\"nb_content\">
 <ul>
-	<li>Build <a href=\"$baseurl/camera/bloop.phtml?station=$station\">time lapses</a> or view <a href=\"camera/lapses.phtml\">today's movies</a></li>
-	<li>View higher resolution <a href=\"$baseurl/camera/viewer.phtml?id=$station\">640x480 images</a>.</li>
+	<li>Build <a href=\"$baseurl/camera/bloop.phtml?station=$cid\">time lapses</a> or view <a href=\"camera/lapses.phtml\">today's movies</a></li>
+	<li>View higher resolution <a href=\"$baseurl/camera/viewer.phtml?id=$cid\">640x480 images</a>.</li>
 <ul>
-<img src=\"$backupbaseurl/camera/stills/${station}.jpg\" width=\"320\" alt=\"WebCam Still\" height=\"240\" />";
-		if (isset($cameras[$station]["sponsor"]) )
+<img src=\"$backupbaseurl/camera/stills/${cid}.jpg\" width=\"320\" alt=\"WebCam Still\" height=\"240\" />";
+		if ($cameras[$cid]["sponsor"] != "")
 		{
-			echo "<br />Sponsored by: <a href=\"". $cameras[$station]["sponsorurl"] ."\">". $cameras[$station]["sponsor"] ."</a>";
+			echo "<br />Sponsored by: <a href=\"". $cameras[$cid]["sponsorurl"] ."\">". $cameras[$cid]["sponsor"] ."</a>";
 		}
-		if (isset($cameras[$station]["iservice"]) )
+		if ($cameras[$cid]["iservice"] != "" )
 		{
-			echo "<br />Internet service by: <a href=\"". $cameras[$station]["iserviceurl"] ."\">". $cameras[$station]["iservice"] ."</a>";
+			echo "<br />Internet service by: <a href=\"". $cameras[$cid]["iserviceurl"] ."\">". $cameras[$cid]["iservice"] ."</a>";
 		}
-		if ( isset($cameras[$station]["hosted"]) )
+		if ($cameras[$cid]["hosted"] != "")
 		{
-			echo "<br />Hosted by: <a href=\"". $cameras[$station]["hostedurl"] ."\">". $cameras[$station]["hosted"] ."</a>";
+			echo "<br />Hosted by: <a href=\"". $cameras[$cid]["hostedurl"] ."\">". $cameras[$cid]["hosted"] ."</a>";
 		}
       echo "</div></div>";
-	} else {
+	} 
+else {
 	//echo "<b>Sorry:</b> This webcamera is currently offline.";
 	}
-} ?>
+?>
 
 <div class="nb">
 <h3>Live Super Doppler8:</h3>
