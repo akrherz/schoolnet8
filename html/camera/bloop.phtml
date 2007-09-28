@@ -3,7 +3,7 @@ include('../../config/settings.inc.php');
 $app = "24"; include("$nwnpath/include/dblog.inc.php");
 include('../../include/cameras.inc.php');
 $java = isset($_GET["java"]) ? $_GET["java"] : 'applet';
-$station = isset($_GET['station']) ? $_GET['station'] : 'SJEI4';
+$cid = isset($_GET['cid']) ? $_GET['cid'] : 'KCCI-001';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-tRansitional.dtd">
@@ -36,13 +36,13 @@ $year = isset($_GET['year']) ? $_GET["year"]: date("Y", time() - 3600);
 $nts = mktime($hour, $minute, 0, $month, $day, $year);
 
 $now = time();
-if ($nts < $cameras[$station]["sts"] || $nts > $cameras[$station]["ets"]){
+if ($nts < $cameras[$cid]["sts"] || $nts > $cameras[$cid]["ets"]){
   echo "<p><div style=\"background: #ccc;\"><b>Error:</b> Your choice of time and station is outside of the archive available for this site!</div>\n";
-  $day = date("d", $cameras[$station]["ets"] - 3600);
-  $month = date("m", $cameras[$station]["ets"] - 3600);
-  $hour = date("H", $cameras[$station]["ets"] - 3600);
-  $minute = date("i", $cameras[$station]["ets"] - 3600);
-  $year = date("Y", $cameras[$station]["ets"] - 3600);
+  $day = date("d", $cameras[$cid]["ets"] - 3600);
+  $month = date("m", $cameras[$cid]["ets"] - 3600);
+  $hour = date("H", $cameras[$cid]["ets"] - 3600);
+  $minute = date("i", $cameras[$cid]["ets"] - 3600);
+  $year = date("Y", $cameras[$cid]["ets"] - 3600);
   $minute = $minute - ($minute % 5);
 }
 
@@ -57,7 +57,7 @@ for ($i=0; $i < (intval($frames));$i++){
     $frames = $i;
     break;
   }
-  $uri = "http://mesonet.agron.iastate.edu/archive/data/". gmdate('Y/m/d/', $ts) ."camera/$station/". $station ."_". gmdate('YmdHi', $ts) .".jpg";
+  $uri = "http://mesonet.agron.iastate.edu/archive/data/". gmdate('Y/m/d/', $ts) ."camera/$cid/". $cid ."_". gmdate('YmdHi', $ts) .".jpg";
   $labels[] = date("d M Y H:i a", $ts);
   $images[] = $uri;
   $files .= $uri .",";
@@ -73,36 +73,16 @@ If your browser does not support java, please try the 'Java Script' loop tool.
 <table>
 <tr><th>Camera (Archive Starts / Ends):</th><th>Year:</th><th>Month:</th><th>Day:</th><th>Hour:</th><th>Minute:</th></tr>
  <tr>
-  <td><select name="station">
- <option value="SAGI4" <?php if ($station == "SAGI4") echo "selected=\"selected\""; ?>>Algona (11 Jul 2006)
- <option value="SAMI4" <?php if ($station == "SAMI4") echo "selected=\"selected\""; ?>>Ames (14 Apr 2005)
- <option value="SBOI4" <?php if ($station == "SBOI4") echo "selected=\"selected\""; ?>>ISU Ag Farm (23 Oct 2006)
- <option value="SBZI4" <?php if ($station == "SBZI4") echo "selected=\"selected\""; ?>>Blank Park Zoo, DSM (13 May 2004)
- <option value="SCAI4" <?php if ($station == "SCAI4") echo "selected=\"selected\""; ?>>Carroll (25 Oct 2003)
- <option value="SCGI4" <?php if ($station == "SCGI4") echo "selected=\"selected\""; ?>>Clarion (27 Jun 2006)
- <option value="SCHI4" <?php if ($station == "SCHI4") echo "selected=\"selected\""; ?>>Chariton (11 Jun 2006)
- <option value="SCSI4" <?php if ($station == "SCSI4") echo "selected=\"selected\""; ?>>Creston (20 Sept 2003 / 20 Feb 2004)
- <option value="SGLI4" <?php if ($station == "SGLI4") echo "selected=\"selected\""; ?>>Glidden (19 Jan 2006)
- <option value="SFOI4" <?php if ($station == "SFOI4") echo "selected=\"selected\""; ?>>Greenfield (14 Jul 2006)
- <option value="SHUI4" <?php if ($station == "SHUI4") echo "selected=\"selected\""; ?>>Humboldt (04 Dec 2003)
- <option value="SINI4" <?php if ($station == "SINI4") echo "selected=\"selected\""; ?>>Indianola (25 Feb 2004)
- <option value="S03I4" <?php if ($station == "S03I4") echo "selected=\"selected\""; ?>>2003 Iowa State Fair (5-21 Aug 2003)
- <option value="SJEI4" <?php if ($station == "SJEI4") echo "selected=\"selected\""; ?>>Jefferson (23 Jul 2003)
- <option value="SKNI4" <?php if ($station == "SKNI4") echo "selected=\"selected\""; ?>>Knoxville (26 Sep 2005)
- <option value="SCEI4" <?php if ($station == "SCEI4") echo "selected=\"selected\""; ?>>Lake Rathbun (18 Jun 2004)
- <option value="SLOI4" <?php if ($station == "SLOI4") echo "selected=\"selected\""; ?>>Lamoni (24 Jan 2007)
- <option value="SMAI4" <?php if ($station == "SMAI4") echo "selected=\"selected\""; ?>>Marshalltown (1 Oct 2003 - 26 Nov 2004)
- <option value="SMDI4" <?php if ($station == "SMDI4") echo "selected=\"selected\""; ?>>Madrid (16 Sep 2005) 
- <option value="STQI4" <?php if ($station == "STQI4") echo "selected=\"selected\""; ?>>Meskwaki (Tama) (18 May 2005)
- <option value="SNVI4" <?php if ($station == "SNVI4") echo "selected=\"selected\""; ?>>Nevada (22 Jul 2006)
- <option value="SNEI4" <?php if ($station == "SNEI4") echo "selected=\"selected\""; ?>>Newton (16 Apr 2004)
- <option value="SPAI4" <?php if ($station == "SPAI4") echo "selected=\"selected\""; ?>>Panora (19 May 2004)
- <option value="SPEI4" <?php if ($station == "SPEI4") echo "selected=\"selected\""; ?>>Pella (16 Oct 2003)
- <option value="SROI4" <?php if ($station == "SROI4") echo "selected=\"selected\""; ?>>Rockwell City (25 Feb 2004)
- <option value="SPKI4" <?php if ($station == "SPKI4") echo "selected=\"selected\""; ?>>Saylorville Lake (2 Jul 2005)
- <option value="SJWI4" <?php if ($station == "SJWI4") echo "selected=\"selected\""; ?>>Stratford (5 Jun 2007)
- <option value="SWBI4" <?php if ($station == "SWBI4") echo "selected=\"selected\""; ?>>Webster City (28 Aug 2003)
- <option value="SWII4" <?php if ($station == "SWII4") echo "selected=\"selected\""; ?>>Winterset (14 May 2004)
+  <td><select name="cid">
+<?php
+ while (list($k,$v) = each($cameras)) {
+  if ($v["network"] != "KCCI") continue;
+  $lbl = sprintf("%s (%s)", $v["name"], date("d M Y", $v["sts"]) );
+  echo "<option value=\"$k\"";
+  if ($cid == $k) echo "selected=\"selected\""; 
+  echo ">". $lbl ."\n";
+}
+?>
 </select>
 </td>
 
