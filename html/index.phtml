@@ -63,10 +63,12 @@ by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new
 </div></div>
 
 <div class="nb">
-<h3>September feature:</h3>
+<h3>October feature:</h3>
 <div class="nb_content">
-<a href="training/"><img src="images/video-x-generic.png" style="float: left; border: 0px; margin: 5px;"></a>
-We are proud to feature the release of <a href="training/">3 training videos</a> to help you utilize SchoolNet8.com.  These videos include the use of the website, how to install the Desktop Viewer, and 1 minute data traces.
+<a href="sview/"><img src="images/sview.png" style="float: left; border: 0px; margin: 5px;"></a>
+A new version of the <a href="sview/">SchoolNet8 Java Viewer</a> has been 
+released.  This version resolves a number of bugs and features a new 
+<a href="sview/Setup_SchoolNet8.exe">Microsoft Windows installer</a>!
 </div></div>
 
 </div>
@@ -82,32 +84,45 @@ We are proud to feature the release of <a href="training/">3 training videos</a>
 </ul>
 </div></div>
 
-<!--
 <div class="nb">
 <h3>Web camera sites:</h3>
 <div class="nb_content">
-<?php 
-$leftlinks = "";
-$rightlinks = "";
-$i = 0;
-$leftside = ""; $rightside = "";
-while (list($id, $v) = each($cameras))
-{
-	if ($v["active"]) {
-	if ($i % 2 == 0) {
-	$leftside .= "<li><a href=\"$baseurl/site.phtml?station=$id\">". $v["name"] ."</a></li>";
-    } else {
-	$rightside .= "<li><a href=\"$baseurl/site.phtml?station=$id\">". $v["name"] ."</a></li>";
-    }
-	$i += 1; }
-} ?>
+
 <table class="side">
-<tr><td valign="top"><ul><?php echo $leftside; ?></ul></td><td valign="top"><ul><?php echo $rightside; ?></ul></td></tr>
+<tr><td valign="top"><ul><li><a href="<?php echo $baseurl; ?>/site.phtml?station=SAGI4">Algona</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SCHI4">Chariton</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SCSI4">Creston</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SFOI4">Greenfield</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SINI4">Indianola</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SAMI4">ISU Ames</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SKNI4">Knoxville</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SLOI4">Lamoni</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SNVI4">Nevada</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SPAI4">Panora</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SROI4">Rockwell City</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SJWI4">Stratford</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SBSI4">Twin Cedars</a></li>
+</ul></td>
+<td valign="top">
+<ul><li><a href="<?php echo $baseurl; ?>/site.phtml?station=SBZI4">Blank Park Zoo</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SCGI4">Clarion</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SGLI4">Glidden</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SHUI4">Humboldt</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SBOI4">ISU Ag Farm</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SJEI4">Jefferson</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SCEI4">Lake Rathbun</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SMDI4">Madrid</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SNEI4">Newton</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SPEI4">Pella</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SPKI4">Saylorville Lake</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=STQI4">Tama</a></li>
+<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SWII4">Winterset</a></li></ul></td></tr>
+
 </table>
+
 
 <p>View the <a href="http://mesonet.agron.iastate.edu/cool/">best web camera lapses</a> from our archive.
 </div></div>
--->
 
 <p>The KCCI SchoolNet8 is a collection of weather observing stations
 located at schools throughout Central Iowa that report 
