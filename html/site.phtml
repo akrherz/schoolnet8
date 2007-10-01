@@ -108,17 +108,17 @@ function sel($svar, $var, $txt){
 The red sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>.
 </div></div>
 
+<div class="nb"><h3>Nearest Web Camera:</h3><div class="nb_content">
 <?php
 /* webcam section */
 $cid = $cxref[$station][0];
 /* Age of file on disk, will be good enough! */
 if ( filemtime("/home/ldm/data/camera/stills/${cid}.jpg") < (time() - 1200) ){
-	echo "<div class=\"nb\"><h3>Latest Web Camera:</h3><div class=\"nb_content\"><b>Sorry:</b> This webcamera is currently offline.</div></div>";
+	echo "<b>Sorry:</b> The ". $cameras[$cid]["name"] ." webcam is currently offline.";
 }
 else if ($cameras[$cid]["active"])
 {
-		echo "<div class=\"nb\"><h3>Latest Web Camera:</h3><div class=\"nb_content\">
-<ul>
+		echo "<ul>
 	<li>Build <a href=\"$baseurl/camera/bloop.phtml?station=$cid\">time lapses</a> or view <a href=\"camera/lapses.phtml\">today's movies</a></li>
 	<li>View higher resolution <a href=\"$baseurl/camera/viewer.phtml?id=$cid\">640x480 images</a>.</li>
 <ul>
@@ -141,7 +141,7 @@ else {
 	//echo "<b>Sorry:</b> This webcamera is currently offline.";
 	}
 ?>
-
+</div></div>
 
 
 
