@@ -75,7 +75,7 @@ $Scities = array(
  "SUNI4" => array("short" => "Union", "city" => "BCLUW MS Union", "lat" => 42.2438, "lon" => -93.0675, "online" => true, "nwn_id" => 172, "climate_site" => "IA5198"),
  "SWAI4" => array("short" => "Wall Lake", "city" => "East Sac County", "lat" => 42.27195, "lon" => -95.0950833333, "online" => true, "nwn_id" => 71, "climate_site" => "IA7312"),
  "SWBI4" => array("short" => "Webster City", "city" => "Webster City Community", "lat" => 42.4654333333, "lon" => -93.8221666667, "online" => true, "nwn_id" => 69, "climate_site" => "IA8806"),
- "SWII4" => array("short" => "Winterset", "city" => "Winterset Community", "lat" => 41.3334166667, "lon" => -94.0148, "online" => true, "nwn_id" => 42, "climate_site" => "IA9132"),
+ "SWII4" => array("short" => "Winterset", "city" => "Winterset Community", "lat" => 41.3334166667, "lon" => -94.0148, "online" => true, "nwn_id" => 42, "climate_site" => "IA9132", "ftm" => "The wind data is currently missing and the sensor is being repaired."),
   "SWGI4" => array("short" => "Woodward", "city" => "Woodward-Granger", "lat" => 41.8568,
  "lon" => -93.9208, "online" => true, "nwn_id" => 296, "climate_site" => "IA6566"),
 
