@@ -1,22 +1,39 @@
 <?php
-  // 1minute.php
+include_once("$nwnpath/include/locs.inc.php");
+include_once("$nwnpath/include/mlib.php");
 
-/** Vars */
+$meta = $Scities[$station];
 
-  include_once("../../include/locs.inc.php");
-  include_once("../../include/mlib.php");
+$year = isset( $_GET["year"] ) ? $_GET["year"] : date("Y");
+$month = isset( $_GET["month"] ) ? $_GET["month"] : date("m");
+$day = isset( $_GET["day"] ) ? $_GET["day"] : date("d");
+$myTime = mktime(0,0,0,$month,$day,$year);
+$today = mktime(0,0,0,date("m"), date("d"), date("Y"));
 
-if (strlen($station) > 3){
-    $station = $Scities[$station]["nwn_id"];
+
+if ($myTime == $today)
+{
+  /* Look in IEM Access! */
+  $dbconn = pg_connect($iemaccess);
+  $tbl = "current_log";
+  $pcol = ", pres as alti";
+} else 
+{
+/* Dig in the archive for our data! */
+  $dbconn = pg_connect($iemdbhost);
+  $tbl = sprintf("t%s", date("Y_m", $myTime) );
+  $pcol = "";
 }
-$station = intval($station);
+$sql = sprintf("SELECT * $pcol from %s WHERE station = '%s' and date(valid) = '%s' ORDER by valid ASC", $tbl, $station, date("Y-m-d", $myTime) );
+$rs = pg_query($dbconn, $sql);
+if (pg_num_rows($rs) == 0) { die("ERROR: No Observations Found"); }
 
-if (strlen($year) == 4 && strlen($month) > 0 && strlen($day) > 0 ){
-  $myTime = strtotime($year."-".$month."-".$day);
-} else {
-  $myTime = strtotime(date("Y-m-d"));
-}
+$imgwidth = 640;
+$imgheight = 480;
+
 $dirRef = strftime("%Y_%m/%d", $myTime);
+$matchDate = strftime("%m/%d/%y", $myTime);
+
 $titleDate = strftime("%b %d, %Y", $myTime);
 $href = strftime("/tmp/".$station."_%Y_%m_%d", $myTime);
 
@@ -27,13 +44,6 @@ if ($wA > $myTime){
 }
 
 
-$fcontents = @file('http://mesonet.agron.iastate.edu/archive/raw/snet/'.$dirRef.'/'.$station.'.dat');
-if (! $fcontents)
-{
-	echo "<p><b>Error:</b> Archive file does not exist for this date.";
-	return;
-}
-
 // BUILD Arrays to hold minute-by-minute data
 $tmpf = Array();
 $dwpf = Array();
@@ -43,67 +53,21 @@ $drct = array();
 $gust = array();
 $prec = array();
 $alti = array();
+$times = Array();
 
+for($i=0;$row = @pg_fetch_array($rs,$i); $i++)
+{
+  $ts = strtotime( substr($row["valid"],0,16) );
+  $times[] = $ts;
 
-$dirTrans = array(
-  'N' => '360',
- 'NNE' => '25',
- 'NE' => '45',
- 'ENE' => '70',
- 'E' => '90',
- 'ESE' => '115',
- 'SE' => '135',
- 'SSE' => '155',
- 'S' => '180',
- 'SSW' => '205',
- 'SW' => '225',
- 'WSW' => '250',
- 'W' => '270',
- 'WNW' => '295',
- 'NW' => '305',
- 'NNW' => '335');
-
-
-$xlabel = Array();
-
-$start = intval( $myTime );
-$i = 0;
-
-$dups = 0;
-$missing = 0;
-$min_yaxis = 100;
-$max_yaxis = 0;
-$hasgust = 0;
-$peakgust = 0;
-$peaksped = 0;
-
-while (list ($line_num, $line) = each ($fcontents)) {
-  $parts = split (",", $line);
-  $thisTime = $parts[0];
-  $thisDate = $parts[1];
-  $dateTokens = split("/", $thisDate);
-  $strDate = "20". $dateTokens[2] ."-". $dateTokens[0] ."-". $dateTokens[1]; 
-  $timestamp = strtotime($strDate ." ". $thisTime );
-#  echo $thisTime ."||";
-  
-  if (substr($parts[6], 0, 2) == "0-"){
-    $thisTmpf = intval( substr($parts[6], 1, 2) ) ;
-  } else {
-    $thisTmpf = intval( substr($parts[6], 0, 3) ) ;
-  }
-  $thisRelH = intval( substr($parts[7],0,3) );
-  $thisSR = intval( substr($parts[4],0,3) ) * 10;
-  $thisMPH = intval( substr($parts[3],0,-3) );
-  if ($thisMPH > $peaksped) $peaksped = $thisMPH;
-  $thisDRCT = $dirTrans[$parts[2]];
-  $thisGust = $parts[12];
-  if ($thisGust < $peakgust)  $thisGust = $peakGust;
-  else $peakgust = $thisGust;
-  if (sizeof($parts) > 13) $hasgust = 1;
-  $thisALTI = substr($parts[8],0,-1);
-  $thisPREC = substr($parts[9],0,-2);
-
-
+  $thisTmpf = $row["tmpf"];
+  $thisRelH = $row["relh"];
+  $thisSR = $row["srad"];
+  $thisMPH = $row["sknt"] * 1.15;
+  $thisDRCT = $row["drct"];
+  $thisGust = $row["gust"] * 1.15;
+  $thisALTI = $row["alti"];
+  $thisPREC = $row["pday"];
   if ($thisRelH > 0){
     $thisDwpf = dwpf($thisTmpf, $thisRelH);
   } else {
@@ -111,168 +75,120 @@ while (list ($line_num, $line) = each ($fcontents)) {
   }
   if ($thisTmpf < -50 || $thisTmpf > 150 ){
     $thisTmpf = "";
-  } else {
-    if ($max_yaxis < $thisTmpf){
-      $max_yaxis = $thisTmpf;
-    }
   }
   if ($thisDwpf < -50 || $thisDwpf > 150 ){
     $thisDwpf = "";
-  }  else {
-    if ($min_yaxis > $thisDwpf){
-      $min_yaxis = $thisDwpf;
-    }
   }
-
-  $shouldbe = intval( $start ) + 60 * $i;
  
-  
-  // We are good, write data, increment i
-  if ( $shouldbe == $timestamp ){
-#    echo " EQUALS <br>";
-    $tmpf[$i] = $thisTmpf;
-    $dwpf[$i] = $thisDwpf;
-    $sr[$i] = $thisSR;
-    $xlabel[$i] = $thisTime;
-    if ($i % 10 == 0){
-      $drct[$i] = $thisDRCT;
-    }else{
-      $drct[$i] = "-199";
-    }
-    $mph[$i] = $thisMPH;
-    $gust[$i] = $thisGust;
-    $prec[$i] = $thisPREC;
-    $alti[$i] = $thisALTI * 33.8639;
-    if ($alti[$i] < 900)   $alti[$i] = " ";
-    $i++;
-    continue;
-  
-  // Missed an ob, leave blank numbers, inc i
-  } else if (($timestamp - $shouldbe) > 0) {
-#    echo " TROUBLE <br>";
-    $tester = $shouldbe + 60;
-    while ($tester <= $timestamp ){
-      $tester = $tester + 60 ;
-      $tmpf[$i] = "";
-      $dwpf[$i] = "";
-      $sr[$i] = "";
-      $xlabel[$i] ="";
-      $drct[$i] = "-199";
-      $mph[$i] = "";
-      $gust[$i] = "";
-      $prec[$i] = "";
-      $alti[$i] = "";
-      $i++;
-      $missing++;
-    }
-    $tmpf[$i] = $thisTmpf;
-    $dwpf[$i] = $thisDwpf;
-    $sr[$i] = $thisSR;
-    $xlabel[$i] = $thisTime;
-    if ($i % 10 == 0){
-      $drct[$i] = $thisDRCT;
-    } else {
-      $drct[$i] = "-199";
-    }
-    $mph[$i] = $thisMPH;
-    $gust[$i] = $thisGust;
-    $prec[$i] = $thisPREC;
-    $alti[$i] = $thisALTI * 33.8639;
-    if ($alti[$i] < 900)   $alti[$i] = " ";
-
-    $i++;
-    continue;
-    
-    $line_num--;
-  } else if (($timestamp - $shouldbe) < 0) {
-#    echo "DUP <br>";
-     $dups++;
-    
+  $tmpf[] = $thisTmpf;
+  $dwpf[] = $thisDwpf;
+  $sr[] = $thisSR;
+  if ($i % 10 == 0){
+    $drct[] = $thisDRCT;
+  }else{
+    $drct[] = "-199";
   }
+  $mph[] = $thisMPH;
+  $gust[] = $thisGust;
+  $prec[] = $thisPREC;
+  $alti[] = $thisALTI * 33.8639;
+  if ($alti[$i] < 900)   $alti[$i] = "";
 
 } // End of while
 
-$xpre = array(0 => '12 AM', '1', '2', '3', '4', '5',
-        '6', '7', '8', '9', '10', '11', 'Noon',
-        '1', '2', '3', '4', '5', '6', '7',
-        '8', '9', '10', '11');
 
-if ($peaksped > $peakgust) $peakgust = $peaksped;
+$cityname = $meta['city'];
 
-for ($j=0; $j<24; $j++){
-  $xlabel[$j*60] = $xpre[$j];
+include ("$nwnpath/include/jpgraph/jpgraph.php");
+include ("$nwnpath/include/jpgraph/jpgraph_line.php");
+include ("$nwnpath/include/jpgraph/jpgraph_scatter.php");
+include ("$nwnpath/include/jpgraph/jpgraph_date.php");
+
+
+function common_graph($graph)
+{
+  $tcolor = array(230,230,0);
+  /* Common for all our plots */
+  $graph->img->SetMargin(80,60,40,80);
+  //$graph->img->SetAntiAliasing();
+  $graph->xaxis->SetTextTickInterval(120);
+  $graph->xaxis->SetPos("min");
+
+  $graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD,14);
+  $graph->xaxis->SetFont(FF_FONT1,FS_BOLD,12);
+  //$graph->xaxis->title->SetBox( array(150,150,150), $tcolor, true);
+  //$graph->xaxis->title->SetColor( $tcolor );
+  $graph->xaxis->SetTitleMargin(15);
+  $graph->xaxis->SetLabelFormatString("h A", true);
+  $graph->xaxis->SetLabelAngle(90);
+  $graph->xaxis->SetTitleMargin(50);
+
+  $graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD,14);
+  $graph->yaxis->SetFont(FF_FONT1,FS_BOLD,12);
+  //$graph->yaxis->title->SetBox( array(150,150,150), $tcolor, true);
+  //$graph->yaxis->title->SetColor( $tcolor );
+  $graph->yaxis->SetTitleMargin(50);
+  $graph->yscale->SetGrace(10);
+
+  $graph->y2axis->title->SetFont(FF_FONT1,FS_BOLD,14);
+  $graph->y2axis->SetFont(FF_FONT1,FS_BOLD,12);
+  //$graph->y2axis->title->SetBox( array(150,150,150), $tcolor, true);
+  //$graph->y2axis->title->SetColor( $tcolor );
+  $graph->y2axis->SetTitleMargin(40);
+
+  $graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,16);
+  $graph->SetColor('wheat');
+
+  $graph->legend->SetLayout(LEGEND_HOR);
+  $graph->legend->SetPos(0.01,0.94, 'left', 'top');
+  $graph->legend->SetLineSpacing(3);
+
+  $graph->ygrid->SetFill(true,'#EFEFEF@0.5','#BBCCEE@0.5');
+  $graph->ygrid->Show();
+  $graph->xgrid->Show();
+
+  return $graph;
 }
-
-
-// Fix y[0] problems
-if ($tmpf[0] == ""){
-  $tmpf[0] = 0;
-}
-if ($dwpf[0] == ""){
-  $dwpf[0] = 0;
-}
-if ($sr[0] == ""){
-  $sr[0] = 0;
-}
-
-
-include ("../../include/jpgraph/jpgraph.php");
-include ("../../include/jpgraph/jpgraph_line.php");
-include ("../../include/jpgraph/jpgraph_scatter.php");
 
 // Create the graph. These two calls are always required
-$graph = new Graph(600,300,"example1");
-if ($min_yaxis ==  ""){
-  $graph->SetScale("textlin", $min_yaxis - 4, $max_yaxis +4);
-} else {
-  $graph->SetScale("textlin");
-}
+$graph = new Graph($imgwidth,$imgheight,"example1");
+
+$graph->SetScale("datelin", min($dwpf)-5, max($tmpf)+5);
 $graph->SetY2Scale("lin", 0, 1200);
-$graph->img->SetMargin(45,50,40,50);
-//$graph->img->SetAntiAliasing();
-
-$graph->xaxis->SetTickLabels($xlabel);
-$graph->xaxis->SetTextTickInterval(60);
-//$graph->xaxis->SetLabelAngle(90);
 $graph->xaxis->SetTitle("Valid Local Time");
-//$graph->xaxis->SetTitleMargin(30);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
-$graph->xaxis->SetPos("min");
+$graph->yaxis->SetTitle("Temperature [F]");
+$graph->y2axis->SetTitle("Solar Radiation [W m**-2]", "low");
+$graph->tabtitle->Set(' '. $cityname ." on ". $titleDate .' ');
 
+$graph = common_graph($graph);
+
+/* Custom */
 $graph->yaxis->scale->ticks->SetLabelFormat("%5.1f");
 $graph->yaxis->scale->ticks->SetLabelFormat("%5.0f");
-$graph->yaxis->SetTitle("Temperature [F]");
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
 
-$graph->yscale->SetGrace(10);
 
-$graph->tabtitle->Set(' '. $Scities[$nwsli]['city'] ." on ". $titleDate .' ');
-$graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,12);
-
-$graph->legend->SetLayout(LEGEND_HOR);
-$graph->legend->SetPos(0.01,0.91, 'left', 'top');
-$graph->legend->SetLineSpacing(3);
 
 $graph->y2axis->scale->ticks->Set(100,25);
 $graph->y2axis->scale->ticks->SetLabelFormat("%-4.0f");
-$graph->y2axis->SetTitle("Solar Radiation [W m**-2]");
-$graph->y2axis->SetTitleMargin(35);
 
 
 // Create the linear plot
-$lineplot=new LinePlot($tmpf);
+$lineplot=new LinePlot($tmpf, $times);
 $lineplot->SetLegend("Temperature");
 $lineplot->SetColor("red");
+//$lineplot->SetWeight(2);
 // Create the linear plot
 
-$lineplot2=new LinePlot($dwpf);
+$lineplot2=new LinePlot($dwpf, $times);
 $lineplot2->SetLegend("Dew Point");
 $lineplot2->SetColor("blue");
+//$lineplot2->SetWeight(2);
 
 // Create the linear plot
-$lineplot3=new LinePlot($sr);
+$lineplot3=new LinePlot($sr, $times);
 $lineplot3->SetLegend("Solar Rad");
 $lineplot3->SetColor("black");
+//$lineplot3->SetWeight(2);
 
 $graph->Add($lineplot2);
 $graph->Add($lineplot);
@@ -285,54 +201,35 @@ echo '<p><img src="'.$href.'_1.png">';
 //__________________________________________________________________________
 
 // Create the graph. These two calls are always required
-$graph = new Graph(600,300,"example1");
+$graph = new Graph($imgwidth,$imgheight,"example1");
 
-$graph->SetScale("textlin",0, 360);
-
+$graph->SetScale("datelin",0, 360);
 $graph->SetY2Scale("lin");
 $graph->y2axis->SetColor("red");
 $graph->y2axis->SetTitle("Wind Speed [MPH]");
-
-//$graph->img->SetMargin(55,40,55,60);
-$graph->img->SetMargin(45,50,40,50);
-
-$graph->xaxis->SetTickLabels($xlabel);
-$graph->xaxis->SetTextTickInterval(60);
-//$graph->xaxis->SetLabelAngle(90);
 $graph->xaxis->SetTitle("Valid Local Time");
-//$graph->xaxis->SetTitleMargin(30);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
-$graph->xaxis->SetPos("min");
+$graph->tabtitle->Set(' '. $cityname ." on ". $titleDate .' ');
 
-$graph->tabtitle->Set(' '. $Scities[$nwsli]['city'] ." on ". $titleDate .' ');
-$graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,12);
+$graph = common_graph($graph);
 
-$graph->legend->SetLayout(LEGEND_HOR);
-$graph->legend->SetPos(0.01,0.91, 'left', 'top');
-$graph->legend->SetLineSpacing(3);
-
+$graph->yaxis->scale->ticks->SetLabelFormat("%5.1f");
 $graph->yaxis->scale->ticks->Set(90,15);
 $graph->yaxis->scale->ticks->SetLabelFormat("%5.0f");
+$graph->yaxis->scale->ticks->SetLabelFormat("%5.0f");
 $graph->yaxis->SetColor("blue");
-$graph->yaxis->SetTitle("Wind Direction");
-$graph->yaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
-$graph->yaxis->SetTitleMargin(30);
-//$graph->y2axis->SetTitleMargin(28);
+$graph->yaxis->SetTitle("Wind Direction [N=0, E=90, S=180, W=270]");
 
 // Create the linear plot
-$lineplot=new LinePlot($mph);
+$lineplot=new LinePlot($mph, $times);
 $lineplot->SetLegend($wLabel);
 $lineplot->SetColor("red");
 
-if ($hasgust == 1){
-  // Create the linear plot
-  $lp1=new LinePlot($gust);
-  $lp1->SetLegend("Peak Wind Gust");
-  $lp1->SetColor("black");
-}
+$lp1=new LinePlot($gust, $times);
+$lp1->SetLegend("Peak Wind Gust");
+$lp1->SetColor("black");
 
 // Create the linear plot
-$sp1=new ScatterPlot($drct);
+$sp1=new ScatterPlot($drct, $times);
 $sp1->mark->SetType(MARK_FILLEDCIRCLE);
 $sp1->mark->SetFillColor("blue");
 $sp1->mark->SetWidth(3);
@@ -340,73 +237,45 @@ $sp1->SetLegend("Wind Direction");
 
 $graph->Add($sp1);
 $graph->AddY2($lineplot);
-if ($hasgust == 1){
-  $graph->AddY2($lp1);
-}
-
-$t1 = new Text("N\n\n\n\nW\n\n\n\nS\n\n\n\nE");
-$t1->Pos(0.065,0.112);
-$t1->SetOrientation("h");
-$t1->SetFont(FF_FONT1,FS_BOLD);
-//$t1->SetBox("white");
-$t1->SetColor("black");
-$graph->AddText($t1);
+$graph->AddY2($lp1);
 
 $graph->Stroke("/mesonet/www/html/".$href."_2.png");
 echo '<p><img src="'.$href.'_2.png">';
 
 //__________________________________________________________________________
+$graph = new Graph($imgwidth,$imgheight);
+$graph->SetScale("datelin");
+$graph->SetY2Scale("lin",0, intval((max($prec)+1)));
 
-$graph = new Graph(600,300,"example1");
-$graph->SetScale("textlin");
-$maxPrec = max($prec);
-if ($maxPrec > 3.5)
-$graph->SetY2Scale("lin", 0, $maxPrec + 1);
-else
-$graph->SetY2Scale("lin");
-
-
-$graph->img->SetMargin(55,50,40,50);
-//$graph->img->SetMargin(55,40,55,60);
-
-
-$graph->xaxis->SetTickLabels($xlabel);
-$graph->xaxis->SetTextTickInterval(60);
-//$graph->xaxis->SetLabelAngle(90);
+$graph->tabtitle->Set(' '. $cityname ." on ". $titleDate .' ');
 $graph->xaxis->SetTitle("Valid Local Time");
-//$graph->xaxis->SetTitleMargin(30);
-$graph->xaxis->title->SetFont(FF_FONT1,FS_BOLD,12);
-$graph->xaxis->SetPos("min");
-
-$graph->tabtitle->Set(' '. $Scities[$nwsli]['city'] ." on ". $titleDate .' ');
-$graph->tabtitle->SetFont(FF_FONT1,FS_BOLD,12);
-
-$graph->legend->SetLayout(LEGEND_HOR);
-$graph->legend->SetPos(0.01,0.91, 'left', 'top');
-$graph->legend->SetLineSpacing(3);
-
-$graph->y2axis->scale->ticks->Set(1,0.25);
-$graph->y2axis->scale->ticks->SetLabelFormat("%1.2f");
-$graph->y2axis->SetColor("blue");
 $graph->y2axis->SetTitle("Accumulated Precipitation [inches]");
-$graph->y2axis->SetTitleMargin(35);
+$graph->yaxis->SetTitle("Pressure [millibars]");
 
-$graph->yaxis->scale->ticks->SetLabelFormat("%4.0f");
-$graph->yaxis->scale->ticks->Set(2,0.1);
+$graph = common_graph($graph);
+
+$graph->yaxis->SetTitleMargin(60);
+
+$graph->y2axis->scale->ticks->Set(0.5,0.25);
+$graph->y2axis->scale->ticks->SetLabelFormat("%4.2f");
+$graph->y2axis->SetColor("blue");
+
+$graph->yaxis->scale->ticks->SetLabelFormat("%4.1f");
+$graph->yaxis->scale->ticks->Set(1,0.1);
 $graph->yaxis->SetColor("black");
 $graph->yscale->SetGrace(10);
-$graph->yaxis->SetTitle("Pressure [millibars]");
-$graph->yaxis->SetTitleMargin(43);
+//$graph->yscale->SetAutoTicks();
 
 // Create the linear plot
-$lineplot=new LinePlot($alti);
+$lineplot=new LinePlot($alti, $times);
 $lineplot->SetLegend("Pressure");
 $lineplot->SetColor("black");
+//$lineplot->SetWeight(2);
 
 // Create the linear plot
-$lineplot2=new LinePlot($prec);
+$lineplot2=new LinePlot($prec, $times);
 $lineplot2->SetLegend("Precipitation");
-$lineplot2->SetFillColor("blue@0.5");
+$lineplot2->SetFillColor("blue@0.1");
 $lineplot2->SetColor("blue");
 $lineplot2->SetWeight(2);
 //$lineplot2->SetFilled();
