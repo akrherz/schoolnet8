@@ -4,16 +4,15 @@ body {
 	padding: 0;
 	border: 0;
 	text-align: center;
-	padding-bottom: 25px;
-}
-html, body, h2, h3, h4, div, p, ul, li, input {
-	font-family: "Gill Sans MT", "Gill sans", "Trebuchet ms", sans-serif;
-}
+    font:13px/1.22 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}
+table {font-size:inherit;font:100%;}
+pre,code,kbd,samp,tt {font-family:monospace;*font-size:108%;line-height:99%;}
+
 #wrapper        {
-  background: #fff url(../images/hbar.gif) repeat-x;
+/*  background: #fff url(../images/hbar.gif) repeat-x; */
+  background: #fff;
   color: #000;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 5px auto;
   padding: 0;
   border: 1px solid #526968;
   min-width: 698px; 
@@ -27,10 +26,9 @@ html, body, h2, h3, h4, div, p, ul, li, input {
     clear: both; 
     visibility: hidden;
     }
-
-    /* Holly Hack Targets IE Win only \*/
-    * html #wrapper {height: 1%;}
-    /* End Holly Hack */
+/* Holly Hack Targets IE Win only \*/
+* html #wrapper {height: 1%;}
+/* End Holly Hack */
 a:link, a:visited {
         font-weight : bold;
         text-decoration : underline;
@@ -137,12 +135,11 @@ ul li   {
 }
                                                                                 
 #iemwebring {
-  font-size: 85%;
-  line-height: 0.9em;
   padding: 0;
   text-align: center;
   clear: both;
-  margin-bottom: 5px;
+  font-size: 85%;
+  background: #eee;
 }
 #iemwebring a {
   padding: 0 0 0 .4em;
@@ -155,24 +152,29 @@ ul li   {
 }
 
 #linkbar {
-  font-size: 85%;
   padding: 0;
   text-align: center;
   clear: both;
-  margin-top: 1px;
+  margin: 1px 0px 5px 0px;
 }
 #linkbar a {
-  padding: 0 0 0 .4em;
   text-decoration: none;
   border: none;
+  text-align: center;
 }
 #linkbar li {
   list-style: none;
   display: inline;
+  padding: 3px 3px 0px 0px;
+}
+#linkbar .selected {
+  border-bottom: 2px #f00 solid;
 }
 
 #imgbar {
-  margin: 5px;
+  margin: 0px;
+  padding: 0px;
+  background: #fff url(../images/hbar2.gif) repeat-x; 
 }
 
 
@@ -246,4 +248,8 @@ div.nb h3 {
 }
 div.nb .nb_content {
   padding: 5px;
+}
+div.nb_shader img {
+  float: right;
+  margin: 5px 5px 0px 0px;
 }

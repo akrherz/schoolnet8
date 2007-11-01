@@ -6,30 +6,12 @@
  include("$nwnpath/include/imagemap.inc.php");
   srand ((float) microtime() * 10000000);
   $station = array_rand($Scities);
- $app = "05"; include("../include/dblog.inc.php"); ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
- <title>SchoolNet8.com</title>
- <style type="text/css" media="screen">@import "css/main.css";</style>
+ $app = "05"; include("../include/dblog.inc.php");
 
-<script language="JavaScript" type="text/javascript">
-//<!--
-window.name = "basewindow";
-function new_window_big(url) {
-        link = 
-        window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=820,height=620");
-} 
-function selectWindow() {
- window.open('<?php echo $baseurl; ?>/select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=425,height=700');
-}
-//END Script-->
-</script>
-</head>
-<body>
+$TITLE = "SchoolNet8 Project"; include("$nwnpath/include/header.inc.php");
+$THISPAGE = "homepage"; include("$nwnpath/include/bar.inc.php"); 
 
-<?php $THISPAGE = "homepage"; include("$nwnpath/include/bar.inc.php"); ?>
+?>
 
 <p><b>Welcome</b> to the KCCI SchoolNet8 website<br />sponsored 
 by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new">CIPCO</a> and Iowa <a href="https://touchstoneenergy.cooperative.com/public/index.html">Touchstone Energy</a> cooperatives!</p>
@@ -63,12 +45,12 @@ by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new
 </div></div>
 
 <div class="nb">
-<h3>October feature:</h3>
+<h3>November feature:</h3>
 <div class="nb_content">
-<a href="sview/"><img src="images/sview.png" style="float: left; border: 0px; margin: 5px;"></a>
-A new version of the <a href="sview/">SchoolNet8 Java Viewer</a> has been 
-released.  This version resolves a number of bugs and features a new 
-<a href="sview/Setup_SchoolNet8.exe">Microsoft Windows installer</a>!
+<a href="site.phtml"><img src="images/redhat-web-browser.png" style="float: left; border: 0px; margin: 5px;"></a>
+We are pleased to feature improvements to the <a href="site.phtml">site homepage</a>.  You can now
+customize which items appear on your page by clicking the "window shade" icon
+in each section.
 </div></div>
 
 </div>

@@ -1,20 +1,11 @@
 <?php
  include("../config/settings.inc.php");
-$fa = file('/proc/loadavg');
-$fa = explode(" ", $fa[0] );
-if ($fa[0] > 3.0)
-{
-  header("Location: ". $backupbaseurl ."/site.phtml?". $_SERVER["QUERY_STRING"]  );
-  exit(0);
-}
-
-
  include("$nwnpath/include/sunrise.inc.php");
 /** Get vars */
 $var = isset($_GET['var']) ? $_GET['var'] : 'tmpf';
 $station = isset($_GET['station']) ? $_GET['station'] : 'SKCI4';
 
-/* Session Stuff */
+/* Session Stuff 
 $expiry = 60*60*24*100; // 100 days
 session_start();
 
@@ -23,6 +14,11 @@ if (isset($_SESSION['station']) && ! isset($_GET['station']) )
   $station = $_SESSION['station'];
 }
 $_SESSION['station'] = $station;
+*/
+if (isset($_COOKIE['station']) && ! isset($_GET['station']) )
+{
+ $station = $_COOKIE['station'];
+}
 /* End Session Stuff */
 
 $uri = "site.phtml?station=". $station;
@@ -48,39 +44,39 @@ if ($station2)
  include('../include/neighbors.inc.php');
  include('../include/radar_widget.php');
  include('../include/cameras.inc.php');
- 
- $rW = new radarWidget($station, $var);
- 
 
- $app = "02"; include("../include/dblog.inc.php"); ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
- <style type="text/css" media="screen">@import "css/main.css";</style>
-  <title>SchoolNet8.com | <?php echo $Scities[$station]["city"]; ?></title>
+$containers = Array(
+ 0 => Array("name"=>"lsd", "display" => "block"),
+ 1 => Array("name"=>"webcam", "display" => "block"),
+ 2 => Array("name"=>"current", "display" => "block"),
+ 3 => Array("name"=>"climo", "display" => "block"),
+ 4 => Array("name"=>"forecast", "display" => "block"),
+ 5 => Array("name"=>"links", "display" => "block"),
+ 6 => Array("name"=>"neighbors", "display" => "block"),
+ 7 => Array("name"=>"selector", "display" => "block"),
+);
+$siteconfig = "11111111";
+if (isset($_COOKIE['siteconfig'])) $siteconfig = $_COOKIE['siteconfig'];
+$ar = str_split($siteconfig);
+while( list($pos,$val) = each($ar))
+{
+  if ($val == "0") $containers[$pos]['display'] = "none";
+
+}
+
+ $rW = new radarWidget($station, $var);
+ $app = "02"; include("../include/dblog.inc.php"); 
+
+ $TITLE = "SchoolNet8.com | ". $Scities[$station]["city"];
+ include("$nwnpath/include/header.inc.php");
+
+?>
 <script language="JavaScript" type="text/javascript">
 <!--//BEGIN Script
 refresh_timeout = setTimeout('document.location=document.location',60000);
-function help_window(helpitem) {
-        link =
-       window.open('<?php echo $baseurl; ?>info/mfaq.phtml#'+ helpitem, "HELP","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=440");
-}
-function new_window(url) {
-        link =
-       window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=440");
-}
-function new_window_big(url) {
-        link =
-        window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600");
-}
-function selectWindow() {
- window.open('<?php echo $baseurl; ?>select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=450,height=600');
-}
+set_cookie("station", '<?php echo $station; ?>',2019,1,1);
 //END Script-->
 </script>
-</head>
-<body>
 <?php
 
 function sel($svar, $var, $txt){
@@ -95,20 +91,33 @@ function sel($svar, $var, $txt){
    $s2 =1;
    $ob2 = $obs->db[$station2];
  }
-  
+
+function nbheader($title, $pos, $name)
+{
+  global $containers, $baseurl;
+  $s = "<div class=\"nb\">";
+  $s .= "<div class=\"nb_shader\"><a href=\"javascript: reverseLayer('". $name ."',". $pos .");\"><img src=\"${baseurl}/images/shade.gif\"></a></div>";
+  $s .= "<h3>$title</h3>";
+  $s .= "<div class=\"nb_content\" id=\"". $name ."\" style=\"display: ". $containers[$pos]['display'] .";\">";
+  return $s;
+}
+
 ?>
 <?php $THISPAGE = "mysite"; include("$nwnpath/include/bar.inc.php"); ?>
+
+<?php echo "<b><a href=\"$baseurl/site.phtml?station=$station\">". $Scities[$station]["city"] ."</a></b> SchoolNet8 Site is sponsored by <a href=\"". $baseurl ."tool/clicktru.php?station=$station\">". $sponsors[$station]["sponsor"] ."</a>";
+?>
+<br />&nbsp; <br clear="all"/>
 <div id="leftside">
 
-<div class="nb">
-<h3>Live Super Doppler8:</h3>
-<div class="nb_content">
+<!-- Local Super Doppler8 -->
+<?php echo nbheader("Local Super Doppler8:", 0, "lsd"); ?>
 <?php $rW->printHTML(); ?>
-
-The red sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>.
+The lavender sticks are <a href="javascript:help_window('windbarbs');">wind barbs</a>.
 </div></div>
 
-<div class="nb"><h3>Nearest Web Camera:</h3><div class="nb_content">
+<!-- Webcams -->
+<?php echo nbheader("Nearest Web Camera:", 1, "webcam"); ?>
 <?php
 /* webcam section */
 $cid = $cxref[$station][0];
@@ -142,6 +151,32 @@ else {
 ?>
 </div></div>
 
+<!-- Site Resources -->
+<?php echo nbheader("Site Resources:", 5, "links"); ?>
+<ul>
+ <li><a href="<?php echo $baseurl; ?>dl/">Download Data</a>
+ <li><a href="<?php echo $baseurl; ?>hist.phtml?station=<?php echo $station; ?>">Historical Data Calendar</a></li>
+ <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?st[]=<?php echo $station; ?>');">Live SchoolNet8 & Super Doppler </a></li>
+ <li><a href="<?php echo $baseurl; ?>GIS/gm.phtml?station=<?php echo $station; ?>">Google Maps Application</a></li>
+ <li><a href="<?php echo $baseurl; ?>ortho.phtml?station=<?php echo $station; ?>">Ortho Photography!</a></li>
+ <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
+ <li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
+ <li><a href="http://www.crh.noaa.gov/forecast/MapClick.php?FcstType=text&textField1=<?php echo $Scities[$station]['lat']; ?>&textField2=<?php echo $Scities[$station]['lon']; ?>&site=dmx">National Weather Service 7-Day Forecast</a></li>
+</ul>
+</div></div>
+
+<!-- Neighbors -->
+<?php echo nbheader("SchoolNet8 Neighbors:", 6, "neighbors"); ?>
+<ul>
+<?php
+ for ($i=0;$i<5;$i++){
+   $s = sprintf('<li><a href="%ssite.phtml?station=%s">%s</a></li>', 
+     $baseurl, $neighbors[$station][$i], $Scities[$neighbors[$station][$i]]['city']);
+   echo $s;
+ } 
+?>
+</ul>
+</div></div>
 
 
 
@@ -155,9 +190,8 @@ if (isset($Scities[$station]["ftm"])) {
 
 ?>
 
-<div class="nb">
-<h3>Current Observation:</h3>
-<div class="nb_content">
+<!-- Current -->
+<?php echo nbheader("Last Observation:", 2, "current"); ?>
 <?php
  $today = mktime(0,0,0,date("m"),date("d"),date("Y"));
 
@@ -210,9 +244,8 @@ current data.";
 <p>Help report rain and snow in your community by joining <a href="http://iowa.cocorahs.org">CoCoRaHS</a>.
 </div></div>
 
-<div class="nb">
-<h3>Climatology for <?php echo date("F d"); ?>:</h3>
-<div class="nb_content">
+<!-- Climate -->
+<?php echo nbheader("Climatology for ". date("F d"), 3, "climate"); ?>
 <?php
  /* Unserialize climate data! */
  //$cfname = sprintf("%s/include/climate_files/%s.txt", $nwnpath, strtolower($Scities[$station]['climate_site']) );
@@ -259,52 +292,8 @@ current data.";
 ?>
 </div></div>
 
-
-
-</div>
-
-<div class="nb" style="clear: both;">
-<h3 style="text-align: left;">National Weather Service Forecast:</h3>
-<div class="nb_content">
-<?php include("../data/fx/${station}.html"); ?>
-</div></div>
-
-<div id="leftside">
-
-<div class="nb">
-<h3>Site Resources:</h3>
-<div class="nb_content">
-<ul>
- <li><a href="<?php echo $baseurl; ?>dl/">Download Data</a>
- <li><a href="<?php echo $baseurl; ?>hist.phtml?station=<?php echo $station; ?>">Historical Data Calendar</a></li>
- <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?st[]=<?php echo $station; ?>');">Live SchoolNet8 & Super Doppler </a></li>
- <li><a href="<?php echo $baseurl; ?>GIS/gm.phtml?station=<?php echo $station; ?>">Google Maps Application</a></li>
- <li><a href="<?php echo $baseurl; ?>ortho.phtml?station=<?php echo $station; ?>">Ortho Photography!</a></li>
- <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
- <li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
- <li><a href="http://www.crh.noaa.gov/forecast/MapClick.php?FcstType=text&textField1=<?php echo $Scities[$station]['lat']; ?>&textField2=<?php echo $Scities[$station]['lon']; ?>&site=dmx">National Weather Service 7-Day Forecast</a></li>
-</ul>
-</div></div>
-
-<div class="nb">
-<h3>SchoolNet8 Neighbors:</h3>
-<div class="nb_content">
-<ul>
-<?php
- for ($i=0;$i<5;$i++){
-   $s = sprintf('<li><a href="%ssite.phtml?station=%s">%s</a></li>', 
-     $baseurl, $neighbors[$station][$i], $Scities[$neighbors[$station][$i]]['city']);
-   echo $s;
- } 
-?>
-</ul>
-</div></div>
-
-</div><div id="rightside">
-
-<div class="nb">
-<h3>Switch SchoolNet8 Site:</h3>
-<div class="nb_content">
+<!-- Switcher! -->
+<?php echo nbheader("Switch SchoolNet8 Site:", 7, "switch"); ?>
 <a href="javascript:selectWindow();">Select from map</a> -or- <b>Select from list</b>
 
 <form method="get" action="site.phtml" name="sitesel2">
@@ -319,6 +308,12 @@ current data.";
 </div></div>
 
 </div>
+
+<br clear="all" />
+<!-- NWS Forecast -->
+<?php echo nbheader("National Weather Service Forecast:", 4, "forecast"); ?>
+<?php include("../data/fx/${station}.html"); ?>
+</div></div>
 
 <br clear="all" />
 <p><i>Wanna bookmark this page?  Use this URL</i><br />
