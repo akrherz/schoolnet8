@@ -57,7 +57,35 @@ $containers = Array(
 );
 $siteconfig = "11111111";
 if (isset($_COOKIE['siteconfig'])) $siteconfig = $_COOKIE['siteconfig'];
-$ar = str_split($siteconfig);
+function str_split_php4($text, $split = 1)
+{
+    if (!is_string($text)) return false;
+    if (!is_numeric($split) && $split < 1) return false;
+   
+    $len = strlen($text);
+   
+    $array = array();
+   
+    $i = 0;
+   
+    while ($i < $len)
+    {
+        $key = NULL;
+       
+        for ($j = 0; $j < $split; $j += 1)
+        {
+            $key .= $text{$i};
+           
+            $i += 1;   
+        }
+       
+        $array[] = $key;
+    }
+   
+    return $array;
+}
+
+$ar = str_split_php4($siteconfig);
 while( list($pos,$val) = each($ar))
 {
   if ($val == "0") $containers[$pos]['display'] = "none";
