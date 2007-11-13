@@ -9,7 +9,7 @@ function printMonth($its, $db, $thisApp, $dailyApp){
   $month = strftime("%m", $ts);
   $year = strftime("%Y", $ts);
 
-  $first = mktime(0, 0, 0, $month, 1, $year);
+  $first = mktime(8, 0, 0, $month, 1, $year);
   $last = mktime(10, 0, 0, $month + 1, 0, $year);  // CST concerns
 
   $now = time();
