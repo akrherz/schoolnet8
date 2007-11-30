@@ -95,7 +95,7 @@ while( list($pos,$val) = each($ar))
  $rW = new radarWidget($station, $var);
  $app = "02"; include("../include/dblog.inc.php"); 
 
- $TITLE = "SchoolNet8.com | ". $Scities[$station]["city"];
+ $TITLE =  $Scities[$station]["city"];
  include("$nwnpath/include/header.inc.php");
 
 ?>
@@ -193,19 +193,10 @@ else {
 </ul>
 </div></div>
 
-<!-- Neighbors -->
-<?php echo nbheader("SchoolNet8 Neighbors:", 6, "neighbors"); ?>
-<ul>
-<?php
- for ($i=0;$i<5;$i++){
-   $s = sprintf('<li><a href="%ssite.phtml?station=%s">%s</a></li>', 
-     $baseurl, $neighbors[$station][$i], $Scities[$neighbors[$station][$i]]['city']);
-   echo $s;
- } 
-?>
-</ul>
+<!-- Neighbors, no longer used
+<?php // echo nbheader("SchoolNet8 Neighbors:", 6, "neighbors"); ?>
 </div></div>
-
+-->
 
 
 </div><div id="rightside">
@@ -332,6 +323,16 @@ current data.";
    echo "<input type=\"hidden\" value=\"". $var ."\" name=\"var\" />";
    echo "<input type=\"submit\" value=\"Go!\" /></form>";
 ?>
+<br />Nearest 5 SchoolNet8 Locations:
+<ul>
+<?php
+ for ($i=0;$i<5;$i++){
+   $s = sprintf('<li><a href="%ssite.phtml?station=%s">%s</a></li>', 
+     $baseurl, $neighbors[$station][$i], $Scities[$neighbors[$station][$i]]['city']);
+   echo $s;
+ } 
+?>
+</ul>
 
 </div></div>
 
@@ -344,7 +345,6 @@ current data.";
 </div></div>
 
 <br clear="all" />
-<p><i>Wanna bookmark this page?  Use this URL</i><br />
-<?php echo $baseurl . $uri; ?></p>
+<p><a href='javascript:addToFavorites("<?php echo $baseurl . $uri; ?>", "SchoolNet8.com | <?php echo $TITLE; ?>");'>Bookmark this page!</a>
 
 <?php include("$nwnpath/include/footer.inc.php"); ?>
