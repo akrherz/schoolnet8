@@ -69,6 +69,12 @@ function set_cookie ( name, value, exp_y, exp_m, exp_d, path, domain, secure )
   document.cookie = cookie_string;
 }
 function addToFavorites(urlAddress, pageName) {
-  if (window.external) { window.external.AddFavorite(urlAddress,pageName); }
-  else { alert("Sorry! Your browser doesn't support this function."); } 
+ if ((navigator.appName == "Microsoft Internet Explorer") && (parseInt(navigator.appVersion) >= 4)) {
+  window.external.AddFavorite(urlAddress,pageName);
+  } else if (navigator.appName == "Netscape") {
+    window.sidebar.addPanel(pageName,urlAddress,"");
+  } else {
+    alert("Press CTRL-D (Netscape) or CTRL-T (Opera) to bookmark");
+  }
+
 }
