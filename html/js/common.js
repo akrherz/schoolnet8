@@ -68,3 +68,7 @@ function set_cookie ( name, value, exp_y, exp_m, exp_d, path, domain, secure )
   
   document.cookie = cookie_string;
 }
+function addToFavorites(urlAddress, pageName) {
+  if (window.external) { window.external.AddFavorite(urlAddress,pageName); }
+  else { alert("Sorry! Your browser doesn't support this function."); } 
+}
