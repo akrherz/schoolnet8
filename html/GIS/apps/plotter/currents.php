@@ -20,7 +20,11 @@ $day = isset($_GET["day"]) ? $_GET["day"] : date("d");
 $hour = isset($_GET["hour"]) ? $_GET["hour"] : date("H");
 $minute = isset($_GET["minute"]) ? $_GET["minute"] : date("i");
 $extents = isset($_GET['extents']) ? $_GET['extents'] : "200000,4400000,710000,4900000";
-$zoom     = isset($_GET['zoom']) ? $_GET['zoom'] : 0;
+if (! isset($_GET['extents']) && isset($_COOKIE["extents"]))
+{
+  $extents = $_COOKIE["extents"];
+}
+$zoom     = isset($_GET['zoom']) ? $_GET['zoom'] : 1;
 $street = isset($_GET["street"]) && strlen($_GET["street"]) > 0 ? $_GET["street"] : "";
 $city = isset($_GET["city"]) && strlen($_GET["city"]) > 0 ? $_GET["city"] : "";
 //$img_x = $_GET["img_x"];
@@ -73,7 +77,7 @@ $imgheight = 480;
 $oextents = isset($_GET['extents']) ? $_GET['extents'] : "200000,4400000,710000,4900000";
 if ( $zoom == 0 ){ // Full Extents
   unset($_GET["img_x"]);
-  $oextents = "200000,4400000,710000,4900000";
+  $extents = "200000,4400000,710000,4900000";
 }
 if ( isset($_GET['img_x']) && strlen($_GET['img_x']) > 0 ){
 	$extents = click2geo($oextents, $_GET['img_x'], $_GET['img_y'],
@@ -101,10 +105,12 @@ if ( isset($_GET['img_x']) && strlen($_GET['img_x']) > 0 ){
                 $point->x + 20000, $point->y + 15000);
 		$extents = implode(",", $a);
 	}
-} else {
-   $extents = $oextents;
-}
-
+} 
+//else {
+//   $extents = $oextents;
+//}
+//echo "<br />Finally:  $extents ";
+//echo "<br />zoom:  $zoom ";
 
 /**
  * Function to find a radar image valid near this time 
@@ -220,8 +226,11 @@ $mapurl =  "${baseurl}GIS/map.php?layers[]=$lstr&zoom=1&mode=$mode&year=$year&mo
 <html>
 <head>
   <title>Live Super Doppler8 App</title>
+  <script type="text/javascript" src="<?php echo $baseurl; ?>/js/common.js?v=101"></script>
 <script Language="JavaScript">
 <!--
+ set_cookie("extents", '<?php echo $extents; ?>',2019,1,1);
+
  function resetButtons(){
    document.panButton.src = '../../../images/button_pan_off.png';
    document.zoominButton.src = '../../../images/button_zoomin_off.png';
