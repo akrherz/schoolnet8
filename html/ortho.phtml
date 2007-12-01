@@ -44,7 +44,7 @@ $map->setextent($point->x - $dx, $point->y - $dy,
 
 $wms = $map->getlayerbyname("wmsback");
 $wms->set("status", MS_ON);
-$wms->set("connection", "http://cairo.gis.iastate.edu/cgi-bin/server.cgi?format=jpeg&wmtver=1.0.0&request=map&servicename=GetMap&layers=cir" );
+$wms->set("connection", "http://ortho.gis.iastate.edu/server.cgi?format=jpeg&wmtver=1.0.0&request=map&servicename=GetMap&layers=naip_2007" );
 
 //$wms->set("connection", "http://cairo.gis.iastate.edu/cgi-bin/server.cgi?format=jpeg&wmtver=1.0.0&request=map&servicename=GetMap&layers=naip_2004" );
 
@@ -80,6 +80,11 @@ $url = $img->saveWebImage();
 
 <p><input type="submit" value="View Image">
 
+<p><b>Links to other Mapping Applications:</b>
+<ul>
+ <li><a href="http://maps.google.com/maps?f=q&hl=en&geocode=&time=&date=&ttype=&ie=UTF8&ll=<?php echo $Scities[$station]["lat"]; ?>,<?php echo $Scities[$station]["lon"]; ?>&spn=0.045067,0.052614&t=h&z=14&iwloc=addr&om=1">Google Maps</li>
+</ul>
+
 </td><td align="left">
 <?php echo "<img src=\"$url\">"; ?>
 <br><i>(Right click on the image to save it...)</i>
@@ -87,9 +92,10 @@ $url = $img->saveWebImage();
 
 </form>
 
-<p>Ortho imagery (circa spring 2003) is provided by the <a href="http://www.gis.iastate.edu">Iowa State University GIS Lab</a>.  The red dot represents where we believe the sensors for
+<div style="text-align: left; padding: 5px;">
+<p>2007 Orthophotos. USDA National Agriculture Image Program (NAIP) natural color orthophoto mosaics from aerial photos taken in June - October 2007. The maximum resolution of this imagery is 2 meters. Imagery is provided by the <a href="http://www.gis.iastate.edu">Iowa State University GIS Lab</a>.  The red dot represents where we believe the sensors for
 the SchoolNet8 site to be located.  For a majority of the sites, the red dot
 was the location of the GPS sensor during the site installation (often in the parking lot).
-
+</div>
 
 <?php include("$nwnpath/include/footer.inc.php"); ?>
