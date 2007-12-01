@@ -52,6 +52,7 @@ foreach($Scities as $key => $value){
 
 //_________________ Mapserver stuff time!!!
 $map = ms_newMapObj($mapfile);
+$map->selectOutputFormat("png24");
 $map->setProjection($proj);
 $map->set("width", $width);
 $map->set("height", $height);
@@ -187,7 +188,7 @@ $bar->draw($img);
 
 if ($tvgood)
 {
- doppler8logo($map, $img, 235, 20, 25);
+  doppler8logo($map, $img, 260, 27, 53);
 }
 mktitle($map, $img, 0, $height - 10, " ". $varDef[$var] ." @ ". date("h:i A") ."                                                    ");
 mkstationtitle($map, $img,  5, 10, $Scities[$station]["city"] );
