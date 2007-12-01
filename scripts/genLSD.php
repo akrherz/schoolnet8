@@ -12,9 +12,13 @@ global $mapfile;
 global $validRADAR;
 
 $map = ms_newMapObj($mapfile);
+$map->selectOutputFormat("png24");
 $map->set("width", 640);
 $map->set("height", 480);
 $map->setextent($bounds[0], $bounds[1], $bounds[2], $bounds[3]);
+
+$iowa_map_cities = $map->getlayerbyname("iowa_map_cities");
+$iowa_map_cities->set("status", MS_ON);
 
 $counties = $map->getlayerbyname("mwcounties");
 $counties->set("status", MS_ON);
@@ -67,11 +71,12 @@ if ($validRADAR)
 $counties->draw($img);
 $states->draw($img);
 $warnings_c->draw($img);
+$iowa_map_cities->draw($img);
 
 $subbar->draw($img);
  putenv("TZ=CST6CDT");
 mktitle($map, $img, 350, 70, date("h:i A d M Y") );
-doppler8logo($map, $img, 425, 45, 65);
+doppler8logo($map, $img, 550, 68, 53);
 
 $map->embedlegend($img);
 $map->drawLabelCache($img);
