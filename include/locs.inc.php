@@ -11,7 +11,7 @@ $Scities = array(
  "SAGI4" => array("short" => "Algona", "city" => "Algona", "lat" => 43.0706, "lon" => -94.2289, "online" => true, "nwn_id" => 128, "climate_site" => "IA0133"),
  "SAKI4" => array("short" => "Ankeny", "city" => "Ankeny / Christian Academy", "lat" => 41.7323333333, "lon" => -93.62275, "online" => true, "nwn_id" => 57, "climate_site" => "IA0241"),
  "SALI4" => array("short" => "Albia", "city" => "Albia Lincoln Center", "lat" => 41.0290833333, "lon" => -92.8054166667, "online" => true, "nwn_id" => 83, "climate_site" => "IA0112"),
- "SAMI4" => array("short" => "Ames", "city" => "Ames / St Cecilia", "lat" => 42.0503516667, "lon" => -93.6186833333, "online" => true, "nwn_id" => 82, "climate_site" => "IA0200"),
+ "SAMI4" => array("short" => "Ames", "city" => "Ames / St Cecilia", "lat" => 42.050392, "lon" => -93.628213, "online" => true, "nwn_id" => 82, "climate_site" => "IA0200"),
  "SATI4" => array("short" => "Anita", "city" => "Anita", "lat" => 41.4535, "lon" => -94.7691, "online" => true, "nwn_id" => 148, "climate_site" => "IA0364"),
  "SAUI4" => array("short" => "Audubon", "city" => "Audubon Community", "lat" => 41.7125833333, "lon" => -94.9222833333, "online" => true, "nwn_id" => 72, "climate_site" => "IA0385"), 
  "SBDI4" => array("short" => "Bedford", "city" => "Bedford", "lat" => 40.6721666667, "lon" => -94.7236333333, "online" => true, "nwn_id" => 123, "climate_site" => "IA0576"),
