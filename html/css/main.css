@@ -253,3 +253,8 @@ div.nb_shader img {
   float: right;
   margin: 5px 5px 0px 0px;
 }
+.horiz-list li {
+  list-style: none;
+  display: inline;
+  margin-right: 10px;
+}
