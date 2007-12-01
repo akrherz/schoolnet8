@@ -69,8 +69,8 @@ if ($validRADAR)
   $dmx->draw($img);
 }
 $counties->draw($img);
-$states->draw($img);
 $warnings_c->draw($img);
+$states->draw($img);
 $iowa_map_cities->draw($img);
 
 $subbar->draw($img);
