@@ -260,6 +260,7 @@ $rlabel = Array("KCCI" => "KCCI-TV Live Super Doppler",
  "EAX" => "NWS Pleasant Hill, MO NEXRAD");
 
 $map = ms_newMapObj($mapfile);
+$map->selectOutputFormat("png24");
 $map->setProjection($proj);
 $map->set("height", 480);
 $map->set("width", 640);
@@ -479,10 +480,10 @@ foreach($myStations as $key => $value){
 
 //$map->drawLabelCache($img);
 $bar->draw($img);
-mktitle($map, $img, 330, 48, $varDef[$var] ." @ ". $titlets );
+mktitle($map, $img, 230, 48, $varDef[$var] ." @ ". $titlets );
 if (($tvgood || $mode == "archive") && $radar == "KCCI")
 {
-  doppler8logo($map, $img, 475, 68, 45);
+  doppler8logo($map, $img, 550, 68, 53);
 } else 
 {
   $subbar->draw($img);
