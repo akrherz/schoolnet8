@@ -310,7 +310,7 @@ LAYER
   STATUS OFF
   TYPE LINE
   CONNECTIONTYPE postgis
-  CONNECTION "user=nobody dbname=postgis host=mesonet-db1.agron.iastate.edu"
+  CONNECTION "user=nobody dbname=postgis host=iem20"
   DATA "geom from (select phenomena, geom, oid from warnings_2004 WHERE gtype = 'C' and expire > '2004-08-27 16:27' and issue < '2004-08-27 16:27' ORDER by expire, phenomena ASC) as foo using unique oid using SRID=4326"
   CLASSITEM "PHENOMENA"
   PROJECTION
