@@ -990,11 +990,9 @@ LAYER
   TYPE POINT
   STATUS OFF
   TRANSFORM FALSE
-#  TRANSPARENCY 10
   CLASS
     STYLE
-      SYMBOL 'doppler8'
-      SIZE 50
+      SYMBOL 'kcci-lsd2007'
     END
   END
 END
