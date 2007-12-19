@@ -132,7 +132,7 @@ foreach($Scities as $key => $value)
 chdir("/tmp/radimages");
 foreach($Scities as $sid => $value)
 {
-  system("/home/ldm/bin/pqinsert -p 'plot cr 000000000000 kcci/radar/${sid}/${sid}_ bogus png' ${sid}.png");
+  system("/home/ldm/bin/pqinsert -p 'lsdimages cr 000000000000 kcci/radar/${sid}/${sid}_ bogus png' ${sid}.png");
 }
 
 ?>
