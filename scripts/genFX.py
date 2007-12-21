@@ -3,21 +3,21 @@
 from xml.dom.ext.reader import Sax2
 from xml.dom.ext import StripXml
 from xml import xpath
-import re, pdb, datetime, urllib, time, sys
+import re, pdb, datetime, urllib, time, sys, shutil
 
 def generator(sid, lat, lon):
 
   now = datetime.datetime.now()
   rest_uri = "http://www.weather.gov/forecasts/xml/SOAP_server/ndfdSOAPclientByDay.php?lat=%s&lon=%s&format=12+hourly&startDate=%s&numDays=7&Submit=Submit" % (lat, lon, now.strftime("%Y-%m-%d") )
-
   urllib.urlretrieve(rest_uri, 'tmp.xml')
-
   x = open('tmp.xml').read()
   x = re.sub(">(\W){2,}<", "><", x.replace("\n", "") )
 
-  reader = Sax2.Reader()
-  doc = StripXml(reader.fromString(x))
-
+  try:
+    reader = Sax2.Reader()
+    doc = StripXml(reader.fromString(x))
+  except:
+    return
 
   # Load up timearrays
   ta = {}
