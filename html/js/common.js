@@ -8,7 +8,7 @@ function selectWindow() {
 }
 function help_window(helpitem) {
         link =
-       window.open('<?php echo $baseurl; ?>info/mfaq.phtml#'+ helpitem, "HELP","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=440");
+       window.open('/info/mfaq.phtml#'+ helpitem, "HELP","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=440");
 }
 function new_window(url) {
         link =
