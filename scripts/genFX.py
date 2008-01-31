@@ -94,7 +94,7 @@ def generator(sid, lat, lon):
   o.write("<tr>")
   for i in range(9):
     ts = ta['k-p12h-n14-3'][i]
-    o.write("<td><img src=\"%s\"</td>" % (icons[ts],))
+    o.write("<td><img src=\"%s\" alt=\"fx\"/></td>" % (icons[ts],))
   o.write("</tr>\n")
 
   o.write("<tr>")
