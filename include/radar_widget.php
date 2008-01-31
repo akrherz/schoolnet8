@@ -45,7 +45,7 @@ current_image = first_image;
 <?php
  if ($this->var == "tmpf")
  {
-  ?><img width="320" height="240" src="<?php echo $imgbase; ?>_0.png?<?php echo $t; ?>" ALT="Image" border="2" /><?php
+  ?><img width="320" height="240" src="<?php echo $imgbase; ?>_0.png?<?php echo $t; ?>" alt="Image" border="2" /><?php
  } else 
  {
  ?><img src="<?php echo $baseurl; ?>GIS/apps/radar/site.php?station=<?php echo $this->station;?>&amp;var=<?php echo $this->var;?>" width="320" height="240" alt="Live Doppler" border="2" /><?php
@@ -80,7 +80,7 @@ current_image = first_image;
   <form method="post" name="control_form">
 <a HREF="JavaScript: func()" onClick="change_mode(1);reverse()"><img border="0" src="<?php echo $baseurl; ?>images/rev_button.gif" alt="REV" /></a>
 <a HREF="JavaScript: func()" onClick="stop()"><img border="0" src="<?php echo $baseurl; ?>images/stp_button.gif" alt="STOP" /></a>
-<a HREF="JavaScript: func()" onClick="change_mode(1);fwd()"><img border="0" src="<?php echo $baseurl; ?>images/fwd_button.gif" ALT="FWD" /></a>
+<a HREF="JavaScript: func()" onClick="change_mode(1);fwd()"><img border="0" src="<?php echo $baseurl; ?>images/fwd_button.gif" alt="FWD" /></a>
   <font SIZE=-1 COLOR="#3300CC">Frame No:</font>
   <input type="text" name="frame_nr" value="9" size="2" onFocus="this.select()" onChange="go2image(this.value)"></input>
   </form>
