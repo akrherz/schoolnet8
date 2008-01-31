@@ -79,15 +79,15 @@ current_image = first_image;
 <img name="animation" width="320" height="240" src="<?php echo $baseurl; ?>images/pixel.gif" alt="Image" border="2" />
 
   <form method="post" name="control_form" action="#">
-<a href="JavaScript: func()" onClick="change_mode(1);reverse()"><img border="0" src="<?php echo $baseurl; ?>images/rev_button.gif" alt="REV" /></a>
-<a href="JavaScript: func()" onClick="stop()"><img border="0" src="<?php echo $baseurl; ?>images/stp_button.gif" alt="STOP" /></a>
-<a href="JavaScript: func()" onClick="change_mode(1);fwd()"><img border="0" src="<?php echo $baseurl; ?>images/fwd_button.gif" alt="FWD" /></a>
-  <font SIZE=-1 COLOR="#3300CC">Frame No:</font>
-  <input type="text" name="frame_nr" value="9" size="2" onFocus="this.select()" onChange="go2image(this.value)"></input>
+<a href="JavaScript: func()" onclick="change_mode(1);reverse()"><img border="0" src="<?php echo $baseurl; ?>images/rev_button.gif" alt="REV" /></a>
+<a href="JavaScript: func()" onclick="stop()"><img border="0" src="<?php echo $baseurl; ?>images/stp_button.gif" alt="STOP" /></a>
+<a href="JavaScript: func()" onclick="change_mode(1);fwd()"><img border="0" src="<?php echo $baseurl; ?>images/fwd_button.gif" alt="FWD" /></a>
+  <font size="-1" color="#3300CC">Frame No:</font>
+  <input type="text" name="frame_nr" value="9" size="2" onfocus="this.select()" onchange="go2image(this.value)"></input>
   </form>
 </div>
 
-<script LANGUAGE="JavaScript1.2" type="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
 //<!--
 function switchLayers( layerName ) {
   if ( document.getElementById ) {
