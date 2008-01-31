@@ -36,7 +36,7 @@ current_image = first_image;
 </script>
 <script language="JavaScript" type="text/javascript" src="<?php echo $baseurl; ?>js/animation.js"></script>
 
-<form method="GET" action="site.phtml" name="radSelect">
+<form method="get" action="site.phtml" name="radSelect">
   <a href="javascript: switchLayers('radlayerstill')" style="background: #C0DBFF;"> &nbsp; Latest Image &nbsp; </a><a href="javascript: switchLayers('radlayerloop')" style="background: #FFC0CB;"> &nbsp; Show Loop &nbsp; </a>
 
 <div id="radlayerstill">
@@ -45,7 +45,7 @@ current_image = first_image;
 <?php
  if ($this->var == "tmpf")
  {
-  ?><img width=320 height=240 SRC="<?php echo $imgbase; ?>_0.png?<?php echo $t; ?>" ALT="Image" border="2" /><?php
+  ?><img width="320" height="240" SRC="<?php echo $imgbase; ?>_0.png?<?php echo $t; ?>" ALT="Image" border="2" /><?php
  } else 
  {
  ?><img src="<?php echo $baseurl; ?>GIS/apps/radar/site.php?station=<?php echo $this->station;?>&amp;var=<?php echo $this->var;?>" width="320" height="240" alt="Live Doppler" border="2" /><?php
@@ -75,7 +75,7 @@ current_image = first_image;
 </div>
 <div id="radlayerloop">
 
-<img name="animation" width=320 height=240 src="<?php echo $baseurl; ?>images/pixel.gif" alt="Image" border="2" />
+<img name="animation" width="320" height="240" src="<?php echo $baseurl; ?>images/pixel.gif" alt="Image" border="2" />
 
   <form method="post" name="control_form">
 <a HREF="JavaScript: func()" onClick="change_mode(1);reverse()"><img BORDER=0 SRC="<?php echo $baseurl; ?>images/rev_button.gif" ALT="REV"></a>
