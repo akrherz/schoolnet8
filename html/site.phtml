@@ -124,7 +124,7 @@ function nbheader($title, $pos, $name)
 {
   global $containers, $baseurl;
   $s = "<div class=\"nb\">";
-  $s .= "<div class=\"nb_shader\"><a href=\"javascript: reverseLayer('". $name ."',". $pos .");\"><img src=\"${baseurl}/images/shade.gif\"></a></div>";
+  $s .= "<div class=\"nb_shader\"><a href=\"javascript: reverseLayer('". $name ."',". $pos .");\"><img src=\"${baseurl}/images/shade.gif\" alt=\"shader\"/></a></div>";
   $s .= "<h3>$title</h3>";
   $s .= "<div class=\"nb_content\" id=\"". $name ."\" style=\"display: ". $containers[$pos]['display'] .";\">";
   return $s;
