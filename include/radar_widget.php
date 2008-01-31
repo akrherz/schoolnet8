@@ -16,7 +16,7 @@ function printHTML(){
   $imgbase = "$baseurl/static/radar/". $this->station ."/". $this->station;
   $t = time();
 ?>
-<script LANGUAGE="JavaScript1.2" type="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
 //<!--
 modImages = new Array();
 modImages[0] = "<?php echo $imgbase; ?>_9.png?<?php echo $t; ?>";
