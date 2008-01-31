@@ -71,8 +71,9 @@ current_image = first_image;
           sel($this->var, "tmpf_min", "Today Low Temp");
         ?>
      </select><input type="submit" value="Go" />
-<?php } ?></form></p>
+<?php } ?></p>
 </div>
+</form>
 <div id="radlayerloop">
 
 <img name="animation" width="320" height="240" src="<?php echo $baseurl; ?>images/pixel.gif" alt="Image" border="2" />
