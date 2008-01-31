@@ -34,7 +34,7 @@ last_image = 10;
 current_image = first_image;
 -->
 </script>
-<script language="JavaScript" src="<?php echo $baseurl; ?>js/animation.js"></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo $baseurl; ?>js/animation.js"></script>
 
 <form method="GET" action="site.phtml" name="radSelect">
   <a href="javascript: switchLayers('radlayerstill')" style="background: #C0DBFF;"> &nbsp; Latest Image &nbsp; </a><a href="javascript: switchLayers('radlayerloop')" style="background: #FFC0CB;"> &nbsp; Show Loop &nbsp; </a>
