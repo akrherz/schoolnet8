@@ -40,8 +40,8 @@ current_image = first_image;
   <a href="javascript: switchLayers('radlayerstill')" style="background: #C0DBFF;"> &nbsp; Latest Image &nbsp; </a><a href="javascript: switchLayers('radlayerloop')" style="background: #FFC0CB;"> &nbsp; Show Loop &nbsp; </a>
 
 <div id="radlayerstill">
-<input type="hidden" name="station" value="<?php echo $this->station; ?>">
-<input type="hidden" name="station2" value="<?php echo $this->station2; ?>">
+<input type="hidden" name="station" value="<?php echo $this->station; ?>" />
+<input type="hidden" name="station2" value="<?php echo $this->station2; ?>" />
 <?php
  if ($this->var == "tmpf")
  {
