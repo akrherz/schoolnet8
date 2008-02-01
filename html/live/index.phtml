@@ -43,6 +43,7 @@ css";</style>
  <li class="<?php if ($THISPAGE == "training") echo "selected"; ?>"><a href="<?php echo $baseurl; ?>training/">Training</a></li>
  <li class="<?php if ($THISPAGE == "webcam") echo "selected"; ?>"><a href="<?php echo $baseurl; ?>camera/index.phtml">WebCams</a></li>
 </ul>
+This application will refresh automatically, you can click on the headings to sort the data.
 </div>
 <div id="south">
 <p>SchoolNet8.com sponsored by: <a href="<?php echo $baseurl; ?>tool/clicktru.php?station=KCCI" target="_new" class="ftext">CIPCO</a>
@@ -126,7 +127,7 @@ while( list($id,$d) = each($Scities) )
        new Ext.BoxComponent({ // raw
                     region:'north',
                     el: 'north',
-                    height:90
+                    height:100
        }), 
        new Ext.BoxComponent({ // raw
                     region:'south',
