@@ -140,6 +140,16 @@ while( list($id,$d) = each($Scities) )
       ]
   });
 
+  var scrollTop = 0;
+  obstore.on('beforeload', function(){
+    scrollTop = (grid.rendered)
+        ? grid.view.scroller.dom.scrollTop
+        : 0;
+  });
+  obstore.on('load', function(){
+    grid.view.scroller.scroll('down', scrollTop, true);
+  });  
+
 });
 
 </script>
