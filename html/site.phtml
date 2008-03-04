@@ -3,7 +3,7 @@
  include("$nwnpath/include/sunrise.inc.php");
 /** Get vars */
 $var = isset($_GET['var']) ? $_GET['var'] : 'tmpf';
-$station = isset($_GET['station']) ? $_GET['station'] : 'SKCI4';
+$station = isset($_GET['station']) ? substr($_GET['station'],0,5) : 'SKCI4';
 
 /* Session Stuff 
 $expiry = 60*60*24*100; // 100 days
