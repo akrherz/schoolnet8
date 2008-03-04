@@ -1,11 +1,15 @@
 <?php
+die("Page Disabled for the moment, sorry");
  include("../../config/settings.inc.php");
  include("../../include/imagemap.inc.php");
  include('../../include/locs.inc.php');
  $app = "31"; include("../../include/dblog.inc.php"); 
  $TITLE = "SchoolNet8 | Daily Webcam Lapses";
  include("$nwnpath/include/header.inc.php");
- $THISPAGE="webcam"; include("$nwnpath/include/bar.inc.php"); ?>
+ $THISPAGE="webcam"; include("$nwnpath/include/bar.inc.php"); 
+
+
+?>
 
 <div id="justone">
 
@@ -19,7 +23,7 @@
   // include the youtube class and instantiate it with the object $yt
   include('youtube.class.php');
   $yt = new youtube();
-  $yt->set('per_page', 4);
+  $yt->set('per_page', 8);
   $res = $yt->videos('akrherz');
   $video_list = $res['video_list'][0]['video'];
 ?>
