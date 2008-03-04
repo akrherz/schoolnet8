@@ -20,6 +20,7 @@ $obs->timecheck();
 $rnd = Array("tmpf" => 0,
   "dwpf" => 0,
   "sknt" => 0,
+  "sped" => 0,
   "max_sknt" => 0,
   "feel" => 0,
   "pmonth" => 2,
