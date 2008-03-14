@@ -22,6 +22,8 @@ $rnd = Array("tmpf" => 0,
   "sknt" => 0,
   "sped" => 0,
   "max_sknt" => 0,
+  "tmpf_max" => 0,
+  "tmpf_min" => 0,
   "feel" => 0,
   "pmonth" => 2,
   "pday" => 2);
