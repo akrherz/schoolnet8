@@ -1,110 +1,25 @@
 <?php
-die("Page Disabled for the moment, sorry");
  include("../../config/settings.inc.php");
  include("../../include/imagemap.inc.php");
  include('../../include/locs.inc.php');
  $app = "31"; include("../../include/dblog.inc.php"); 
  $TITLE = "SchoolNet8 | Daily Webcam Lapses";
  include("$nwnpath/include/header.inc.php");
- $THISPAGE="webcam"; include("$nwnpath/include/bar.inc.php"); 
+ $THISPAGE="webcam-bestof"; include("$nwnpath/include/bar.inc.php"); 
 
 
 ?>
 
-<div id="justone">
-
-<?php $THISPAGE="bestof"; include("bar.phtml"); ?>
+<p>Here are recent SchoolNet8 webcam "best of" time lapses.
 
 <p>
-<div class="nb">
-<h3>Best Web Cam Lapses</h3>
-<div class="nb_content">
-<?php
-  // include the youtube class and instantiate it with the object $yt
-  include('youtube.class.php');
-  $yt = new youtube();
-  $yt->set('per_page', 8);
-  $res = $yt->videos('akrherz');
-  $video_list = $res['video_list'][0]['video'];
-?>
-
-<style>
-div.vid {
-  float: left;
-  border: 1px solid #000;
-  margin: 2px;
-  padding: 5px;
-  width: 150px;
-}
-</style>
-Special lapses captured from the web camera networks are uploaded to YouTube
-for easy viewing.  You can page thru a listing of these YouTube views and play
-one of them by clicking on the thumbnail.
-
-<div style="text-align: center;"><a href="?page=<?=YOUTUBE_PREV_PAGE ?>"><img src="prev.gif" border=0></a> Page <?=YOUTUBE_PAGE ?> of <?=YOUTUBE_TOTAL_PAGES ?> <a href="?page=<?=YOUTUBE_NEXT_PAGE ?>"><img src="next.gif" border=0></a>
-           
-</div>
-  
-           <p> 
-             <?php
-             // loop through each video in the list and display it for design purposes
-             $i = 0;
-             foreach ($video_list as $k => $v) {
-
-             // limit the title's length so it doesn't break the design
-             echo "<div class=\"vid\"><a href='?video_id=".$v['id'];
-              if(isset($_GET['page']))
-              {
-             echo '&page='.(int)$_GET['page'];
-              }
-              if(isset($_POST['tag']))
-              {
-              $tags = str_replace(" ","+",$_POST['tag']);
-              $tags = str_replace("%20","+",$tags); 
-             echo '&tag='.$tags;
-              } else 
-              {
-              if(isset($_GET['tag']))
-              {
-              $tags = str_replace(" ","+",$_GET['tag']);
-              $tags = str_replace("%20","+",$tags); 
-             echo '&tag='.$tags;
-              }
-              }
-  echo "'><img src='{$v['thumbnail_url']}' border=0 style=\"margin: 5px;\"></a><br /><strong>Title:</strong> {$v['title']}<br /><strong>Views:</strong> {$v['view_count']}<br /><strong>Added:</strong> ". date("d M Y", $v["upload_time"]) ."</div>";
-              $i++;
-              }
-              ?>
-           </p>
-<br clear="both"/>
-    <h2><?=$video_list[YOUTUBE_VIDEO_INDEX]['title'] ?></h2>
-    <object width="425" height="350">
-    <param name="movie" value="http://www.youtube.com/v/<?=YOUTUBE_VIDEO_ID ?>">
-</param>
-    <param name="wmode" value="transparent"></param>
-    <embed src="http://www.youtube.com/v/<?=YOUTUBE_VIDEO_ID ?>" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
-    </object>
-
-    <p>
-    <?=$video_list[YOUTUBE_VIDEO_INDEX]['description'] ?>
-    </p>
-
-    <p>
-    Views: <?=$video_list[YOUTUBE_VIDEO_INDEX]['view_count'] ?><br />
-    </p>
+<object width='780' height='445'>
+<param name='movie' value='http://www.youtube.com/cp/vjVQa1PpcFNY2yxmlYfUYVBukg_bxvwEgSuchrt7RMs='></param>
+<param name='wmode' value='transparent'></param>
+<embed src='http://www.youtube.com/cp/vjVQa1PpcFNY2yxmlYfUYVBukg_bxvwEgSuchrt7RMs=' type='application/x-shockwave-flash' wmode='transparent' width='780' height='445'></embed>
+</object>
 
 
-
-
-
-
-
-
-</div>
-</div>
-
-
-</div>
 <br clear="all" />
 
 <?php include("$nwnpath/include/footer.inc.php"); ?>
