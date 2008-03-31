@@ -9,7 +9,6 @@ table {font-size:inherit;font:100%;}
 pre,code,kbd,samp,tt {font-family:monospace;*font-size:108%;line-height:99%;}
 
 #wrapper        {
-/*  background: #fff url(../images/hbar.gif) repeat-x; */
   background: #fff;
   color: #000;
   margin: 5px auto;
@@ -60,6 +59,88 @@ a:hover {
 	background: transparent;
 	text-align: left;
 }
+#iem_nav {
+    border: 1px solid #ccc;
+    border-top: 2px solid #ccc;
+        height: 24px;
+    width: 100%;
+        clear: both;
+        margin: 0px 0px 0px 0px;
+        padding: 0px;
+    background-color: #f0f4f5;
+        }
+#iem_nav ul {
+        margin: 0px 0px 0px 5px;
+        padding: 0px;
+        list-style-type: none;
+        }
+#iem_nav ul li {
+        margin: 0;
+        display: block;
+        float: left;
+        white-space: nowrap;
+        padding: 4px 12px;
+        background-image: none;
+        }
+#iem_nav ul li a, 
+#iem_nav ul li a:visited  {
+        margin: 0px 0px 0px 0px;
+        color: #00f;
+        text-decoration: none;
+        }
+#iem_nav ul li a:hover, 
+#iem_nav ul li a:active  {
+        text-decoration: underline;
+        }
+#iem_nav ul li.selected {
+        background-color: white;
+    border: 2px solid #ccc;
+        border-bottom: 2px solid #fff;
+        padding: 3px 12px;
+        }
+/* Subnav bar! */
+#iem_subnav {
+        height: 30px;
+        display: block;
+        float: left;
+        clear: both;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: 0px;
+        }
+#iem_subnav ul {
+        margin: -10px 0 0 2px;
+        padding: 0;
+        list-style-type: none;
+        }
+#iem_subnav ul li {
+        float: left;
+        margin: 7px 0 0 0;
+        padding: 10px 2px 10px 0;
+        color: #333;
+        font-size: 0.9em;
+        }
+#iem_subnav ul li a, 
+#iem_subnav ul li a:visited  {
+        margin: 0 0 0 0;
+        padding: 10px 11px 10px 11px;
+        color: #333;
+        font-size: 0.9em;
+        text-decoration: none;
+        }
+#iem_subnav ul li a:hover, 
+#iem_subnav ul li a:active  {
+        text-decoration: underline;
+        }
+#iem_subnav ul li.selected {
+        font-weight: bold;
+        }
+
+
 table.side {
  float: left;
  width: 300px;
@@ -121,21 +202,10 @@ h2	{
  border-right: 0px solid; */
  padding: 1px;
 }
-ul      {
-        margin: 0;
-        padding: 0;
-        text-align: left;
-        border: 0;
-        }
-         
-ul li   {
- list-style: disc inside;
- margin: 0;
- padding: 0;
-}
-                                                                                
+/* webring header... */
 #iemwebring {
-  padding: 0;
+  padding: 0px;
+  margin: 1px;
   text-align: center;
   clear: both;
   font-size: 85%;
