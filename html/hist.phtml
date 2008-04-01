@@ -114,7 +114,7 @@ if ($mode == "monthly") {
 /* Begin Page Output */
   $TITLE = "Weather Data Calendar";
   include("$nwnpath/include/header.inc.php"); 
-  include("$nwnpath/include/bar.inc.php"); 
+  $THISPAGE = "mysite-hist"; include("$nwnpath/include/bar.inc.php"); 
 ?>
 <div id="justone">
 <h2>Data Calendar for <?php echo $Scities[$station]["city"]; ?></h2>

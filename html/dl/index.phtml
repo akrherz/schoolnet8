@@ -1,5 +1,5 @@
 <?php
- $page = isset($_GET['page']) ? $_GET["page"]: "obs";
+ $mypage = isset($_GET['page']) ? $_GET["page"]: "obs";
  include("../../config/settings.inc.php");
  include("../../include/imagemap.inc.php");
  include('../../include/locs.inc.php');
@@ -14,7 +14,10 @@
 </head>
 <body>
 
-<?php $THISPAGE = "download"; include("$nwnpath/include/bar.inc.php"); ?>
+<?php 
+$THISPAGE = "download-obs"; 
+if ($mypage == "sum") $THISPAGE = "download-sum";
+include("$nwnpath/include/bar.inc.php"); ?>
 
 <div id="justone">
 
@@ -34,7 +37,7 @@ recent data is from yesterday.</p>
  </tr>
 <tr>
 <?php 
- if ($page == "sum") { 
+ if ($mypage == "sum") { 
   include("sum.phtml"); 
  } else {
   include("obs.phtml"); 
