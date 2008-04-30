@@ -1,6 +1,6 @@
 <?php include("../../config/settings.inc.php");
     $app = "25"; include("$nwnpath/include/dblog.inc.php");
-	include("../../include/cameras.inc.php"); 
+	include("$nwnpath/include/cameras.inc.php"); 
 	$id = isset($_GET["id"]) ? $_GET["id"] : "KCCI-001";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -17,11 +17,8 @@ imgurl = "";
 cameraID = "<?php echo $id; ?>";
 ts = null;
 aqlive = 0;
-<?php if (substr($_SERVER["REMOTE_ADDR"],0,7) == "204.227" ) {
-	echo "showlogo = 0;";
-} else {
-	echo "showlogo = 1;";
-} ?>
+showlogo = 1;
+
 function stop()
 {
 	clearTimeout(timeID);
@@ -65,7 +62,7 @@ function refreshCamera()
  if (showlogo) 
  	document.logo.src = imgurl;
 
- imgurl = "<?php echo $baseurl; ?>/static/radar/"+ cameraID +"/"+ cameraID +"_0.png?"+ ts.getTime();
+ imgurl = "http://www.schoolnet8.com/static/radar/"+ cameraID +"/"+ cameraID +"_0.png?"+ ts.getTime();
  document.radar.src = imgurl;
  timeID = setTimeout("refreshCamera()", 300000);
 }
@@ -79,21 +76,44 @@ init();
 // -->
 </script>
 </head>
-<body>
+<body style="text-align: left;">
+<?php $THISPAGE = "webcam-live"; include("$nwnpath/include/bar.inc.php"); ?>
 
+<div style="width: 660px;">
+
+<div style="float: left; z-index: 2; border: 10px #000 solid;">
+<img name="camera" src="http://mesonet.agron.iastate.edu/data/camera/640x480/<?php echo $id; ?>.jpg" />
+</div>
+
+<div style="float: left; z-index: 3; margin-top: -300px; margin-left: 25px;">
+<img name="radar" src="http://www.schoolnet8.com/static/radar/<?php echo $id; ?>/<?php echo $id; ?>_0.png" style="visibility: hidden;">
+</div>
+
+<div style="float: left; z-index: 3; margin-top: -450px; margin-left: 400px;">
+<img name="logo" src="<?php echo $baseurl; ?>/images/clogos/<?php echo $id; ?>_cam.png">
+</div>
+
+</div>
+
+<br clear="all" />
 
 <form name="main" target="JavaScript: func()">
-<div style="float: left; background-color: #fff; text-align: left; padding: 5px; width: 160px;">
+<div>
 <b>Select Camera:</b>
-<?php 
+<table width="100%" style="text-align: left;">
+<?php
+$cnt = 0; 
 while (list($cid, $v) = each($cameras) ) {
  if ($v["active"]){
-	echo "<br /><input type=\"radio\" name=\"id\" value=\"$cid\" ";
+    if ($cnt % 5 == 0){ echo "<tr>"; }
+	echo "<td><input type=\"radio\" name=\"id\" value=\"$cid\" ";
 	if ($cid == $id) { echo "checked=\"checked\""; }
-	echo " onClick=\"refreshCamera();\">". $v["name"] ."\n";
-  }
+	echo " onClick=\"refreshCamera();\">". $v["name"] ."</td>\n";
+    $cnt += 1;
+ }
 } 
 ?>
+</table>
 
 <p><b>Overlay RADAR?</b>
 <br /><input name="s" type="radio" checked="checked" onclick="document.radar.style.visibility='hidden';">HIDE
@@ -103,18 +123,9 @@ while (list($cid, $v) = each($cameras) ) {
 
 </form></div>
 
-<img name="radar" src="<?php echo $baseurl; ?>/static/radar/<?php echo $id; ?>/<?php echo $id; ?>_0.png" style="position: absolute; left: 180px; top: 220px; z-index: 3; visibility: hidden;">
-<?php if (substr($_SERVER["REMOTE_ADDR"],0,7) != "204.227" ) { ?>
-<img name="logo" src="<?php echo $baseurl; ?>/images/clogos/<?php echo $id; ?>_cam.png" style="position: absolute; left: 580px; top: 35px; z-index: 3;">
-<?php } ?>
-<img name="camera" src="http://mesonet.agron.iastate.edu/data/camera/640x480/<?php echo $id; ?>.jpg" style="position: absolute; left: 165px; top: 0px; z-index: 2; border: 10px #000 solid;">
 
+<div style="padding: 5px;">
 
-<div style="position: absolute; top: 750px; left: 10px; text-align:left; background-color: #fff; padding: 5px;">
-<?php $THISPAGE="live"; include("bar.phtml"); ?>
-
-
-<p><b>Links:</b> <a href="<?php echo $baseurl; ?>">SchoolNet8.com</a>  |  <a href="<?php echo $baseurl; ?>/camera/">Web Cameras</a>
 
 <h3>JavaScript Web Camera Viewer Help</h3>
 
