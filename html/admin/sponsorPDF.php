@@ -139,20 +139,20 @@ function FancyTable($header,$data, $pTotals)
            $tHits += $row['hits'];
            $tClicks += $row['c_count'];
 
-                $this->Cell($w[0],6,$row['short'],'LR',0,'L',$fill);
-                $this->Cell($w[1],6,$row['sponsor'],'LR',0,'L',$fill);
-                $this->Cell($w[2],6,number_format($row['hits']),'LR',0,'R',$fill);
-                $this->Cell($w[3],6,number_format($row['hosts']),'LR',0,'R',$fill);
-                $this->Cell($w[4],6,number_format($row['c_count']),'LR',0,'R',$fill);
+                $this->Cell($w[0],5,$row['short'],'LR',0,'L',$fill);
+                $this->Cell($w[1],5,$row['sponsor'],'LR',0,'L',$fill);
+                $this->Cell($w[2],5,number_format($row['hits']),'LR',0,'R',$fill);
+                $this->Cell($w[3],5,number_format($row['hosts']),'LR',0,'R',$fill);
+                $this->Cell($w[4],5,number_format($row['c_count']),'LR',0,'R',$fill);
                 $this->Ln();
                 $fill=!$fill;
         }
   if ($pTotals){
-    $this->Cell($w[0],6,"TOTAL:",'LR',0,'L',$fill);
-    $this->Cell($w[1],6," ",'LR',0,'L',$fill);
-    $this->Cell($w[2],6,number_format($tHits),'LR',0,'R',$fill);
-    $this->Cell($w[3],6,number_format($tHosts),'LR',0,'R',$fill);
-    $this->Cell($w[4],6,number_format($tClicks),'LR',0,'R',$fill);
+    $this->Cell($w[0],5,"TOTAL:",'LR',0,'L',$fill);
+    $this->Cell($w[1],5," ",'LR',0,'L',$fill);
+    $this->Cell($w[2],5,number_format($tHits),'LR',0,'R',$fill);
+    $this->Cell($w[3],5,number_format($tHosts),'LR',0,'R',$fill);
+    $this->Cell($w[4],5,number_format($tClicks),'LR',0,'R',$fill);
     $this->Ln();
   }
 
@@ -354,7 +354,7 @@ $pdf->FancyTable($header,array_slice($data, 33), true);
 $pdf->Ln(10);
 //$pdf->Cell(40,10,'Continued on next page...');
 
-//$pdf->AddPage();
+$pdf->AddPage();
 $header = array('Sponsor', 'Hits', 'Click Thrus');
 $pdf->Cell(40,10,'Stats by Sponsor');
 $pdf->Ln(10);
