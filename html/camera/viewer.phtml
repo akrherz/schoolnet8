@@ -1,14 +1,15 @@
 <?php include("../../config/settings.inc.php");
-    $app = "25"; include("$nwnpath/include/dblog.inc.php");
-	include("$nwnpath/include/cameras.inc.php"); 
-	$id = isset($_GET["id"]) ? $_GET["id"] : "KCCI-001";
+ $app = "25"; include("$nwnpath/include/dblog.inc.php");
+ include("$nwnpath/include/cameras.inc.php"); 
+ $id = isset($_GET["id"]) ? $_GET["id"] : "KCCI-001";
+ if (isset($_COOKIE['camera']) && ! isset($_GET['id']) )
+ {
+   $id = $_COOKIE['camera']; 
+ }
+ $TITLE =  "Live Web Camera Shots";
+ include("$nwnpath/include/header.inc.php");
+
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-tRansitional.dtd">
-<html>
-<head>
-	<title>SchoolNet8 | Web Cameras</title>
-  <style type="text/css" media="screen">@import "../css/main.css";</style>
 <script language="javascript">
 // <!--
 
@@ -65,6 +66,8 @@ function refreshCamera()
  imgurl = "http://www.schoolnet8.com/static/radar/"+ cameraID +"/"+ cameraID +"_0.png?"+ ts.getTime();
  document.radar.src = imgurl;
  timeID = setTimeout("refreshCamera()", 300000);
+
+  set_cookie("camera", cameraID,2019,1,1);
 }
 function init()
 {
@@ -75,8 +78,6 @@ function init()
 init();
 // -->
 </script>
-</head>
-<body style="text-align: left;">
 <?php $THISPAGE = "webcam-live"; include("$nwnpath/include/bar.inc.php"); ?>
 
 <div style="width: 660px;">
@@ -89,7 +90,7 @@ init();
 <img name="radar" src="http://www.schoolnet8.com/static/radar/<?php echo $id; ?>/<?php echo $id; ?>_0.png" style="visibility: hidden;">
 </div>
 
-<div style="float: left; z-index: 3; margin-top: -450px; margin-left: 400px;">
+<div style="float: left; z-index: 3; margin-top: -475px; margin-left: 425px;">
 <img name="logo" src="<?php echo $baseurl; ?>/images/clogos/<?php echo $id; ?>_cam.png">
 </div>
 
