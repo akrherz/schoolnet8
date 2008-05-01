@@ -28,6 +28,8 @@ include("$nwnpath/include/forms.inc.php");
  $app = "02"; include("$nwnpath/include/dblog.inc.php");
  $ts = mktime($hour, $minute, 0, $month, $day, $year);
 
+ $radarURL = "http://mesonet.agron.iastate.edu/current/camrad.php?network=KCCI&ts=". gmdate("YmdHi");
+
  while (list($id, $val) = each($cameras))
  {
  if ($cameras[$id]["network"] != "KCCI") continue;
@@ -52,16 +54,12 @@ include("$nwnpath/include/forms.inc.php");
 ksort($cameras);
 reset($cameras);
 
-
+ $TITLE =  "Web Cameras";
+ include("$nwnpath/include/header.inc.php");
 ?>
-<html>
-<head>
-  <style type="text/css" media="screen">@import "../css/main.css";</style>
-  <title>SchoolNet8 | Web Cameras</title>
-</head>
-<body id="sectionsix">
-<?php $app = "02"; $THISPAGE = "webcam-current"; include("$nwnpath/include/bar.inc.php"); ?>
+<?php $THISPAGE = "webcam-current"; include("$nwnpath/include/bar.inc.php"); ?>
 
+<div style="text-align: left;">
 
 <p>The sponsorship by <a href="http://www.cipco.net">CIPCO</a> and Iowa <a href="https://touchstoneenergy.cooperative.com/public/index.html">Touchtone Energy</a> cooperatives has allowed us to place 20 web cameras in Central Iowa with more cameras on the way!
 
@@ -91,33 +89,33 @@ reset($cameras);
 <form method="GET" action="index.phtml" name="cameras">
 <input type="hidden" value="ba" name="cams[]">
 <table style="float: left;">
+<tr><td><b>RADAR & Warning Overview</b><br /><img src="<?php echo $radarURL; ?>"></td>
 <?php
- $i=1;
+ $i=0;
  $misstxt = "Cameras Missing: ";
  while (list($id, $v) = each($cameras))
  {
- if ($cameras[$id]["network"] != "KCCI") continue;
-   if ($v["removed"]){
-     continue;
-   }
+   if ($cameras[$id]["network"] != "KCCI") continue;
+   if ($v["removed"]) continue;
    if (! $v["active"]  && ($v["ets"] > $ts) ){
      $misstxt .= $v["name"] ." , ";
      continue;
    }
    if ($i) echo "<tr>";
+   $cnum = intval( substr($id, 5, 3) );
    if ($isarchive)
    { /* Always show cameras in archive mode! */
-     echo sprintf("<td> <b>%s</b> (%s County)<br /><img src=\"%s\"></td>", $v["name"], $v["county"], $v["url"]);
+     echo sprintf("<td> <b>%s. %s</b> (%s County)<br /><img src=\"%s\"></td>", $cnum, $v["name"], $v["county"], $v["url"]);
    }
    else {
      echo sprintf("<td><input name='cams[]' type='checkbox' value='%s' ", $id);
      if (in_array($id, $hidecams)) 
      {
-      echo sprintf("checked='checked'>Hide? <b>%s</b> (%s County)<br />", $v["name"], $v["county"] );
+      echo sprintf("checked='checked'>Hide? <b>%s. %s</b> (%s County)<br />", $cnum, $v["name"], $v["county"] );
      } 
      else 
      {
-      echo sprintf(">Hide? <b>%s</b> (%s County)<br /><img src=\"%s\"></td>", $v["name"], $v["county"], $v["url"]);
+      echo sprintf(">Hide? <b>%s. %s</b> (%s County)<br /><img src=\"%s\"></td>", $cnum, $v["name"], $v["county"], $v["url"]);
      }
    }
    if (! $i) echo "</tr>";
@@ -127,5 +125,8 @@ reset($cameras);
 </table>
 <input type='submit' value='Update Page!'>
 </form>
+
+</div>
+
 <p style="clear: left; text-align: left;"><?php echo $misstxt; ?></p>
 <?php include("$nwnpath/include/footer.inc.php"); ?>
