@@ -17,7 +17,7 @@ $Scities = array(
  "SBDI4" => array("short" => "Bedford", "city" => "Bedford", "lat" => 40.6721666667, "lon" => -94.7236333333, "online" => true, "nwn_id" => 123, "climate_site" => "IA0576"),
  "SBKI4" => array("short" => "Belmond", "city" => "Belmond Klemme", "lat" => 42.8497666667, "lon" => -93.6037, "online" => true, "nwn_id" => 92, "climate_site" => "IA1541"),
  "SBMI4" => array("short" => "Bloomfield", "city" => "Davis County / Bloomfield", "lat" => 40.7506, "lon" => -92.4136, "online" => true, "nwn_id" => 124, "climate_site" => "IA0753"),
- "SBOI4" => array("short" => "Boone", "city" => "Boone / United Community", "lat" => 42.02555, "lon" => -93.77575, "online" => true, "nwn_id" => 55, "climate_site" => "IA0200"),
+ "SBOI4" => array("short" => "Boone", "city" => "Boone / United Community", "lat" => 42.02555, "lon" => -93.77575, "online" => true, "nwn_id" => 55, "climate_site" => "IA0200", "ftm" => "Site is currently being repaired from damage during a wind storm."),
  "SBRI4" => array("short" => "Brooklyn", "city" => "Brooklyn / BGM", "lat" => 41.73895, "lon" => -92.4466833333, "online" => true, "nwn_id" => 86, "climate_site" => "IA0600"),
  "SBXI4" => array("short" => "Baxter", "city" => "Baxter", "lat" => 41.8264, "lon" => -93.1513, "online" => true, "nwn_id" => 238, "climate_site" => "IA5992"),
  "SBSI4" => array("short" => "Twin Cedars", "city" => "Twin Cedars", "lat" => 41.20539, "lon" => -92.885, "online" => true, "nwn_id" => 297, "climate_site" => "IA0112"),
