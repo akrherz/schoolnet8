@@ -346,5 +346,5 @@ $cameras = Array(
     "hostedurl" => "",
     "iservice" => "None",
     "iserviceurl" => "None", "network" => "KCCI",
-    "sponsor" => "", "sponsorurl" => "",
+    "sponsor" => "Guthrie County REC", "sponsorurl" => "http://www.guthrie-rec.coop/",
     "ip" => "216.248.110.33", "county" => "Polk", "port" => "80"),); ?>
