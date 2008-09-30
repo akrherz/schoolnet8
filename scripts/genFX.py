@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/mesonet/python/bin/python
 
 from xml.dom.ext.reader import Sax2
 from xml.dom.ext import StripXml
 from xml import xpath
 import re, pdb, datetime, urllib, time, sys, shutil, traceback
+import mx.DateTime
 
 def generator(sid, lat, lon):
 
@@ -85,6 +86,7 @@ def generator(sid, lat, lon):
 
   #for i in range(len(ta['k-p12h-n14-3'])):
   o = open('../data/fx/%s.html' % (sid,) , 'w')
+  o.write("%s" % (" "*int( mx.DateTime.now().second),))
   o.write("<table cellspacing=\"0\" cellpadding=\"1\" width=\"670\">")
   o.write("<tr>")
   for i in range(9):
