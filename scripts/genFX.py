@@ -3,7 +3,7 @@
 from xml.dom.ext.reader import Sax2
 from xml.dom.ext import StripXml
 from xml import xpath
-import re, pdb, datetime, urllib, time, sys, shutil
+import re, pdb, datetime, urllib, time, sys, shutil, traceback
 
 def generator(sid, lat, lon):
 
@@ -17,6 +17,7 @@ def generator(sid, lat, lon):
     reader = Sax2.Reader()
     doc = StripXml(reader.fromString(x))
   except:
+    traceback.print_exc(file=sys.stdout)
     return
 
   # Load up timearrays
