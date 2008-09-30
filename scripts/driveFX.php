@@ -8,7 +8,7 @@ foreach($Scities as $key => $value)
   $lat = $Scities[$sid]['lat'];
   $lon = $Scities[$sid]['lon'];
   system("./genFX.py $sid $lat $lon");
-  system("/home/ldm/bin/pqinsert -p 'data c 000000000000 kcci/fx/$sid.html' ../data/fx/$sid.html");
+  system("/home/ldm/bin/pqinsert -p 'data c 000000000000 kcci/fx/$sid.html blah blah' ../data/fx/$sid.html");
 }
 
 ?>
