@@ -29,67 +29,28 @@ icons have a web camera near to the site.</p>
 <script type="text/javascript">
     //<![CDATA[
 
-var MAGIC_NUMBER=6356752.3142;
-var DEG2RAD=0.0174532922519943;
-var PI=3.14159267;
-function dd2MercMetersLng(p_lng) {
-  return MAGIC_NUMBER*(p_lng*DEG2RAD);
-}
-function dd2MercMetersLat(p_lat) {
- if (p_lat >= 85) p_lat=85;
- if (p_lat <= -85) p_lat=-85;
- return MAGIC_NUMBER*Math.log(Math.tan(((p_lat*DEG2RAD)+(PI/2)) /2));
-}
+ var map = new GMap2(document.getElementById("map"));
+ map.addControl(new GLargeMapControl());
+ map.addControl(new GMapTypeControl());
+ map.addControl(new GOverviewMapControl());
 
-CustomGetTileUrl=function(a,b,c) {
-if (typeof(window['this.myStyles'])=="undefined") this.myStyles="default"; 
+var url = "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?";
+    url += "layers=nexrad-n0r-900913&";
+    url += "mode=tile&";
+    url += "tilemode=gmap&";
+    url += "tile={X}+{Y}+{Z}";
+var tileNEX = new GTileLayer(null,null,null,
+                             { 
+                              tileUrlTemplate:url, 
+                              isPng:true, 
+                              opacity:0.5
+                             }
+                            ); 
 
-var lULP = new GPoint(a.x*256,(a.y+1)*256);
-var lLRP = new GPoint((a.x+1)*256,a.y*256);
-var lUL = G_NORMAL_MAP.getProjection().fromPixelToLatLng(lULP,b,c);
-var lLR = G_NORMAL_MAP.getProjection().fromPixelToLatLng(lLRP,b,c);
-// switch between Mercator and DD if merczoomlevel is set
-
-var lBbox=dd2MercMetersLng(lUL.x)+","+dd2MercMetersLat(lUL.y)+","+dd2MercMetersLng(lLR.x)+","+dd2MercMetersLat(lLR.y);
-var lSRS="EPSG:900913";
-
-    //var lBbox=lUL.x+","+lUL.y+","+lLR.x+","+lLR.y;
-    //var lSRS="EPSG:4326";
-var ts = new Date();
-var lURL=this.myBaseURL;
-lURL+="&REQUEST=GetMap";
-lURL+="&SERVICE=WMS";
-lURL+="&reaspect=false&VERSION=1.1.1";
-lURL+="&LAYERS="+this.myLayers;
-lURL+="&STYLES="+this.myStyles; lURL+="&FORMAT="+this.myFormat;
-lURL+="&BGCOLOR=0xFFFFFF";
-lURL+="&TRANSPARENT=TRUE";
-lURL+="&SRS="+lSRS;
-lURL+="&BBOX="+lBbox;
-lURL+="&WIDTH=256";
-lURL+="&HEIGHT=256";
-lURL+="&GroupName="+this.myLayers;
-lURL+="&bogus="+ ts.getTime() ;
-return lURL;
-}
-
-
-
-    var map = new GMap2(document.getElementById("map"));
-    map.addControl(new GLargeMapControl());
-    map.addControl(new GMapTypeControl());
-    map.addControl(new GOverviewMapControl());
-
-  var tileNEX= new GTileLayer(new GCopyrightCollection(""),1,17);
-  tileNEX.myLayers='nexrad-n0r-900913';
-  tileNEX.myFormat='image/png';
-  tileNEX.myBaseURL='http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?';
-  tileNEX.getTileUrl=CustomGetTileUrl;
-
-//var layer4=[G_SATELLITE_MAP.getTileLayers()[0],G_HYBRID_MAP.getTileLayers()[1],tileNEX];
 var layer4=[G_NORMAL_MAP.getTileLayers()[0],tileNEX]; 
 var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Nexrad", G_SATELLITE_MAP);
 map.addMapType(custommap4);
+
 
 map.setCenter(new GLatLng(<?php echo $Scities[$station]["lat"]; ?>, <?php echo $Scities[$station]["lon"]; ?>), <?php echo $defaultzoom; ?>);
 
