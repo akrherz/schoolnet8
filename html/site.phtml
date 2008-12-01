@@ -170,7 +170,10 @@ else if ($cameras[$cid]["active"])
 		}
 		if ($cameras[$cid]["hosted"] != "")
 		{
-			echo "<br />Hosted by: <a href=\"". $cameras[$cid]["hostedurl"] ."\">". $cameras[$cid]["hosted"] ."</a>";
+            if ($cameras[$cid]["hostedurl"] != "")
+			    echo "<br />Hosted by: <a href=\"". $cameras[$cid]["hostedurl"] ."\">". $cameras[$cid]["hosted"] ."</a>";
+			else
+                echo "<br />Hosted by: <b>". $cameras[$cid]["hosted"] ."</b>";
 		}
 	} 
 else {
