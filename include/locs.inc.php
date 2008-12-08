@@ -53,7 +53,7 @@ $Scities = array(
  "SLOI4" => array("short" => "Lamoni", "city" => "Lamoni Community ", "lat" => 40.62535, "lon" => -93.9365, "online" => true, "nwn_id" => 75, "climate_site" => "IA5769"),
  "SLUI4" => array("short" => "LuVerne", "city" => "LuVerne", "lat" => 42.91242, "lon" => -94.08588, "online" => true, "nwn_id" => 147, "climate_site" => "IA3980"),
  "SMAI4" => array("short" => "Marshalltown", "city" => "Fisher Elem _ Marshalltown", "lat" => 42.0245166667, "lon" => -92.9201666667, "online" => true, "nwn_id" => 54, "climate_site" => "IA5198"),
- "SMDI4" => array("short" => "Madrid", "city" => "Madrid", "lat" => 41.8832, "lon" => -93.8135, "online" => true, "nwn_id" => 170, "climate_site" => "IA0200"),
+ "SMDI4" => array("short" => "Madrid", "city" => "Madrid", "lat" => 41.8832, "lon" => -93.8135, "online" => true, "nwn_id" => 170, "climate_site" => "IA0200", "ftm" => "The web camera is being repaired, sorry."),
  "SMLI4" => array("short" => "Mallard", "city" => "Mallard", "lat" => 42.9348833333, "lon" => -94.6821166667, "online" => true, "nwn_id" => 78, "climate_site" => "IA2689"),
  "SMNI4" => array("short" => "Montezuma", "city" => "Montezuma Community", "lat" => 41.5895333333, "lon" => -92.52445, "online" => true, "nwn_id" => 74, "climate_site" => "IA3473"),
  "SMOI4" => array("short" => "Mount Ayr", "city" => "Mount Ayr Community", "lat" => 40.7160166667, "lon" => -94.2319166667, "online" => true, "nwn_id" => 76, "climate_site" => "IA5769"),
