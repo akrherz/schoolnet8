@@ -8,50 +8,31 @@
   $station = array_rand($Scities);
  $app = "05"; include("../include/dblog.inc.php");
 
-$TITLE = "Homepage"; include("$nwnpath/include/header.inc.php");
+$HEADEXTRA = "<script src=\"http://maps.google.com/maps?file=api&v=2&key=<?php echo $GMAPS_KEY; ?>\" type=\"text/javascript\"></script>
+<script src='http://www.openlayers.org/api/OpenLayers.js'></script>
+<script src='${baseurl}js/webcams.php'></script>
+<script src='${baseurl}js/homepage.php'></script>
+<script type=\"text/javascript\">selectedSite='$station';</script>
+";
+$BODYEXTRA = "onload=\"olinit()\"";
+$TITLE = "Homepage"; 
+include("$nwnpath/include/header.inc.php");
 $THISPAGE = "homepage"; include("$nwnpath/include/bar.inc.php"); 
 ?>
 
+<div style="width:100%; margin-bottom: 5px;">
 <b>Welcome</b> to the KCCI SchoolNet8 website<br />sponsored 
 by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new">CIPCO</a> and Iowa <a href="https://touchstoneenergy.cooperative.com/public/index.html">Touchstone Energy</a> cooperatives!</p>
+</div>
+
 
 <div id="leftside">
 
 <div class="nb">
-<h3>Select your site</h3>
+<h3>Click on black dot to select a site:</h3>
 <div class="nb_content">
-<table>
-<tr><td><?php echo kcciSelectAuto($station, "site.phtml?station=", "");  ?></td>
-<td>or <a href="javascript:selectWindow();">From map</a></td></tr>
-</table>
+<div id="map" style="width:330px; height:380px;"></div>
 </div></div>
-
-<div class="nb">
-<h3>Live Super Doppler8</h3>
-<div class="nb_content">
-<?php
-  /** Begin RANDOM RADAR image */
-  srand((float) microtime() * 10000000);
-  $img = sprintf('%s/static/radar/%s/%s_0.png', $baseurl, $station, $station);
-  $link = sprintf('%s/site.phtml?station=%s', $baseurl, $station);
-  $ct = sprintf('%s/tool/clicktru.php?station=%s', $baseurl, $station);
-
-  echo "<a href=\"$link\"><img src=\"$img\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" /></a>
-<ul>
- <li><a href=\"$link\">Live Super Doppler8 for your SchoolNet8 Site</a></li>
-</ul>";
-?>
-</div></div>
-
-<div class="nb">
-<h3>December feature:</h3>
-<div class="nb_content">
-<img src="images/roadcond.png" style="float: left; border: 0px; margin: 5px;">
- Did you know that the <a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?roadcond=1');">Live Super Doppler8 App</a> also contains current road conditions?  You can generate maps of that and much more with just a few clicks.<br /><br />
-</div></div>
-
-</div>
-<div id="rightside">
 
 <div class="nb">
 <h3>Popular links:</h3>
@@ -60,52 +41,10 @@ by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new
  <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?roadcond=1');">Live Super Doppler8 App</a></li>
  <li><a href="display.phtml">Loopable Live Super Doppler8</a></li>
  <li><a href="sview/">SchoolNet8 Desktop Java Viewer</a></li>
+ <li><a href="camera/bestof.phtml">Best of Webcam Lapes</a></li>
 </ul>
 </div></div>
 
-<div class="nb">
-<h3>Web camera sites:</h3>
-<div class="nb_content">
-
-<table class="side">
-<tr><td valign="top"><ul><li><a href="<?php echo $baseurl; ?>/site.phtml?station=SAGI4">Algona</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SAKI4">Big Creek Marina</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SCHI4">Chariton</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SCSI4">Creston</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SFOI4">Greenfield</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SINI4">Indianola</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SAMI4">ISU Ames</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SKNI4">Knoxville</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SLOI4">Lamoni</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SNVI4">Nevada</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SPAI4">Panora</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SROI4">Rockwell City</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SJWI4">Stratford</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SBSI4">Twin Cedars</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=STQI4">Tama</a></li>
-</ul></td>
-<td valign="top">
-<ul><li><a href="<?php echo $baseurl; ?>/site.phtml?station=SBZI4">Blank Park Zoo</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SCGI4">Clarion</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SGLI4">Glidden</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SHUI4">Humboldt</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SBOI4">ISU Ag Farm</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SJEI4">Jefferson</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SCEI4">Lake Rathbun</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SMDI4">Madrid</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SNEI4">Newton</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SOSI4">Osceola</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SPEI4">Pella</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SPKI4">Saylorville Lake</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SSTI4">Stuart</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SWII4">Winterset</a></li>
-<li><a href="<?php echo $baseurl; ?>/site.phtml?station=SWGI4">Woodward</a></li>
-</ul></td></tr>
-</table>
-
-
-<p>View the <a href="camera/bestof.phtml">best web camera lapses</a> from our archive.
-</div></div>
 
 <p>The KCCI SchoolNet8 is a collection of weather observing stations
 located at schools throughout Central Iowa that report 
@@ -116,6 +55,33 @@ data presented at this website is provided as-is and without warranty.</p>
 <p>SchoolNet8 is a contributing data network to the
 <a href="http://mesonet.agron.iastate.edu" target="_new">The Iowa Environmental Mesonet</a> 
 of <a href="http://www.iastate.edu" target="_new">Iowa State University</a>.</p>
+
+</div>
+<div id="rightside">
+
+
+<div class="nb">
+<h3>Live Super Doppler8</h3>
+<div class="nb_content">
+<?php
+  /** Begin RANDOM RADAR image */
+  $img = sprintf('%sstatic/radar/%s/%s_0.png', $baseurl, $station, $station);
+  $camimg = sprintf('%scamera/stills/%s.jpg', $baseurl, $cxref[$station][0]);
+  $link = sprintf('%ssite.phtml?station=%s', $baseurl, $station);
+  $ct = sprintf('%stool/clicktru.php?station=%s', $baseurl, $station);
+
+  echo "<div id=\"lsdimage\"><a href=\"$link\"><img src=\"$img\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" /></a><br />Click on map for more details.</div>";
+?>
+</div></div>
+
+<div class="nb">
+<h3>Nearest SchoolNet8 Webcam</h3>
+<div class="nb_content">
+<?php
+  echo "<div id=\"webcamimage\"><a href=\"$baseurl/camera/\"><img src=\"$camimg\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" /></a><br />Click on image for other cameras.</div>";
+?>
+</div></div>
+
 
 </div>
 <br clear="all" />

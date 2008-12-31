@@ -14,8 +14,8 @@ pre,code,kbd,samp,tt {font-family:monospace;*font-size:108%;line-height:99%;}
   margin: 5px auto;
   padding: 0;
   border: 1px solid #526968;
-  min-width: 698px; 
-  width: 698px;
+  min-width: 718px; 
+  width: 718px;
 }
 #wrapper:after {
     content: "."; 
