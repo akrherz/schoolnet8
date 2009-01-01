@@ -3,7 +3,7 @@ header("Content-type: text/javascript");
 include("../../config/settings.inc.php");
 ?>
 var selectedSite;
-var map;
+var map, jsonlayer;
 
 function updater(){
   var d = new Date();
@@ -85,15 +85,15 @@ function olinit(){
    nexrad.setVisibility(false);
 
 
-  var geojson = new OpenLayers.Layer.GML("KCCI SchoolNet8", 
+  jsonlayer = new OpenLayers.Layer.GML("KCCI SchoolNet8", 
     "<?php echo $baseurl; ?>geojson/kcci.txt",
             {
                 projection: new OpenLayers.Projection('EPSG:4326'),
                 format: OpenLayers.Format.GeoJSON, 
                 styleMap: styleMap
              });
-  geojson.setVisibility(true);
-  map.addLayers([googleLayer,superdoppler, nexrad, geojson]);
+  jsonlayer.setVisibility(true);
+  map.addLayers([googleLayer,superdoppler, nexrad, jsonlayer]);
 
   selectControl = new OpenLayers.Control.SelectFeature(geojson, {
        onSelect: cb_siteOver, 
