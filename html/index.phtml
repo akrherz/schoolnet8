@@ -8,7 +8,7 @@
   $station = array_rand($Scities);
  $app = "05"; include("../include/dblog.inc.php");
 
-$HEADEXTRA = "<script src=\"http://maps.google.com/maps?file=api&v=2&key=<?php echo $GMAPS_KEY; ?>\" type=\"text/javascript\"></script>
+$HEADEXTRA = "<script src=\"http://maps.google.com/maps?file=api&v=2&key=$GMAPS_KEY\" type=\"text/javascript\"></script>
 <script src='http://www.openlayers.org/api/OpenLayers.js'></script>
 <script src='${baseurl}js/webcams.php'></script>
 <script src='${baseurl}js/homepage.php'></script>
