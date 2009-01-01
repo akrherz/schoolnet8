@@ -3,94 +3,85 @@ include("../config/settings.inc.php");
 include_once("$nwnpath/include/locs.inc.php");
 include_once("$nwnpath/include/imagemap.inc.php");
 
-$station = isset($_GET["station"]) ? $_GET['station'] : 'SKCI4';
+$station = isset($_GET['station']) ? substr($_GET['station'],0,5) : 'SKCI4';
+
+if (isset($_COOKIE['station']) && ! isset($_GET['station']) )
+{
+ $station = $_COOKIE['station'];
+}
+/* End Session Stuff */
+
+
 $px = isset($_GET["px"]) ? $_GET['px']: 1;
 $size = isset($_GET["size"]) ? $_GET['size'] : "400x400";
 list($width, $height) = split("x", $size);
 $app = "17"; include("../include/dblog.inc.php"); 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
- <style type="text/css" media="screen">@import "css/main.css";</style>
-  <title>SchoolNet8 | GIS Ortho Photos</title>
-</head>
-<body>
-<?php $THISPAGE = "mysite-ortho"; include("$nwnpath/include/bar.inc.php"); ?>
 
-<?php
 dl($mapscript);
-
-$map = ms_newMapObj($mapfile);
-$map->selectoutputformat("jpeg");
-$map->set("width", $width);
-$map->set("height", $height);
-
 $projInObj = ms_newprojectionobj("init=epsg:4326");
 $projOutObj = ms_newprojectionobj("init=epsg:26915");
-
 $point = ms_newpointobj();
 $point->setXY($Scities[$station]["lon"], $Scities[$station]["lat"]);
 $point->project($projInObj, $projOutObj);
-                                                                                
-//
-$dx = ($px * $width) / 2.0;
-$dy = ($px * $height) / 2.0;
-$map->setextent($point->x - $dx, $point->y - $dy,
-                  $point->x + $dx, $point->y + $dy);
+
+
+$HEADEXTRA = "
+<script src='http://www.openlayers.org/api/OpenLayers.js'></script>
+<script type=\"text/javascript\">
+set_cookie('station', '$station',2019,1,1);
+function olinit(){
+            OpenLayers.IMAGE_RELOAD_ATTEMPTS = 2;
+            
+            mapOptions =  {
+              maxExtent: new OpenLayers.Bounds(202271, 4463281, 739205, 4823137 ), 
+              projection:'EPSG:26915',
+              units:'m'
+              };
+              
+            map = new OpenLayers.Map('map', mapOptions );
 
 
 
-$wms = $map->getlayerbyname("wmsback");
-$wms->set("status", MS_ON);
-$wms->set("connection", "http://ortho.gis.iastate.edu/server.cgi?format=jpeg&wmtver=1.0.0&request=map&servicename=GetMap&layers=naip_2007" );
 
-//$wms->set("connection", "http://cairo.gis.iastate.edu/cgi-bin/server.cgi?format=jpeg&wmtver=1.0.0&request=map&servicename=GetMap&layers=naip_2004" );
+  var border = new OpenLayers.Layer.WMS('2007 NAIP',
+     'http://ortho.gis.iastate.edu/server.cgi?wmtver=1.0&',
+      {layers:'naip_2007',
+       projection:'EPSG:26915',
+       format:'JPG'
+      }
+   );
+   border.setVisibility(true);
 
-$img = $map->prepareImage();
-$wms->draw($img);
+   map.addLayers([border]);
+            var markers = new OpenLayers.Layer.Markers( 'Markers' );
+            map.addLayer(markers);
 
-$dot = $map->getlayerbyname("dot");
-$dot->set("status", MS_ON);
-$point->draw($map, $dot, $img, 1, "");
+   markers.addMarker(
+new OpenLayers.Marker(new OpenLayers.LonLat(". $point->x .", ". $point->y .")));
 
-$url = $img->saveWebImage();
-?>
+
+   map.addControl( new OpenLayers.Control.LayerSwitcher({id:'ls'}) );
+
+   var point = new OpenLayers.LonLat(". $point->x .", ". $point->y .");
+   map.setCenter(point, 1);
+
+
+
+}; /* End olinit() */
+
+</script>";
+$BODYEXTRA = "onload=\"olinit()\"";
+$TITLE = "SchoolNet8 Ortho Photos";
+include("$nwnpath/include/header.inc.php");
+$THISPAGE = "mysite-ortho"; 
+include("$nwnpath/include/bar.inc.php"); ?>
+
 
 <h3>Overhead Ortho Photography for <?php echo $Scities[$station]["city"]; ?></h3>
 
-<form method="GET" action="ortho.phtml" name="ortho">
-<table cellpadding=2 border=1 cellspacing=0>
-<tr><td align="left" valign="top">
-<b>Image Controls:</b>
-<p><b>Select Station:</b>
-<br><?php kcciSelect($station); ?>
+<div id="map" style="width:100%; height: 360px;"></div>
 
-<p><b>Image Pixel Size:</b>
-<br><input type="radio" name="px" value="0.5" <?php if ($px == 0.5) echo "CHECKED"; ?>>50 centimeter
-<br><input type="radio" name="px" value="1" <?php if ($px == 1) echo "CHECKED"; ?>>1 meter
-<br><input type="radio" name="px" value="2" <?php if ($px == 2) echo "CHECKED"; ?>>2 meters
-<br><input type="radio" name="px" value="5" <?php if ($px == 5) echo "CHECKED"; ?>>5 meters
-
-<p><b>Image Size:</b>
-<br><input type="radio" name="size" value="400x400" <?php if ($size == "400x400") echo "CHECKED"; ?>>400 x 400
-<br><input type="radio" name="size" value="640x480" <?php if ($size == "640x480") echo "CHECKED"; ?>>640 x 480
-<br><input type="radio" name="size" value="800x600" <?php if ($size == "800x600") echo "CHECKED"; ?>>800 x 600
-
-<p><input type="submit" value="View Image">
-
-<p><b>Links to other Mapping Applications:</b>
-<ul>
- <li><a href="http://maps.google.com/maps?f=q&hl=en&geocode=&time=&date=&ttype=&ie=UTF8&ll=<?php echo $Scities[$station]["lat"]; ?>,<?php echo $Scities[$station]["lon"]; ?>&spn=0.045067,0.052614&t=h&z=14&iwloc=addr&om=1">Google Maps</li>
-</ul>
-
-</td><td align="left">
-<?php echo "<img src=\"$url\">"; ?>
-<br><i>(Right click on the image to save it...)</i>
-</td></tr></table>
-
-</form>
+<p>Switch Site: <?php echo kcciSelectAuto($station, "ortho.phtml?station=", ""); ?>
 
 <div style="text-align: left; padding: 5px;">
 <p>2007 Orthophotos. USDA National Agriculture Image Program (NAIP) natural color orthophoto mosaics from aerial photos taken in June - October 2007. The maximum resolution of this imagery is 2 meters. Imagery is provided by the <a href="http://www.gis.iastate.edu">Iowa State University GIS Lab</a>.  The red dot represents where we believe the sensors for
