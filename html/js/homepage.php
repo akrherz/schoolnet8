@@ -95,7 +95,7 @@ function olinit(){
   jsonlayer.setVisibility(true);
   map.addLayers([googleLayer,superdoppler, nexrad, jsonlayer]);
 
-  selectControl = new OpenLayers.Control.SelectFeature(geojson, {
+  selectControl = new OpenLayers.Control.SelectFeature(jsonlayer, {
        onSelect: cb_siteOver, 
        onUnselect: cb_siteOut
    });
