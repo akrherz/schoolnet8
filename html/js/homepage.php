@@ -3,6 +3,7 @@ header("Content-type: text/javascript");
 include("../../config/settings.inc.php");
 ?>
 var selectedSite;
+var map;
 
 function updater(){
   var d = new Date();
@@ -66,6 +67,7 @@ function olinit(){
                 'Google Streets',
                  {'sphericalMercator': true}
             );
+  googleLayer.setVisibility(true);
 
   var superdoppler = new OpenLayers.Layer.WMS.Untiled("KCCI Super DopplerHD",
      "http://mesonet.agron.iastate.edu/cgi-bin/wms/iowa/kcci.cgi?",
@@ -90,7 +92,7 @@ function olinit(){
                 format: OpenLayers.Format.GeoJSON, 
                 styleMap: styleMap
              });
-  //geojson.setVisibility(false);
+  geojson.setVisibility(true);
   map.addLayers([googleLayer,superdoppler, nexrad, geojson]);
 
   selectControl = new OpenLayers.Control.SelectFeature(geojson, {
