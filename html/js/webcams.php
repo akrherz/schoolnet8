@@ -1,4 +1,5 @@
 <?php
+header("Content-type: text/plain");
 /* Generate javascript lookup table of active webcams :/ */
 include("../../config/settings.inc.php");
 include("$nwnpath/include/cameras.inc.php");

@@ -1,4 +1,5 @@
 <?php
+header("Content-type: text/plain");
 include("../../config/settings.inc.php");
 ?>
 var selectedSite;
