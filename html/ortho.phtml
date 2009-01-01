@@ -29,16 +29,17 @@ $HEADEXTRA = "
 <script src='http://www.openlayers.org/api/OpenLayers.js'></script>
 <script type=\"text/javascript\">
 set_cookie('station', '$station',2019,1,1);
+var map;
 function olinit(){
-            OpenLayers.IMAGE_RELOAD_ATTEMPTS = 2;
+    OpenLayers.IMAGE_RELOAD_ATTEMPTS = 2;
             
-            mapOptions =  {
-              maxExtent: new OpenLayers.Bounds(202271, 4463281, 739205, 4823137 ), 
-              projection:'EPSG:26915',
-              units:'m'
-              };
+     mapOptions =  {
+        maxExtent: new OpenLayers.Bounds(202271, 4463281, 739205, 4823137 ), 
+        projection:'EPSG:26915',
+        units:'m'
+      };
               
-            map = new OpenLayers.Map('map', mapOptions );
+     map = new OpenLayers.Map('map', mapOptions );
 
 
 
