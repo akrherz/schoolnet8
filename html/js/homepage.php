@@ -1,5 +1,5 @@
 <?php
-header("Content-type: text/plain");
+header("Content-type: text/javascript");
 include("../../config/settings.inc.php");
 ?>
 var selectedSite;
