@@ -1,31 +1,20 @@
 <?php
-  // walerts.phtml
-  //   Generate a page to sign up for Wind alerts
-
-
 include("../../config/settings.inc.php");
-include("../../include/locs.inc.php");
+include("$nwnpath/include/locs.inc.php");
 
-$uid = $_GET['uid'];
-$status = $_GET['status'];
-$email = $_GET['email'];
-$initials = strtoupper($_GET['initials']);
-$st = $_GET['st'];
-$str = $_GET['str'];
-$selectall = $_GET['selectall'];
+$uid = isset($_GET['uid']) ? $_GET["uid"]: "";
+$status = isset($_GET['status']) ? $_GET["status"]: "";
+$email = isset($_GET['email']) ? $_GET["email"]: "";
+$initials = isset($_GET['initials']) ? strtoupper($_GET['initials']): "";
+$st = isset($_GET['st']) ? $_GET['st']: Array();
+$str = isset($_GET['str']) ? $_GET['str']: Array();
+$selectall = isset($_GET['selectall']) ? $_GET['selectall']: "";
 if (ereg(" ", $email)) die("No spaces allowed in your email!");
+
+$TITLE="Wind Gust Alerts";
+include("$nwnpath/include/header.inc.php"); 
+$THISPAGE = "homepage"; include("$nwnpath/include/bar.inc.php"); 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<HEAD>
-<style type="text/css" media="screen">@import "../css/main.css";</style>
-
-  <TITLE>SchoolNet8 Wind Gust Alerts</TITLE>
-</HEAD>
-<body>
-
-<?php include("$nwnpath/include/bar.inc.php"); ?>
 
 <div id="justone">
 
@@ -157,10 +146,30 @@ if ($uid > 0) {
 you will not receive alerts from the site.
 
 <p>
-<form method="GET" action="walerts.phtml">
+<script type="text/javascript">
+var checked=false;
+function checkedAll(){
+  var aa= document.getElementById('add');
+  if (checked == false)
+  {
+    checked = true
+  }
+  else
+  {
+    checked = false
+  }
+  for (var i =0; i < aa.elements.length; i++) 
+  {
+     aa.elements[i].checked = checked;
+  }
+
+};
+</script>
+
+<form method="GET" action="walerts.phtml" name="add" id="add">
 <input type="hidden" name="uid" value="<?php echo $uid; ?>">
 <input type="hidden" name="email" value="<?php echo $email; ?>">
-<input type="checkbox" name="selectall" value="yes">Select All Sites<br>
+<input type="checkbox" name="selectall" value="yes" onclick="checkedAll();">Select All Sites<br>
 <?php
   include("../../include/counties.php");
 
