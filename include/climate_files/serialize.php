@@ -1,7 +1,7 @@
 <?php
 /* Serialize the climate data to files we can update! */
 set_time_limit(580);
-$pg = pg_connect("user=nobody dbname=coop host=mesonet-db1.agron.iastate.edu");
+$pg = pg_connect("user=nobody dbname=coop host=mesonet.agron.iastate.edu");
 
 $rs = pg_query($pg, "SELECT * from climate51 ORDER by station, valid ASC");
 
