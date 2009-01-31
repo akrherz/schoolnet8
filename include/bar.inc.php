@@ -43,15 +43,15 @@ $_pages = Array(
     "sum" => Array("title" => "Daily Summary", "url" => "dl/index.phtml?page=sum"),
     "sview" => Array("title" => "SchoolNet8 Viewer", "url" => "sview/"),
  ),
- "siteindex" => Array(
-    "base" => Array("title" => "Site Index", "url" => "guide/index.phtml"),
- ),
  "training" => Array(
-    "base" => Array("title" => "Training", "url" => "training/"),
+    "base" => Array("title" => "Learn", "url" => "training/"),
     "main" => Array("title" => "Mainpage", "url" => "training/"),
     "faq" => Array("title" => "FAQ", "url" => "info/faq.phtml"),
     "101" => Array("title" => "SchoolNet8 101", "url" => "schoolnet101/"),
     "guide" => Array("title" => "Site Guide", "url" => "guide/"),
+ ),
+ "siteindex" => Array(
+    "base" => Array("title" => "Site Index", "url" => "guide/siteindex.phtml"),
  ),
  "webcam" => Array(
     "base" => Array("title" => "WebCams", "url" => "camera/"),
