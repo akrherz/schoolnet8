@@ -1,7 +1,5 @@
 <?php
 include("../config/settings.inc.php");
-include_once("$nwnpath/include/locs.inc.php");
-include_once("$nwnpath/include/imagemap.inc.php");
 
 
 if (isset($_POST["posting"]))
@@ -29,16 +27,9 @@ $body = wordwrap($body,70);
  mail("akrherz@iastate.edu", "SchoolNet8.com Feedback", $body, "From: akrherz@iastate.edu");
 }
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
- <style type="text/css" media="screen">@import "css/main.css";</style>
-  <title>SchoolNet8 | User Survey</title>
-</head>
-<body>
-<?php include("$nwnpath/include/bar.inc.php"); ?>
+$TITLE = "User Survey";
+include("$nwnpath/include/header.inc.php");
+$THISPAGE = "training-survey"; include("$nwnpath/include/bar.inc.php"); ?>
 
 <div align="left" style="margin-left: 10px;">
 

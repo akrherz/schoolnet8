@@ -19,7 +19,7 @@ var map, jsonlayer;
 function updater(){
   var d = new Date();
   document.getElementById(\"lsdimage\").innerHTML = '<a href=\"${baseurl}/site.phtml?station='+ selectedSite +'\"><img src=\"${baseurl}static/radar/'+ selectedSite +'/'+ selectedSite +'_0.png?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" style=\"float: right;\"/></a><br />Click on map for more details.';
-  document.getElementById('webcamimage').innerHTML = '<a href=\"${baseurl}/site.phtml?station='+ selectedSite +'\"><img src=\"${baseurl}camera/stills/'+ eval(\"webcamlookup.\"+ selectedSite ) +'.jpg?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float: right;\"/></a><br />Click on image for other cameras.';
+  document.getElementById('webcamimage').innerHTML = '<a href=\"${baseurl}/site.phtml?station='+ selectedSite +'\"><img src=\"${baseurl}camera/stills/'+ eval(\"webcamlookup.\"+ selectedSite ) +'.jpg?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float: right;\"/></a><br />Click on image for more details.';
 
 };
 
@@ -136,7 +136,7 @@ $THISPAGE = "homepage"; include("$nwnpath/include/bar.inc.php");
 
 <div style="width:100%; margin-bottom: 5px;">
 <b>Welcome</b> to the KCCI SchoolNet8 website<br />sponsored 
-by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new">CIPCO</a> and Iowa <a href="https://touchstoneenergy.cooperative.com/public/index.html">Touchstone Energy</a> cooperatives!</p>
+by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI">CIPCO</a> and Iowa <a href="https://touchstoneenergy.cooperative.com/public/index.html">Touchstone Energy</a> cooperatives!</p>
 </div>
 
 
@@ -163,15 +163,6 @@ by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI" target="_new
 </div></div>
 
 
-<p>The KCCI SchoolNet8 is a collection of weather observing stations
-located at schools throughout Central Iowa that report 
-<b>live</b> information via the Internet.  
-While we make every effort to provide reliable and timely data, 
-data presented at this website is provided as-is and without warranty.</p>
-
-<p>SchoolNet8 is a contributing data network to the
-<a href="http://mesonet.agron.iastate.edu" target="_new">The Iowa Environmental Mesonet</a> 
-of <a href="http://www.iastate.edu" target="_new">Iowa State University</a>.</p>
 
 </div>
 <div id="rightside">
@@ -195,11 +186,22 @@ of <a href="http://www.iastate.edu" target="_new">Iowa State University</a>.</p>
 <h3>Nearest SchoolNet8 Webcam</h3>
 <div class="nb_content">
 <?php
-  echo "<div id=\"webcamimage\"><a href=\"$baseurl/camera/\"><img src=\"$camimg\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float:right;\"/></a><br />Click on image for other cameras.</div>";
+  echo "<div id=\"webcamimage\"><a href=\"$link\"><img src=\"$camimg\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float:right;\"/></a><br />Click on image for more details.</div>";
 ?>
 </div></div>
 
 
 </div>
 <br clear="all" />
+<div style="text-align:left; margin:5px;">
+<p>The KCCI SchoolNet8 is a collection of weather observing stations
+located at schools throughout Central Iowa that report 
+<b>live</b> information via the Internet.  
+While we make every effort to provide reliable and timely data, 
+data presented at this website is provided as-is and without warranty.</p>
+
+<p>SchoolNet8 is a contributing data network to the
+<a href="http://mesonet.agron.iastate.edu">The Iowa Environmental Mesonet</a> 
+of <a href="http://www.iastate.edu">Iowa State University</a>.</p>
+</div>
 <?php include("$nwnpath/include/footer.inc.php"); ?>

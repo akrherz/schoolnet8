@@ -34,8 +34,10 @@ $_pages = Array(
  "current" => Array(
     "base" => Array("title" => "Currents", "url" => "current.phtml"),
     "main" => Array("title" => "Mainpage", "url" => "current.phtml"),
+    "favorites" => Array("title" => "Favorites", "url" => "ccfav.phtml"),
     "radar" => Array("title" => "Live RADAR", "url" => "display.phtml"),
     "sort" => Array("title" => "Sortable Currents", "url" => "cc.phtml"),
+    "wap" => Array("title" => "WAP", "url" => "wap/"),
  ),
  "download" => Array(
     "base" => Array("title" => "Download", "url" => "dl/index.phtml"),
@@ -47,8 +49,11 @@ $_pages = Array(
     "base" => Array("title" => "Learn", "url" => "training/"),
     "main" => Array("title" => "Mainpage", "url" => "training/"),
     "faq" => Array("title" => "FAQ", "url" => "info/faq.phtml"),
+    "features" => Array("title" => "Features", "url" => "guide.phtml"),
     "101" => Array("title" => "SchoolNet8 101", "url" => "schoolnet101/"),
     "guide" => Array("title" => "Site Guide", "url" => "guide/"),
+    "survey" => Array("title" => "Survey", "url" => "survey.phtml"),
+    "web" => Array("title" => "Web Devel", "url" => "info/webdevel.phtml"),
  ),
  "siteindex" => Array(
     "base" => Array("title" => "Site Index", "url" => "guide/siteindex.phtml"),

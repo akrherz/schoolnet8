@@ -39,36 +39,12 @@ if (sizeof($str) > 0){
 
 ?>
 <?php  /* /index.phtml */
- include("../config/settings.inc.php");
- include('../include/locs.inc.php');
- include('../include/currentdb.inc.php');
- include('../include/sponsors.inc.php');
- $app = "04"; include("../include/dblog.inc.php"); ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<HEAD>
- <style type="text/css" media="screen">@import "css/main.css";</style>
-
-	<TITLE>SchoolNet8 | My Favorites</TITLE>
-	<meta http-equiv="refresh" content="60; URL=ccfav.phtml?sortcol=<?php echo $sortcol; ?>">
-<script language="JavaScript" type="text/javascript">
-<!--//BEGIN Script
-function new_window(url) {
-	link = 
-	window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=360,height=400");
-} 
-function new_window_big(url) {
-	link = 
-	window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600");
-} 
-//END Script-->
-</script>
-</HEAD>
-<body>
-
-<?php 
-  include("$nwnpath/include/bar.inc.php"); 
+ include("$nwnpath/include/locs.inc.php");
+ include("$nwnpath/include/currentdb.inc.php");
+ include("$nwnpath/include/sponsors.inc.php");
+ $app = "04"; include("$nwnpath/include/dblog.inc.php"); 
+ $TITLE = "My Favorites"; include("$nwnpath/include/header.inc.php");
+ $THISPAGE = "current-favorites"; include("$nwnpath/include/bar.inc.php"); 
 ?>
 
 <div id="justone">

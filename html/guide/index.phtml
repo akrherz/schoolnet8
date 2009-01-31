@@ -3,30 +3,9 @@ include("../../config/settings.inc.php");
 
 $app = "18"; include("../../include/dblog.inc.php"); 
 include("switcher.php");
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
- <style type="text/css" media="screen">@import "../css/main.css";</style>
-  <title>SchoolNet8 | Site Guide</title>
-<script language="JavaScript" type="text/javascript">
-//<!--
-window.name = "basewindow";
-function new_window_big(url) {
-        link =
-        window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=820,height=620");
-}
-function selectWindow() {
- window.open('<?php echo $baseurl; ?>/select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=425,height=600');
-}
-//END Script-->
-</script>
-
-</head>
-<body>
-<?php $THISPAGE = "siteindex"; include("$nwnpath/include/bar.inc.php"); ?>
-<?php
+$TITLE = "Site Guide";
+include("$nwnpath/include/header.inc.php");
+$THISPAGE = "training-guide"; include("$nwnpath/include/bar.inc.php"); 
 
 function printModule($module) {
   global $pages;
