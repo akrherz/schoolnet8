@@ -4,7 +4,7 @@ $fa = file('/proc/loadavg');
 $fa = explode(" ", $fa[0] );
 if ($fa[0] > 3.0)
 {
-  header("Location: ". $backupbaseurl ."/GIS/map.php?". $_ENV["QUERY_STRING"]  );
+  header("Location: ". $backupbaseurl ."/GIS/map.php?". $_SERVER["QUERY_STRING"]  );
   exit(0);
 }
 
