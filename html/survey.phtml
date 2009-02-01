@@ -10,7 +10,7 @@ if (isset($_POST["posting"]))
  $comments = $_POST["comments"];
 
  $body = "SchoolNet8.com Website Feedback!
-IP: ". $_ENV["REMOTE_ADDR"] ."
+IP: ". $_SERVER["REMOTE_ADDR"] ."
 Email: $email
 
 How do I use the website?
