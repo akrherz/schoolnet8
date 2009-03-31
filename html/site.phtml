@@ -94,14 +94,28 @@ while( list($pos,$val) = each($ar))
 
  $rW = new radarWidget($station, $var);
  $app = "02"; include("../include/dblog.inc.php"); 
-
+$HEADEXTRA = '
+<link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css"/>
+<script type="text/javascript" src="ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<style>
+.x-form-item {margin-left: 6px; border-bottom: 1px solid #ccc;}
+.x-panel-header-text { color: #EEEE00; }
+.x-panel-header { background: #FFFFFF url(images/sbar.gif) repeat-x scroll left top; }
+</style>
+<script>
+Ext.namespace("nwsli");
+nwsli = "'. $station .'";
+</script>
+<script type="text/javascript" src="js/site.js"></script>
+';
  $TITLE =  $Scities[$station]["city"];
  include("$nwnpath/include/header.inc.php");
 
 ?>
 <script language="JavaScript" type="text/javascript">
 <!--//BEGIN Script
-refresh_timeout = setTimeout('document.location=document.location',60000);
+//refresh_timeout = setTimeout('document.location=document.location',60000);
 set_cookie("station", '<?php echo $station; ?>',2019,1,1);
 //END Script-->
 </script>
@@ -203,6 +217,8 @@ else {
 
 
 </div><div id="rightside">
+
+<div id="datagrid"></div>
 <?php   
 
 $now = time(); 
