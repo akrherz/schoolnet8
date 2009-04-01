@@ -18,6 +18,7 @@ import traceback
 import re, mx.DateTime, sys, os
 from pyIEM import mesonet, nwnformat
 
+db = {}                 
 
 class NWNClientFactory(hubclient.HubClientProtocolBaseFactory):
     maxDelay = 60.0
@@ -25,31 +26,20 @@ class NWNClientFactory(hubclient.HubClientProtocolBaseFactory):
     initialDelay = 60.0
 
     def processData(self, data):
-        reactor.callLater(0, ingestData, data)
-                   
+        if (data == None or data == ""):
+            return
 
-db = {}                 
+        tokens = re.split("\s+", data)
+        if (len(tokens) != 14): 
+             return
 
-def ingestData(data):
-  if (data == None or data == ""):
-    return
+        siteID = int(tokens[1])
+        nwsli = mesonet.snetConv[ siteID ]
+        if not db.has_key(nwsli):
+            db[nwsli] = nwnformat.nwnformat(do_avg_winds=False)
+            db[nwsli].sid = siteID
 
-  tokens = re.split("\s+", data)
-  if (len(tokens) != 14): 
-    return
-
-  siteID = int(tokens[1])
-  if (siteID > 599):
-    return
-  if (not db.has_key(siteID) ):
-    db[siteID] = nwnformat.nwnformat(do_avg_winds=False)
-    db[siteID].sid = int(siteID)
-    if (mesonet.snetConv.has_key( int(siteID) )):
-      db[siteID].nwsli = mesonet.snetConv[int(siteID)]
-    else:
-      db[siteID].nwsli = siteID
-
-  db[siteID].parseLineRT(tokens)  
+        db[nwsli].parseLineRT(tokens)  
 
 
 class GetJSON(resource.Resource):
@@ -62,15 +52,50 @@ class GetJSON(resource.Resource):
         for key in db.keys():
           if (db[key].ts is None):
             continue
-          res['data'].append( {'i': db[key].nwsli, 't': db[key].tmpf, 'd': db[key].dwpf, 's': db[key].sped, 'r': db[key].drctTxt, 'm': db[key].ts.strftime("%d %b %I:%M:%S %p"), 'p':db[key].pDay, 'x':db[key].xsped, 'h':db[key].xtmpf, 'l':db[key].ntmpf } )
+          res['data'].append( {'t': db[key].tmpf, 'd': db[key].dwpf, 's': db[key].sped, 'r': db[key].drctTxt, 'm': db[key].ts.strftime("%d %b %I:%M:%S %p"), 'p':db[key].pDay, 'x':db[key].xsped, 'h':db[key].xtmpf, 'l':db[key].ntmpf } )
 
         return simplejson.dumps( res )
+
+class SiteJson(resource.Resource):
+
+    def __init__(self):
+        resource.Resource.__init__(self)
+
+    def render(self, request):
+        res = {'data': [], }
+        sid = request.args['site'][0]
+        if not db.has_key(sid):
+            request.write( simplejson.dumps("ERROR") )
+            request.finish()
+            return server.NOT_DONE_YET
+        res['data'].append( {
+          'ts': db[sid].ts.strftime("%d %b %I:%M:%S %p"), 
+          'tmpf': db[sid].tmpf, 
+          'dwpf': db[sid].dwpf, 
+          'relh': db[sid].humid, 
+          'feel': "%.0f" % (db[sid].feel,), 
+          'xtmpf': db[sid].xtmpf, 
+          'ntmpf': db[sid].ntmpf,
+          'sped': db[sid].sped, 
+          'drct': db[sid].drctTxt, 
+          'xsped': db[sid].xsped, 
+          'xdrct': db[sid].xdrctTxt, 
+          'pres': db[sid].pres, 
+          'pmonth': db[sid].pMonth,
+          'srad': db[sid].rad,
+          'xsrad': db[sid].xsrad,
+          'pday': db[sid].pDay })
+        request.write( simplejson.dumps(res) )
+        request.finish()
+        return server.NOT_DONE_YET
+
 
 
 class RootResource(resource.Resource):
     def __init__(self):
         resource.Resource.__init__(self)
         self.putChild('get-json', GetJSON())
+        self.putChild('get-site', SiteJson())
 
 
 

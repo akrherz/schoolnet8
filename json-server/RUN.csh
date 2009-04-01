@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export PATH=/mesonet/python-2.4/bin:$PATH
+export PATH=/mesonet/python-2.5/bin:$PATH
 
 kill -9 `cat twistd.pid`
 sleep 1
