@@ -193,7 +193,7 @@ $cameras = Array(
     "hosted" => "",
     "hostedurl" => "",
     "iservice" => "Jefferson Telephone Co.",
-    "iserviceurl" => "http://showcase.netins.net/web/jtco/", "network" => "KCCI",
+    "iserviceurl" => "http://www.jeffersontelephone.com/", "network" => "KCCI",
     "sponsor" => "", "sponsorurl" => "",
     "ip" => "216.248.72.225", "county" => "Greene", "port" => "80"),
 "KCCI-020" => Array("sts" => mktime(17,0,0,9, 26,2005), "ets" => time(),
