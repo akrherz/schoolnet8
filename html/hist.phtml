@@ -68,8 +68,8 @@ if ($mode == "monthly") {
   }
   $db[ $row["dvalid"] ] = $str ;
 
- $htmlout = printMonth($ts, $db, $baseurl .'hist.phtml?station='. $station , $baseurl ."hist.phtml?mode=daily&year=$year&month=$month&day=");
  } /* End of for */
+ $htmlout = printMonth($ts, $db, $baseurl .'hist.phtml?station='. $station , $baseurl ."hist.phtml?mode=daily&year=$year&month=$month&day=");
 
  $htmlout .= sprintf('<p><img src="http://mesonet.agron.iastate.edu/sites/month_hilo_plot.php?month=%s&year=%s&network=KCCI&station=%s"><br /><strong>Description:</strong> This chart of the monthly temperature data.  The bars are the observations and the dots are climatology.', $month, $year, $station);
  $htmlout .= sprintf('<p><img src="http://mesonet.agron.iastate.edu/plotting/month/rainfall_plot.php?station=%s&month=%s&year=%s"><br /><strong>Description:</strong> Here is a chart of the monthly precipitation data.  The red line would be an average month while the blue line and bars are observations.', $station, $month, $year);
