@@ -39,7 +39,7 @@ var form = new Ext.FormPanel({
       {fieldLabel : 'Air Temperature [F]', id : 'tmpf'},
       {fieldLabel : 'Dew Point Temp [F]', id : 'dwpf'},
       {fieldLabel : 'Relative Humidity [%]', id : 'relh'},
-      {fieldLabel : "Feel's Like [F]", id : 'feel'},
+      {fieldLabel : "Feels Like [F]", id : 'feel'},
       {fieldLabel : "Wind Speed [mph]", id : 'sped'},
       {fieldLabel : "Wind Direction", id : 'drct'},
       {fieldLabel : "High Wind Speed [mph]", id : 'xsped'},
