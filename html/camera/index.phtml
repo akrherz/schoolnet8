@@ -1,132 +1,63 @@
 <?php
-$expiry = 60*60*24*100; // 100 days
-session_start();
-
-$hidecams = Array();
-if (isset($_SESSION['hidecams']) && ! isset($_GET['cams']) )
-{
-  $hidecams = $_SESSION['hidecams'];
-}
-else if (isset($_GET['cams']))
-{
-  $hidecams = $_GET['cams'];
-}
-$_SESSION['hidecams'] = $hidecams;
-
+/* This is gonna be painful */
 include('../../config/settings.inc.php');
 $app = "23"; include("$nwnpath/include/dblog.inc.php");
-include("$nwnpath/include/cameras.inc.php"); 
-include("$nwnpath/include/forms.inc.php"); 
+$HEADEXTRA = "
+  <link rel='stylesheet' type='text/css' href='http://mesonet.agron.iastate.edu/ext-3.0-rc2/resources/css/ext-all.css'/>
+  <script type='text/javascript' src='http://mesonet.agron.iastate.edu/ext-3.0-rc2/adapter/ext/ext-base.js'></script>
+  <script type='text/javascript' src='http://mesonet.agron.iastate.edu/ext-3.0-rc2/ext-all.js'></script>
+<script>
+Ext.namespace('cfg');
+cfg.refreshint = 300000;
+cfg.header = 'wrapper';
+cfg.headerHeight = 175;
+</script>
+  <script type='text/javascript' src='webcam-static.js'></script>
+<style>
+.thumb-wrap{
+    float: left;
+    margin: 1px;
+    margin-right: 0;
+    padding: 5px;
+}
+.x-view-over{
+    border:1px solid #dddddd;
+    padding: 4px;
+}
 
-/* CGI GET Requests */
- $year = isset($_GET["year"]) ? $_GET["year"] : date("Y");
- $month = isset($_GET["month"]) ? $_GET["month"] : date("m");
- $day = isset($_GET["day"]) ? $_GET["day"] : date("d");
- $hour = isset($_GET["hour"]) ? $_GET["hour"] : date("H");
- $minute = isset($_GET["minute"]) ? $_GET["minute"] : date("i");
- $isarchive = isset($_GET["archive"]);
- $app = "02"; include("$nwnpath/include/dblog.inc.php");
- $ts = mktime($hour, $minute, 0, $month, $day, $year);
-
- $radarURL = "http://mesonet.agron.iastate.edu/current/camrad.php?network=KCCI&ts=". gmdate("YmdHi");
-
- while (list($id, $val) = each($cameras))
- {
- if ($cameras[$id]["network"] != "KCCI") continue;
-
- if ($isarchive)
- {
-    $ts5 = mktime($hour, $minute - ($minute % 5), 0, $month, $day, $year);
-
-    $url5 = "http://mesonet.agron.iastate.edu/archive/data/". gmdate("Y/m/d/", $ts5) ."camera/$id/${id}_". gmdate("YmdHi", $ts5) .".jpg";
-
-    $cameras[$id]["url"] = $url5;
-    $cameras[$id]["active"] = true;
- } else if ($cameras[$id]["active"]) {
-    if ( filemtime("/home/ldm/data/camera/stills/${id}.jpg") < (time() - 1200)){
-      $cameras[$id]["active"] = false;
-    }
-    $cameras[$id]["url"] = sprintf("$baseurl/camera/stills/%s.jpg?%s", $id, time() );
- }
-
-}/* End of while */
-
-ksort($cameras);
-reset($cameras);
-
- $TITLE =  "Web Cameras";
+</style>";
+$NOCONTENT = 1;
+$TITLE = "Webcams";
+$THISPAGE = "webcam-still";
  include("$nwnpath/include/header.inc.php");
 ?>
 <?php $THISPAGE = "webcam-current"; include("$nwnpath/include/bar.inc.php"); ?>
+</div>
+<div id="main" style="align: left;">
+</div>
 
-<div style="text-align: left;">
+<div id="help" class="x-hidden">
+<h3 style="margin: 10px;">Web Camera Interactive Viewer</h3>
 
-<p>The sponsorship by <a href="http://www.cipco.net">CIPCO</a> and Iowa <a href="https://touchstoneenergy.cooperative.com/public/index.html">Touchtone Energy</a> cooperatives has allowed us to place 31 web cameras in Central Iowa!
-
-<div class="nb">
-<div class="nb_content">
-<h3>Select for our archive:</h3>
-
-<form method="GET" action="index.phtml">
-<table>
-<thead><tr><th>&nbsp;</th><th>Year:</th><th>Month:</th><th>Day:</th><th>Hour:</th><th>Minute</th><td></td></tr></thead>
-<tbody>
-<tr>
-<td><input type="checkbox" value="yes" name="archive" <?php if($isarchive) echo
-"CHECKED=CHECKED"; ?>>Archived Images</td>
-<td><?php echo yearSelect(2003, $year, "year"); ?></td>
-<td><?php echo monthSelect($month, "month"); ?></td>
-<td><?php echo daySelect($day, "day"); ?></td>
-<td><?php echo localHourSelect($hour, "hour"); ?></td>
-<td><?php echo minute5Select($minute, "minute"); ?></td>
-<td><input type="submit" value="GO!"></td>
-</tr>
-</tbody></table>
-</form>
-
-</div></div>
-
-<form method="GET" action="index.phtml" name="cameras">
-<input type="hidden" value="ba" name="cams[]">
-<table style="float: left;">
-<tr><td><b>RADAR & Warning Overview</b><br /><img src="<?php echo $radarURL; ?>"></td>
-<?php
- $i=0;
- $misstxt = "Cameras Missing: ";
- while (list($id, $v) = each($cameras))
- {
-   if ($cameras[$id]["network"] != "KCCI") continue;
-   if ($v["removed"]) continue;
-   if (! $v["active"]  && ($v["ets"] > $ts) ){
-     $misstxt .= $v["name"] ." , ";
-     continue;
-   }
-   if ($i) echo "<tr>";
-   $cnum = intval( substr($id, 5, 3) );
-   if ($isarchive)
-   { /* Always show cameras in archive mode! */
-     echo sprintf("<td> <b>%s. %s</b> (%s County)<br /><img src=\"%s\"></td>", $cnum, $v["name"], $v["county"], $v["url"]);
-   }
-   else {
-     echo sprintf("<td><input name='cams[]' type='checkbox' value='%s' ", $id);
-     if (in_array($id, $hidecams)) 
-     {
-      echo sprintf("checked='checked'>Hide? <b>%s. %s</b> (%s County)<br />", $cnum, $v["name"], $v["county"] );
-     } 
-     else 
-     {
-      echo sprintf(">Hide? <b>%s. %s</b> (%s County)<br /><img src=\"%s\"></td>", $cnum, $v["name"], $v["county"], $v["url"]);
-     }
-   }
-   if (! $i) echo "</tr>";
-   $i = ! $i;
- }
-?>
-</table>
-<input type='submit' value='Update Page!'>
-</form>
+<p>This application provides an interactive view of current and historical
+web camera imagery. Click on the 'Real Time' button above to switch the
+application into 'Archived Mode'.  You can then select the time of interest
+and the application will automatically update to show you the images. The IEM has archived images every 5 minutes, but may have an image every minute during active weather.</p>
+<br /><br />
+<strong>Cool Archived Images:</strong><br />
+<ul style="margin-left: 5px;">
+ <li><a href="javascript: app.appSetTime('KCCI-200406111932')">11 Jun 2004 - 7:32 PM, Webster City Tornado</a></li>
+ <li><a href="javascript: app.appSetTime('KCCI-200505261915')">26 May 2005 - 7:15 PM, Pella Double Rainbow</a></li>
+ <li><a href="javascript: app.appSetTime('KCCI-200506082055')">8 Jun 2005 - 8:55 PM, All sorts of colours</a></li>
+ <li><a href="javascript: app.appSetTime('KCCI-200509081230')">8 Sep 2005 - 12:30 PM, Blurry shot of Ames Tornado</a></li>
+ <li><a href="javascript: app.appSetTime('KCCI-200511121638')">12 Nov 2005 - 4:38 PM, Woodward tornado from Madrid</a></li>
+ <li><a href="javascript: app.appSetTime('KCCI-200511121700')">12 Nov 2005 - 5:00 PM, Ames tornado</a></li>
+ <li><a href="javascript: app.appSetTime('KCCI-200607171650')">17 Jul 2006 - 4:50 PM, Tama possible brief tornado</a></li>
+ <li><a href="javascript: app.appSetTime('KCCI-200710021756')">2 Oct 2007 - 5:56 PM, Twin Cedars possible tornado</a></li>
+ <li><a href="javascript: app.appSetTime('KCCI-200808302020')">30 Aug 2008 - 8:20 PM, Interesting Sunset Halos</a></li>
+</ul>
 
 </div>
 
-<p style="clear: left; text-align: left;"><?php echo $misstxt; ?></p>
-<?php include("$nwnpath/include/footer.inc.php"); ?>
+</body>
+</html>
