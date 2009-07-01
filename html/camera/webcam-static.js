@@ -38,7 +38,7 @@ var disableStore = new Ext.data.Store({
 
 imagestore = new Ext.data.JsonStore({
     isLoaded    : false,
-    url         : '../json/webcams.php',
+    url         : cfg.jsonSource,
     root        : 'images',
     idProperty  : 'cid',
     fields      : dataFields
