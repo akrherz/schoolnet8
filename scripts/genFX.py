@@ -85,7 +85,7 @@ def generator(sid, lat, lon):
   #print icons
   if not ta.has_key('k-p12h-n14-3'):
     print ta.keys()
-    continue
+    return
 
   #for i in range(len(ta['k-p12h-n14-3'])):
   o = open('../data/fx/%s.html' % (sid,) , 'w')
