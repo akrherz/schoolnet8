@@ -1,35 +1,45 @@
-<?php include("../../config/settings.inc.php");
- $app = "25"; include("$nwnpath/include/dblog.inc.php");
- include("$nwnpath/include/cameras.inc.php"); 
- $id = isset($_GET["id"]) ? $_GET["id"] : "KCCI-001";
- if (isset($_COOKIE['camera']) && ! isset($_GET['id']) )
- {
-   $id = $_COOKIE['camera']; 
- }
- $TITLE =  "Live Web Camera Shots";
- include("$nwnpath/include/header.inc.php");
+<?php 
+/* Single site webcam image viewer */
+include("../../config/settings.inc.php");
 
-?>
-<script language="javascript">
-// <!--
+/* Log the use of this page */
+$app = "25"; include("$nwnpath/include/dblog.inc.php");
+
+/* Include files */
+include("$nwnpath/include/cameras.inc.php"); 
+
+/* Lets determine what our default camera ID should be */
+$id = isset($_GET["id"]) ? $_GET["id"] : "KCCI-001";
+if (isset($_COOKIE['camera']) && ! isset($_GET['id']) )
+{
+  $id = $_COOKIE['camera']; 
+}
+$TITLE =  "Live Web Camera Shots";
+$HEADEXTRA = "<script language=\"javascript\">
 
 timeID = null;
-imgurl = "";
-cameraID = "<?php echo $id; ?>";
+imgurl = '';
+cameraID = '$id';
+/* Check to see if we are being called via #KCCI-??? */
+var tokens = window.location.href.split('#');
+if (tokens.length == 2){
+    cameraID = tokens[1];
+}
 ts = null;
-aqlive = 0;
-showlogo = 1;
+aqlive = false;
 
+/* Stop attempting to refresh the display */
 function stop()
 {
 	clearTimeout(timeID);
 }
+
+/* Calls app on the server to get a quasi 'live' image */
 function liveShot()
 {
 	if (aqlive) return;
 	aqlive = true;
 	stop();
- //cameraID = document.main.id[ document.main.id.selectedIndex ].value;
 	for (var i=0; i < document.main.id.length; i++)
 	{
 		if (document.main.id[i].checked)
@@ -38,16 +48,15 @@ function liveShot()
 		}
 	}
 	ts = new Date();
-	imgurl = "<?php echo $baseurl; ?>/camera/live.php?id="+ cameraID +"&"+ ts.getTime();
+	imgurl = 'live.php?id='+ cameraID +'&'+ ts.getTime();
 	document.camera.src = imgurl;
 	aqlive = false;
-	timeID = setTimeout("refreshCamera()", 300000);
+	timeID = setTimeout(\"refreshCamera()\", 300000);
 }
 
 function refreshCamera()
 {
 	stop();
- //cameraID = document.main.id[ document.main.id.selectedIndex ].value;
 	for (var i=0; i < document.main.id.length; i++)
 	{
 		if (document.main.id[i].checked)
@@ -55,61 +64,56 @@ function refreshCamera()
 			cameraID = document.main.id[i].value;
 		}
 	}
- ts = new Date();
- imgurl = "http://mesonet.agron.iastate.edu/data/camera/640x480/"+ cameraID +".jpg?"+ ts.getTime();
- document.camera.src = imgurl;
+    /* Make the URL Prettier */
+    window.location.href = '#'+ cameraID;
 
- imgurl = "<?php echo $baseurl; ?>/images/clogos/"+ cameraID +"_cam.png";
- if (showlogo) 
+    ts = new Date();
+    imgurl = 'http://mesonet.agron.iastate.edu/data/camera/640x480/'+ cameraID +'.jpg?'+ ts.getTime();
+    document.camera.src = imgurl;
+
+    imgurl = '../images/clogos/'+ cameraID +'_cam.png';
  	document.logo.src = imgurl;
 
- imgurl = "http://www.schoolnet8.com/static/radar/"+ cameraID +"/"+ cameraID +"_0.png?"+ ts.getTime();
- document.radar.src = imgurl;
- timeID = setTimeout("refreshCamera()", 300000);
+    imgurl = 'http://www.schoolnet8.com/static/radar/'+ cameraID +'/'+ cameraID +'_0.png?'+ ts.getTime();
+    document.radar.src = imgurl;
 
-  set_cookie("camera", cameraID,2019,1,1);
+    /* Recall this function in 5 minutes */
+    timeID = setTimeout(\"refreshCamera()\", 300000);
+
+    set_cookie(\"camera\", cameraID,2019,1,1);
 }
-function init()
-{
-	timeID = setTimeout("refreshCamera()", 300000);
-
-}
-
-init();
-// -->
-</script>
-<?php $THISPAGE = "webcam-live"; include("$nwnpath/include/bar.inc.php"); ?>
+</script>";
+$BODYEXTRA = "onload=\"javascript: refreshCamera();\"";
+include("$nwnpath/include/header.inc.php");
+$THISPAGE = "webcam-live"; include("$nwnpath/include/bar.inc.php"); ?>
 
 <div style="width: 660px;">
 
 <div style="float: left; z-index: 2; border: 10px #000 solid;">
-<img name="camera" src="http://mesonet.agron.iastate.edu/data/camera/640x480/<?php echo $id; ?>.jpg" />
+<img name="camera" src="" />
 </div>
 
 <div style="float: left; z-index: 3; margin-top: -300px; margin-left: 25px;">
-<img name="radar" src="http://www.schoolnet8.com/static/radar/<?php echo $id; ?>/<?php echo $id; ?>_0.png" style="visibility: hidden;">
+<img name="radar" src="" style="visibility: hidden;" />
 </div>
 
 <div style="float: left; z-index: 3; margin-top: -475px; margin-left: 425px;">
-<img name="logo" src="<?php echo $baseurl; ?>/images/clogos/<?php echo $id; ?>_cam.png">
+<img name="logo" src="" />
 </div>
 
 </div>
 
 <br clear="all" />
-
 <form name="main" target="JavaScript: func()">
-<div>
+<div style="float: left; text-align: left; padding-left: 10px;">
 <b>Select Camera:</b>
-<table width="100%" style="text-align: left;">
+<table width="100%">
 <?php
 $cnt = 0; 
 while (list($cid, $v) = each($cameras) ) {
  if ($v["active"]){
     if ($cnt % 5 == 0){ echo "<tr>"; }
-	echo "<td><input type=\"radio\" name=\"id\" value=\"$cid\" ";
-	if ($cid == $id) { echo "checked=\"checked\""; }
-	echo " onClick=\"refreshCamera();\">". $v["name"] ."</td>\n";
+	echo "<td><input type=\"radio\" name=\"id\" value=\"$cid\"  onClick=\"refreshCamera();\">". $v["name"] ."</input></td>\n";
     $cnt += 1;
  }
 } 
@@ -121,11 +125,10 @@ while (list($cid, $v) = each($cameras) ) {
 <br /><input name="s" type="radio" onclick="document.radar.style.visibility='visible';">SHOW
 
 <p><input type="submit" onclick="liveShot(); return false;" value="Live Shot!"></p>
+</div>
+</form>
 
-</form></div>
-
-
-<div style="padding: 5px;">
+<div style="padding: 5px; float: left; text-align: left;">
 
 
 <h3>JavaScript Web Camera Viewer Help</h3>
@@ -144,5 +147,4 @@ by itself, the image is coming from a cache which may be up to 5 minutes old.
 This is done since bandwidth to the cameras is limited.</p>
 </div>
 
-</body>
-</html>
+<?php include("$nwnpath/include/footer.inc.php"); ?> 
