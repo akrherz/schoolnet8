@@ -14,6 +14,7 @@ $year = isset($_GET['year']) ? intval($_GET['year']) : date("Y", time() - 86400)
 $month = isset($_GET['month']) ? intval($_GET['month']) : date("m", time() - 86400);
 $day = isset($_GET['day']) ? intval($_GET['day']) : 1;
 $station = isset($_GET['station']) ? substr($_GET['station'],0,5) : 'SKCI4';
+if ($station == "") $station = 'SKCI4';
 $mode = isset($_GET['mode']) ? $_GET['mode'] : 'monthly';
 $sortvar = isset($_GET['sortvar']) ? $_GET['sortvar'] : 'station';
 

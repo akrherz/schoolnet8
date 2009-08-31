@@ -19,7 +19,7 @@ var map, jsonlayer;
 function updater(){
   var d = new Date();
   document.getElementById(\"lsdimage\").innerHTML = '<a href=\"${baseurl}/site.phtml?station='+ selectedSite +'\"><img src=\"${baseurl}static/radar/'+ selectedSite +'/'+ selectedSite +'_0.png?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" style=\"float: right;\"/></a><br />Click on map for more details.';
-  document.getElementById('webcamimage').innerHTML = '<a href=\"${baseurl}/site.phtml?station='+ selectedSite +'\"><img src=\"${baseurl}camera/stills/'+ eval(\"webcamlookup.\"+ selectedSite ) +'.jpg?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float: right;\"/></a><br />Click on image for more details.';
+  document.getElementById('webcamimage').innerHTML = '<a href=\"${baseurl}/camera/viewer.phtml#'+ eval(\"webcamlookup.\"+ selectedSite ) +'\"><img src=\"${baseurl}camera/stills/'+ eval(\"webcamlookup.\"+ selectedSite ) +'.jpg?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float: right;\"/></a><br />Click on image for more details.';
 
 };
 
@@ -145,7 +145,7 @@ by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI">CIPCO</a> an
 <div class="nb">
 <h3>Click on black dot to select a site:</h3>
 <div class="nb_content">
-<div id="map" style="width:330px; height:380px;"></div>
+<div id="map" style="width:300px; height:380px;"></div>
 
 <p><?php echo kcciSelectAuto($station, "site.phtml?station=", ""); ?></p>
 </div></div>
@@ -176,6 +176,7 @@ by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI">CIPCO</a> an
   $img = sprintf('%sstatic/radar/%s/%s_0.png', $baseurl, $station, $station);
   $camimg = sprintf('%scamera/stills/%s.jpg', $baseurl, $cxref[$station][0]);
   $link = sprintf('%ssite.phtml?station=%s', $baseurl, $station);
+  $camlink = sprintf('%scamera/viewer.phtml#%s', $baseurl, $cxref[$station][0]);
   $ct = sprintf('%stool/clicktru.php?station=%s', $baseurl, $station);
 
   echo "<div id=\"lsdimage\"\"><a href=\"$link\"><img src=\"$img\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" style=\"float: right;\"/></a><br />Click on map for more details.</div>";
@@ -186,7 +187,7 @@ by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI">CIPCO</a> an
 <h3>Nearest SchoolNet8 Webcam</h3>
 <div class="nb_content">
 <?php
-  echo "<div id=\"webcamimage\"><a href=\"$link\"><img src=\"$camimg\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float:right;\"/></a><br />Click on image for more details.</div>";
+  echo "<div id=\"webcamimage\"><a href=\"$camlink\"><img src=\"$camimg\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float:right;\"/></a><br />Click on image for more details.</div>";
 ?>
 </div></div>
 

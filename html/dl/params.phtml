@@ -1,18 +1,8 @@
 <?php
  include("../../config/settings.inc.php");
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<HEAD>
-	<TITLE>IEM | School Network | Parameters</TITLE>
-	<META NAME="AUTHOR" CONTENT="Daryl Herzmann">
-<style type="text/css" media="screen">@import "../css/main.css";</style>
-
-</HEAD>
-<body>
-
-<?php include("$nwnpath/include/bar.inc.php"); ?>
+ $TITLE = "Data Variables";
+ include("$nwnpath/include/header.inc.php");
+ include("$nwnpath/include/bar.inc.php"); ?>
 
 <div id="justone">
 
@@ -48,7 +38,7 @@ the site for the local day.  Values are in inches.</p>
 the site for the current month. Values are in inches.</p>
 
 <p><h4>Solar Radiation [srad]</h4>
-<p class="story">Instantaneous values of solar radiation.  Values are in Watts.
+<p class="story">Instantaneous values of solar radiation.  Values are in Watts per meter squared.
 </p>
 
 <p><h4>Relative Humidity [relh]</h4>
