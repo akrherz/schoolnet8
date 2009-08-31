@@ -28,17 +28,11 @@ $year = isset($_GET['year']) ? $_GET["year"]: date("Y");
 $month = isset($_GET['month']) ? $_GET["month"]: date("m");
 $day = isset($_GET['day']) ? $_GET["day"]: date("d");
 
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<HEAD>
- <TITLE>SchoolNet8 | 1 Minute Time Series</TITLE>
-<style type="text/css" media="screen">@import "../css/main.css";</style>
-</HEAD>
-<body>
 
-<?php $THISPAGE = "mysite-trace"; include("$nwnpath/include/bar.inc.php"); ?>
+$TITLE = "One Minute Time Series";
+$THISPAGE = "mysite-trace"; 
+include("$nwnpath/include/header.inc.php");
+include("$nwnpath/include/bar.inc.php"); ?>
 
 <p>This application generates charts showing various variables throughout a date of your choice. Note that the archive begins 12 Feb 2002.</p>
 
@@ -75,7 +69,11 @@ if (strlen($station) > 0 ) {
 ?>
 
 <p>
- <?php include("1minute.php"); ?>
+ <?php 
+echo sprintf("<p><img src=\"http://mesonet.agron.iastate.edu/plotting/snet/1min_T.php?station=%s&year=%s&month=%s&day=%s\" />", $station, $year, $month, $day);
+echo sprintf("<p><img src=\"http://mesonet.agron.iastate.edu/plotting/snet/1min_V.php?station=%s&year=%s&month=%s&day=%s\" />", $station, $year, $month, $day);
+echo sprintf("<p><img src=\"http://mesonet.agron.iastate.edu/plotting/snet/1min_P.php?station=%s&year=%s&month=%s&day=%s\" />", $station, $year, $month, $day);
+?>
 
 
 <p><b>Note:</b> The wind speeds are indicated every minute by the red line. 
