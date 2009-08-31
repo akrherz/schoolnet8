@@ -107,7 +107,7 @@ remoteServerPass = 'kcci999'
 clientFactory = NWNClientFactory(remoteServerUser,
                                  remoteServerPass)
 
-client = internet.TCPClient('129.186.185.33', 14998, clientFactory)
+client = internet.TCPClient('129.186.185.33', 14996, clientFactory)
 client.setServiceParent( serviceCollection )
 
 web = server.Site( RootResource() )
