@@ -19,8 +19,16 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : 'monthly';
 $sortvar = isset($_GET['sortvar']) ? $_GET['sortvar'] : 'station';
 
 $ts = mktime(0,0,0, $month, $day, $year);
+/* Sanity check the time! */
+$archivebegin = mktime(0,0,0,2,1,2002);
+$archiveend = time();
+if ($ts < $archivebegin || $ts > $archiveend){ $ts = time(); }
+
 $dateStr = strftime("%Y-%m-%d", $ts);
 $nicedate = strftime("%d %B %Y", $ts);
+$month = strftime("%m", $ts);
+$day = strftime("%d", $ts);
+$year = strftime("%Y", $ts);
 
 $c = pg_connect($iemaccess);
 if ($mode == "monthly"){
