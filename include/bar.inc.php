@@ -1,11 +1,4 @@
 <div id="wrapper">
-<ul id="iemwebring">
- <li><span style="color: #00b;">IEM Webring:</span></li>
- <li><a href="http://mesonet.agron.iastate.edu">Iowa Mesonet</a></li>
- <li><a href="http://iowa.cocorahs.org">Iowa CoCoRaHS</a></li>
- <li><a href="http://wepp.mesonet.agron.iastate.edu">Daily Erosion Project</a></li>
- <li><a href="http://mesonet.agron.iastate.edu/roads/">Iowa Road Conditions</a></li>
-</ul>
 <div id="imgbar"><?php 
 if (! isset($THISPAGE)) $THISPAGE = "";
 if (isset($station) && $station != "") {
