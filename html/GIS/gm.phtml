@@ -18,7 +18,7 @@ $defaultzoom = isset($_GET["station"]) ? 10 : 7;
 <div id="justone">
 <h2>Google Maps Interface</h2>
     
-<div id="map" style="border: 1px solid #000; margin-left: 5px; width: 670px; height: 530px"></div>
+<div id="map" style="border: 1px solid #000; margin-left: 5px; width: 620px; height: 530px"></div>
 
 <p>You can click on an icon to get the name of the SchoolNet8 site. The
 link presented in the popup window takes you to the site's homepage. The red
@@ -34,18 +34,13 @@ icons have a web camera near to the site.</p>
  map.addControl(new GMapTypeControl());
  map.addControl(new GOverviewMapControl());
 
-var url = "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?";
-    url += "layers=nexrad-n0r-900913&";
-    url += "mode=tile&";
-    url += "tilemode=gmap&";
-    url += "tile={X}+{Y}+{Z}";
-var tileNEX = new GTileLayer(null,null,null,
-                             { 
-                              tileUrlTemplate:url, 
-                              isPng:true, 
-                              opacity:0.5
-                             }
-                            ); 
+var tileNEX = new GTileLayer(null,null,null); 
+tileNEX.getTileUrl = function(tile,zoom) { 
+   return "http://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0r-900913/"+zoom+"/"+tile.x+"/"+tile.y+".png?"+ (new Date()).getTime(); 
+};
+tileNEX.isPng = function() { return true;};
+tileNEX.getOpacity = function() { return 0.5; }
+
 
 var layer4=[G_NORMAL_MAP.getTileLayers()[0],tileNEX]; 
 var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Nexrad", G_SATELLITE_MAP);
