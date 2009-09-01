@@ -34,6 +34,8 @@ class NWNClientFactory(hubclient.HubClientProtocolBaseFactory):
              return
 
         siteID = int(tokens[1])
+        if not mesonet.snetConv.has_key( siteID ):
+            return
         nwsli = mesonet.snetConv[ siteID ]
         if not db.has_key(nwsli):
             db[nwsli] = nwnformat.nwnformat(do_avg_winds=False)
