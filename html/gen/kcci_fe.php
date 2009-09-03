@@ -36,6 +36,7 @@ echo "<select  onChange=\"location=this.form.station.options[this.form.station.s
 reset($Scities);
 while( list($id,$d) = each($Scities))
 {
+  if ($d["online"] == false){ continue; }
   echo "<option value=\"". $baseurl ."gen/kcci_fe.php?min=".$min."&station=". $id ."\"";
   if ($station == $id){
         echo " SELECTED ";
