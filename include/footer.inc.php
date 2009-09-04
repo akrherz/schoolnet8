@@ -1,6 +1,6 @@
 <div id="footer">
 <?php
-if (isset($station) && $station != "") {
+if (isset($station) && $station != "" && $station != "MAIN") {
   	include_once("$nwnpath/include/locs.inc.php");
 	include_once("$nwnpath/include/sponsors.inc.php");
   echo "<b><a href=\"$baseurl/site.phtml?station=$station\">". $Scities[$station]["city"] ."</a></b> SchoolNet8 Site is sponsored by <a href=\"". $baseurl ."tool/clicktru.php?station=$station\">". $sponsors[$station]["sponsor"] ."</a>";
