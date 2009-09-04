@@ -57,15 +57,20 @@ function liveShot()
 function refreshCamera()
 {
 	stop();
+    newCameraID = null;
 	for (var i=0; i < document.main.id.length; i++)
 	{
 		if (document.main.id[i].checked)
 		{
-			cameraID = document.main.id[i].value;
+			newCameraID = document.main.id[i].value;
 		}
 	}
+    if (cameraID != newCameraID && newCameraID != null) {
+      document.getElementById(\"imgbar\").innerHTML = \"<a href='http://localhost/nwnwebsite/tool/clicktru.php?station=\"+ newCameraID +\"' target='_new'><img src='http://localhost/nwnwebsite/pics/\"+ newCameraID +\".gif' alt='Banner' style='border: 0px none ;'></a>\";
+      cameraID = newCameraID;
+    }
     /* Make the URL Prettier */
-    window.location.href = '#'+ cameraID;
+    window.location.href = '#'+ newCameraID;
 
     ts = new Date();
     imgurl = 'http://mesonet.agron.iastate.edu/data/camera/640x480/'+ cameraID +'.jpg?'+ ts.getTime();
