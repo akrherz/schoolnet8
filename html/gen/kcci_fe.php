@@ -20,7 +20,7 @@ $station = isset($_GET['station']) ? $_GET["station"]: 'SKCI4';
  $secs = intval($min) * 60;
 
 ?>
-  <title>IEM | KCCI SchoolNet | <?php echo $Scities[$station]["short"]; ?></title>
+  <title>SchoolNet* | <?php echo $Scities[$station]["short"]; ?></title>
   <meta http-equiv="refresh" content="<?php echo $secs; ?>; URL=<?php echo $baseurl; ?>gen/kcci_fe.php?min=<?php echo $min; ?>&station=<?php echo $station; ?>">
 
 </head>
@@ -50,7 +50,7 @@ echo "</select>\n";
 </form>
 <p>
 <?php
-  echo "<a href=\"". $baseurl ."tool/clicktru.php?station=".$station."\" target=\"_new\"><img src=\"". $baseurl ."spics/kcci_".$station .".gif\" border=0></a><br>\n";
+  echo "<a href=\"". $baseurl ."tool/clicktru.php?station=".$station."\" target=\"_new\"><img src=\"". $baseurl ."spics/".$station .".gif\" border=0></a><br>\n";
   echo "<img src=\"". $baseurl ."gen/kcci.php?station=".$station ."\">\n";
 ?>
 
