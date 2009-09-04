@@ -79,6 +79,7 @@ $sponsors = Array(
 "STQI4" => Array("name"=> "Meskwaki Settlement School Tama", "sponsor" => "T.I.P. Rural Electric Cooperative", "url" => "http://www.tiprec.com"),
 "SWGI4" => Array("name"=> "Woodward-Granger", "sponsor" => "Guthrie County REC", "url" => "http://www.guthrie-rec.coop"),
 "CIPCO" => Array("name"=> "KCCI", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
+"MAIN" => Array("name"=> "KCCI", "sponsor" => "CIPCO Cooperative", "url" => "http://www.cipco.org/"),
 "TOUCH" => Array("name"=> "KCCI", "sponsor" => "Touchtone Cooperative", "url" => "https://touchstoneenergy.cooperative.com/public/index.html"),
 );
 ?>
