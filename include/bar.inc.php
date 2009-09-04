@@ -1,17 +1,19 @@
-<div id="wrapper">
-<div id="imgbar"><?php 
-if (! isset($THISPAGE)) $THISPAGE = "";
-if (isset($station) && $station != "") {
-	include_once("$nwnpath/include/locs.inc.php");
-	include_once("$nwnpath/include/sponsors.inc.php");
-	echo '<a href="'. $baseurl .'tool/clicktru.php?station='.$station.'" target="_new"><img src="'. $baseurl .'pics/kcci_'. $station .'.gif" alt="Banner" border="0"/></a>';
-} else {
-        echo '<a href="'. $baseurl .'tool/clicktru.php?station=CIPCO" target="_new"><img src="'. $baseurl .'pics/banner.gif" alt="Banner" border="0"/></a><a href="'. $baseurl .'tool/clicktru.php?station=TOUCH" target="_new"><img src="'. $baseurl .'pics/banner2.gif" alt="Banner" border="0"/></a>';
-}
-?></div>
 <?php
-if (!isset($station)) $lstation = "SAMI4";
-else $lstation = $station;
+/* Header bar providing for the sponsor logo and menu bar */
+include_once("$nwnpath/include/locs.inc.php");
+include_once("$nwnpath/include/sponsors.inc.php");
+if (isset($station) && $station != "") { $lstation = "MAIN"; }
+else if (isset($camid)){ $lstation = $camid; }
+else if (! isset($station)){ $lstation = "MAIN"; }
+else { $lstation = $station; }
+$clickapp = sprintf("%stool/clicktru.php?station=%s", $baseurl, $lstation);
+$sponsorlogo = sprintf("%spics/%s.gif", $baseurl, $lstation);
+?>
+<div id="wrapper">
+<div id="imgbar">
+<a href="<?php echo $clickapp; ?>" target="_new"><img src="<?php echo $sponsorlogo; ?>" alt="Banner" style="border:0px;" /></a>
+</div>
+<?php
 $_pages = Array(
  "homepage" => Array(
     "base" => Array("title" => "Homepage", "url" => ""),
@@ -60,7 +62,7 @@ $_pages = Array(
     "bestof" => Array("title" => "Best Of!", "url" => "camera/bestof.phtml"),
  ),
 );
-$THISPAGE = isset($THISPAGE) ? $THISPAGE : "networks-base";
+$THISPAGE = isset($THISPAGE) ? $THISPAGE : "homepage-base";
 $ar = split("-", $THISPAGE);
 if (sizeof($ar) == 1) $ar[1] = "";
 echo "<div id=\"iem_nav\"><ul>\n";

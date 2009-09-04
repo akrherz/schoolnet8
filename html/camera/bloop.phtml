@@ -1,20 +1,15 @@
 <?php
 include('../../config/settings.inc.php');
-$app = "24"; include("$nwnpath/include/dblog.inc.php");
-include('../../include/cameras.inc.php');
 $java = isset($_GET["java"]) ? $_GET["java"] : 'applet';
-$cid = isset($_GET['cid']) ? $_GET['cid'] : 'KCCI-001';
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-tRansitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>SchoolNet8 | WebCam Historical Loops</title>
- <style type="text/css" media="screen">@import "../css/main.css";</style>
-</head>
-<body>
-<?php $THISPAGE = "webcam-lapse"; include("$nwnpath/include/bar.inc.php"); ?>
+$camid = isset($_GET['cid']) ? $_GET['cid'] : 'KCCI-001';
+$app = "24"; include("$nwnpath/include/dblog.inc.php");
+include("$nwnpath/include/cameras.inc.php");
 
+$TITLE = "WebCam Historical Loops";
+$THISPAGE = "webcam-lapse"; 
+include("$nwnpath/include/header.inc.php"); 
+include("$nwnpath/include/bar.inc.php"); 
+?>
 <div id="justone">
 
 <?php
@@ -35,13 +30,13 @@ $year = isset($_GET['year']) ? $_GET["year"]: date("Y", time() - 3600);
 $nts = mktime($hour, $minute, 0, $month, $day, $year);
 
 $now = time();
-if ($nts < $cameras[$cid]["sts"] || $nts > $cameras[$cid]["ets"]){
+if ($nts < $cameras[$camid]["sts"] || $nts > $cameras[$camid]["ets"]){
   echo "<p><div style=\"background: #ccc;\"><b>Error:</b> Your choice of time and station is outside of the archive available for this site!</div>\n";
-  $day = date("d", $cameras[$cid]["ets"] - 3600);
-  $month = date("m", $cameras[$cid]["ets"] - 3600);
-  $hour = date("H", $cameras[$cid]["ets"] - 3600);
-  $minute = date("i", $cameras[$cid]["ets"] - 3600);
-  $year = date("Y", $cameras[$cid]["ets"] - 3600);
+  $day = date("d", $cameras[$camid]["ets"] - 3600);
+  $month = date("m", $cameras[$camid]["ets"] - 3600);
+  $hour = date("H", $cameras[$camid]["ets"] - 3600);
+  $minute = date("i", $cameras[$camid]["ets"] - 3600);
+  $year = date("Y", $cameras[$camid]["ets"] - 3600);
   $minute = $minute - ($minute % 5);
 }
 
@@ -56,13 +51,19 @@ for ($i=0; $i < (intval($frames));$i++){
     $frames = $i;
     break;
   }
-  $uri = "http://mesonet.agron.iastate.edu/archive/data/". gmdate('Y/m/d/', $ts) ."camera/$cid/". $cid ."_". gmdate('YmdHi', $ts) .".jpg";
+  $uri = "http://mesonet.agron.iastate.edu/archive/data/". gmdate('Y/m/d/', $ts) ."camera/$camid/". $camid ."_". gmdate('YmdHi', $ts) .".jpg";
   $labels[] = date("d M Y H:i a", $ts);
   $images[] = $uri;
   $files .= $uri .",";
 }
 ?>
 
+<p>The <?php echo $cameras[$camid]["name"]; ?> SchoolNet8 web camera is 
+sponsored by <a href="<?php echo $clickapp; ?>"><?php echo $cameras[$camid]["sponsor"]; ?></a>
+<?php 
+if ($cameras[$camid]["hosted"] != ""){ echo sprintf(" and hosted by <a href=\"%s\">%s</a>", $cameras[$camid]["hostedurl"], $cameras[$camid]["hosted"]); }
+if ($cameras[$camid]["iservice"] != ""){ echo sprintf(" with internet service provided by <a href=\"%s\">%s</a>", $cameras[$camid]["iserviceurl"], $cameras[$camid]["iservice"]); }
+?>.
 <p>Still images are saved from the SchoolNet8 web cameras every 5 minutes.  
 This page gives you a tool to build animations from this archive of images.
 If your browser does not support java, please try the 'Java Script' loop tool.
@@ -75,10 +76,9 @@ If your browser does not support java, please try the 'Java Script' loop tool.
   <td><select name="cid">
 <?php
  while (list($k,$v) = each($cameras)) {
-  if ($v["network"] != "KCCI") continue;
   $lbl = sprintf("%s (%s)", $v["name"], date("d M Y", $v["sts"]) );
   echo "<option value=\"$k\"";
-  if ($cid == $k) echo "selected=\"selected\""; 
+  if ($camid == $k) echo "selected=\"selected\""; 
   echo ">". $lbl ."\n";
 }
 ?>

@@ -1,27 +1,18 @@
+/*
+ * Javascript that drives the still image display of webcams.
+ * 
+ * Feel free to use this for whatever! 
+ */
 var imagestore;
 
 Ext.onReady(function(){
 
+/* Hack needed for Ext 3.0-rc2 to keep timefield working */
 Ext.override(Ext.form.ComboBox, {
     beforeBlur: Ext.emptyFn
 });
 
-var listSelect = new Ext.form.FormPanel({
-  region      : 'west',
-  width       : 150,
-  collapsible : true,
-  autoScroll  : true,
-  title       : "Select Webcams",
-  items       : [{
-      xtype   : 'button',
-      text    : 'Turn Off All',
-      handler : function(){
-         Ext.getCmp("camselector").items.each(function(i){
-           i.setValue(false);
-         });
-      }
-  }]
-});
+
 
 var dataFields = [
  'cid',
@@ -47,7 +38,7 @@ imagestore.on('load', function(store, records){
   data = Array();
   Ext.each(records, function(record){
     data.push({
-      boxLabel : record.get("name"), 
+      boxLabel : (record.get("cid").substr(5,3) * 1)+" "+record.get("name"), 
       name     : record.get("cid"), 
       checked  : true,
       listeners  : {
@@ -74,14 +65,14 @@ imagestore.on('load', function(store, records){
       Ext.getCmp("camselector").destroy();
   }
   if (records.length > 0){
-     listSelect.add({
+     Ext.getCmp("cameralist").add({
         xtype      : 'checkboxgroup',
         columns    : 1,
         id         : 'camselector',
         hideLabel  : true,
         items      : data
      });
-     listSelect.doLayout();
+     Ext.getCmp("cameralist").doLayout();
   } else {
      Ext.Msg.alert('Status', 'Sorry, no images found for this time. Try selecting a time divisible by 5.');
   }
@@ -92,20 +83,11 @@ imagestore.on('load', function(store, records){
 var tpl = new Ext.XTemplate(
     '<tpl for=".">',
         '<div class="thumb-wrap" id="{cid}">',
-        '<div class="thumb"><img src="{url}?{[ (new Date()).getTime() ]}" title="{name}"></div>',
+        '<div class="thumb"><img class="webimage" src="{url}?{[ (new Date()).getTime() ]}" title="{name}"></div>',
         '<span>[{cid}] {name}, {state} ({county} County)</span></div>',
     '</tpl>',
     '<div class="x-clear"></div>'
 );
-
-var dv = new Ext.DataView({
-  store     : imagestore,
-  itemSelector:'div.thumb-wrap',
-  autoHeight:true,
-  overClass:'x-view-over',
-  emptyText : "No Images Loaded or Selected for Display",
-  tpl       : tpl
-});
 
 var helpWin = new Ext.Window({
     contentEl  : 'help',
@@ -123,11 +105,19 @@ new Ext.Viewport({
       collapsible : true,
       title       : 'IEM Webcams',
       contentEl   : cfg.header
-    },
-    new Ext.Panel({
+    },{
+      xtype       : 'panel',
        region: 'center',
        autoScroll : true,
-       items: [dv],
+       items: [{
+           xtype       : 'dataview',
+          store        : imagestore,
+          itemSelector : 'div.thumb-wrap',
+          autoHeight   : true,
+          overClass    : 'x-view-over',
+          emptyText    : "No Images Loaded or Selected for Display",
+          tpl          : tpl
+       }],
        tbar : [{
            xtype         : 'button',
            text          : 'Help',
@@ -135,6 +125,7 @@ new Ext.Viewport({
                helpWin.show();
            }        
        },{
+           xtype         : 'tbtext',
            text          : 'Sort By:'
        },{
            xtype         : 'combo',
@@ -261,9 +252,32 @@ new Ext.Viewport({
           }
        }
        ]
-    }),
-    listSelect
-  ]
+    },{
+        xtype       : 'form',
+        id          : 'cameralist',
+        region      : 'west',
+        width       : 160,
+        collapsible : true,
+        autoScroll  : true,
+        title       : "Select Webcams",
+        tbar        : [{
+            xtype   : 'button',
+            text    : 'Turn All Off',
+            handler : function(){
+                Ext.getCmp("camselector").items.each(function(i){
+                     i.setValue(false);
+                });
+            }
+        },{
+            xtype   : 'button',
+            text    : 'Turn All On',
+            handler : function(){
+                Ext.getCmp("camselector").items.each(function(i){
+                     i.setValue(true);
+                });
+            }
+        }]
+   }]
 });
 
 

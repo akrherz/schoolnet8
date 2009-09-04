@@ -1,25 +1,25 @@
 <?php 
 /* Single site webcam image viewer */
 include("../../config/settings.inc.php");
+/* Include files */
+include("$nwnpath/include/cameras.inc.php"); 
 
 /* Log the use of this page */
 $app = "25"; include("$nwnpath/include/dblog.inc.php");
 
-/* Include files */
-include("$nwnpath/include/cameras.inc.php"); 
 
 /* Lets determine what our default camera ID should be */
-$id = isset($_GET["id"]) ? $_GET["id"] : "KCCI-001";
+$camid = isset($_GET["id"]) ? $_GET["id"] : "KCCI-001";
 if (isset($_COOKIE['camera']) && ! isset($_GET['id']) )
 {
-  $id = $_COOKIE['camera']; 
+  $camid = $_COOKIE['camera']; 
 }
 $TITLE =  "Live Web Camera Shots";
 $HEADEXTRA = "<script language=\"javascript\">
 
 timeID = null;
 imgurl = '';
-cameraID = '$id';
+cameraID = '$camid';
 /* Check to see if we are being called via #KCCI-??? */
 var tokens = window.location.href.split('#');
 if (tokens.length == 2){
