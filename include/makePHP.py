@@ -44,13 +44,14 @@ for i in range(len(rs)):
     "name" => "%s", "removed" => %s, "active" => %s, "lat" => %s, "lon" => %s,
     "hosted" => "%s",
     "hostedurl" => "%s",
+    "moviebase" => "%s",
     "iservice" => "%s",
     "iserviceurl" => "%s", "network" => "%s",
     "sponsor" => "%s", "sponsorurl" => "%s",
     "ip" => "%s", "county" => "%s", "port" => "%s"),""" \
    % (rs[i]['id'], sts.hour, sts.month, sts.day, sts.year, estr, \
       rs[i]['name'], rs[i]['r'], rs[i]['c'], rs[i]['y'], rs[i]['x'], \
-      rs[i]['hosted'], rs[i]['hostedurl'], \
+      rs[i]['hosted'], rs[i]['hostedurl'], rs[i]['moviebase'], \
       rs[i]['iservice'], rs[i]['iserviceurl'], rs[i]['network'], \
       rs[i]['sponsor'], rs[i]['sponsorurl'], \
       rs[i]['ip'], rs[i]['county'], \
