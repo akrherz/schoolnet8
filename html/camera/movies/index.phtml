@@ -1,56 +1,26 @@
 <?php 
 include("../../../config/settings.inc.php");
+include("$nwnpath/include/cameras.inc.php");
+$camid = isset($_GET["camid"]) ? $_GET["camid"] : "KCCI-001";
 $app = "30"; include("$nwnpath/include/dblog.inc.php");
-	$TITLE = "SchoolNet8 | Webcam Lapse Player";
-	include("$nwnpath/include/header.inc.php"); 
-$c = Array(
-  "algona" => "Algona",
-  "ames" => "Ames",
-  "bigcreek" => "Big Creek",
-  "zoo" => "Blank Park Zoo",
-  "rathbun" => "Lake Rathbun",
-  "chariton" => "Chariton",
-  "clarion" => "Clarion",
-  "creston" => "Creston",
-  "glidden" => "Glidden",
-  "greenfield" => "Greenfield",
-  "humboldt" => "Humboldt",
-  "indy" => "Indianola",
-  "iemwest" => "ISU Ag Farm",
-  "jeff" => "Jefferson",
-  "knoxville" => "Knoxville",
-  "lamoni" => "Lamoni",
-  "madrid" => "Madrid",
-  "newton" => "Newton",
-  "nevada" => "Nevada",
-  "osceola" => "Osceola",
-  "panora" => "Panora",
-  "pella" => "Pella",
-  "saylor" => "Saylorville Lake",
-  "stratford" => "Stratford",
-  "stuart" => "Stuart",
-  "rock" => "Rockwell City",
-  "tama" => "Tama",
-  "twincedars" => "Twin Cedars",
-  "web" => "Webster City",
-  "winterset" => "Winterset",
-  "woodward" => "Woodward");
+$TITLE = "SchoolNet8 | Webcam Lapse Player";
+include("$nwnpath/include/header.inc.php"); 
+$THISPAGE="webcam-daily"; include("$nwnpath/include/bar.inc.php"); 
 ?>
 
-<?php $THISPAGE="webcam-daily"; include("$nwnpath/include/bar.inc.php"); ?>
-
-<div style="background: #eee; border: 1px solid #000; margin: 5px; padding: 5px; width: 650px;">
-The <strong>Web Camera Movie Player</strong> is a Flash application that plays
-recent movies taken from the webcam network.  Please note the timestamps to 
-see when this movie was generated.
+<p>The <strong>Web Camera Movie Player</strong> is a Flash application 
+that plays recent movies taken from the webcam network.  Please note the 
+timestamps to  see when this movie was generated.
 <div id="myPlayer"></div>
 <form name="theform">
 <br /><strong>Select Camera:</strong>
 <select name="mycam" onchange="myloader();">
 <?php
-while( list($key, $value) = each($c) )
+reset($cameras);
+while( list($key, $dict) = each($cameras) )
 {
-  echo "<option value=\"$key\">$value \n";
+  if ($dict["removed"]){ continue; }
+  echo "<option value=\"". $dict["moviebase"] .",$key\">". $dict["name"] ." \n";
 }
 ?>
 </select>
@@ -62,7 +32,6 @@ while( list($key, $value) = each($c) )
  <option value="eve">Sunset 
  <option value="day">Full day
 </select>
-</div>
 </form>
 
 <p>Application powered by <a href="http://labs.adobe.com/wiki/index.php/Flash-Ajax_Video_Component">FAVideo</a>
@@ -78,9 +47,12 @@ player.setAutoPlay(true);
 function myloader()
 {
   ts = new Date();
-  var url = "http://mesonet.agron.iastate.edu/onsite/lapses/auto/"+ document.theform.mycam.value +"_"+ document.theform.mylapse.value +".flv?"+ ts.getTime();
+  tokens = document.theform.mycam.value.split(",");
+  var url = "http://mesonet.agron.iastate.edu/onsite/lapses/auto/"+ tokens[0] +"_"+ document.theform.mylapse.value +".flv?"+ ts.getTime();
   player.load(url);
   player.play();
+
+  document.getElementById("imgbar").innerHTML = "<a href=\"http://localhost/nwnwebsite/tool/clicktru.php?station="+ tokens[1] +"\" target=\"_new\"><img src=\"http://localhost/nwnwebsite/pics/"+ tokens[1] +".gif\" alt=\"Banner\" style=\"border: 0px none ;\"></a>";
 }
 
 </script>
