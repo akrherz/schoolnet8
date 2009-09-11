@@ -143,7 +143,7 @@ $cameras = Array(
     "name" => "Fort Dodge", "removed" => False, "active" => True, "lat" => 42.4922, "lon" => -94.192,
     "hosted" => "Trinity Regional Medical Center",
     "hostedurl" => "http://www.trmc.org",
-    "moviebase" => "None",
+    "moviebase" => "fortdodge",
     "iservice" => "Frontier Communications",
     "iserviceurl" => "http://www.frontier.com", "network" => "KCCI",
     "sponsor" => "Touchstone Cooperative", "sponsorurl" => "https://touchstoneenergy.cooperative.com/public/index.html",
