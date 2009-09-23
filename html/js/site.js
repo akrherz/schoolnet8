@@ -3,9 +3,11 @@ Ext.onReady(function(){
 var tempRenderer = new function(v){ return v +" F"; }
 
 var form = new Ext.FormPanel({
+    layout    : 'form',
     title     : 'Live Observation',
     renderTo  : 'datagrid',
     id        : 'propGrid',
+    width     : 300,
     url       : '/json/get-site?site='+ nwsli,
     reader    : new Ext.data.JsonReader({
 	    root : 'data'
@@ -28,11 +30,11 @@ var form = new Ext.FormPanel({
 		  {name: 'ntmpf'}
 	    ])
 	),
-    labelWidth: 175,
+    labelWidth: 145,
     defaults  : {
         readOnly   : true,
         xtype      : 'textfield',
-        style      : 'border:0px; background:#fff;'
+        style      : 'border:0px; background:#fff; width: 125px;'
     },
     items     : [
       {fieldLabel : 'Timestamp', id : 'ts'},
