@@ -45,10 +45,10 @@ current_image = first_image;
 <?php
  if ($this->var == "tmpf")
  {
-  ?><img width="320" height="240" src="<?php echo $imgbase; ?>_0.png?<?php echo $t; ?>" alt="Image" border="2" /><?php
+  ?><img width="320" height="240" src="<?php echo $imgbase; ?>_0.png?<?php echo $t; ?>" alt="Image" /><?php
  } else 
  {
- ?><img src="<?php echo $baseurl; ?>GIS/apps/radar/site.php?station=<?php echo $this->station;?>&amp;var=<?php echo $this->var;?>" width="320" height="240" alt="Live Doppler" border="2" /><?php
+ ?><img src="<?php echo $baseurl; ?>GIS/apps/radar/site.php?station=<?php echo $this->station;?>&amp;var=<?php echo $this->var;?>" width="320" height="240" alt="Live Doppler" /><?php
  }
 ?>
 
