@@ -220,14 +220,12 @@ current data.";
 <?php echo nbheader("Climatology for ". date("F d"), 3, "climate"); ?>
 <?php
  /* Unserialize climate data! */
- //$cfname = sprintf("%s/include/climate_files/%s.txt", $nwnpath, strtolower($Scities[$station]['climate_site']) );
  $cfname = sprintf("%s/include/climate_files/2000-%s.txt", $nwnpath, date("m-d") );
  $climate = unserialize( fread(fopen($cfname, 'r'), filesize($cfname) ) );
- //$cdict = $climate["2000-". date("m-d")];
  $cdict = $climate[ strtolower($Scities[$station]['climate_site']) ];
  $avg_month_precip = $cdict["mtd"];
 ?>
-<table class="side">
+<table width="100%">
 <tr><th colspan="4">High Temperature</th></tr>
 <tr>
   <td>Average:</td>
@@ -254,14 +252,15 @@ current data.";
  <td><?php echo sprintf("%.2f", $avg_month_precip ); ?>"</td>
 </tr>
 
-</table>
 <?php 
  $astro = new Astro_Sunrise();
  $astro->setDate(date("Y"), date("m"), date("d"));
  $astro->setCoords( $Scities[$station]['lat'], $Scities[$station]['lon']);
  $astro->setTimezone(date('Z') / 3600 );
- echo sprintf("Sunrise: %s AM &nbsp; &nbsp; Sunset: %s PM", $astro->getSunrise(), $astro->getSunset() );
+ echo sprintf("<tr><td colspan=\"4\">Sunrise: %s AM &nbsp; &nbsp; Sunset: %s PM</td></tr>", $astro->getSunrise(), $astro->getSunset() );
 ?>
+</table>
+<br />&nbsp;
 </div></div>
 </div><!-- End of Leftside -->
 <div id="rightside">
