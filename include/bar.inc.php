@@ -2,7 +2,7 @@
 /* Header bar providing for the sponsor logo and menu bar */
 include_once("$nwnpath/include/locs.inc.php");
 include_once("$nwnpath/include/sponsors.inc.php");
-if (isset($station) && $station != "") { $lstation = "MAIN"; }
+if (isset($station) && $station != "") { $lstation = $station; }
 else if (isset($camid)){ $lstation = $camid; }
 else if (! isset($station)){ $lstation = "MAIN"; }
 else { $lstation = $station; }
