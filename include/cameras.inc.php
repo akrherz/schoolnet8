@@ -206,7 +206,7 @@ $cameras = Array(
     "name" => "ISU Ames", "removed" => False, "active" => True, "lat" => 42.028627, "lon" => -93.643367,
     "hosted" => "",
     "hostedurl" => "",
-    "moviebase" => "isu ames",
+    "moviebase" => "ames",
     "iservice" => "",
     "iserviceurl" => "", "network" => "KCCI",
     "sponsor" => "Touchstone Energy Cooperatives", "sponsorurl" => "https://touchstoneenergy.cooperative.com/public/index.html",
