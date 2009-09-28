@@ -15,7 +15,9 @@ if (isset($_COOKIE['camera']) && ! isset($_GET['id']) )
   $camid = $_COOKIE['camera']; 
 }
 $TITLE =  "Live Web Camera Shots";
-$HEADEXTRA = "<script language=\"javascript\">
+$HEADEXTRA = "
+<script src='${baseurl}js/webcams.php'></script>
+<script language=\"javascript\">
 
 timeID = null;
 imgurl = '';
@@ -72,6 +74,8 @@ function refreshCamera()
     /* Make the URL Prettier */
     window.location.href = '#'+ newCameraID;
 
+    document.getElementById(\"webcamsponsor\").innerHTML = eval(\"webcamsponsor.\"+ cameraID.replace('-','_') );
+
     ts = new Date();
     imgurl = 'http://mesonet.agron.iastate.edu/data/camera/640x480/'+ cameraID +'.jpg?'+ ts.getTime();
     document.camera.src = imgurl;
@@ -105,6 +109,8 @@ $THISPAGE = "webcam-live"; include("$nwnpath/include/bar.inc.php"); ?>
 <div style="float: left; z-index: 3; margin-top: -475px; margin-left: 425px;">
 <img name="logo" src="" />
 </div>
+
+<div style="clear: both;" id="webcamsponsor"></div>
 
 </div>
 

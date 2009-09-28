@@ -11,15 +11,15 @@
 $HEADEXTRA = "<script src=\"http://maps.google.com/maps?file=api&v=2&key=$GMAPS_KEY\" type=\"text/javascript\"></script>
 <script src='http://www.openlayers.org/api/OpenLayers.js'></script>
 <script src='${baseurl}js/webcams.php'></script>
-<script type=\"text/javascript\">selectedSite='$station';</script>
 <script type=\"text/javascript\">
-var selectedSite;
+var selectedSite='$station';
 var map, jsonlayer;
 
 function updater(){
   var d = new Date();
+  cid = eval(\"webcamlookup.\"+ selectedSite );
   document.getElementById(\"lsdimage\").innerHTML = '<a href=\"${baseurl}/site.phtml?station='+ selectedSite +'\"><img src=\"${baseurl}static/radar/'+ selectedSite +'/'+ selectedSite +'_0.png?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" style=\"float: right;\"/></a><br />Click on map for more details.';
-  document.getElementById('webcamimage').innerHTML = '<a href=\"${baseurl}/camera/viewer.phtml#'+ eval(\"webcamlookup.\"+ selectedSite ) +'\"><img src=\"${baseurl}camera/stills/'+ eval(\"webcamlookup.\"+ selectedSite ) +'.jpg?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float: right;\"/></a><br />Click on image for more details.';
+  document.getElementById('webcamimage').innerHTML = eval(\"webcamsponsor.\"+ cid.replace('-','_') ) +'<a href=\"${baseurl}/camera/viewer.phtml#'+ eval(\"webcamlookup.\"+ selectedSite ) +'\"><img src=\"${baseurl}camera/stills/'+ eval(\"webcamlookup.\"+ selectedSite ) +'.jpg?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float: right;\"/></a><br />Click on image for more details.';
 
 };
 
@@ -122,8 +122,7 @@ function olinit(){
    window.setInterval(myrefresh, 301876,nexrad);
    window.setInterval(updater, 60100);
 
-
-
+  updater();
 
 }; /* End of olinit() */
 </script>
