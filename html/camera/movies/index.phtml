@@ -3,6 +3,8 @@ include("../../../config/settings.inc.php");
 include("$nwnpath/include/cameras.inc.php");
 $camid = isset($_GET["camid"]) ? $_GET["camid"] : "KCCI-001";
 $app = "30"; include("$nwnpath/include/dblog.inc.php");
+$HEADEXTRA = "
+<script src='${baseurl}js/webcams.php'></script>";
 $TITLE = "SchoolNet8 | Webcam Lapse Player";
 include("$nwnpath/include/header.inc.php"); 
 $THISPAGE="webcam-daily"; include("$nwnpath/include/bar.inc.php"); 
@@ -11,6 +13,7 @@ $THISPAGE="webcam-daily"; include("$nwnpath/include/bar.inc.php");
 <p>The <strong>Web Camera Movie Player</strong> is a Flash application 
 that plays recent movies taken from the webcam network.  Please note the 
 timestamps to  see when this movie was generated.
+<div id="webcamsponsor"></div>
 <div id="myPlayer"></div>
 <form name="theform">
 <br /><strong>Select Camera:</strong>
@@ -53,6 +56,7 @@ function myloader()
   player.play();
 
   document.getElementById("imgbar").innerHTML = "<a href=\"http://localhost/nwnwebsite/tool/clicktru.php?station="+ tokens[1] +"\" target=\"_new\"><img src=\"http://localhost/nwnwebsite/pics/"+ tokens[1] +".gif\" alt=\"Banner\" style=\"border: 0px none ;\"></a>";
+  document.getElementById("webcamsponsor").innerHTML = eval("webcamsponsor."+ (tokens[1]).replace('-','_') );
 }
 
 </script>
