@@ -3,8 +3,9 @@ body {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	text-align: center;
-    font:13px/1.22 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}
+    font:13px/1.22 arial,helvetica,clean,sans-serif;
+    *font-size:small;
+    *font:x-small;}
 table {font-size:inherit;font:100%;}
 pre,code,kbd,samp,tt {font-family:monospace;*font-size:108%;line-height:99%;}
 
@@ -50,14 +51,12 @@ a:hover {
 #leftside{
 	float:	left;
 	width:	300px;
-	text-align: left;
-    margin-left: 5px;
+    margin-left: 2px;
 }
 #rightside{
 	padding: 2px 0px 0px 0px;
 	margin: 0 0 0 310px;
 	background: transparent;
-	text-align: left;
 }
 #iem_nav {
     border: 1px solid #ccc;
@@ -147,14 +146,12 @@ table.full {
 	padding: 0px 5px 5px 0;
 	margin: 5px;
 	background: transparent;
-	text-align: left;
 }
 #tvdisplay{
 	top: 5px;
 	left: 250px;
 	margin: 25px 25px 25px 25px;
 	padding: 80px 0px 0px 60px;
-	text-align: left;
 	width: 640px;
 	height: 496px;
 	border: 1px solid #c30;
@@ -169,13 +166,11 @@ table.full {
 }
 #radlayerstill{
 	background: #C0DBFF;
-	text-align: center;
 	padding: 0px;
 	margin: 0px;
 }
 #radlayerloop{
 	background: #FFC0CB;
-	text-align: center;
 	padding: 0px;
 	margin: 0px;
 }
@@ -196,25 +191,6 @@ h2	{
  border-right: 0px solid; */
  padding: 1px;
 }
-/* webring header... */
-#iemwebring {
-  padding: 0px;
-  margin: 1px;
-  text-align: center;
-  clear: both;
-  font-size: 85%;
-  background: #eee;
-}
-#iemwebring a {
-  padding: 0 0 0 .4em;
-  text-decoration: none;
-  border: none;
-}
-#iemwebring li {
-  list-style: none;
-  display: inline;
-}
-
 #linkbar {
   padding: 0;
   text-align: center;
@@ -238,9 +214,9 @@ h2	{
 #imgbar {
   margin: 0px;
   padding: 0px;
+  text-align: center;
   background: #fff url(../images/hbar2.gif) repeat-x; 
 }
-
 
 /* Site Guide Stuff */
 #guide {
