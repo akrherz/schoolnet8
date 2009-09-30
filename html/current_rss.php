@@ -11,7 +11,7 @@ $xmlfile = "/tmp/currentwx.xml";
 header("Content-type: text/xml");
 
 /* Check to see if the file is less than 5 minutes old, if so, send it */
-if ( (filemtime($xmlfile) + 300) > time() )
+if ( file_exists($xmlfile) && (filemtime($xmlfile) + 300) > time() )
 {
   readfile($xmlfile);
   exit();
