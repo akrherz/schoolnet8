@@ -10,8 +10,8 @@ $clickapp = sprintf("%stool/clicktru.php?station=%s", $baseurl, $lstation);
 $sponsorlogo = sprintf("%spics/%s.gif", $baseurl, $lstation);
 ?>
 <div id="wrapper">
-<div id="imgbar">
-<a href="<?php echo $clickapp; ?>" target="_new"><img src="<?php echo $sponsorlogo; ?>" alt="Banner" style="border:0px;" /></a>
+<div id="imgbar" style="height:60px;">
+<a href="<?php echo $clickapp; ?>" target="_new"><img src="<?php echo $sponsorlogo; ?>" alt="Banner" style="border:0px;" height="60"/></a>
 </div>
 <?php
 $_pages = Array(

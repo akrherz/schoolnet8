@@ -139,12 +139,6 @@ a:hover {
 #iem_subnav ul li.selected {
         font-weight: bold;
         }
-
-
-table.side {
- float: left;
- width: 300px;
-}
 table.full {
  float: left;
  width: 600px;

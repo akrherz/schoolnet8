@@ -4,16 +4,16 @@ include("../../config/settings.inc.php");
 /* Include files */
 include("$nwnpath/include/cameras.inc.php"); 
 
-/* Log the use of this page */
-$app = "25"; include("$nwnpath/include/dblog.inc.php");
-
-
 /* Lets determine what our default camera ID should be */
 $camid = isset($_GET["id"]) ? $_GET["id"] : "KCCI-001";
 if (isset($_COOKIE['camera']) && ! isset($_GET['id']) )
 {
   $camid = $_COOKIE['camera']; 
 }
+
+/* Log the use of this page */
+$app = "25"; include("$nwnpath/include/dblog.inc.php");
+
 $TITLE =  "Live Web Camera Shots";
 $HEADEXTRA = "
 <script src='${baseurl}js/webcams.php'></script>
@@ -67,6 +67,7 @@ function refreshCamera()
 			newCameraID = document.main.id[i].value;
 		}
 	}
+    if (newCameraID == null){ newCameraID = cameraID; }
     if (cameraID != newCameraID && newCameraID != null) {
       document.getElementById(\"imgbar\").innerHTML = \"<a href='http://localhost/nwnwebsite/tool/clicktru.php?station=\"+ newCameraID +\"' target='_new'><img src='http://localhost/nwnwebsite/pics/\"+ newCameraID +\".gif' alt='Banner' style='border: 0px none ;'></a>\";
       cameraID = newCameraID;
@@ -94,15 +95,18 @@ function refreshCamera()
 </script>";
 $BODYEXTRA = "onload=\"javascript: refreshCamera();\"";
 include("$nwnpath/include/header.inc.php");
-$THISPAGE = "webcam-live"; include("$nwnpath/include/bar.inc.php"); ?>
+$THISPAGE = "webcam-live"; 
+include("$nwnpath/include/bar.inc.php"); ?>
 
-<div style="width: 660px;">
+<div style="clear: both;" id="webcamsponsor"></div>
 
-<div style="float: left; z-index: 2; border: 10px #000 solid;">
+<div style="width: 644px;">
+
+<div style="float: left; z-index: 2; border: 2px #000 solid;">
 <img name="camera" src="" />
 </div>
 
-<div style="float: left; z-index: 3; margin-top: -300px; margin-left: 25px;">
+<div style="float: left; z-index: 3; margin-top: -250px; margin-left: 17px;">
 <img name="radar" src="" style="visibility: hidden;" />
 </div>
 
@@ -110,7 +114,6 @@ $THISPAGE = "webcam-live"; include("$nwnpath/include/bar.inc.php"); ?>
 <img name="logo" src="" />
 </div>
 
-<div style="clear: both;" id="webcamsponsor"></div>
 
 </div>
 

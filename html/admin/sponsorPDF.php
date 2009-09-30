@@ -2,19 +2,26 @@
 /*
  DROP table site_stats_report;
  DROP table apphits;
- create table site_stats_report as SELECT station, count(valid) as hits, count(distinct(ip)) as hosts from site_stats GROUP by station;
+ create table site_stats_report as SELECT station, count(valid) as hits, 
+    count(distinct(ip)) as hosts from site_stats GROUP by station;
  update site_stats_report SET station = 'CIPCO' WHERE station = 'NONE';
  delete from site_stats_report WHERE station = 'S03I4';
- create table apphits as SELECT count(valid) as hits, app from site_stats GROUP by app;
- delete from apphits WHERE app = -1;
+ create table apphits as SELECT count(valid) as hits, app from site_stats 
+   GROUP by app;
+ delete from apphits WHERE app = '-1';
  GRANT select on site_stats_report to apache;
  GRANT select on apphits to apache;
+ GRANT select on site_stats_report to kcci;
+ GRANT select on apphits to kcci;
 */
 
-  set_time_limit(1000);
-  define('FPDF_FONTPATH','pdf/font/');
-  require('pdf/fpdf.php');
-  include('../../config/settings.inc.php');
+set_time_limit(1000);
+define('FPDF_FONTPATH','pdf/font/');
+require('pdf/fpdf.php');
+include('../../config/settings.inc.php');
+include("$nwnpath/include/locs.inc.php"); 
+include("$nwnpath/include/sponsors.inc.php"); 
+include("$nwnpath/include/cameras.inc.php"); 
 
 class PDF extends FPDF
 {
@@ -47,7 +54,7 @@ function Header()
 //Load data
 function LoadData()
 {
-  global $sponsors, $station,  $byS, $Scities, $dbhost;
+  global $cameras, $sponsors, $station,  $byS, $Scities, $dbhost;
   $c = pg_connect($dbhost);
   pg_exec($c, "set enable_seqscan=off");
   $q0 = "SELECT station, hits, 
@@ -55,24 +62,42 @@ function LoadData()
   $r0 = pg_exec($c, $q0);
 
  $data=array();
- $j = 0;
  for( $i=0; $row = @pg_fetch_array($r0,$i); $i++){
 	$station = $row["station"];
-	if (array_key_exists($station, $sponsors) || $station == "CIPCO") {
-		$data[$j]=$row;
-		$q1 = "SELECT count(valid) as c_count from clicktru WHERE 
-			station = '". $row["station"] ."' ";
-		$r1 = pg_exec($c, $q1);
-		$data[$j] += pg_fetch_array($r1, 0);
-		$data[$j]['short'] = $Scities[$data[$j]['station']]['short'];
-		$data[$j]['sponsor'] = $sponsors[$data[$j]['station']]['sponsor'];
-		$byS[$sponsors[$row['station']]['sponsor']]['sponsor'] = $sponsors[$data[$j]['station']]['sponsor'];
-		@$byS[$sponsors[$row['station']]['sponsor']]['hits'] += $row['hits'];
-		@$byS[$sponsors[$row['station']]['sponsor']]['c_count'] += $data[$j]['c_count'];
-		$j += 1;
-   }
- 
- 
+	$data[$i]=$row;
+    // Add some metadata
+	$spon = array_key_exists($station, $sponsors) ?
+           $sponsors[$station]['sponsor']: $cameras[$station]["sponsor"];
+    $data[$i]['sponsor'] = $spon;
+	$data[$i]['short'] = array_key_exists($station, $Scities) ?
+       $Scities[$station]['short'] : $cameras[$station]["name"] . " Webcam";
+    $data[$i]['c_count'] = 0;
+
+    /* Okay, go search for clicktrus for this station! */
+	$q1 = "SELECT stype, count(valid) as c_count from clicktru WHERE 
+			station = '$station' GROUP by stype";
+	$r1 = pg_exec($c, $q1);
+    if (pg_num_rows($r1) == 0){
+	  $spon = array_key_exists($station, $sponsors) ?
+           $sponsors[$station]['sponsor']: $cameras[$station]["sponsor"];
+	  @$byS[$spon]['c_count'] += 0;
+	  @$byS[$spon]['hits'] += $row["hits"];
+    }
+    for ($j=0; $row2 = @pg_fetch_array($r1,$j); $j++){
+	  $count = $row2["c_count"];
+      $stype = intval($row2["stype"]);
+      if ($stype == 0){ 
+	    $spon = array_key_exists($station, $sponsors) ?
+           $sponsors[$station]['sponsor']: $cameras[$station]["sponsor"];
+      } else if ($stype == 1){
+	    $spon = $cameras[$station]["iservice"];
+      } else {
+	    $spon = $cameras[$station]["hosted"];
+      }
+	  @$byS[$spon]['hits'] += $row['hits'];
+	  @$byS[$spon]['c_count'] += $count;
+	  $data[$i]['c_count'] += $count;
+    }
  }
  return $data;
 } // End of LoadData()
@@ -137,7 +162,7 @@ function FancyTable($header,$data, $pTotals)
         {
            if ($row['station'] == "CIPCO") $tHosts = $row['hosts'];
            $tHits += $row['hits'];
-           $tClicks += $row['c_count'];
+           $tClicks += @$row['c_count'];
 
                 $this->Cell($w[0],5,$row['short'],'LR',0,'L',$fill);
                 $this->Cell($w[1],5,$row['sponsor'],'LR',0,'L',$fill);
@@ -178,17 +203,18 @@ function FancyTable2($header,$data)
         $this->SetFont('');
         //Data
         $fill=0;$tHits=0;$tClick=0;
-        foreach($data as $row)
+        reset($data);
+        while (list($key,$row) = each($data))
         {
-           if (@$row['station'] == "CIPCO") $tHosts = $row['hosts'];
+           if (@$row['station'] == "CIPCO"){ $tHosts = $row['hosts']; }
            $tHits += $row['hits'];
            $tClick += $row['c_count'];
 
-                $this->Cell($w[0],6,$row['sponsor'],'LR',0,'L',$fill);
-                $this->Cell($w[1],6,number_format($row['hits']),'LR',0,'R',$fill);
-                $this->Cell($w[2],6,number_format($row['c_count']),'LR',0,'R',$fill);
-                $this->Ln();
-                $fill=!$fill;
+           $this->Cell($w[0],6,$key,'LR',0,'L',$fill);
+           $this->Cell($w[1],6,number_format($row['hits']),'LR',0,'R',$fill);
+           $this->Cell($w[2],6,number_format($row['c_count']),'LR',0,'R',$fill);
+           $this->Ln();
+           $fill=!$fill;
         }
   $this->Cell($w[0],6,"TOTAL:",'LR',0,'L',$fill);
   $this->Cell($w[1],6,number_format($tHits),'LR',0,'R',$fill);
@@ -318,8 +344,6 @@ function PutLink($URL,$txt)
 } // End of FPDF
 
 
-include("../../include/locs.inc.php"); 
-include("../../include/sponsors.inc.php"); 
 $Scities["CIPCO"] = Array("short" => "CIPCO Logo", "city" => "CIPCO", "id" =>  "CIPCP");
 $sponsors["CIPCO"] = Array("name"=> "CIPCO Logo", "sponsor" => "CIPCO");
 $byS = Array();

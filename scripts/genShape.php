@@ -1,6 +1,6 @@
 <?php
 // Load MapScript
-dl("php_mapscript_423.so");
+dl("php_mapscript_5.4.0.so");
 
 //----------------------------------------------------------
 // produce shapefile
@@ -31,6 +31,7 @@ $dbfFile = dbase_create( $shpFname.".dbf", array(
 include("/home/akrherz/projects/nwnwebsite/include/locs.inc.php");
 
 while (list($key, $val) = each($Scities) ){
+  if ($val["online"] == false){ continue; }
   createPoint( $val["lon"], $val["lat"], array($key, $val["short"]) );
 }
 
