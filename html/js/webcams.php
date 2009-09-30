@@ -18,17 +18,17 @@ $data = "";
 while(list($sid, $ar) = each($cameras)){
   $d = "";
   if ($ar["sponsor"] != ""){
-     $d .= "Sponsored by: <a href=\"". $ar["sponsorurl"] ."\">". $ar["sponsor"] ."</a><br />";
+     $d .= "Sponsored by: <a href=\"${baseurl}tool/clicktru.php?station=$sid&stype=0\">". $ar["sponsor"] ."</a><br />";
   }
 
   if ($ar["iservice"] != "" ){
-     $d .= "Internet service by: <a href=\"". $ar["iserviceurl"] ."\">". $ar["iservice"] ."</a><br />";
+     $d .= "Internet service by: <a href=\"${baseurl}tool/clicktru.php?station=$sid&stype=1\">". $ar["iservice"] ."</a><br />";
   }
 
   if ($ar["hosted"] != "")
   {
      if ($ar["hostedurl"] != ""){
-       $d .= "Hosted by: <a href=\"". $ar["hostedurl"] ."\">". $ar["hosted"] ."</a><br />";
+       $d .= "Hosted by: <a href=\"${baseurl}tool/clicktru.php?station=$sid&stype=2\">". $ar["hosted"] ."</a><br />";
       }
       else {
        $d .= "Hosted by: <b>". $ar["hosted"] ."</b><br />";
