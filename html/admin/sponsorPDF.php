@@ -71,7 +71,7 @@ function LoadData()
            $sponsors[$station]['sponsor']: $cameras[$station]["sponsor"];
     $data[$i]['sponsor'] = $spon;
 	$data[$i]['short'] = array_key_exists($station, $Scities) ?
-       $Scities[$station]['short'] : $cameras[$station]["name"] . " Webcam";
+       $Scities[$station]['short'] : $cameras[$station]["name"] . " WC";
     $data[$i]['c_count'] = 0;
 
     /* Okay, go search for clicktrus for this station! */
@@ -345,8 +345,8 @@ function PutLink($URL,$txt)
 } // End of FPDF
 
 
-$Scities["CIPCO"] = Array("short" => "CIPCO Logo", "city" => "CIPCO", "id" =>  "CIPCP");
-$sponsors["CIPCO"] = Array("name"=> "CIPCO Logo", "sponsor" => "CIPCO");
+$Scities["CIPCO"] = Array("short" => "CIPCO", "city" => "CIPCO", "id" =>  "CIPCO");
+$sponsors["CIPCO"] = Array("name"=> "CIPCO", "sponsor" => "CIPCO");
 $byS = Array();
 
 
