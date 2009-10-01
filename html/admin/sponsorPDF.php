@@ -64,6 +64,7 @@ function LoadData()
  $data=array();
  for( $i=0; $row = @pg_fetch_array($r0,$i); $i++){
 	$station = $row["station"];
+    if (! array_key_exists($station, $sponsors) && ! array_key_exists($station, $cameras) ){ continue; }
 	$data[$i]=$row;
     // Add some metadata
 	$spon = array_key_exists($station, $sponsors) ?
