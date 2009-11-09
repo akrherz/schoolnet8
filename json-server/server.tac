@@ -65,6 +65,9 @@ class SiteJson(resource.Resource):
         resource.Resource.__init__(self)
 
     def render(self, request):
+        self.log.write('%s %s %s\n' % \
+           (mx.DateTime.now().strftime("%Y-%m-%d %H:%M:%S"), \
+            request.getHeader('x-forwarded-for'), request.uri) )
         res = {'data': [], }
         sid = request.args['site'][0]
         if not db.has_key(sid):
@@ -113,7 +116,7 @@ clientFactory = NWNClientFactory(remoteServerUser,
 client = internet.TCPClient('129.186.185.33', 14996, clientFactory)
 client.setServiceParent( serviceCollection )
 
-web = server.Site( RootResource() )
+web = server.Site( RootResource(), logPath="/dev/null" )
 r = internet.TCPServer(8005, web)
 r.setServiceParent(serviceCollection)
 
