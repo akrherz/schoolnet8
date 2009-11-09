@@ -6,6 +6,7 @@ from twisted.protocols.basic import LineReceiver
 from twisted.internet import reactor
 from twisted.protocols import policies, basic
 from twisted.internet import protocol
+from twisted.python.logfile import DailyLogFile
 #from twisted.internet.app import Application
 from twisted.application import service, internet
 from twisted.enterprise import adbapi
@@ -59,7 +60,7 @@ class GetJSON(resource.Resource):
         return simplejson.dumps( res )
 
 class SiteJson(resource.Resource):
-
+    log = DailyLogFile('jsonlog', 'logs/')
     def __init__(self):
         resource.Resource.__init__(self)
 
