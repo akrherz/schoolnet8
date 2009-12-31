@@ -290,7 +290,7 @@ $cameras = Array(
     "moviebase" => "osceola",
     "iservice" => "",
     "iserviceurl" => "", "network" => "KCCI",
-    "sponsor" => "Clarke Electric Cooperative", "sponsorurl" => "http://www.clarkeelectric.org/",
+    "sponsor" => "Clarke Electric Cooperative", "sponsorurl" => "http://www.cecnet.net",
     "ip" => "69.66.201.159", "county" => "Clarke", "port" => "80"),
 "KCCI-014" => Array("sts" => mktime(22,0,0,5, 19,2004), "ets" => time(),
     "name" => "Panora", "removed" => False, "active" => True, "lat" => 41.70486, "lon" => -94.3686,
