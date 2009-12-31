@@ -27,6 +27,18 @@ $Scities["CIPCO"] = Array("short" => "CIPCO", "city" => "CIPCO",
 $sponsors["CIPCO"] = Array("name"=> "CIPCO", "sponsor" => "CIPCO");
 $byS = Array();
 
+function aSortBySecondIndex($multiArray, $secondIndex) {
+    while (list($firstIndex, ) = each($multiArray))
+            $indexMap[$firstIndex] = $multiArray[$firstIndex][$secondIndex];
+    asort($indexMap);
+    while (list($firstIndex, ) = each($indexMap))
+            if (is_numeric($firstIndex))
+                    $sortedArray[] = $multiArray[$firstIndex];
+            else $sortedArray[$firstIndex] = $multiArray[$firstIndex];
+    return $sortedArray;
+}
+
+
 class PDF extends FPDF
 {
 function Footer()
@@ -77,7 +89,7 @@ function LoadData()
            $sponsors[$station]['sponsor']: $cameras[$station]["sponsor"];
     $data[$station]['sponsor'] = $spon;
 	$data[$station]['short'] = array_key_exists($station, $Scities) ?
-       $Scities[$station]['short'] : $cameras[$station]["name"] . " WC";
+       $Scities[$station]['short'] : $cameras[$station]["name"] ;
     $data[$station]['c_count'] = 0;
 
     /* Okay, go search for clicktrus for this station! */
@@ -165,17 +177,19 @@ function FancyTable($header,$data, $pTotals)
         $fill=0;
         foreach($data as $row)
         {
-           if ($row['station'] == "CIPCO") $tHosts = $row['hosts'];
            $tHits += $row['hits'];
            $tClicks += @$row['c_count'];
-
-                $this->Cell($w[0],5,$row['short'],'LR',0,'L',$fill);
-                $this->Cell($w[1],5,$row['sponsor'],'LR',0,'L',$fill);
-                $this->Cell($w[2],5,number_format($row['hits']),'LR',0,'R',$fill);
-                $this->Cell($w[3],5,number_format($row['hosts']),'LR',0,'R',$fill);
-                $this->Cell($w[4],5,number_format($row['c_count']),'LR',0,'R',$fill);
-                $this->Ln();
-                $fill=!$fill;
+           if ($row['station'] == "CIPCO") {
+             $tHosts = $row['hosts'];
+             continue;
+           }
+           $this->Cell($w[0],5,$row['short'],'LR',0,'L',$fill);
+           $this->Cell($w[1],5,$row['sponsor'],'LR',0,'L',$fill);
+           $this->Cell($w[2],5,number_format($row['hits']),'LR',0,'R',$fill);
+           $this->Cell($w[3],5,number_format($row['hosts']),'LR',0,'R',$fill);
+           $this->Cell($w[4],5,number_format($row['c_count']),'LR',0,'R',$fill);
+           $this->Ln();
+           $fill=!$fill;
         }
   if ($pTotals){
     $this->Cell($w[0],5,"TOTAL:",'LR',0,'L',$fill);
@@ -364,20 +378,35 @@ $pdf=new PDF();
 $pdf->Open();
 $pdf->AliasNbPages();
 $pdf->SetFont('Arial','',12);
-
 $data = $pdf->LoadData();
+/* Split apart the site data */
+$wdata = Array();
+$sdata = Array();
+foreach($data as $row){
+  if (substr($row["station"],0,5) == "KCCI-"){ $wdata[] = $row; }
+  else{ $sdata[] = $row; }
+}
+$wdata = aSortBySecondIndex($wdata, "short");
+$sdata = aSortBySecondIndex($sdata, "short");
 
+/* Webcam stats first */
 $pdf->AddPage();
-$pdf->Cell(40,10,'Stats by Station');
+$pdf->Cell(40,10,'Web Camera Stats');
 $pdf->Ln(10);
-$header = array('Station', 'Sponsor', 'Hits', 'Hosts', 'Click Thrus');
-$pdf->FancyTable($header,array_slice($data, 0, 33), false );
+$header = array('Camera', 'Sponsor', 'Hits', 'Hosts', 'Click Thrus');
+$pdf->FancyTable($header,$wdata, false);
 $pdf->Ln(10);
-//$pdf->Cell(40,10,'Continued on next page...');
 
+/* Now we do single site */
 $pdf->AddPage();
-$pdf->FancyTable($header,array_slice($data, 33), true);
+$pdf->Cell(40,10,'SchoolNet8 Weather Site Stats');
 $pdf->Ln(10);
+$header = array('Site', 'Sponsor', 'Hits', 'Hosts', 'Click Thrus');
+$pdf->FancyTable($header,array_slice($sdata,0,33), false);
+$pdf->Ln(10);
+$pdf->AddPage();
+$pdf->FancyTable($header,array_slice($sdata,33,100), true);
+
 //$pdf->Cell(40,10,'Continued on next page...');
 
 $pdf->AddPage();
