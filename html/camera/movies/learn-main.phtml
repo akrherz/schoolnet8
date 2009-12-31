@@ -1,0 +1,22 @@
+<h3>SchoolNet8 WebCam Learning Modules</h3>
+
+<p>Since the year 2003, the SchoolNet8 project web cameras have been 
+continuously watching Iowa's weather and landscape.  Sometimes, these cameras
+capture interesting phenomena.  This page presents some of the more 
+interesting videos captured along with some explaination and follow up
+questions.</p>
+
+<h4>Available Modules:</h4>
+<ul>
+<?php
+for($i=1;$i<sizeof($appdict);$i++){
+  echo sprintf("<li><a href=\"learn.phtml?v=%s\">%s. %s</a></li>",
+       $i, $i, $appdict[$i]["title"]);
+}
+?>
+</ul>
+
+<h4>Additional Information:</h4>
+
+<p>Interesting webcam lapses are uploaded to YouTube and available from
+<a href="http://youtube.com/user/akrherz">Daryl Herzmann's profile</a>.
