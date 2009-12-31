@@ -37,6 +37,7 @@ echo "<div style=\"margin-left: 5px;\">";
 if ($v == 0){
   include("learn-main.phtml");
 } else {
+  echo "<a href=\"learn.phtml\">List available modules</a><br />";
   include("ltemplates/${v}.php");
 }
 echo "</div>";
