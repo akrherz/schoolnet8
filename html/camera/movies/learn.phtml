@@ -15,14 +15,15 @@ include("$nwnpath/include/bar.inc.php");
 $appdict = Array(
   0 => Array("ytube" => "", "title" => ""),
   1 => Array("ytube" => "KxOgCFtQFIs",
-             "title" => "Moving Rainbow"),
+             "title" => "Horizontally Moving Rainbow"),
   2 => Array("ytube" => "JC85_hyNbkk",
-             "title" => "Raising Rainbow")
+             "title" => "Vertically Moving Rainbow")
 );
 
 $yt = $appdict[$v]["ytube"];
 $player = "
 <div id=\"myPlayer\"></div>
+<p><a href=\"http://www.youtube.com/watch?v=${yt}\">YouTube Movie</a><br />
 <script>
 player = new FAVideo(\"myPlayer\");
 player.setSize(640,480);

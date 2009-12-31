@@ -57,6 +57,7 @@ $_pages = Array(
     "base" => Array("title" => "WebCams", "url" => "camera/"),
     "current" => Array("title" => "Current/Past Images", "url" => "camera/"),
     "lapse" => Array("title" => "Lapse Builder", "url" => "camera/bloop.phtml"),
+    "learn" => Array("title" => "Learn", "url" => "camera/movies/learn.phtml"),
     "live" => Array("title" => "Live Image", "url" => "camera/viewer.phtml"),
     "daily" => Array("title" => "Daily Movies", "url" => "camera/movies/"),
     "bestof" => Array("title" => "Best Of!", "url" => "camera/bestof.phtml"),
