@@ -16,12 +16,16 @@
 */
 
 set_time_limit(1000);
-define('FPDF_FONTPATH','pdf/font/');
-require('pdf/fpdf.php');
 include('../../config/settings.inc.php');
+define('FPDF_FONTPATH',"$nwnpath/include/fpdf/font/");
+require("$nwnpath/include/fpdf/fpdf.php");
 include("$nwnpath/include/locs.inc.php"); 
 include("$nwnpath/include/sponsors.inc.php"); 
 include("$nwnpath/include/cameras.inc.php"); 
+$Scities["CIPCO"] = Array("short" => "CIPCO", "city" => "CIPCO", 
+                          "id" =>  "CIPCO");
+$sponsors["CIPCO"] = Array("name"=> "CIPCO", "sponsor" => "CIPCO");
+$byS = Array();
 
 class PDF extends FPDF
 {
@@ -57,30 +61,30 @@ function LoadData()
   global $cameras, $sponsors, $station,  $byS, $Scities, $dbhost;
   $c = pg_connect($dbhost);
   pg_exec($c, "set enable_seqscan=off");
-  $q0 = "SELECT station, hits, 
-    hosts from site_stats_report ORDER by station ASC";
+  $q0 = "SELECT station, hits, hosts from 
+         site_stats_report ORDER by station ASC";
   $r0 = pg_exec($c, $q0);
 
  $data=array();
  for( $i=0; $row = @pg_fetch_array($r0,$i); $i++){
 	$station = $row["station"];
-    if (! array_key_exists($station, $sponsors) && ! array_key_exists($station, $cameras) ){ continue; }
-	$data[$i]=$row;
+    /* Make sure we have metadata for this station */
+    if (! array_key_exists($station, $sponsors) && 
+        ! array_key_exists($station, $cameras) ) { continue; }
+	$data[$station]=$row;
     // Add some metadata
 	$spon = array_key_exists($station, $sponsors) ?
            $sponsors[$station]['sponsor']: $cameras[$station]["sponsor"];
-    $data[$i]['sponsor'] = $spon;
-	$data[$i]['short'] = array_key_exists($station, $Scities) ?
+    $data[$station]['sponsor'] = $spon;
+	$data[$station]['short'] = array_key_exists($station, $Scities) ?
        $Scities[$station]['short'] : $cameras[$station]["name"] . " WC";
-    $data[$i]['c_count'] = 0;
+    $data[$station]['c_count'] = 0;
 
     /* Okay, go search for clicktrus for this station! */
 	$q1 = "SELECT stype, count(valid) as c_count from clicktru WHERE 
 			station = '$station' GROUP by stype";
 	$r1 = pg_exec($c, $q1);
     if (pg_num_rows($r1) == 0){
-	  $spon = array_key_exists($station, $sponsors) ?
-           $sponsors[$station]['sponsor']: $cameras[$station]["sponsor"];
 	  @$byS[$spon]['c_count'] += 0;
 	  @$byS[$spon]['hits'] += $row["hits"];
     }
@@ -97,7 +101,7 @@ function LoadData()
       }
 	  @$byS[$spon]['hits'] += $row['hits'];
 	  @$byS[$spon]['c_count'] += $count;
-	  $data[$i]['c_count'] += $count;
+	  $data[$station]['c_count'] += $count;
     }
  }
  return $data;
@@ -266,7 +270,7 @@ function FancyTable3($header,$rs)
     "14" => "SchoolNet8 Viewer Page",
     "15" => "State Fair Display",
     "16" => "Web Site Guide",
-        "17" => "Ortho Images",
+    "17" => "Ortho Images",
     "18" => "Site Guide",
     "19" => "Site Index",
     "20" => "Website Guide",
@@ -345,9 +349,6 @@ function PutLink($URL,$txt)
 } // End of FPDF
 
 
-$Scities["CIPCO"] = Array("short" => "CIPCO", "city" => "CIPCO", "id" =>  "CIPCO");
-$sponsors["CIPCO"] = Array("name"=> "CIPCO", "sponsor" => "CIPCO");
-$byS = Array();
 
 
 $html = '
