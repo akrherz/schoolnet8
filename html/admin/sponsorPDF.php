@@ -411,8 +411,8 @@ $pdf->FancyTable($header,array_slice($sdata,33,100), true);
 
 $pdf->AddPage();
 $header = array('Sponsor', 'Hits', 'Click Thrus');
-$pdf->Cell(40,10,'Stats by Sponsor');
-$pdf->Ln(10);
+$pdf->Cell(30,10,'Stats by Sponsor');
+$pdf->Ln(3);
 $pdf->FancyTable2($header,$byS);
 
 $pgconn = pg_connect($dbhost);
@@ -423,15 +423,15 @@ pg_close($pgconn);
 
 $pdf->AddPage();
 $header = array('Application', 'Hits');
-$pdf->Cell(40,10,'Hits by Application');
+$pdf->Cell(30,10,'Hits by Application');
 $pdf->Ln(10);
 $pdf->FancyTable3($header,$rs);
 
-$pdf->Ln(10);
+$pdf->Ln(3);
 $pdf->Cell(40,10,'Notes:');
-$pdf->Ln(10);
+$pdf->Ln(3);
 $pdf->WriteHTML($html);
-$pdf->Ln(10);
+$pdf->Ln(3);
 $pdf->WriteHTML($html2);
 $pdf->Output();
 ?>
