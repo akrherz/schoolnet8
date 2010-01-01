@@ -431,7 +431,7 @@ $pdf->Ln(3);
 $pdf->Cell(40,10,'Notes:');
 $pdf->Ln(3);
 $pdf->WriteHTML($html);
-$pdf->Ln(3);
+$pdf->Ln(6);
 $pdf->WriteHTML($html2);
 $pdf->Output();
 ?>
