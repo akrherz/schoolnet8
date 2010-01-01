@@ -371,7 +371,6 @@ $html = '
   <BR>Click Thrus are the number of times a visitor followed the link included with the banner.
 ';
 
-$html2 = '<b>Website:</b> <A HREF="http://www.theiowachannel.com/schoolnet8">KCCI SchoolNet8</A>';
 
 
 $pdf=new PDF();
@@ -431,7 +430,5 @@ $pdf->Ln(3);
 $pdf->Cell(40,10,'Notes:');
 $pdf->Ln(3);
 $pdf->WriteHTML($html);
-$pdf->Ln(6);
-$pdf->WriteHTML($html2);
 $pdf->Output();
 ?>
