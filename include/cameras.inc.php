@@ -155,7 +155,7 @@ $cameras = Array(
     "moviebase" => "glidden",
     "iservice" => "",
     "iserviceurl" => "", "network" => "KCCI",
-    "sponsor" => "Glidden REC", "sponsorurl" => "http://www.gliddenrec.com",
+    "sponsor" => "Raccoon Valley Electric Cooperative", "sponsorurl" => "http://www.rvec.coop",
     "ip" => "67.54.186.247", "county" => "Carroll", "port" => "81"),
 "KCCI-025" => Array("sts" => mktime(15,0,0,7, 14,2006), "ets" => time(),
     "name" => "Greenfield", "removed" => False, "active" => True, "lat" => 41.304473, "lon" => -94.461372,
