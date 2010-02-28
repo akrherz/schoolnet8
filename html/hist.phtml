@@ -55,6 +55,7 @@ if ($mode == "monthly") {
   $qc = $row["max_tmpf_qc"];
   if ($row["max_tmpf"] == -99) $row["max_tmpf"] = "M";
   if ($row["min_tmpf"] == 99) $row["min_tmpf"] = "M";
+  if ($row["pday"] < 0) $row["pday"] = "M";
   $str = "";
   if (strstr($qc, 'H'))
     $str .= "<strike>High: ". $row["max_tmpf"] ."</strike>" ;
