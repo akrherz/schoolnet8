@@ -7,7 +7,8 @@ include("../../config/settings.inc.php");
 
 /** Get variables */
 $station = $_GET["station"];
-$year = $_GET["year"];
+$s_year = $_GET["s_year"];
+$e_year = $_GET["e_year"];
 $s_day = $_GET["s_day"];
 $e_day = $_GET["e_day"];
 $s_month = $_GET["s_month"];
@@ -18,9 +19,9 @@ $dl_option = $_GET["dl_option"];
 
 include("$nwnpath/include/locs.inc.php");
 
-$ts1 = mktime(0, 0, 0, $s_month, $s_day, $year) or 
+$ts1 = mktime(0, 0, 0, $s_month, $s_day, $s_year) or 
   die("Invalid Date Format");
-$ts2 = mktime(0, 0, 0, $e_month, $e_day, $year) or
+$ts2 = mktime(0, 0, 0, $e_month, $e_day, $e_year) or
   die("Invalid Date Format");
 
 if ($ts1 >= $ts2){
@@ -51,14 +52,13 @@ for ($i=0; $i< $num_vars;$i++){
 
 $sqlTS1 = strftime("%Y-%m-%d %H:%M", $ts1);
 $sqlTS2 = strftime("%Y-%m-%d %H:%M", $ts2);
-$table = strftime("summary_%Y", $ts1);
 $nicedate = strftime("%Y-%m-%d", $ts1);
 
 $d = Array("comma" => ",",
   "space" => " ",
   "tab" => "\t");
 
-$sqlStr .= "day as dvalid, max_tmpf_qc || min_tmpf_qc as qcflags from ".$table ;
+$sqlStr .= "day as dvalid, max_tmpf_qc || min_tmpf_qc as qcflags from summary";
 $sqlStr .= " WHERE day >= '".$sqlTS1."' and day <= '".$sqlTS2 ."' ";
 $sqlStr .= " and station = '".$station."' ";
 $sqlStr .= " ORDER by day ASC";

@@ -13,8 +13,10 @@ $s_hour = $_GET["s_hour"];
 $e_hour = $_GET["e_hour"];
 $s_day = $_GET["s_day"];
 $e_day = $_GET["e_day"];
-$year = $_GET["year"];
-$month = $_GET["month"];
+$s_year = $_GET["s_year"];
+$s_month = $_GET["s_month"];
+$e_year = $_GET["e_year"];
+$e_month = $_GET["e_month"];
 $vars = $_GET["vars"];
 $sample = $_GET["sample"];
 $delim = $_GET["delim"];
@@ -23,9 +25,9 @@ $dl_option = $_GET["dl_option"];
 include("../../include/locs.inc.php");
 include("../../include/mlib.php");
 
-$ts1 = mktime($s_hour, 0, 0, $month, $s_day, $year) or 
+$ts1 = mktime($s_hour, 0, 0, $s_month, $s_day, $s_year) or 
   die("Invalid Date Format");
-$ts2 = mktime($e_hour, 0, 0, $month, $e_day, $year) or
+$ts2 = mktime($e_hour, 0, 0, $e_month, $e_day, $e_year) or
   die("Invalid Date Format");
 
 if ($ts1 >= $ts2){
@@ -55,7 +57,6 @@ for ($i=0; $i< $num_vars;$i++){
 
 $sqlTS1 = strftime("%Y-%m-%d %H:%M", $ts1);
 $sqlTS2 = strftime("%Y-%m-%d %H:%M", $ts2);
-$table = strftime("t%Y_%m", $ts1);
 $nicedate = strftime("%Y-%m-%d", $ts1);
 
 $sampleStr = Array("1min" => "1",
@@ -68,7 +69,7 @@ $d = Array("comma" => ",",
   "space" => " ",
   "tab" => "\t");
 
-$sqlStr .= "to_char(valid, 'YYYY-MM-DD HH24:MI') as dvalid from ".$table ;
+$sqlStr .= "to_char(valid, 'YYYY-MM-DD HH24:MI') as dvalid from alldata ";
 $sqlStr .= " WHERE valid >= '".$sqlTS1."' and valid <= '".$sqlTS2 ."' ";
 $sqlStr .= " and station = '".$station."' and ";
 $sqlStr .= " extract(minute from valid)::int % ".$sampleStr[$sample] ." = 0 ";
