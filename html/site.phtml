@@ -148,17 +148,16 @@ function nbheader($title, $pos, $name)
 <?php $THISPAGE = "mysite-main"; include("$nwnpath/include/bar.inc.php"); ?>
 
 <div id="leftside">
+<?php   
+if (isset($Scities[$station]["ftm"])) {
+ echo "<div style=\"background: #ff0; color: #f00; padding: 2px; border: #000 dashed 1px;\"><b>Special Message</b><br />". $Scities[$station]["ftm"] ."</div>";
+} 
+?>
 <div id="datagrid"></div>
 
 <p style="margin: 5px;"><?php echo "<b><a href=\"$baseurl/site.phtml?station=$station\">". $Scities[$station]["city"] ."</a></b> SchoolNet8 Site is sponsored by <a href=\"". $baseurl ."tool/clicktru.php?station=$station\">". $sponsors[$station]["sponsor"] ."</a>"; ?>. &nbsp; <a href='javascript:addToFavorites("<?php echo $baseurl . $uri; ?>", "SchoolNet8.com | <?php echo $TITLE; ?>");'>Bookmark this page!</a>
 <br />Help report rain and snow in your community by joining <a href="http://iowa.cocorahs.org">CoCoRaHS</a>.</p>
 
-<?php   
-if (isset($Scities[$station]["ftm"])) {
- echo "<div style=\"background: #ff0; color: #f00; padding: 2px; border: #000 dashed 1px;\"><b>Special Message</b><br />". $Scities[$station]["ftm"] ."</div>";
-} 
-
-?>
 
 <!-- Climate -->
 <?php echo nbheader("Climatology for ". date("F d"), 3, "climate"); ?>
