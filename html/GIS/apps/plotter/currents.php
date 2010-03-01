@@ -316,7 +316,7 @@ function refresh()
 <tr><th>Month:</th><th>Day:</th><th>Year:</th><th>Hour:</th><th>Minute:</th></tr>
 <tr>
 <td><?php echo monthSelect($month); ?></td>
-<td><?php echo daySelect($day); ?></td>
+<td><?php echo daySelect($day, "day"); ?></td>
 <td><?php echo yearSelect(2004, $year, "year"); ?></td>
 <td><?php echo localHourSelect($hour, "hour"); ?></td>
 <td><?php echo minuteSelect($minute, "minute"); ?></td>
