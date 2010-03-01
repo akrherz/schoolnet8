@@ -56,7 +56,7 @@ $Scities = array(
  "SMDI4" => array("short" => "Madrid", "city" => "Madrid", "lat" => 41.8832, "lon" => -93.8135, "online" => true, "nwn_id" => 170, "climate_site" => "IA0200"),
  "SMLI4" => array("short" => "Mallard", "city" => "Mallard", "lat" => 42.9348833333, "lon" => -94.6821166667, "online" => false, "nwn_id" => 78, "climate_site" => "IA2689"),
  "SMNI4" => array("short" => "Montezuma", "city" => "Montezuma Community", "lat" => 41.5895333333, "lon" => -92.52445, "online" => true, "nwn_id" => 74, "climate_site" => "IA3473"),
- "SMOI4" => array("short" => "Mount Ayr", "city" => "Mount Ayr Community", "lat" => 40.7160166667, "lon" => -94.2319166667, "online" => true, "nwn_id" => 76, "climate_site" => "IA5769"),
+ "SMOI4" => array("short" => "Mount Ayr", "city" => "Mount Ayr Community", "lat" => 40.7160166667, "lon" => -94.2319166667, "online" => true, "nwn_id" => 76, "climate_site" => "IA5769", "ftm" => "Site is offline for construction."),
  "SMSI4" => array("short" => "Manson-NW", "city" => "Manson-NW Webster", "lat" => 42.5045833333, "lon" => -94.3626333333, "online" => true, "nwn_id" => 109, "climate_site" => "IA2999"),
  "SMUI4" => array("short" => "Murray", "city" => "Murray", "lat" => 41.03885, "lon" => -93.95392, "online" => true, "nwn_id" => 122, "climate_site" => "IA6316"),
  "SNEI4" => array("short" => "Newton", "city" => "Newton / Berg MS", "lat" => 41.7037166667, "lon" => -93.02815, "online" => true, "nwn_id" => 56, "climate_site" => "IA5992"),
