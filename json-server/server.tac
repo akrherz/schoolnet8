@@ -21,6 +21,18 @@ from pyIEM import mesonet, nwnformat
 
 db = {}                 
 
+def cleandb():
+    """
+    Every hour, cull sites that are offline
+    """
+    nwslis = db.keys()
+    floor = mx.DateTime.now() - mx.DateTime.RelativeDateTime(hours=1)
+    for nwsli in nwslis:
+        if db[nwsli].ts < floor:
+            print "Removing NWSLI: %s" % (nwsli,)
+            del(db[nwsli])
+    reactor.callLater(3600, cleandb)
+
 class NWNClientFactory(hubclient.HubClientProtocolBaseFactory):
     maxDelay = 60.0
     factor = 1.0
@@ -71,7 +83,8 @@ class SiteJson(resource.Resource):
         res = {'data': [], }
         sid = request.args['site'][0]
         if not db.has_key(sid):
-            request.write( simplejson.dumps("ERROR") )
+            res['data'].append({'ts': 'OFFLINE'})
+            request.write( simplejson.dumps(res) )
             request.finish()
             return server.NOT_DONE_YET
         res['data'].append( {
@@ -120,3 +133,4 @@ web = server.Site( RootResource(), logPath="/dev/null" )
 r = internet.TCPServer(8005, web)
 r.setServiceParent(serviceCollection)
 
+reactor.callLater(3600, cleandb)
