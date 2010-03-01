@@ -53,8 +53,8 @@ function yearSelect($start, $selected, $name){
   return $s;
 }
 
-function daySelect($selected){
-  $s = "<select name='day'>\n";
+function daySelect($selected, $name){
+  $s = "<select name='$name'>\n";
   for ($k=1;$k<32;$k++){
     $s .= "<option value=\"".$k."\" ";
     if ($k == (int)$selected){
