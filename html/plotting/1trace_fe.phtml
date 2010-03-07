@@ -5,6 +5,9 @@
 include("../../config/settings.inc.php");
 $app = "03"; include("../../include/dblog.inc.php");
 $station = isset($_GET['station']) ? $_GET["station"] : "";
+$year = isset($_GET["year"]) ? $_GET["year"] : date("Y");
+$month = isset($_GET["month"]) ? $_GET["month"] : date("m");
+$day = isset($_GET["day"]) ? $_GET["day"] : date("d");
 $nwsli = $station;
 include("../../include/imagemap.inc.php");
 include("../../include/forms.inc.php");
@@ -37,18 +40,6 @@ include("$nwnpath/include/bar.inc.php"); ?>
 <p>This application generates charts showing various variables throughout a date of your choice. Note that the archive begins 12 Feb 2002.</p>
 
   <form method="GET" action="1trace_fe.phtml" name="select">
-  <?php
-
-    if (strlen($month) == 0 ){
-	$month = date("m");
-    }
-    if (strlen($day) == 0 ){
-        $day = date("d");
-    }
-    if (strlen($year) == 0 ){
-        $year = date("Y");
-    }
-?>
 
 <table border=1 cellspacing=0 cellpadding=2 align="center">
 <tr>
@@ -60,7 +51,7 @@ include("$nwnpath/include/bar.inc.php"); ?>
 	<td><?php echo kcciSelect($station); ?></td>
 	<td><?php echo yearSelect(2002, $year, "year"); ?></td>
 	<td><?php echo monthSelect($month, "month"); ?></td>
-	<td><?php echo daySelect($day, "month"); ?></td></tr>
+	<td><?php echo daySelect($day, "day"); ?></td></tr>
 </table>
 
 <?php
