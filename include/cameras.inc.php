@@ -1,6 +1,7 @@
 <?php
 $cxref = Array(
 'S03I4' => Array('KCCI-012', 'KCCI-018', 'KCCI-009', 'KCCI-034', 'KCCI-019'),
+'SPCI4' => Array('KCCI-010', 'KCCI-008', 'KCCI-035', 'KCCI-024', 'KCCI-021'),
 'SADI4' => Array('KCCI-025', 'KCCI-033', 'KCCI-014', 'KCCI-004', 'KCCI-001'),
 'SAEI4' => Array('KCCI-032', 'KCCI-013', 'KCCI-033', 'KCCI-019', 'KCCI-018'),
 'SAFI4' => Array('KCCI-004', 'KCCI-013', 'KCCI-025', 'KCCI-031', 'KCCI-028'),
@@ -138,7 +139,7 @@ $cameras = Array(
     "iservice" => "Iowa Telecom.",
     "iserviceurl" => "http://www.iowatelecom.com/", "network" => "KCCI",
     "sponsor" => "CIPCO", "sponsorurl" => "http://www.cipco.net",
-    "ip" => "69.66.29.70", "county" => "Union", "port" => "80"),
+    "ip" => "69.66.107.49", "county" => "Union", "port" => "80"),
 "KCCI-035" => Array("sts" => mktime(18,0,0,9, 11,2009), "ets" => time(),
     "name" => "Fort Dodge", "removed" => False, "active" => True, "lat" => 42.4922, "lon" => -94.192,
     "hosted" => "Trinity Regional Medical Center",
@@ -381,7 +382,7 @@ $cameras = Array(
     "iservice" => "",
     "iserviceurl" => "", "network" => "KCCI",
     "sponsor" => "Farmers Electric Cooperative", "sponsorurl" => "http://www.farmersrec.com",
-    "ip" => "173.19.142.63", "county" => "Madison", "port" => "80"),
+    "ip" => "173.27.28.136", "county" => "Madison", "port" => "80"),
 "KCCI-032" => Array("sts" => mktime(14,0,0,9, 16,2008), "ets" => time(),
     "name" => "Woodward", "removed" => False, "active" => True, "lat" => 41.86, "lon" => -93.92,
     "hosted" => "",
