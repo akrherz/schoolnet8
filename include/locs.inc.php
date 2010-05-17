@@ -65,6 +65,7 @@ $Scities = array(
  "SOGI4" => array("short" => "Ogden", "city" => "Ogden", "lat" => 42.0411, "lon" => -94.0308, "online" => true, "nwn_id" => 90, "climate_site" => "IA6566"),
  "SOSI4" => array("short" => "Osceola", "city" => "Osceola / Clarke Community", "lat" => 41.0322, "lon" => -93.7587166667, "online" => true, "nwn_id" => 41, "climate_site" => "IA6316"),
  "SPAI4" => array("short" => "Panora", "city" => "Panora / Panorama", "lat" => 41.6958666667, "lon" => -94.3749166667, "online" => true, "nwn_id" => 58, "climate_site" => "IA3509"),
+"SPCI4" => array("short" => "Pocahontas", "online" => "t", "city" => "Pocahontas", "nwn_id" => "298", "lat" => "-94.6728", "lon" => "42.7343", "network" => "KCCI", "county" => "None", "climate_site" => "none"),
  "SPEI4" => array("short" => "Pella", "city" => "Pella MS", "lat" => 41.4061666667, "lon" => -92.90015, "online" => true, "nwn_id" => 52, "climate_site" => "IA4502"),
  "SPKI4" => array("short" => "North Polk", "city" => "North Polk / West Elem", "lat" => 41.778, "lon" => -93.7181, "online" => true, "nwn_id" => 151, "climate_site" => "IA0241"),
  "SPYI4" => array("short" => "Perry", "city" => "Perry", "lat" => 41.8408166667, "lon" => -94.0798333333, "online" => true, "nwn_id" => 91, "climate_site" => "IA6566"),
