@@ -64,6 +64,7 @@ $sponsors = Array(
 "SNVI4" => Array("name"=> "Nevada", "sponsor" => "Consumers Energy", "url" => "http://www.consumersenergy.net/"),
 "SOSI4" => Array("name"=> "Clarke Community / Osceola", "sponsor" => "Clarke Electric Cooperative, Inc", "url" => "http://www.cecnet.net/"),
 "SPAI4" => Array("name"=> "Panorama / Panora", "sponsor" => "Guthrie County REC", "url" => "http://www.guthrie-rec.coop"),
+"SPCI4" => Array("name"=> "Pocahontas", "sponsor" => "CIPCO", "url" => "http://www.cipco.net/"),
 "SPEI4" => Array("name"=> "Pella M.S.", "sponsor" => "Pella Cooperative Electric", "url" => "http://www.pella-cea.org/"),
 "SPKI4" => Array("name"=> "Polk City", "sponsor" => "CIPCO", "url" => "http://www.cipco.net/"),
 "SROI4" => Array("name"=> "Rockwell City", "sponsor" => "Calhoun County Electric Cooperative", "url" => "http://www.calhounrec.coop/"),
