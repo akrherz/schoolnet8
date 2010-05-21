@@ -84,7 +84,7 @@ def generator(sid, lat, lon):
   #print weather
   #print icons
   if not ta.has_key('k-p12h-n14-3'):
-    print ta.keys()
+    #print ta.keys()
     return
 
   #for i in range(len(ta['k-p12h-n14-3'])):
