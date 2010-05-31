@@ -19,7 +19,7 @@ for( $i=0; $row = @pg_fetch_array($rs,$i); $i++)
   else {$q = $p;}
   $cur = $k;
   if (! array_key_exists($v, $db)) $db[$v] = Array();
-  $row["mtd"] = $q;
+  $row["mtd"] = round($q,2);
   $db[ $row["valid"] ][$id] = $row;
 }
 reset($db);
