@@ -4,6 +4,7 @@ $sortcol = isset($_GET['sortcol']) ? $_GET["sortcol"] : "ts";
 $sortdir = isset($_GET['sortdir']) ? $_GET["sortdir"] : "down";
 $today = mktime(0,0,0, date("m"), date("d"), date("Y"));
  include('../include/locs.inc.php');
+ $locs = new Locations();
  include('../include/currentdb.inc.php');
  include('../include/sponsors.inc.php');
  $app = "04"; include("../include/dblog.inc.php"); ?>
@@ -130,7 +131,7 @@ function aSortBySecondIndex($multiArray, $secondIndex, $sortdir) {
 
  $obs = new currentdb();
 while (list ($key, $val) = each ($obs->db))  {
-  $obs->db[$key]['sname'] =  $Scities[$key]['short'];
+  $obs->db[$key]['sname'] =  $locs->table[$key]['sname'];
 }
 reset ($obs->db); 
 
@@ -152,7 +153,7 @@ while (list ($key, $val) = each ($finalA))  {
   echo ">\n ";
   $oddRow = ! $oddRow;
   echo "<td><input type=\"checkbox\" name=\"st[]\"  value=\"".$key."\"></td>";
-  echo "<th align=\"left\"><a href=\"javascript:new_window('". $baseurl ."gen/kcci_fe.php?station=".$key."');\">". $Scities[$key]['short'] . "</a></th>";
+  echo "<th align=\"left\"><a href=\"javascript:new_window('". $baseurl ."gen/kcci_fe.php?station=".$key."');\">". $locs->table[$key]['sname'] . "</a></th>";
 
 
   echo "<td ";
@@ -191,7 +192,7 @@ while (list ($key, $val) = each ($skippedStations) ) {
   echo ">\n ";
   $oddRow = ! $oddRow;
   echo "<td><input type=\"checkbox\" name=\"st[]\" value=\"".$key."\"></td>";
-  echo "<th align='left'><a href=\"javascript:new_window('$baseurl/gen/kcci_fe.php?station=".$key."');\">". $Scities[$key]['short'] . "</a></th>";
+  echo "<th align='left'><a href=\"javascript:new_window('$baseurl/gen/kcci_fe.php?station=".$key."');\">". $locs->table[$key]['sname'] . "</a></th>";
   echo "<td";
   if ($tdiff < 300){
     echo ">". strftime("%I:%M %p", $parts['ts']);

@@ -5,6 +5,7 @@ include("../config/settings.inc.php");
 include("$nwnpath/include/calendar.phtml");
 include("$nwnpath/include/imagemap.inc.php");
 include("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 include("$nwnpath/include/forms.inc.php");
 include("$nwnpath/include/mlib.php");
 $app = "13"; include("$nwnpath/include/dblog.inc.php");
@@ -91,7 +92,7 @@ if ($mode == "monthly") {
   $qc = $row["max_tmpf_qc"];
   if ($row["max_tmpf"] == -99) $row["max_tmpf"] = "M";
   if ($row["min_tmpf"] == 99) $row["min_tmpf"] = "M";
-  $htmlout .= "<tr><td><a href=\"hist.phtml?year=$year&month=$month&mode=monthly&station=". $row["station"] ."\">". $Scities[$row["station"]]["city"] ."</a></td>";
+  $htmlout .= "<tr><td><a href=\"hist.phtml?year=$year&month=$month&mode=monthly&station=". $row["station"] ."\">". $locs->table[$row["station"]]["city"] ."</a></td>";
 
   if (strstr($qc, 'H') || $row["max_tmpf"] == -99 )
     $htmlout .= "<td><strike>". $row["max_tmpf"] ."</strike></td>" ;
@@ -127,7 +128,7 @@ if ($mode == "monthly") {
   $THISPAGE = "mysite-hist"; include("$nwnpath/include/bar.inc.php"); 
 ?>
 <div id="justone">
-<h2>Data Calendar for <?php echo $Scities[$station]["city"]; ?></h2>
+<h2>Data Calendar for <?php echo $locs->table[$station]["city"]; ?></h2>
 <div class="hide">
 
 <?php

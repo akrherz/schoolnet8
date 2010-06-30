@@ -40,6 +40,7 @@ if (strlen($station) == 0)
  include("$nwnpath/include/mlib.php");
  include("$nwnpath/include/currentdb.inc.php");
  include("$nwnpath/include/locs.inc.php");
+ $locs = new Locations($station);
  $obs = new currentdb();
  $ob = $obs->db[$station];
 
@@ -49,7 +50,7 @@ if (strlen($station) == 0)
 <wml> 
   <card id="card1" title="KCCI SNET8 OB"> 
    <p>
-     <?php echo $Scities[$station]["short"] ." (". $station .") "; ?>
+     <?php echo $locs->table[$station]["short"] ." (". $station .") "; ?>
      <br/><?php echo date("m-d-Y h:i A", $ob["ts"] ); ?>
      <br/><b>Temp/DewP:</b> <?php echo $ob["tmpf"] ."/". $ob["dwpf"]; ?>
      <br/><b>Feels Like:</b> <?php echo $ob["feel"]; ?>

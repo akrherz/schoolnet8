@@ -1,6 +1,7 @@
 <?php
 include("../../config/settings.inc.php");
 include("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 include("$nwnpath/include/sponsors.inc.php");
 include("$nwnpath/include/cameras.inc.php");
 $app = "21"; include("$nwnpath/include/dblog.inc.php"); 
@@ -47,7 +48,7 @@ var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Nexrad",
 map.addMapType(custommap4);
 
 
-map.setCenter(new GLatLng(<?php echo $Scities[$station]["lat"]; ?>, <?php echo $Scities[$station]["lon"]; ?>), <?php echo $defaultzoom; ?>);
+map.setCenter(new GLatLng(<?php echo $locs->table[$station]["lat"]; ?>, <?php echo $locs->table[$station]["lon"]; ?>), <?php echo $defaultzoom; ?>);
 
 var icon = new GIcon();
 icon.image = "http://labs.google.com/ridefinder/images/mm_20_blue.png";
@@ -83,7 +84,7 @@ function createMarker(point, site_name, site_abrev, lon, lat, sponsor, ui) {
 }
 
 <?php 
-while (list($k,$v) = each($Scities)) {
+while (list($k,$v) = each($locs->table)) {
 ?>
   var point = new GPoint(<?php echo $v["lon"]; ?>, <?php echo $v["lat"]; ?>);
   var marker = createMarker(point, "<?php echo $v["city"] ?>", "<?php echo $k; ?>", <?php echo $v["lon"]; ?>, <?php echo $v["lat"]; ?>, '<?php echo $sponsors[$k]["sponsor"]; ?>','<?php

@@ -138,6 +138,7 @@ $var = isset($_GET['var']) ? $_GET['var'] : 'tmpf';
 
 include("$nwnpath/include/currentdb.inc.php");
 include("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 include("$nwnpath/include/radar.php");
 
 $obs = new currentdb();
@@ -396,14 +397,14 @@ foreach($myStations as $key => $value){
   $bzz = $obs->db[$key];
   if (sizeof($bzz) == 0) continue;
 
-  $lat = $Scities[$key]["lat"];
-  $lon = $Scities[$key]["lon"];
+  $lat = $locs->table[$key]["lat"];
+  $lon = $locs->table[$key]["lon"];
 
   if ($showSiteLabel)
   {
    $pt = ms_newPointObj();
    $pt->setXY($lon, $lat, 0);
-   $pt->draw($map, $snet, $img, 1, $Scities[$key]["short"] );
+   $pt->draw($map, $snet, $img, 1, $locs->table[$key]["short"] );
    $pt->free();
   }
 

@@ -40,6 +40,7 @@ if (sizeof($str) > 0){
 ?>
 <?php  /* /index.phtml */
  include("$nwnpath/include/locs.inc.php");
+ $locs = new Locations();
  include("$nwnpath/include/currentdb.inc.php");
  include("$nwnpath/include/sponsors.inc.php");
  $app = "04"; include("$nwnpath/include/dblog.inc.php"); 
@@ -84,7 +85,7 @@ $cgiStr = "";
 
 while( list($key, $sid) = each($_SESSION['stations']) ){
   $myData[$sid] = $data[$sid];
-  $myData[$sid]['sname'] = $Scities[$sid]['short'];
+  $myData[$sid]['sname'] = $locs->table[$sid]['short'];
   $cgiStr .= "st[]=". $sid ."&";
 }
 
@@ -168,7 +169,7 @@ while (list ($key, $val) = each ($finalA))  {
   echo "<tr>\n ";
   echo "<td><input type=\"checkbox\" name=\"str[]\" 
                value=\"".$key."\"></td>\n";
-  echo "<th><a href=\"javascript:new_window('". $baseurl ."gen/kcci_fe.php?station=".$key."');\">". $Scities[$key]['short'] . "</a></th>";
+  echo "<th><a href=\"javascript:new_window('". $baseurl ."gen/kcci_fe.php?station=".$key."');\">". $locs->table[$key]['sname'] . "</a></th>";
 
 
   echo "<td ";

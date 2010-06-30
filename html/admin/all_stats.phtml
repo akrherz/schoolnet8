@@ -47,7 +47,7 @@ current month up till the time of page load.</p>
     if ($hi)  echo 'bgcolor="#EEEEEE"';
     echo "><td><a href=\"site_stats.phtml?station=". $row["station"] ."\">". 
        $row["station"] ."</a></td>
-      <td>". $Scities[$row["station"]]["city"] ."</td>
+      <td>". $locs->table[$row["station"]]["city"] ."</td>
       <td>". $row["count"] ."</td>
       <td>". $row["hosts"] ."</td></tr>";
     $hi = ! $hi;

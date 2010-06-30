@@ -5,6 +5,7 @@
 $var = isset($_GET['var']) ? $_GET['var'] : 'tmpf';
 $station = isset($_GET['station']) ? substr($_GET['station'],0,5) : 'SKCI4';
 
+
 /* Session Stuff 
 $expiry = 60*60*24*100; // 100 days
 session_start();
@@ -38,6 +39,8 @@ if ($station2)
 	$uri .= "&amp;station2=$station2";
 }
  include_once('../include/locs.inc.php');
+ $locs = new Locations();
+ $metadata = $locs->table[$station];
  include('../include/imagemap.inc.php');
  include('../include/sponsors.inc.php');
  include('../include/currentdb.inc.php');
@@ -109,7 +112,7 @@ nwsli = "'. $station .'";
 </script>
 <script type="text/javascript" src="js/site.js?v=2"></script>
 ';
- $TITLE =  $Scities[$station]["city"];
+ $TITLE =  $metadata["city"];
  include("$nwnpath/include/header.inc.php");
 
 ?>
@@ -149,13 +152,13 @@ function nbheader($title, $pos, $name)
 
 <div id="leftside">
 <?php   
-if (isset($Scities[$station]["ftm"])) {
- echo "<div style=\"background: #ff0; color: #f00; padding: 2px; border: #000 dashed 1px;\"><b>Special Message</b><br />". $Scities[$station]["ftm"] ."</div>";
+if (isset($metadata["ftm"])) {
+ echo "<div style=\"background: #ff0; color: #f00; padding: 2px; border: #000 dashed 1px;\"><b>Special Message</b><br />". $metadata["ftm"] ."</div>";
 } 
 ?>
 <div id="datagrid"></div>
 
-<p style="margin: 5px;"><?php echo "<b><a href=\"$baseurl/site.phtml?station=$station\">". $Scities[$station]["city"] ."</a></b> SchoolNet8 Site is sponsored by <a href=\"". $baseurl ."tool/clicktru.php?station=$station\">". $sponsors[$station]["sponsor"] ."</a>"; ?>. &nbsp; <a href='javascript:addToFavorites("<?php echo $baseurl . $uri; ?>", "SchoolNet8.com | <?php echo $TITLE; ?>");'>Bookmark this page!</a>
+<p style="margin: 5px;"><?php echo "<b><a href=\"$baseurl/site.phtml?station=$station\">". $metadata["city"] ."</a></b> SchoolNet8 Site is sponsored by <a href=\"". $baseurl ."tool/clicktru.php?station=$station\">". $sponsors[$station]["sponsor"] ."</a>"; ?>. &nbsp; <a href='javascript:addToFavorites("<?php echo $baseurl . $uri; ?>", "SchoolNet8.com | <?php echo $TITLE; ?>");'>Bookmark this page!</a>
 <br />Help report rain and snow in your community by joining <a href="http://iowa.cocorahs.org">CoCoRaHS</a>.</p>
 
 
@@ -165,7 +168,7 @@ if (isset($Scities[$station]["ftm"])) {
  /* Unserialize climate data! */
  $cfname = sprintf("%s/include/climate_files/2000-%s.txt", $nwnpath, date("m-d") );
  $climate = unserialize( fread(fopen($cfname, 'r'), filesize($cfname) ) );
- $cdict = $climate[ strtolower($Scities[$station]['climate_site']) ];
+ $cdict = $climate[ strtolower($metadata['climate_site']) ];
  $avg_month_precip = $cdict["mtd"];
 ?>
 <table width="100%" cellspacing="0" cellpadding="3">
@@ -189,7 +192,7 @@ if (isset($Scities[$station]["ftm"])) {
 <?php 
  $astro = new Astro_Sunrise();
  $astro->setDate(date("Y"), date("m"), date("d"));
- $astro->setCoords( $Scities[$station]['lat'], $Scities[$station]['lon']);
+ $astro->setCoords( $metadata['lat'], $metadata['lon']);
  $astro->setTimezone(date('Z') / 3600 );
  echo sprintf("<tr><td colspan=\"4\">Sunrise: %s AM &nbsp; &nbsp; Sunset: %s PM</td></tr>", $astro->getSunrise(), $astro->getSunset() );
 ?>
@@ -253,7 +256,7 @@ else {
  <li><a href="<?php echo $baseurl; ?>ortho.phtml?station=<?php echo $station; ?>">Ortho Photography!</a></li>
  <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
  <li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
- <li><a href="http://www.crh.noaa.gov/forecast/MapClick.php?FcstType=text&amp;textField1=<?php echo $Scities[$station]['lat']; ?>&amp;textField2=<?php echo $Scities[$station]['lon']; ?>&amp;site=dmx">National Weather Service 7-Day Forecast</a></li>
+ <li><a href="http://www.crh.noaa.gov/forecast/MapClick.php?FcstType=text&amp;textField1=<?php echo $metadata['lat']; ?>&amp;textField2=<?php echo $metadata['lon']; ?>&amp;site=dmx">National Weather Service 7-Day Forecast</a></li>
 </ul>
 </div></div>
 
@@ -280,7 +283,7 @@ else {
 <?php
  for ($i=0;$i<5;$i++){
    $s = sprintf('<li><a href="%ssite.phtml?station=%s">%s</a></li>', 
-     $baseurl, $neighbors[$station][$i], $Scities[$neighbors[$station][$i]]['city']);
+     $baseurl, $neighbors[$station][$i], $locs->table[$neighbors[$station][$i]]['city']);
    echo $s;
  } 
 ?>

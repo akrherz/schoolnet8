@@ -10,6 +10,7 @@ $site = isset($_GET['station']) ? $_GET["station"]: "SKCI4";
 
  include("../../config/settings.inc.php");
  include("$nwnpath/include/locs.inc.php");
+ $locs = new Locations();
  include("$nwnpath/include/currentdb.inc.php");
 
  $obs = new currentdb();
@@ -57,7 +58,7 @@ $site = isset($_GET['station']) ? $_GET["station"]: "SKCI4";
         $kcci_logo = imagecreatefrompng ("Ames320.png");
         imagecopy($gif, $kcci_logo, 0, 0, 0, 0, 320, 320);
    
-  ImageTTFText($gif, 10, 0, 169 , 34, $white, "./kcci.ttf", strtoupper(substr($Scities[$site]["short"], 0, 16)) );
+  ImageTTFText($gif, 10, 0, 169 , 34, $white, "./kcci.ttf", strtoupper(substr($locs->table[$site]["sname"], 0, 16)) );
 
 if (! $offline)
 {

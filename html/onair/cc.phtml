@@ -3,6 +3,7 @@ $sortcol = $_GET['sortcol'];
 $today = mktime(0,0,0, date("m"), date("d"), date("Y"));
 include("../../config/settings.inc.php");
  include('../../include/locs.inc.php');
+ $locs = new Locations();
  include('../../include/currentdb.inc.php');
  include('../../include/sponsors.inc.php');
  $app = "04"; include("../../include/dblog.inc.php"); ?>
@@ -77,7 +78,7 @@ while (list ($key, $val) = each ($finalA))  {
     echo " bgcolor='#EEEEEE'"; 
   echo ">\n ";
   $oddRow = ! $oddRow;
-  echo "<th align=\"left\">". $Scities[$key]['short'] . "</th>";
+  echo "<th align=\"left\">". $locs->table[$key]['short'] . "</th>";
 
   echo "<td>". $parts["tmpf"] ."</td>"
       ."<td>". $parts["gmph"] ."</td>"
@@ -94,7 +95,7 @@ while (list ($key, $val) = each ($skippedStations) ) {
     echo " bgcolor='#EEEEEE'"; 
   echo ">\n ";
   $oddRow = ! $oddRow;
-  echo "<th align='left'>". $Scities[$key]['short'] . "</th>";
+  echo "<th align='left'>". $locs->table[$key]['short'] . "</th>";
   echo "<th colspan=4>Site Offline!</th></tr>";
 }
 

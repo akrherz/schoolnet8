@@ -29,8 +29,9 @@ $dbfFile = dbase_create( $shpFname.".dbf", array(
 );
 
 include("/home/akrherz/projects/nwnwebsite/include/locs.inc.php");
+$locs = new Locations();
 
-while (list($key, $val) = each($Scities) ){
+while (list($key, $val) = each($locs->table) ){
   if ($val["online"] == false){ continue; }
   createPoint( $val["lon"], $val["lat"], array($key, $val["short"]) );
 }

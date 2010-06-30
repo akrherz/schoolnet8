@@ -9,6 +9,7 @@ $station = isset($_GET['station']) ? $_GET["station"]: 'SKCI4';
 <?php
   include("../../config/settings.inc.php");
   include("../../include/locs.inc.php");
+  $locs = new Locations();
   $app = "01"; include("../../include/dblog.inc.php");
  if (strlen($station) == 0){
    $station = "SKCI4";
@@ -20,7 +21,7 @@ $station = isset($_GET['station']) ? $_GET["station"]: 'SKCI4';
  $secs = intval($min) * 60;
 
 ?>
-  <title>SchoolNet* | <?php echo $Scities[$station]["short"]; ?></title>
+  <title>SchoolNet* | <?php echo $locs->table[$station]["short"]; ?></title>
   <meta http-equiv="refresh" content="<?php echo $secs; ?>; URL=<?php echo $baseurl; ?>gen/kcci_fe.php?min=<?php echo $min; ?>&station=<?php echo $station; ?>">
 
 </head>
@@ -33,8 +34,8 @@ $station = isset($_GET['station']) ? $_GET["station"]: 'SKCI4';
   echo "SchoolNet Site: ";
 echo "<select  onChange=\"location=this.form.station.options[this.form.station.selectedIndex].value\" name=\"station\">\n";
 
-reset($Scities);
-while( list($id,$d) = each($Scities))
+reset($locs->table);
+while( list($id,$d) = each($locs->table))
 {
   if ($d["online"] == false){ continue; }
   echo "<option value=\"". $baseurl ."gen/kcci_fe.php?min=".$min."&station=". $id ."\"";

@@ -39,6 +39,7 @@ This page will automatically reload every 3 minutes.</p>
 <?php
 dl($mapscript);
 include('../../../../include/locs.inc.php');
+$locs = new Locations();
 @include('/mesonet/www/html/include/nexlib.php');
 include('../../../../include/currentdb.inc.php');
 include('../lib/radar.php');
@@ -99,7 +100,7 @@ foreach($data as $key => $ob){
    $precip[$key] = Array("ts" => $ob["ts"], "pDay" => round($ob["pday"],2), 
      "pMonth" => round($ob["pmonth"],2) );
    $pt = ms_newPointObj();
-   $pt->setXY($Scities[$key]["lon"], $Scities[$key]["lat"], 0);
+   $pt->setXY($locs->table[$key]["lon"], $locs->table[$key]["lat"], 0);
    if ($now - $ob["ts"] > 1800){
      $pt->draw($map, $site, $img, 1, "" );
    } else {
@@ -154,7 +155,7 @@ $now = time();
 foreach($precip as $key => $value){
   $pDay = round($precip[$key]["pDay"], 2);
   if ($pDay > 0 && ($now - $precip[$key]["ts"] < 1000) ){
-    echo "<tr><th>". $key ."</th><td>". $Scities[$key]["short"] ."</td>
+    echo "<tr><th>". $key ."</th><td>". $locs->table[$key]["sname"] ."</td>
      <td>". $precip[$key]["pDay"] ."</td><td>". $precip[$key]["pMonth"] ."</td></tr>\n";
   }
 }

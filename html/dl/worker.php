@@ -23,6 +23,7 @@ $delim = $_GET["delim"];
 $dl_option = $_GET["dl_option"];
 
 include("../../include/locs.inc.php");
+$locs = new Locations();
 include("../../include/mlib.php");
 
 $ts1 = mktime($s_hour, 0, 0, $s_month, $s_day, $s_year) or 
@@ -100,7 +101,7 @@ if ($dl_option == "download"){
 
  for( $i=0; $row = @pg_fetch_array($rs,$i); $i++) 
  {
-  printf("%s%s%s%s%s", $station , $d[$delim],  $Scities[$station]["city"], 
+  printf("%s%s%s%s%s", $station , $d[$delim],  $locs->table[$station]["city"], 
      $d[$delim], $row["dvalid"]);
   for ($j=0; $j< $num_vars;$j++){
     if ($vars[$j] == "drct") 
@@ -113,7 +114,7 @@ if ($dl_option == "download"){
 
  for( $i=0; $row = @pg_fetch_array($rs,$i); $i++) 
  {
-  printf("%s%s%s%s%s", $station , $d[$delim], $Scities[$station]["city"],
+  printf("%s%s%s%s%s", $station , $d[$delim], $locs->table[$station]["city"],
      $d[$delim], $row["dvalid"]);
   for ($j=0; $j< $num_vars;$j++){
     if ($vars[$j] == "drct")

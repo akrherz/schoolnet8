@@ -18,6 +18,7 @@ $delim = $_GET["delim"];
 $dl_option = $_GET["dl_option"];
 
 include("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 
 $ts1 = mktime(0, 0, 0, $s_month, $s_day, $s_year) or 
   die("Invalid Date Format");
@@ -85,7 +86,7 @@ if ($dl_option == "download"){
 
  for( $i=0; $row = @pg_fetch_array($rs,$i); $i++) 
  {
-  printf("%s%s%s%s%s", $station , $d[$delim],  $Scities[$station]["city"], 
+  printf("%s%s%s%s%s", $station , $d[$delim],  $locs->table[$station]["city"], 
      $d[$delim], $row["dvalid"]);
   for ($j=0; $j< $num_vars;$j++){
     printf("%s%6s", $d[$delim], $row["var".$j]) ;
@@ -97,7 +98,7 @@ if ($dl_option == "download"){
 
  for( $i=0; $row = @pg_fetch_array($rs,$i); $i++) 
  {
-  printf("%s%s%s%s%s", $station , $d[$delim], $Scities[$station]["city"],
+  printf("%s%s%s%s%s", $station , $d[$delim], $locs->table[$station]["city"],
      $d[$delim], $row["dvalid"]);
   for ($j=0; $j< $num_vars;$j++){
      printf("%s%6s", $d[$delim], $row["var".$j]) ;

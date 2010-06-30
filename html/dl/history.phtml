@@ -1,6 +1,7 @@
 <?php
  include("../../config/settings.inc.php");
  include('../../include/locs.inc.php');
+ $locs = new Locations();
  /* Get vars */
  $sortcol = isset($_GET['sortcol']) ? $_GET['sortcol'] : 'sid';
 ?>
@@ -33,7 +34,7 @@ function aSortBySecondIndex($multiArray, $secondIndex) {
  $fc = file('history.dat');
  while (list ($line_num, $line) = each ($fc)) {
    $tokens = split (",", $line);
-   $data[ $tokens[0] ] = Array( "sid" => $tokens[0], "sname" => $Scities[$tokens[0]]["city"], "sts" => $tokens[1] );
+   $data[ $tokens[0] ] = Array( "sid" => $tokens[0], "sname" => $locs->table[$tokens[0]]["city"], "sts" => $tokens[1] );
  } // End of while
 
  $data = aSortBySecondIndex($data, $sortcol);

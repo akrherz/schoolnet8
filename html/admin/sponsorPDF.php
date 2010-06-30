@@ -6,13 +6,12 @@
     count(distinct(ip)) as hosts from site_stats GROUP by station;
  update site_stats_report SET station = 'CIPCO' WHERE station = 'NONE';
  delete from site_stats_report WHERE station = 'S03I4';
+ delete from site_stats_report WHERE station = 'KCCI-002';
  create table apphits as SELECT count(valid) as hits, app from site_stats 
    GROUP by app;
  delete from apphits WHERE app = '-1';
- GRANT select on site_stats_report to apache;
- GRANT select on apphits to apache;
- GRANT select on site_stats_report to kcci;
- GRANT select on apphits to kcci;
+ GRANT select on site_stats_report to apache,kcci;
+ GRANT select on apphits to apache,kcci;
 */
 
 set_time_limit(1000);
@@ -20,9 +19,10 @@ include('../../config/settings.inc.php');
 define('FPDF_FONTPATH',"$nwnpath/include/fpdf/font/");
 require("$nwnpath/include/fpdf/fpdf.php");
 include("$nwnpath/include/locs.inc.php"); 
+$locs = new Locations();
 include("$nwnpath/include/sponsors.inc.php"); 
 include("$nwnpath/include/cameras.inc.php"); 
-$Scities["CIPCO"] = Array("short" => "CIPCO", "city" => "CIPCO", 
+$locs->table["CIPCO"] = Array("short" => "CIPCO", "city" => "CIPCO", 
                           "id" =>  "CIPCO");
 $sponsors["CIPCO"] = Array("name"=> "CIPCO", "sponsor" => "CIPCO");
 $byS = Array();
@@ -53,7 +53,6 @@ function Footer()
 function Header()
 {
     global $station;
-    global $Scities;
     //Logo
     $this->Image('../images/banner.png',40,8, 120);
     //Arial bold 15
@@ -70,7 +69,7 @@ function Header()
 //Load data
 function LoadData()
 {
-  global $cameras, $sponsors, $station,  $byS, $Scities, $dbhost;
+  global $cameras, $sponsors, $station,  $byS, $dbhost;
   $c = pg_connect($dbhost);
   pg_exec($c, "set enable_seqscan=off");
   $q0 = "SELECT station, hits, hosts from 
@@ -88,8 +87,8 @@ function LoadData()
 	$spon = array_key_exists($station, $sponsors) ?
            $sponsors[$station]['sponsor']: $cameras[$station]["sponsor"];
     $data[$station]['sponsor'] = $spon;
-	$data[$station]['short'] = array_key_exists($station, $Scities) ?
-       $Scities[$station]['short'] : $cameras[$station]["name"] ;
+	$data[$station]['short'] = array_key_exists($station, $locs->table) ?
+       $locs->table[$station]['short'] : $cameras[$station]["name"] ;
     $data[$station]['c_count'] = 0;
 
     /* Okay, go search for clicktrus for this station! */

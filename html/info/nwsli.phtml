@@ -2,6 +2,7 @@
  include("../../config/settings.inc.php"); 
  include("$nwnpath/include/sponsors.inc.php");
  include("$nwnpath/include/locs.inc.php");
+ $locs = new Locations();
 
 $TITLE = "NWSLI"; include("$nwnpath/include/header.inc.php");
 $THISPAGE = "training-web"; include("$nwnpath/include/bar.inc.php");
@@ -17,7 +18,7 @@ applications on this website.</p>
  <tr><th>NWS ID</th><th>Site Name</th><th>Sponsor</th></tr>
 
 <?php
-while ( list($sid, $tbl) = each($Scities) )
+while ( list($sid, $tbl) = each($locs->table) )
 {
   echo '<tr><th>'. $sid .'</th><td>'. $tbl['city'] .'</td><td><a href="'. $baseurl .'tool/clicktru.php?station='. $sid .'">'. $sponsors[$sid]['sponsor'] .'</a></td></tr>';
 

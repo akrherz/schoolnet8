@@ -1,6 +1,7 @@
 <?php
 include("../../config/settings.inc.php");
 include("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 
 $uid = isset($_GET['uid']) ? $_GET["uid"]: "";
 $status = isset($_GET['status']) ? $_GET["status"]: "";
@@ -28,7 +29,7 @@ $c = pg_connect($iemkccidb);
 //--------------------------------------------------------------------
 if (strlen($selectall) > 0){
   $st = Array();
-  foreach($Scities as $key => $value){
+  foreach($locs->table as $key => $value){
     $st[] = $key; 
   }
 }
@@ -45,16 +46,16 @@ if (sizeof($st) > 0){
     if (! in_array($osid, $st) ){
       pg_exec($c, "DELETE from walerts WHERE uid = ". $uid ." 
        and sid = '". $osid ."' ");
-      echo "<br>Removed Site: ". $Scities[$osid]['city'];
+      echo "<br>Removed Site: ". $locs->table[$osid]['city'];
     } 
   } 
 
 
   foreach ($st as $sid){
-    if (array_key_exists($sid, $Scities) && ! in_array($sid, $ost) ){ // Valid City
+    if (array_key_exists($sid, $locs->table) && ! in_array($sid, $ost) ){ // Valid City
       pg_exec($c, "INSERT into walerts(sid, uid) 
           VALUES ('".$sid."','".$uid."')");
-      echo "<br>Added Site: ". $Scities[$sid]['city'];
+      echo "<br>Added Site: ". $locs->table[$sid]['city'];
     }    
   }
 }

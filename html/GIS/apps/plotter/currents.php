@@ -7,6 +7,7 @@ dl($mapscript);
 $app = "12"; include("$nwnpath/include/dblog.inc.php"); 
 include("$nwnpath/include/forms.inc.php");
 include("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 include("$nwnpath/include/radar.php");
 
 $ERROR = "";
@@ -363,11 +364,11 @@ function setLayerDisplay( layerName, d ) {
       <?php
         $stStr = "";
         $strStr = "";
-        foreach ($Scities as $key => $value) {
+        foreach ($locs->table as $key => $value) {
           if (in_array($key, array_keys($myStations) )) {
-            $stStr .= "<option value=". $key ."> ". $Scities[$key]['short'] ;
+            $stStr .= "<option value=". $key ."> ". $value['sname'] ;
           } else {
-            $strStr .= "<option value=". $key ."> ". $Scities[$key]['short'] ;
+            $strStr .= "<option value=". $key ."> ". $value['sname'] ;
           }
         } 
       ?>

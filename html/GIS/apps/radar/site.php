@@ -9,6 +9,7 @@ $height = isset($_GET['height']) ? $_GET["height"]: 240;
 
 //__________________ Includes ----------------
 include("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 include("$nwnpath/include/currentdb.inc.php");
 include("$nwnpath/include/radar.php");
 dl($mapscript);
@@ -48,9 +49,9 @@ $varDef = Array("tmpf" => "Current Temperatures",
 $lats = Array();
 $lons = Array();
 
-foreach($Scities as $key => $value){
-  $lats[$key] = $Scities[$key]["lat"];
-  $lons[$key] = $Scities[$key]["lon"];
+foreach($locs->table as $key => $value){
+  $lats[$key] = $value["lat"];
+  $lons[$key] = $value["lon"];
 }
 
 
@@ -61,8 +62,8 @@ $map->setProjection($proj);
 $map->set("width", $width);
 $map->set("height", $height);
 
-$lat = $Scities[$station]['lat'];
-$lon = $Scities[$station]['lon'];
+$lat = $locs->table[$station]['lat'];
+$lon = $locs->table[$station]['lon'];
 $projInObj = ms_newprojectionobj("init=epsg:4326");
 $projOutObj = ms_newprojectionobj($proj);
 
@@ -195,7 +196,7 @@ if ($tvgood)
   doppler8logo($map, $img, 260, 27, 53);
 }
 mktitle($map, $img, 0, $height - 10, " ". $varDef[$var] ." @ ". date("h:i A") ."                                                    ");
-mkstationtitle($map, $img,  5, 10, $Scities[$station]["city"] );
+mkstationtitle($map, $img,  5, 10, $locs->table[$station]["city"] );
 
 header("Content-type: image/png");
 $img->saveImage('');

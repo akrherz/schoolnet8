@@ -1,6 +1,7 @@
 <?php
 include("../config/settings.inc.php");
 include_once("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 include_once("$nwnpath/include/imagemap.inc.php");
 
 $station = isset($_GET['station']) ? substr($_GET['station'],0,5) : 'SKCI4';
@@ -21,7 +22,7 @@ dl($mapscript);
 $projInObj = ms_newprojectionobj("init=epsg:4326");
 $projOutObj = ms_newprojectionobj("init=epsg:26915");
 $point = ms_newpointobj();
-$point->setXY($Scities[$station]["lon"], $Scities[$station]["lat"]);
+$point->setXY($locs->table[$station]["lon"], $locs->table[$station]["lat"]);
 $point->project($projInObj, $projOutObj);
 
 
@@ -78,7 +79,7 @@ $THISPAGE = "mysite-ortho";
 include("$nwnpath/include/bar.inc.php"); ?>
 
 
-<h3>Overhead Ortho Photography for <?php echo $Scities[$station]["city"]; ?></h3>
+<h3>Overhead Ortho Photography for <?php echo $locs->table[$station]["city"]; ?></h3>
 
 <div id="map" style="width:100%; height: 360px;"></div>
 

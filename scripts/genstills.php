@@ -5,6 +5,7 @@ include('../config/settings.inc.php');
 set_time_limit(58);
 
 include('../include/locs.inc.php');
+$locs = new Locations();
 include('../include/sponsors.inc.php');
 include('../include/radar.php');
 include('../include/currentdb.inc.php');
@@ -17,11 +18,11 @@ $validRADAR = kccidopplerrecent();
 dl($mapscript);
 
 /** Time to loop over each Site! */
-foreach($Scities as $key => $value)
+foreach($locs->table as $key => $value)
 {
   $sid = $key;
-  $lat = $Scities[$sid]['lat'];
-  $lon = $Scities[$sid]['lon'];
+  $lat = $value['lat'];
+  $lon = $value['lon'];
 
   $map = ms_newMapObj($mapfile);
   $map->selectOutputFormat("png24");
@@ -98,8 +99,8 @@ foreach($Scities as $key => $value)
   foreach($obs->db as $key => $ob)
   {
     if (! $ob['iscurrent']) continue;
-    $lon = $Scities[$key]['lon'];
-    $lat = $Scities[$key]['lat'];
+    $lon = $locs->table[$key]['lon'];
+    $lat = $locs->table[$key]['lat'];
     $pt = ms_newPointObj();
     $pt->setXY($lon, $lat, 0);
     $rotate =  0 - intval($ob["drct"]);
@@ -123,14 +124,14 @@ foreach($Scities as $key => $value)
     doppler8logo($map, $img, 260, 27, 53);
   mktitle($map, $img, 0, 230, " Sponsored by ". $sponsors[$sid]["sponsor"] );
   putenv("TZ=CST6CDT");
-  mkstationtitle($map, $img,  5, 10, $Scities[$sid]["city"] ." @ ". date("h:i A") );
+  mkstationtitle($map, $img,  5, 10, $locs->table[$sid]["city"] ." @ ". date("h:i A") );
 
   $img->saveImage('/tmp/radimages/'. $sid .'.png');
   $img->free();
 }
 
 chdir("/tmp/radimages");
-foreach($Scities as $sid => $value)
+foreach($locs->table as $sid => $value)
 {
   system("/home/ldm/bin/pqinsert -p 'lsdimages cr 000000000000 kcci/radar/${sid}/${sid}_ bogus png' ${sid}.png");
 }

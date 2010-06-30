@@ -11,6 +11,7 @@ $height = $_GET['height'];
 //__________________ Includes ----------------
 include('../../config/settings.inc.php');
 include("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 include("$nwnpath/include/radar.php");
 dl("php_mapscript_401.so");
 
@@ -45,9 +46,9 @@ $varDef = Array("tmpf" => "Current Temperatures",
 $lats = Array();
 $lons = Array();
 
-foreach($Scities as $key => $value){
-  $lats[$key] = $Scities[$key]["lat"];
-  $lons[$key] = $Scities[$key]["lon"];
+foreach($locs->table as $key => $value){
+  $lats[$key] = $value["lat"];
+  $lons[$key] = $value["lon"];
 }
 
 
@@ -58,8 +59,8 @@ $map->setProjection($proj);
 $map->set("width", $width);
 $map->set("height", $height);
 
-$lat = $Scities[$station]['lat'];
-$lon = $Scities[$station]['lon'];
+$lat = $locs->table[$station]['lat'];
+$lon = $locs->table[$station]['lon'];
 $projInObj = ms_newprojectionobj("init=epsg:4326");
 $projOutObj = ms_newprojectionobj($proj);
 

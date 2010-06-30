@@ -2,6 +2,7 @@
  /* Attempt at my first Live grid! */
 include('../../config/settings.inc.php');
 include("$nwnpath/include/locs.inc.php");
+$locs = new Locations();
 
 $HEADEXTRA = "<script type=\"text/javascript\" src=\"${baseurl}/ext/adapter/ext/ext-base.js\"></script>
 <script type=\"text/javascript\" src=\"${baseurl}/ext/ext-all.js\"></script>
@@ -100,8 +101,8 @@ Ext.onReady(function(){
 
   var siteLookup = new Ext.util.MixedCollection();
 <?php
-reset($Scities);
-while( list($id,$d) = each($Scities) )
+reset($locs->table);
+while( list($id,$d) = each($locs->table) )
 {
   echo "siteLookup.add('$id', \"". $d['city'] ."\");";
 }

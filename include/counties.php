@@ -35,7 +35,7 @@ foreach(array_keys($cdb) as $key){
     echo "<tr><td width=15><input type=\"checkbox\" name=\"st[]\" value=\"". $sid ."\" ";
     if (in_array($sid, $st)) echo "CHECKED";
     echo "></td>
-      <td align=\"left\">". $Scities[$sid]['city'] ."</td></tr>";
+      <td align=\"left\">". $locs->table[$sid]['city'] ."</td></tr>";
   }
   echo "</table>";
 

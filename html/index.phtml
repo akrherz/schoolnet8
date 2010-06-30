@@ -1,11 +1,12 @@
 <?php  /* /index.phtml */
  include("../config/settings.inc.php"); 
  include("$nwnpath/include/locs.inc.php");
+ $locs = new Locations();
  include("$nwnpath/include/sponsors.inc.php");
  include("$nwnpath/include/cameras.inc.php");
  include("$nwnpath/include/imagemap.inc.php");
   srand ((float) microtime() * 10000000);
-  $station = array_rand($Scities);
+  $station = array_rand($locs->table);
  $app = "05"; include("../include/dblog.inc.php");
 
 $HEADEXTRA = "<script src=\"http://maps.google.com/maps?file=api&v=2&key=$GMAPS_KEY\" type=\"text/javascript\"></script>

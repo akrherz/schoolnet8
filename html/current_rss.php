@@ -3,6 +3,7 @@
 
 include("../config/settings.inc.php");
 include('../include/locs.inc.php');
+$locs = new Locations();
 include('../include/currentdb.inc.php');
 $app = "28"; include("../include/dblog.inc.php");
 
@@ -41,7 +42,7 @@ function aSortBySecondIndex($multiArray, $secondIndex, $sortdir) {
 
 $obs = new currentdb();
 while (list ($key, $val) = each ($obs->db))  {
-  $obs->db[$key]['sname'] =  $Scities[$key]['short'];
+  $obs->db[$key]['sname'] =  $locs->table[$key]['sname'];
 }
 reset ($obs->db);
 $finalA = Array();
@@ -52,9 +53,9 @@ while (list ($key, $val) = each ($finalA))  {
   $s .= "<item>";
   if ( ($val["ts"] + 300) < time() ) 
   {
-    $s .= sprintf("<title>%s; Currently Not Reporting</title>", $Scities[$key]['short']  );
+    $s .= sprintf("<title>%s; Currently Not Reporting</title>", $locs->table[$key]['sname']  );
   } else {
-    $s .= sprintf("<title>%s; Temp: %s F, Rainfall: %s</title>", $Scities[$key]['short'], $val["tmpf"], $val["pday"] );
+    $s .= sprintf("<title>%s; Temp: %s F, Rainfall: %s</title>", $locs->table[$key]['sname'], $val["tmpf"], $val["pday"] );
   }
   $s .= "<author>KCCI</author>";
   $s .= "<link>http://www.schoolnet8.com/site.phtml?station=". $key ."</link>";
