@@ -17,7 +17,14 @@ import simplejson
 from sys import stdout
 import traceback
 import re, mx.DateTime, sys, os
-from pyIEM import mesonet, nwnformat
+import nwnformat
+
+nwsli_lkp = {}
+import pg
+dbconn = pg.connect('kcci')
+rs = dbconn.query("SELECT nwn_id, id from stations").dictresult()
+for i in range(len(rs)):
+  nwsli_lkp[ int(rs[i]['nwn_id']) ] = rs[i]['id']
 
 db = {}                 
 
@@ -47,9 +54,9 @@ class NWNClientFactory(hubclient.HubClientProtocolBaseFactory):
              return
 
         siteID = int(tokens[1])
-        if not mesonet.snetConv.has_key( siteID ):
+        if not nwsli_lkp.has_key( siteID ):
             return
-        nwsli = mesonet.snetConv[ siteID ]
+        nwsli = nwsli_lkp[ siteID ]
         if not db.has_key(nwsli):
             db[nwsli] = nwnformat.nwnformat(do_avg_winds=False)
             db[nwsli].sid = siteID
