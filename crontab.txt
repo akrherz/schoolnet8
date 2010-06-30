@@ -1,0 +1,1 @@
+1 0 * * * cd projects/nwnwebsite/scripts; /mesonet/python/bin/python astronomy.py
