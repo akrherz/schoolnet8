@@ -163,13 +163,10 @@ if (isset($metadata["ftm"])) {
 
 
 <!-- Climate -->
-<?php echo nbheader("Climatology for ". date("F d"), 3, "climate"); ?>
-<?php
+<?php 
+ echo nbheader("Climatology for ". date("F d"), 3, "climate"); 
  /* Unserialize climate data! */
- $cfname = sprintf("%s/include/climate_files/2000-%s.txt", $nwnpath, date("m-d") );
- $climate = unserialize( fread(fopen($cfname, 'r'), filesize($cfname) ) );
- $cdict = $climate[ strtolower($metadata['climate_site']) ];
- $avg_month_precip = $cdict["mtd"];
+ $cdict = $locs->find_climate($station);
 ?>
 <table width="100%" cellspacing="0" cellpadding="3">
 <thead><tr><th></th><th>Average</th><th>Record</th></tr></thead>
@@ -186,7 +183,7 @@ if (isset($metadata["ftm"])) {
   <td><?php echo sprintf("%s\" (%s)", $cdict["max_precip"], $cdict["max_precip_yr"]); ?></td>
 </tr>
 <tr>
- <td colspan="2">Average monthly precip<br /> <?php echo date("M"); ?>-01 to <?php echo date("M-d"); ?></td><td><?php echo sprintf("%.2f", $avg_month_precip ); ?>"</td>
+ <td colspan="2">Average monthly precip<br /> <?php echo date("M"); ?>-01 to <?php echo date("M-d"); ?></td><td><?php echo sprintf("%.2f", $cdict["precip_mtd"] ); ?>"</td>
 </tr>
 
 <?php 

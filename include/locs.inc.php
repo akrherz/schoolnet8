@@ -25,6 +25,20 @@ class Locations {
     pg_close($dbconn);
   }
 
+  function find_climate($station)
+  {
+    global $dbhost;
+    $dbconn = pg_connect($dbhost);
+    $rs = pg_prepare($dbconn, "SELECT", "SELECT * from climate51 WHERE
+          station = $1 and valid = $2");
+    $rs = pg_execute($dbconn, "SELECT", Array(
+          strtolower($this->table[$station]["climate_site"]),
+          "2000-". date("m-d")));
+    $row = pg_fetch_array($rs,0);
+    pg_close($dbconn);
+    return $row;
+  }
+
   function find_nwsli($id)
   {
     reset($this->table);
