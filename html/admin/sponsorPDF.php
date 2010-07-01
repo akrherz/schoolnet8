@@ -22,7 +22,7 @@ include("$nwnpath/include/locs.inc.php");
 $locs = new Locations();
 include("$nwnpath/include/sponsors.inc.php"); 
 include("$nwnpath/include/cameras.inc.php"); 
-$locs->table["CIPCO"] = Array("short" => "CIPCO", "city" => "CIPCO", 
+$locs->table["CIPCO"] = Array("sname" => "CIPCO", "city" => "CIPCO", 
                           "id" =>  "CIPCO");
 $sponsors["CIPCO"] = Array("name"=> "CIPCO", "sponsor" => "CIPCO");
 $byS = Array();
@@ -69,7 +69,7 @@ function Header()
 //Load data
 function LoadData()
 {
-  global $cameras, $sponsors, $station,  $byS, $dbhost;
+  global $cameras, $sponsors, $station,  $byS, $dbhost, $locs;
   $c = pg_connect($dbhost);
   pg_exec($c, "set enable_seqscan=off");
   $q0 = "SELECT station, hits, hosts from 
@@ -87,8 +87,8 @@ function LoadData()
 	$spon = array_key_exists($station, $sponsors) ?
            $sponsors[$station]['sponsor']: $cameras[$station]["sponsor"];
     $data[$station]['sponsor'] = $spon;
-	$data[$station]['short'] = array_key_exists($station, $locs->table) ?
-       $locs->table[$station]['short'] : $cameras[$station]["name"] ;
+	$data[$station]['sname'] = array_key_exists($station, $locs->table) ?
+       $locs->table[$station]['sname'] : $cameras[$station]["name"] ;
     $data[$station]['c_count'] = 0;
 
     /* Okay, go search for clicktrus for this station! */
@@ -182,7 +182,7 @@ function FancyTable($header,$data, $pTotals)
              $tHosts = $row['hosts'];
              continue;
            }
-           $this->Cell($w[0],5,$row['short'],'LR',0,'L',$fill);
+           $this->Cell($w[0],5,$row['sname'],'LR',0,'L',$fill);
            $this->Cell($w[1],5,$row['sponsor'],'LR',0,'L',$fill);
            $this->Cell($w[2],5,number_format($row['hits']),'LR',0,'R',$fill);
            $this->Cell($w[3],5,number_format($row['hosts']),'LR',0,'R',$fill);
@@ -384,8 +384,8 @@ foreach($data as $row){
   if (substr($row["station"],0,5) == "KCCI-"){ $wdata[] = $row; }
   else{ $sdata[] = $row; }
 }
-$wdata = aSortBySecondIndex($wdata, "short");
-$sdata = aSortBySecondIndex($sdata, "short");
+$wdata = aSortBySecondIndex($wdata, "sname");
+$sdata = aSortBySecondIndex($sdata, "sname");
 
 /* Webcam stats first */
 $pdf->AddPage();
