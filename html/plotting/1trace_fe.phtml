@@ -12,6 +12,8 @@ $nwsli = $station;
 include("../../include/imagemap.inc.php");
 include("../../include/forms.inc.php");
 
+include("../../include/locs.inc.php");
+$locs = new Locations($station);
 include("../../include/select_widget.php");
 $sw = new selectWidget($nwnpath, "bogus");
 $sw->performQuery($_GET);
