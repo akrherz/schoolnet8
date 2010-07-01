@@ -404,7 +404,7 @@ foreach($myStations as $key => $value){
   {
    $pt = ms_newPointObj();
    $pt->setXY($lon, $lat, 0);
-   $pt->draw($map, $snet, $img, 1, $locs->table[$key]["short"] );
+   $pt->draw($map, $snet, $img, 1, $locs->table[$key]["sname"] );
    $pt->free();
   }
 
