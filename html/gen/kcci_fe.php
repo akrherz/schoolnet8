@@ -21,7 +21,7 @@ $station = isset($_GET['station']) ? $_GET["station"]: 'SKCI4';
  $secs = intval($min) * 60;
 
 ?>
-  <title>SchoolNet* | <?php echo $locs->table[$station]["short"]; ?></title>
+  <title>SchoolNet* | <?php echo $locs->table[$station]["sname"]; ?></title>
   <meta http-equiv="refresh" content="<?php echo $secs; ?>; URL=<?php echo $baseurl; ?>gen/kcci_fe.php?min=<?php echo $min; ?>&station=<?php echo $station; ?>">
 
 </head>
