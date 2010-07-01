@@ -10,8 +10,8 @@
  create table apphits as SELECT count(valid) as hits, app from site_stats 
    GROUP by app;
  delete from apphits WHERE app = '-1';
- GRANT select on site_stats_report to apache,kcci;
- GRANT select on apphits to apache,kcci;
+ GRANT select on site_stats_report to apache;
+ GRANT select on apphits to apache;
 */
 
 set_time_limit(1000);
