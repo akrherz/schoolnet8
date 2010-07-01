@@ -1,6 +1,5 @@
 <?php
 // Library for GIS + radar stuff!
-// Daryl Herzmann 28 Feb 2003
 
 function doppler8logo($map, $imgObj, $x0, $y0, $size) {
   $layer = $map->getLayerByName("doppler8");
@@ -20,8 +19,7 @@ function mktitle($map, $imgObj, $x0, $y0, $titlet) {
   $point = ms_newpointobj();
   $point->setXY($x0, $y0);
 
-  $point->draw($map, $layer, $imgObj, "credits",
-    $titlet);
+  $point->draw($map, $layer, $imgObj, "credits", $titlet);
 }
 
 function mkstationtitle($map, $imgObj, $x0, $y0, $titlet) {

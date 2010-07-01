@@ -1,4 +1,52 @@
 --
+-- Location Metadata
+--
+CREATE TABLE stations (
+  id varchar(5) UNIQUE,
+  sname varchar,
+  city varchar,
+  online boolean,
+  nwn_id smallint,
+  climate_site varchar(6),
+  ftm text
+);
+SELECT AddGeometryColumn('stations', 'geom', 4326, 'POINT', 2);
+GRANT SELECT on stations to nobody,apache;
+
+--
+-- Climate data
+--
+CREATE TABLE climate51 (
+    station character varying(6),
+    valid date,
+    high real,
+    low real,
+    precip real,
+    snow real,
+    max_high real,
+    max_low real,
+    min_high real,
+    min_low real,
+    max_precip real,
+    years real,
+    gdd50 real,
+    sdd86 real,
+    max_high_yr integer,
+    max_low_yr integer,
+    min_high_yr integer,
+    min_low_yr integer,
+    max_precip_yr integer,
+    max_range smallint,
+    min_range smallint,
+    precip_mtd real,
+    moonrise timestamp,
+    moonset timestamp,
+    moonphase varchar
+);
+GRANT SELECT on climate51 to nobody,apache;
+
+
+--
 -- PostgreSQL database dump
 --
 

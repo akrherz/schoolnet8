@@ -192,6 +192,11 @@ if (isset($metadata["ftm"])) {
  $astro->setCoords( $metadata['lat'], $metadata['lon']);
  $astro->setTimezone(date('Z') / 3600 );
  echo sprintf("<tr><td colspan=\"4\">Sunrise: %s AM &nbsp; &nbsp; Sunset: %s PM</td></tr>", $astro->getSunrise(), $astro->getSunset() );
+
+ echo sprintf("<tr><th colspan=\"4\"><u>Moon ( %s )</u><br />Rise: %s &nbsp; &nbsp; Set: %s </td></tr>", 
+           $metadata["moonphase"],
+           date("g:i A", strtotime($metadata["moonrise"])), 
+           date("g:i A", strtotime($metadata["moonset"])) );
 ?>
 </table>
 <br />&nbsp;
