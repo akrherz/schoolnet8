@@ -16,7 +16,7 @@ class Locations {
       $rs = pg_execute($dbcoon, "SELECT", Array($station));
     } else {
       $rs = pg_query($dbconn, "SELECT *, x(geom) as lon, 
-            y(geom) as lat from stations");
+            y(geom) as lat from stations ORDER by city ASC");
     }
     for( $i=0; $row = @pg_fetch_array($rs,$i); $i++)
     {
