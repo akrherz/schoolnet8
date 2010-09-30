@@ -10,7 +10,7 @@
  $app = "05"; include("../include/dblog.inc.php");
 
 $HEADEXTRA = "<script src=\"http://maps.google.com/maps?file=api&v=2&key=$GMAPS_KEY\" type=\"text/javascript\"></script>
-<script src='http://www.openlayers.org/api/2.8/OpenLayers.js'></script>
+<script src='http://www.openlayers.org/api/2.10/OpenLayers.js'></script>
 <script src='${baseurl}js/webcams.php'></script>
 <script type=\"text/javascript\">
 var selectedSite='$station';
@@ -75,7 +75,7 @@ function olinit(){
                 'Google Streets',
                  {'sphericalMercator': true}
             );
-  googleLayer.setVisibility(true);
+  
 
   var superdoppler = new OpenLayers.Layer.WMS.Untiled(\"KCCI Super DopplerHD\",
      \"http://mesonet.agron.iastate.edu/cgi-bin/wms/iowa/kcci.cgi?\",
