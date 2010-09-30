@@ -81,6 +81,6 @@ $sponsors = Array(
 "SWGI4" => Array("name"=> "Woodward-Granger", "sponsor" => "Guthrie County REC", "url" => "http://www.guthrie-rec.coop"),
 "CIPCO" => Array("name"=> "KCCI", "sponsor" => "CIPCO", "url" => "http://www.cipco.net/"),
 "MAIN" => Array("name"=> "KCCI", "sponsor" => "CIPCO", "url" => "http://www.cipco.net/"),
-"TOUCH" => Array("name"=> "KCCI", "sponsor" => "Touchtone Cooperative", "url" => "https://touchstoneenergy.cooperative.com/public/index.html"),
+"TOUCH" => Array("name"=> "KCCI", "sponsor" => "Touchtone Cooperative", "url" => "http://www.touchstoneenergy.com/"),
 );
 ?>
