@@ -13,7 +13,7 @@ class Locations {
     if ($station){
       $rs = pg_prepare($dbconn, "SELECT", "SELECT *, x(geom) as lon, 
             y(geom) as lat from stations WHERE id = $1");
-      $rs = pg_execute($dbcoon, "SELECT", Array($station));
+      $rs = pg_execute($dbconn, "SELECT", Array($station));
     } else {
       $rs = pg_query($dbconn, "SELECT *, x(geom) as lon, 
             y(geom) as lat from stations ORDER by city ASC");
