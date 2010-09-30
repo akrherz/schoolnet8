@@ -2,17 +2,27 @@
 /* Header bar providing for the sponsor logo and menu bar */
 include_once("$nwnpath/include/locs.inc.php");
 include_once("$nwnpath/include/sponsors.inc.php");
+
+$hextra = "";
 if (isset($station) && $station != "") { $lstation = $station; }
 else if (isset($camid)){ $lstation = $camid; }
-else if (! isset($station)){ $lstation = "MAIN"; }
+else if (! isset($station)){ 
+	/* This is the special header bar for generic pages, need to have a 
+	 * special clicktru option as well
+	 */
+	$lstation = "MAIN"; 
+	$hextra = sprintf("<a href=\"%stool/clicktru.php?station=TOUCH\">
+	<img src=\"%spics/touchstone.gif\" border=\"0\" /></a>", $baseurl, $baseurl);
+}
 else { $lstation = $station; }
+
 $clickapp = sprintf("%stool/clicktru.php?station=%s", $baseurl, $lstation);
 $sponsorlogo = sprintf("%spics/%s.gif", $baseurl, $lstation);
 ?>
 <div id="wrapper">
 <div id="imgbar" style="height:60px;">
 <a href="<?php echo $clickapp; ?>" target="_new"><img src="<?php echo $sponsorlogo; ?>" alt="Banner" style="border:0px;" height="60"/></a>
-</div>
+<?php echo $hextra; ?></div>
 <?php
 $_pages = Array(
  "homepage" => Array(
