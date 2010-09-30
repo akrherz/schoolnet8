@@ -5,41 +5,14 @@
 $var = isset($_GET['var']) ? $_GET['var'] : 'tmpf';
 $station = isset($_GET['station']) ? substr($_GET['station'],0,5) : 'SKCI4';
 
-
-/* Session Stuff 
-$expiry = 60*60*24*100; // 100 days
-session_start();
-
-if (isset($_SESSION['station']) && ! isset($_GET['station']) )
-{
-  $station = $_SESSION['station'];
-}
-$_SESSION['station'] = $station;
-*/
 if (isset($_COOKIE['station']) && ! isset($_GET['station']) )
 {
  $station = $_COOKIE['station'];
 }
 /* End Session Stuff */
-
-$uri = "site.phtml?station=". $station;
-if ($var != "tmpf")
-	$uri .= "&amp;var=$var";
-if (isset($_GET["add"])) {
-	$uri .= "&amp;add=add";
-    $station2 = isset($_GET['station2']) ? $_GET['station2']: '';
-} else {
-   $station2 = '';
-}
-
-$s2 = 0;
-if ($station2)
-{
-    $s2 = 1;
-	$uri .= "&amp;station2=$station2";
-}
  include_once('../include/locs.inc.php');
  $locs = new Locations();
+ $station = $locs->verify_station($station);
  $metadata = $locs->table[$station];
  include('../include/imagemap.inc.php');
  include('../include/sponsors.inc.php');
@@ -47,6 +20,15 @@ if ($station2)
  include('../include/neighbors.inc.php');
  include('../include/radar_widget.php');
  include('../include/cameras.inc.php');
+
+$uri = "site.phtml?station=". $station;
+if ($var != "tmpf")
+	$uri .= "&amp;var=$var";
+if (isset($_GET["add"])) {
+	$uri .= "&amp;add=add";
+}
+
+
 
 $containers = Array(
  0 => Array("name"=>"lsd", "display" => "block"),
@@ -132,10 +114,7 @@ function sel($svar, $var, $txt){
 
  $obs = new currentdb();
  $ob1 = $obs->db[$station];
- if (strlen($station2) > 0){
-   $s2 =1;
-   $ob2 = $obs->db[$station2];
- }
+
 
 function nbheader($title, $pos, $name)
 {
@@ -276,7 +255,6 @@ else {
 <?php
    echo kcciSelect($station);
    /* echo "<br /><input type=\"radio\" value=\"add\" name=\"add\" />Compare Station";
-   echo "<input type=\"hidden\" value=\"". $station ."\" name=\"station2\" />";
    echo "<input type=\"hidden\" value=\"". $var ."\" name=\"var\" />"; */
    echo "<input type=\"submit\" value=\"Go!\" /></form>";
 ?>

@@ -24,6 +24,16 @@ class Locations {
     }
     pg_close($dbconn);
   }
+  
+  function verify_station($station)
+  {
+  	if (array_key_exists($station, $this->table)){return $station;}
+  	// Uh oh, we have an invalid station, lets try some standard tricks 
+  	$station = strtoupper($station);
+  	$station = str_replace('1','I', $station);
+    if (array_key_exists($station, $this->table)){return $station;}
+  	die("Invalid Station ID given, sorry: $station");
+  }
 
   function find_climate($station)
   {
