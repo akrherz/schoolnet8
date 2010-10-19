@@ -74,7 +74,7 @@ class GetJSON(resource.Resource):
         for key in db.keys():
           if (db[key].ts is None):
             continue
-          res['data'].append( {'t': db[key].tmpf, 'd': db[key].dwpf, 's': db[key].sped, 'r': db[key].drctTxt, 'm': db[key].ts.strftime("%d %b %I:%M:%S %p"), 'p':db[key].pDay, 'x':db[key].xsped, 'h':db[key].xtmpf, 'l':db[key].ntmpf } )
+          res['data'].append( {'a': db[key].pres, 't': db[key].tmpf, 'd': db[key].dwpf, 's': db[key].sped, 'r': db[key].drctTxt, 'm': db[key].ts.strftime("%d %b %I:%M:%S %p"), 'p':db[key].pDay, 'x':db[key].xsped, 'h':db[key].xtmpf, 'l':db[key].ntmpf } )
 
         return simplejson.dumps( res )
 
