@@ -1,4 +1,5 @@
 <?php
+include('../config/settings.inc.php');
 include('../include/locs.inc.php');
 $locs = new Locations();
 
