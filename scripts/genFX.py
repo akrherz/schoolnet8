@@ -102,6 +102,7 @@ def generator(sid, lat, lon):
     ts = ta['k-p12h-n14-3'][i]
     if not icons.has_key(ts):
         print 'Missing ICONS TS %s\n Keys: %s' % (ts, icons.keys() )
+        o.write("<td></td>")
     else:
         o.write("<td><img src=\"%s\" alt=\"fx\"/></td>" % (icons[ts],))
   o.write("</tr>\n")
