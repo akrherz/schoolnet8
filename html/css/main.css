@@ -182,13 +182,8 @@ h2	{
  margin-bottom: 3px;
  margin-top: 3px;
  text-indent: 15px;
-/* border-color: #990000;
- background-color: #EFB9B9; */
  color: #330000;
  border-bottom: 1px dashed;
-/* border-top: 0px solid;
- border-left: 3px solid;
- border-right: 0px solid; */
  padding: 1px;
 }
 #linkbar {
@@ -279,12 +274,17 @@ div.nb {
   padding: 0px;
   margin: 0px;
   margin-bottom: 10px;
-  background: #fff url(../images/sbar.gif) left top repeat-x; 
+/*  background: #fff url(../images/sbar.gif) left top repeat-x; */
 }
 div.nb h3 {
   margin: 0px;
-  padding: 5px;
-  color: #ee0;
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  color: #000;
+  background: #fcb93b;
+  border-bottom: 5px #ff0000 solid;
 }
 div.nb .nb_content {
   padding: 5px;

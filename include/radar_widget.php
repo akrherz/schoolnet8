@@ -118,7 +118,7 @@ function switchLayers( layerName ) {
 switchLayers('radlayerstill');
 -->
 </script>
-<?
+<?php
 } // End of function printHTML()
 
 } // End of radarWidget()

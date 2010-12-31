@@ -12,12 +12,12 @@ else if (! isset($station)){
 	 */
 	$lstation = "MAIN"; 
 	$hextra = sprintf("<a href=\"%stool/clicktru.php?station=TOUCH\">
-	<img src=\"%spics/touchstone.gif\" border=\"0\" /></a>", $baseurl, $baseurl);
+	<img src=\"%spics/touchstone.png\" border=\"0\" /></a>", $baseurl, $baseurl);
 }
 else { $lstation = $station; }
 
 $clickapp = sprintf("%stool/clicktru.php?station=%s", $baseurl, $lstation);
-$sponsorlogo = sprintf("%spics/%s.gif", $baseurl, $lstation);
+$sponsorlogo = sprintf("%spics/%s.png", $baseurl, $lstation);
 ?>
 <div id="wrapper">
 <div id="imgbar" style="height:60px;">
