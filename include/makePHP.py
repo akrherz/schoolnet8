@@ -11,7 +11,7 @@ o.write("""<?php
 $cxref = Array(
 """)
 for stid in st.ids:
-  sql = "select id, distance(geom,(select geom from stations WHERE id = '%s'))\
+  sql = "select id, distance(geom,(select geom from stations WHERE id = '%s' and network = 'KCCI'))\
     as distance  from webcams \
     WHERE online = 't' and network = 'KCCI' ORDER by distance" % (stid, )
 
