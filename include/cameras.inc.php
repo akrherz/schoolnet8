@@ -217,7 +217,7 @@ $cameras = Array(
     "hosted" => "",
     "hostedurl" => "",
     "moviebase" => "jeff",
-    "iservice" => "Jefferson Telecomm",
+    "iservice" => "Jefferson Telecom",
     "iserviceurl" => "http://www.jeffersontelecom.com/", "network" => "KCCI",
     "sponsor" => "Midland Power Cooperative", "sponsorurl" => "http://www.midlandpower.com",
     "ip" => "216.248.72.225", "county" => "Greene", "port" => "80"),
