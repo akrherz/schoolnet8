@@ -2,7 +2,7 @@
 # 31 Jan 2004	Lets do it!
 setenv TZ UTC
 
-cd /home/akrherz/projects/nwnwebsite/scripts
+cd /mesonet/www/apps/nwnwebsite/scripts
 
 #diff time.txt /home/ldm/data/kcci/time.txt >& /dev/null
 #diff /mesonet/data/gis/images/26915/DMX/meta/DMX_N0R_0.dbf DMX_N0R_0.dbf >& /dev/null

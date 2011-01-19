@@ -15,7 +15,7 @@ $obs->timecheck();
 
 $validRADAR = kccidopplerrecent();
 
-dl($mapscript);
+
 
 /** Time to loop over each Site! */
 foreach($locs->table as $key => $value)

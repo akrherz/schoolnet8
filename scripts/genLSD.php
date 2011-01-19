@@ -4,7 +4,7 @@ include('../include/radar.php');
 
 $validRADAR = kccidopplerrecent();
 
-dl($mapscript);
+
 
 function draw($bounds, $filename)
 {
