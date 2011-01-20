@@ -77,6 +77,7 @@ def generator(sid, lat, lon):
     #print "ICONS", tnames[ icons['taxis'] ]
     
     o = open('%s.html' % (sid,), 'w')
+    o.write("<!-- %s -->" % (sid,))
     o.write("<table cellspacing=\"0\" cellpadding=\"1\" width=\"640\">")
     
     o.write("<tr>")
