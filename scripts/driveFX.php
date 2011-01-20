@@ -10,7 +10,7 @@ foreach($locs->table as $key => $value)
   $lat = $value['lat'];
   $lon = $value['lon'];
   system("./genFX.py $sid $lat $lon");
-  system("/home/ldm/bin/pqinsert -p 'data c 000000000000 kcci/fx/$sid.html blah blah' ../data/fx/$sid.html");
+  system("/home/ldm/bin/pqinsert -p 'data c 000000000000 kcci/fx/$sid.html blah blah' $sid.html");
 }
 
 ?>
