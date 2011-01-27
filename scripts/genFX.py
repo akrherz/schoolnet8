@@ -45,6 +45,12 @@ def generator(sid, lat, lon):
         for v in elem.findall("./icon-link"):
             icons['vals'].append( v.text )
     
+    if not temps.has_key('Daily Maximum Temperature'):
+        print '--------------------------------------------------'
+        print 'Whoa, could not find daily maximum temperature key'
+        print doc
+        return
+    
     data = {}
     for val, tm in zip( temps['Daily Maximum Temperature']['vals'],
                 tnames[ temps['Daily Maximum Temperature']['taxis'] ] ):
