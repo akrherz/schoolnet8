@@ -94,7 +94,7 @@ function olinit(){
 
 
   jsonlayer = new OpenLayers.Layer.GML(\"KCCI SchoolNet8\", 
-    \"${baseurl}geojson/kcci.txt?\"+ (new Date()).getTime() ,
+    \"/geojson/kcci.txt?\"+ (new Date()).getTime() ,
             {
                 projection: new OpenLayers.Projection('EPSG:4326'),
                 format: OpenLayers.Format.GeoJSON, 
