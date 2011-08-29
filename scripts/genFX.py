@@ -48,6 +48,7 @@ def generator(sid, lat, lon):
     if not temps.has_key('Daily Maximum Temperature'):
         print '--------------------------------------------------'
         print 'Whoa, could not find daily maximum temperature key'
+        print sid
         print doc
         return
     
@@ -109,6 +110,7 @@ def generator(sid, lat, lon):
     
     o.write("</table>")
     o.close()
+    
 
 if (__name__ == "__main__"):
   generator(sys.argv[1], sys.argv[2], sys.argv[3])
