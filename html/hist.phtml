@@ -33,8 +33,9 @@ $year = strftime("%Y", $ts);
 
 $c = pg_connect($iemaccess);
 if ($mode == "monthly"){
- $sql = "SELECT *, to_char(day, 'YYYYMMDD') as dvalid
-   from summary_". $year ." WHERE station = '". $station ."' and
+ $sql = "SELECT s.*, to_char(day, 'YYYYMMDD') as dvalid
+   from summary_". $year ." s JOIN stations t ON (t.iemid = s.iemid)
+   WHERE t.id = '". $station ."' and
    extract(month from day) = ". $month ." and
    extract(year from day) = ". $year ."
    ORDER by day ASC";
@@ -43,8 +44,9 @@ if ($mode == "monthly"){
  if ($sortvar == "pday" || $sortvar == "max_tmpf" || $sortvar == "max_gust"){
    $sortorder = "DESC";
  }
- $sql = "SELECT *, to_char(day, 'YYYYMMDD') as dvalid
-   from summary_". $year ." WHERE network = 'KCCI' and
+ $sql = "SELECT s.*, t.name as sname, t.id as station, to_char(day, 'YYYYMMDD') as dvalid
+   from summary_". $year ." s JOIN stations t ON (t.iemid = s.iemid) 
+   WHERE network = 'KCCI' and
    day = '". $dateStr ."'  ORDER by $sortvar $sortorder";
 }
 
@@ -92,7 +94,7 @@ if ($mode == "monthly") {
   $qc = $row["max_tmpf_qc"];
   if ($row["max_tmpf"] == -99) $row["max_tmpf"] = "M";
   if ($row["min_tmpf"] == 99) $row["min_tmpf"] = "M";
-  $htmlout .= "<tr><td><a href=\"hist.phtml?year=$year&month=$month&mode=monthly&station=". $row["station"] ."\">". $locs->table[$row["station"]]["city"] ."</a></td>";
+  $htmlout .= "<tr><td><a href=\"hist.phtml?year=$year&month=$month&mode=monthly&station=". $row["station"] ."\">". $row["sname"] ."</a></td>";
 
   if (strstr($qc, 'H') || $row["max_tmpf"] == -99 )
     $htmlout .= "<td><strike>". $row["max_tmpf"] ."</strike></td>" ;

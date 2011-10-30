@@ -59,9 +59,9 @@ $d = Array("comma" => ",",
   "space" => " ",
   "tab" => "\t");
 
-$sqlStr .= "day as dvalid, max_tmpf_qc || min_tmpf_qc as qcflags from summary";
+$sqlStr .= "day as dvalid, t.id as station, max_tmpf_qc || min_tmpf_qc as qcflags from summary s JOIN stations t on (t.iemid = s.iemid) ";
 $sqlStr .= " WHERE day >= '".$sqlTS1."' and day <= '".$sqlTS2 ."' ";
-$sqlStr .= " and station = '".$station."' ";
+$sqlStr .= " and t.id = '".$station."' and t.network = 'KCCI'";
 $sqlStr .= " ORDER by day ASC";
  $rs =  pg_exec($connection, $sqlStr);
 

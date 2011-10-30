@@ -165,7 +165,7 @@ if (isset($radarts))
   if ($archivets > ( time() - 100000 ) ) // Use IEMAccess
   {
     $c = pg_connect($iemaccess);
-    $sql = strftime("SELECT * from current_log WHERE valid = '%Y-%m-%d %H:%M' and network = 'KCCI' ", $ts);
+    $sql = strftime("SELECT c.*, s.id as station from current_log C JOIN stations s ON (s.iemid = c.iemid) WHERE valid = '%Y-%m-%d %H:%M' and network = 'KCCI' ", $ts);
   } else {  // Use normal archive
     $c = pg_connect($iemdbhost);
     $sql = strftime("SELECT * from t%Y_%m WHERE valid = '%Y-%m-%d %H:%M'", $ts);
