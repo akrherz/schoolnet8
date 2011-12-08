@@ -5,7 +5,8 @@
  create table site_stats_report as SELECT station, count(valid) as hits, 
     count(distinct(ip)) as hosts from site_stats GROUP by station;
  update site_stats_report SET station = 'CIPCO' WHERE station = 'NONE' or station = '';
- delete from site_stats_report WHERE station = '{S03I4,KCCI-002,SMLI4,KCCI-007,KCCI-005}';
+ delete from site_stats_report WHERE station in ('S03I4','KCCI-002',
+   'SMLI4','KCCI-007','KCCI-005','MAIN');
  create table apphits as SELECT count(valid) as hits, app from site_stats 
    GROUP by app;
  delete from apphits WHERE app = '-1';
