@@ -6,7 +6,8 @@ $iemdb = pg_connect("user=nobody dbname=coop host=mesonet.agron.iastate.edu");
 $localdb = pg_connect("dbname=kcci");
 pg_query($localdb, "DELETE from climate51");
 
-$rs = pg_query($iemdb, "SELECT * from climate51 ORDER by station, valid ASC");
+$rs = pg_query($iemdb, "SELECT * from climate51 
+ WHERE station ~* 'IA' ORDER by station, valid ASC");
 
 $q = 0;
 $cur = "";
