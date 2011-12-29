@@ -75,7 +75,7 @@ CREATE TABLE site_stats_report (
 
 
 CREATE TABLE stations (
-    id unique character varying(5),
+    id varchar(5) UNIQUE,
     sname character varying,
     city character varying,
     online boolean,
