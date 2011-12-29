@@ -74,7 +74,7 @@ $_pages = Array(
  ),
 );
 $THISPAGE = isset($THISPAGE) ? $THISPAGE : "homepage-base";
-$ar = split("-", $THISPAGE);
+$ar = preg_split('/-/', $THISPAGE);
 if (sizeof($ar) == 1) $ar[1] = "";
 echo "<div id=\"iem_nav\"><ul>\n";
 $b = "";

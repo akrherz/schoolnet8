@@ -262,8 +262,7 @@ $rlabel = Array("KCCI" => "KCCI-TV Live Super Doppler",
 $map = ms_newMapObj($mapfile);
 $map->selectOutputFormat("png24");
 $map->setProjection($proj);
-$map->set("height", 480);
-$map->set("width", 640);
+$map->setsize(640,480);
 
 $arExtents = explode(",", $extents);
 $map->setextent($arExtents[0], $arExtents[1], $arExtents[2], $arExtents[3]);
@@ -404,7 +403,6 @@ foreach($myStations as $key => $value){
    $pt = ms_newPointObj();
    $pt->setXY($lon, $lat, 0);
    $pt->draw($map, $snet, $img, 1, $locs->table[$key]["sname"] );
-   $pt->free();
   }
 
    if (! isset($bzz['iscurrent']) && ! isset($radarts) ) continue;
@@ -414,29 +412,24 @@ foreach($myStations as $key => $value){
      $rotate =  0 - intval($bzz["drct"]);
      $bclass->label->set("angle", doubleval($rotate));
      $pt->draw($map, $barbs, $img, 0, skntChar($bzz["sknt"]) );
-     $pt->free();
 
      $pt = ms_newPointObj();
      $pt->setXY($lon, $lat, 0);
      $pt->draw($map, $snet, $img, 0, round($bzz['sknt'], $rnd['sknt']) );
-     $pt->free();
     } else if ($var == "gbarb") {
      $pt = ms_newPointObj();
      $pt->setXY($lon, $lat, 0);
      $pt->draw($map, $snet, $img, 0, round($bzz['max_sknt'], $rnd['max_sknt']) );
-     $pt->free();
 
      $pt = ms_newPointObj();
      $pt->setXY($lon, $lat, 0);
      $rotate =  0 - intval($bzz["drct_max"]);
      $bclass->label->set("angle", doubleval($rotate));
      $pt->draw($map, $barbs, $img, 0, skntChar($bzz["max_sknt"]) );
-     $pt->free();
     } else if ($var == "alti") {
      $pt = ms_newPointObj();
      $pt->setXY($lon, $lat, 0);
      $pt->draw($map, $snet, $img, 0, $bzz[$var] );
-     $pt->free();
     } else if ($var == "splot") {
      if ($bzz["tmpf"] == -99) continue;
      /* Draw the barb */
@@ -445,7 +438,6 @@ foreach($myStations as $key => $value){
      $rotate =  0 - intval($bzz["drct"]);
      $bclass->label->set("angle", doubleval($rotate));
      $pt->draw($map, $barbs, $img, 0, skntChar($bzz["sknt"]) );
-     $pt->free();
      /* Draw temperature */
      $pt = ms_newPointObj();
      $pt->setXY($lon, $lat, 0);
@@ -455,7 +447,6 @@ foreach($myStations as $key => $value){
      $sclass->label->outlinecolor->setRGB(255,255,255);
      $sclass->label->shadowcolor->setRGB(255,255,255);
      $pt->draw($map, $snet, $img, 0, round($bzz['tmpf'], $rnd['tmpf']) );
-     $pt->free();
      /* Draw dew point */
      $pt = ms_newPointObj();
      $pt->setXY($lon, $lat, 0);
@@ -465,14 +456,14 @@ foreach($myStations as $key => $value){
      $sclass->label->outlinecolor->setRGB(255,255,255);
      $sclass->label->shadowcolor->setRGB(255,255,255);
      $pt->draw($map, $snet, $img, 0, round($bzz['dwpf'], $rnd['dwpf']) );
-     $pt->free();
+
 
     } else {
      if ($bzz[$var] == -99) continue;
      $pt = ms_newPointObj();
      $pt->setXY($lon, $lat, 0);
      $pt->draw($map, $snet, $img, 0, round($bzz[$var], $rnd[$var]) );
-     $pt->free();
+
     }
 }
 //  $ts = strftime("%I %p");

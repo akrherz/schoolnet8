@@ -3,11 +3,11 @@ MAP
 NAME base
 STATUS ON
 SIZE 450 350
-FONTSET "/mesonet/data/gis/static/fonts/fonts.list"
+FONTSET "./fonts.list"
 EXTENT 200000 4400000 710000 4900000
 UNITS METERS
 SHAPEPATH "./"
-SYMBOLSET "/mesonet/data/gis/static/symbols/stations.sym"
+SYMBOLSET "./stations.sym"
 #TRANSPARENT off
 #INTERLACE off
 IMAGECOLOR 140 144 90
@@ -16,26 +16,21 @@ IMAGECOLOR 140 144 90
 #IMAGETYPE png
 
 OUTPUTFORMAT
-	NAME png
-	MIMETYPE "image/png"
-	DRIVER "GD/PNG"
-	IMAGEMODE PC256
-	TRANSPARENT OFF
+  NAME "png"
+  DRIVER AGG/PNG
+  MIMETYPE "image/png"
+  IMAGEMODE PC256
+  EXTENSION "png"
+  FORMATOPTION "GAMMA=0.75"
 END
+
 OUTPUTFORMAT
-	NAME png24
-	MIMETYPE "image/png"
-	DRIVER "GD/PNG"
-	IMAGEMODE RGB
-	TRANSPARENT OFF
-END
-OUTPUTFORMAT
-	NAME jpeg
-	MIMETYPE "image/jpeg"
-	DRIVER "GD/JPEG"
-	IMAGEMODE RGB
-	FORMATOPTION "QUALITY=80"
-	TRANSPARENT OFF
+  NAME "png24"
+  DRIVER AGG/PNG
+  MIMETYPE "image/png"
+  IMAGEMODE RGB
+  EXTENSION "png"
+  FORMATOPTION "GAMMA=0.75"
 END
 
 #
@@ -166,7 +161,7 @@ LAYER
     SIZE 20
     LABEL
       TYPE TRUETYPE
-      FONT arial
+      FONT 'liberation'
       POSITION CC
       #MINDISTANCE 100
       #MINFEATURESIZE 30
@@ -184,7 +179,7 @@ LAYER
     MAXSCALE 1000000
     LABEL
       TYPE BITMAP
-     # FONT arial
+     # FONT 'liberation'
       POSITION CC
       #MINDISTANCE 100
       #MINFEATURESIZE 30
@@ -417,8 +412,7 @@ LAYER
   CLASS
     STYLE
       COLOR 0 0 0
-      SYMBOL 'circle'
-      SIZE 3
+      WIDTH 2.0
     END
   END
 END
@@ -514,7 +508,7 @@ LAYER
       MINSIZE 4
       MAXSIZE 18
       TYPE TRUETYPE
-      FONT kcci
+      FONT 'liberation'
       ANTIALIAS TRUE
       BUFFER 10
       FORCE FALSE
@@ -532,7 +526,7 @@ LAYER
       MINSIZE 4
       MAXSIZE 18
       TYPE TRUETYPE
-      FONT kcci
+      FONT 'liberation'
       ANTIALIAS TRUE
       BUFFER 10
       FORCE FALSE
@@ -550,7 +544,7 @@ LAYER
       MINSIZE 4
       MAXSIZE 18
       TYPE TRUETYPE
-      FONT kcci
+      FONT 'liberation'
       ANTIALIAS TRUE
       BUFFER 10
       FORCE FALSE
@@ -600,7 +594,7 @@ LAYER
       MINSIZE 4
       MAXSIZE 18
       TYPE TRUETYPE
-      FONT kcci
+      FONT 'liberation'
       ANTIALIAS TRUE
       BUFFER 2
       FORCE FALSE
@@ -619,7 +613,7 @@ LAYER
       MINSIZE 4
       MAXSIZE 18
       TYPE TRUETYPE
-      FONT kcci
+      FONT 'liberation'
       ANTIALIAS true
       BUFFER 2
       FORCE TRUE
@@ -640,7 +634,7 @@ LAYER
 #  LABELANGLEITEM "WIND_ROTAT"
   LABELCACHE OFF
   PROJECTION
-   "proj=latlong"
+   "init=epsg:4326"
   END
   CLASS
     LABEL
@@ -676,7 +670,7 @@ LAYER
       SHADOWCOLOR 0 0 0
       TYPE TRUETYPE
       SIZE 16
-      FONT 'kcci'
+      FONT 'liberation'
       POSITION AUTO
       FORCE TRUE
       PARTIALS FALSE
@@ -696,7 +690,7 @@ END
 #  TYPE LINE
 #  STATUS OFF
 #  PROJECTION
-#   "proj=latlong"
+#   "init=epsg:4326"
 #  END
 #  DATA shape/unproj/iowa/interstates.shp
 #  CLASS
@@ -721,12 +715,14 @@ LAYER
   CLASSITEM "SIGNT1"
   CLASS
 	EXPRESSION /I/
-    COLOR 255 0 0
-    SYMBOL 'circle'
-    SIZE 4
-    OVERLAYSYMBOL 'circle'
-    OVERLAYSIZE 2
-    OVERLAYCOLOR 0 0 0
+    STYLE
+      COLOR 255 0 0
+      WIDTH 4.0
+    END
+    STYLE
+      WIDTH 2.0
+      COLOR 0 0 0
+    END
   END
 END
 
@@ -739,12 +735,14 @@ LAYER
  END
  DATA "/mesonet/data/gis/static/shape/4326/us/interstates.shp"
  CLASS
-    COLOR 255 0 0
-    SYMBOL 'circle'
-    SIZE 4
-    OVERLAYSYMBOL 'circle'
-    OVERLAYSIZE 2
-    OVERLAYCOLOR 0 0 0
+    STYLE
+      COLOR 255 0 0
+      WIDTH 4.0
+    END
+    STYLE
+      WIDTH 2.0
+      COLOR 0 0 0
+    END
   END
 END
 
@@ -765,11 +763,11 @@ LAYER
     SYMBOL 'interstate_shield'
     LABEL
       TYPE TRUETYPE
-      FONT arialblk
+      FONT 'liberation'
       POSITION CC
       MINDISTANCE 100
       MINFEATURESIZE 10
-      SIZE 6
+      SIZE 8
       COLOR 255 255 255
       PARTIALS FALSE
     END
@@ -822,7 +820,7 @@ LAYER
     SYMBOL 'us_highway_shield'
     LABEL
       TYPE BITMAP
-     # FONT arial
+     # FONT 'liberation'
       POSITION CC
       MINDISTANCE 100
       MINFEATURESIZE 30
@@ -838,7 +836,7 @@ LAYER
     SYMBOL 'state_highway_shield'
     LABEL
       TYPE BITMAP
-     # FONT arial
+     # FONT 'liberation'
       POSITION CC
       MINDISTANCE 100
       MINFEATURESIZE 30
@@ -862,13 +860,13 @@ LAYER
     LABEL
       COLOR 250 250 250
       #BACKGROUNDCOLOR 0 0 200
-      SHADOWSIZE 1 1
-      SHADOWCOLOR 0 0 0
-      BACKGROUNDSHADOWCOLOR 0 0 0
-      BACKGROUNDSHADOWSIZE 1 1
+      #SHADOWSIZE 1 1
+      #SHADOWCOLOR 0 0 0
+      #BACKGROUNDSHADOWCOLOR 0 0 0
+      #BACKGROUNDSHADOWSIZE 1 1
       TYPE TRUETYPE
       SIZE 14
-      FONT 'kcci'
+      FONT 'liberation'
       POSITION CR
       FORCE TRUE
       PARTIALS TRUE
@@ -878,14 +876,14 @@ LAYER
     NAME 'credits2'
     LABEL
       COLOR 250 250 250
-      BACKGROUNDCOLOR 0 0 200
-      SHADOWSIZE 1 1
-      SHADOWCOLOR 0 0 0
-      BACKGROUNDSHADOWCOLOR 0 0 0
-      BACKGROUNDSHADOWSIZE 1 1
+      #BACKGROUNDCOLOR 0 0 200
+      #SHADOWSIZE 1 1
+      #SHADOWCOLOR 0 0 0
+      #BACKGROUNDSHADOWCOLOR 0 0 0
+      #BACKGROUNDSHADOWSIZE 1 1
       TYPE TRUETYPE
       SIZE 10
-      FONT 'kcci'
+      FONT 'liberation'
       POSITION CR
       FORCE TRUE
       PARTIALS TRUE
@@ -1012,29 +1010,6 @@ LAYER
     END
   END
 END
-
-
-LAYER
-  TYPE LINE
-  NAME RECT
-  STATUS OFF
-  PROJECTION
-    "proj=tmerc"
-    "lat_0=41.5"
-    "lon_0=-93.65"
-    "x_0=0"
-    "y_0=0"
-    "k=0.9999"
-  END
-  CLASS
-    COLOR 255 255 255
-    OUTLINECOLOR 255 255 255   
-    SYMBOL 'circle'
-    SIZE 3
-  END
-END
-
-
 LAYER
   TYPE POINT
   NAME pointonly
