@@ -18,7 +18,6 @@ $size = isset($_GET["size"]) ? $_GET['size'] : "400x400";
 list($width, $height) = split("x", $size);
 $app = "17"; include("../include/dblog.inc.php"); 
 
-dl($mapscript);
 $projInObj = ms_newprojectionobj("init=epsg:4326");
 $projOutObj = ms_newprojectionobj("init=epsg:26915");
 $point = ms_newpointobj();

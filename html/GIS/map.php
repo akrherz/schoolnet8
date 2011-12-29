@@ -9,7 +9,6 @@ if ($fa[0] > 3.0)
 }
 
 include("$nwnpath/include/forms.inc.php");
-dl($mapscript);
 
 $ERROR = "";
 $layers = isset($_GET["layers"]) ? $_GET["layers"] : Array();

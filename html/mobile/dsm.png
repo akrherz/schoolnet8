@@ -13,7 +13,6 @@ include('../../config/settings.inc.php');
 include("$nwnpath/include/locs.inc.php");
 $locs = new Locations();
 include("$nwnpath/include/radar.php");
-dl("php_mapscript_401.so");
 
 $width = 86;
 $height = 69;

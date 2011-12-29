@@ -12,8 +12,6 @@ $bnds = Array(
 );
 $bounds = $bnds[$sector];
 
-dl($mapscript);
-
 $map = ms_newMapObj($mapfile);
 $map->setextent($bounds[0], $bounds[1], $bounds[2], $bounds[3]);
 $map->set("width", 150);

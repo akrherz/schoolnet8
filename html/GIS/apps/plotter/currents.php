@@ -3,7 +3,6 @@ $expiry = 60*60*24*100; // 100 days
 session_start();
 
 include("../../../../config/settings.inc.php"); 
-dl($mapscript);
 $app = "12"; include("$nwnpath/include/dblog.inc.php"); 
 include("$nwnpath/include/forms.inc.php");
 include("$nwnpath/include/locs.inc.php");

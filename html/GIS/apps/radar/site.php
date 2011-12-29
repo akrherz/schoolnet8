@@ -12,7 +12,6 @@ include("$nwnpath/include/locs.inc.php");
 $locs = new Locations();
 include("$nwnpath/include/currentdb.inc.php");
 include("$nwnpath/include/radar.php");
-dl($mapscript);
 
 $obs = new currentdb();
 $obs->timecheck();
