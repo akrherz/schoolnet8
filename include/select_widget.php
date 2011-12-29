@@ -16,8 +16,6 @@ class selectWidget
 
   function selectWidget($nwnpath, $mydestination)
   {
-    global $mapscript;
-    dl($mapscript);
     $this->map = ms_newMapObj("$nwnpath/data/GIS/base.map");
 	$this->map->set("width", 400);
 	$this->map->set("height", 500);
