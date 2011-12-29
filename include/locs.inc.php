@@ -42,7 +42,7 @@ class Locations {
     $rs = pg_prepare($dbconn, "SELECT", "SELECT * from climate51 WHERE
           station = $1 and valid = $2");
     $rs = pg_execute($dbconn, "SELECT", Array(
-          strtolower($this->table[$station]["climate_site"]),
+          $this->table[$station]["climate_site"],
           "2000-". date("m-d")));
     $row = pg_fetch_array($rs,0);
     pg_close($dbconn);
