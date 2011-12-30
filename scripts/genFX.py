@@ -1,4 +1,3 @@
-#!/mesonet/python/bin/python
 
 import re, pdb, datetime, urllib, time, sys, shutil, traceback
 import mx.DateTime
@@ -50,7 +49,7 @@ def generator(sid, lat, lon):
         print 'Whoa, could not find daily maximum temperature key'
         print sid
         print doc
-        return
+        return False
     
     data = {}
     for val, tm in zip( temps['Daily Maximum Temperature']['vals'],
@@ -71,8 +70,7 @@ def generator(sid, lat, lon):
             data[tm] = {'high': None, 'low': None, 'weather': None, 'icon': None}
         data[tm]['icon'] = val
     
-    for val, tm in zip( weather['vals'],
-                tnames[ weather['taxis'] ] ):
+    for val, tm in zip( weather['vals'], tnames[ weather['taxis'] ] ):
         if not data.has_key(tm):
             data[tm] = {'high': None, 'low': None, 'weather': None, 'icon': None}
         data[tm]['wather'] = val
@@ -110,7 +108,10 @@ def generator(sid, lat, lon):
     
     o.write("</table>")
     o.close()
+    return True
     
 
 if (__name__ == "__main__"):
-  generator(sys.argv[1], sys.argv[2], sys.argv[3])
+  if not generator(sys.argv[1], sys.argv[2], sys.argv[3]):
+      time.sleep(60)
+      generator(sys.argv[1], sys.argv[2], sys.argv[3])
