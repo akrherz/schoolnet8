@@ -10,6 +10,7 @@ if (isset($_COOKIE['station']) && ! isset($_GET['station']) )
 {
  $station = $_COOKIE['station'];
 }
+$station = strtoupper($station);
 /* End Session Stuff */
 
 
