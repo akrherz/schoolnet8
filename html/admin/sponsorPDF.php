@@ -141,7 +141,7 @@ function WriteHTML($html)
             else
             {
                 //Extract properties
-                $a2=split(' ',$e);
+                $a2 = preg_split('/ /',$e);
                 $tag=strtoupper(array_shift($a2));
                 $prop=array();
                 foreach($a2 as $v)

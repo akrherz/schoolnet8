@@ -149,36 +149,36 @@ foreach ($obs->db as $key => $bzz)
     $rotate =  0 - intval($bzz["drct"]);
     $bclass->label->set("angle", doubleval($rotate));
     $pt->draw($map, $barbs, $img, 0, skntChar($bzz["sknt"]) );
-    $pt->free();
+ 
 
     $pt = ms_newPointObj();
     $pt->setXY($lons[$key], $lats[$key], 0);
     $pt->draw($map, $snet, $img, 0, round($bzz['sknt'], $rnd['sknt']) );
-    $pt->free();
+   
   } else if ($var == "gbarb") 
   {
     $pt = ms_newPointObj();
     $pt->setXY($lons[$key], $lats[$key], 0);
     $pt->draw($map, $snet, $img, 0, round($bzz['max_sknt'], $rnd['max_sknt']) );
-    $pt->free();
+   
 
      $pt = ms_newPointObj();
      $pt->setXY($lons[$key], $lats[$key], 0);
      $rotate =  0 - intval($bzz["drct_max"]);
      $bclass->label->set("angle", doubleval($rotate));
      $pt->draw($map, $barbs, $img, 0, skntChar($bzz["max_sknt"]) );
-     $pt->free();
+ 
 
     } else if ($var == "alti") {
      $pt = ms_newPointObj();
      $pt->setXY($lons[$key], $lats[$key], 0);
      $pt->draw($map, $snet, $img, 0, $bzz[$var] );
-     $pt->free();
+ 
     } else {
      $pt = ms_newPointObj();
      $pt->setXY($lons[$key], $lats[$key], 0);
      $pt->draw($map, $snet, $img, 0, round($bzz[$var], $rnd[$var]) );
-     $pt->free();
+
     }
   
 } // End of while
@@ -186,7 +186,7 @@ foreach ($obs->db as $key => $bzz)
 $pt = ms_newPointObj();
 $pt->setXY($point->x, $point->y, 0);
 $pt->draw($map, $ponly, $img, 0, " ");
-$pt->free();
+
 
 $bar->draw($img);
 

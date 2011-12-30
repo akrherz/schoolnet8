@@ -6,14 +6,14 @@ require_once '../../config/settings.inc.php';
 $ts = isset($_REQUEST["ts"]) ? strtotime($_REQUEST["ts"]) : 0;
 $network = isset($_REQUEST["network"]) ? substr($_REQUEST["network"],0,4): "KCCI";
 
-$connect = pg_connect($mesosite);
+$dbconn = pg_connect($mesosite);
 
 if ($ts > 0){
-  $result = pg_exec($connect, sprintf("SELECT * from camera_log c, webcams w
+  $result = pg_exec($dbconn, sprintf("SELECT * from camera_log c, webcams w
     WHERE valid = '%s' and c.cam = w.id and w.network = '%s' ORDER by name ASC", 
     date('Y-m-d H:i', $ts), $network) );
 } else {
-  $result = pg_exec($connect, "SELECT * from camera_current c, webcams w 
+  $result = pg_exec($dbconn, "SELECT * from camera_current c, webcams w 
   WHERE valid > (now() - '15 minutes'::interval) 
   and c.cam = w.id and w.network = '$network'
   ORDER by name ASC");
