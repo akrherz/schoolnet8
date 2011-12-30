@@ -19,7 +19,7 @@ INTERLACE off
 # Projection definition, consult the PROJ.4 documentation for parameter discussion
 #
 PROJECTION
-  "proj=latlong"
+  "init=epsg:4326"
 #  "proj=lcc"
 #   "lat_1=20"
 #   "lat_2=60"
@@ -66,7 +66,7 @@ END
 #  TYPE RASTER
 #  STATUS ON
 #  PROJECTION
-#   "proj=latlong"
+#   "init=epsg:4326"
 #  END
 #END
 
@@ -76,7 +76,7 @@ LAYER
   TYPE POLYGON
   DATA shape/iem/states.shp
   PROJECTION
-   "proj=latlong"
+   "init=epsg:4326"
   END
 #  CLASSITEM "STATE_FIPS"
   CLASS
@@ -93,7 +93,7 @@ LAYER
   TYPE POLYGON
   DATA shape/iacounties3.shp
   PROJECTION
-   "proj=latlong"
+   "init=epsg:4326"
   END
   CLASS
     OUTLINECOLOR 255 0 0

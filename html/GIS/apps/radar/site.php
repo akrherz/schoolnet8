@@ -93,7 +93,7 @@ $bclass = $barbs->getClass(0);
 
 $temps = $map->getlayerbyname("temps");
 $temps->set("status", MS_ON);
-$temps->setprojection("proj=latlong");
+$temps->setprojection("init=epsg:4326");
 
 $snet = $map->getlayerbyname("snet");
 $snet->set("status", MS_ON);
