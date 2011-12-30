@@ -111,7 +111,7 @@ class selectWidget
     $sites->queryByPoint($click, MS_SINGLE, -1);
     $sites->open();
     $rs = $sites->getresult(0);
-    $shp = $sites->getShape(-1,  $rs->shapeindex);
+    $shp = $sites->getShape($rs);
 
     $this->selectedSite = $shp->values["SID"];
 
@@ -150,7 +150,7 @@ class selectWidget
     $counties->draw($img);
     $sites->draw($img);
     if ($this->showRADAR && $this->showKCCI){
-      $pt->draw($this->map, $doppler8, $img, "logo", "");
+      $pt->draw($this->map, $doppler8, $img, 0, "");
     }
 	if ($this->showWarnings) $warnings->draw($img);
 
@@ -163,7 +163,7 @@ class selectWidget
       $point = ms_newpointobj();
       $point->setXY($this->imgsz_x - 75, 10);
       putenv("TZ=CST6CDT");
-      $point->draw($this->map, $credits, $img, "credits", strftime("%I:%M %p"));
+      $point->draw($this->map, $credits, $img, 0, strftime("%I:%M %p"));
       //$point->draw($this->map, $credits, $img, "credits", strftime("%I:%M %p", $ts) );
     }
 
