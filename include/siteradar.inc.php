@@ -1,5 +1,5 @@
 <?php
-  $imgbase = "$baseurl/static/radar/$station/$station";
+  $imgbase = BASEURL ."/static/radar/$station/$station";
   $t = time();
 ?>
 <script language="JavaScript1.2" type="text/javascript">
@@ -20,7 +20,7 @@ last_image = 10;
 current_image = first_image;
 -->
 </script>
-<script language="JavaScript" src="<?php echo $baseurl; ?>js/animation.js"></script>
+<script language="JavaScript" src="<?php echo BASEURL; ?>/js/animation.js"></script>
 
 <form method="get" action="site.phtml">
 <p><h2>Live Super Doppler8:</h2>
@@ -35,7 +35,7 @@ current_image = first_image;
   ?><img width="320" height="240" src="<?php echo $imgbase; ?>_0.png?<?php echo $t; ?>" alt="Image" border="2" /><?php
  } else 
  {
- ?><img src="<?php echo $baseurl; ?>GIS/apps/radar/site.php?station=<?php echo $station;?>&amp;var=<?php echo $var;?>" width="320" height="240" alt="Live Doppler" border="2" /><?php
+ ?><img src="<?php echo BASEURL; ?>/GIS/apps/radar/site.php?station=<?php echo $station;?>&amp;var=<?php echo $var;?>" width="320" height="240" alt="Live Doppler" border="2" /><?php
  }
 ?>
     <br />Plot:
@@ -59,12 +59,12 @@ current_image = first_image;
 </div>
 <div id="layerLoop" style="background: #FFC0CB; text-align: center; padding: 5px;">
 
-<img name="animation" width="320" height="240" src="<?php echo $baseurl; ?>images/pixel.gif" alt="Image" border="2" />
+<img name="animation" width="320" height="240" src="<?php echo BASEURL; ?>/images/pixel.gif" alt="Image" border="2" />
 
   <form method="POST" name="control_form">
-<a href="JavaScript: func()" onClick="change_mode(1);reverse()"><img border="0" src="<?php echo $baseurl; ?>images/rev_button.gif" alt="REV"></a>
-<a href="JavaScript: func()" onClick="stop()"><img BORDER=0 src="<?php echo $baseurl; ?>images/stp_button.gif" alt="STOP"></a>
-<a href="JavaScript: func()" onClick="change_mode(1);fwd()"><img border="0" src="<?php echo $baseurl; ?>images/fwd_button.gif" alt="FWD"></a>
+<a href="JavaScript: func()" onClick="change_mode(1);reverse()"><img border="0" src="<?php echo BASEURL; ?>/images/rev_button.gif" alt="REV"></a>
+<a href="JavaScript: func()" onClick="stop()"><img BORDER=0 src="<?php echo BASEURL; ?>/images/stp_button.gif" alt="STOP"></a>
+<a href="JavaScript: func()" onClick="change_mode(1);fwd()"><img border="0" src="<?php echo BASEURL; ?>/images/fwd_button.gif" alt="FWD"></a>
   <font size=-1 color="#3300CC">Frame No:</font>
   <input type="text" name="frame_nr" value="9" size="2" onFocus="this.select()" onChange="go2image(this.value)"></input>
   </form>

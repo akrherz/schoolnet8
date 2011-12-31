@@ -218,7 +218,7 @@ if ($showSiteLabel)
 }
 
 $lstr = implode("&layers[]=", $layers);
-$mapurl =  "${baseurl}GIS/map.php?layers[]=$lstr&zoom=1&mode=$mode&year=$year&month=$month&day=$day&hour=$hour&minute=$minute&extents=$extents&radar=$radar&var=$var&$cgiStr";
+$mapurl =  BASEURL ."/GIS/map.php?layers[]=$lstr&zoom=1&mode=$mode&year=$year&month=$month&day=$day&hour=$hour&minute=$minute&extents=$extents&radar=$radar&var=$var&$cgiStr";
 
 
 ?>
@@ -226,7 +226,7 @@ $mapurl =  "${baseurl}GIS/map.php?layers[]=$lstr&zoom=1&mode=$mode&year=$year&mo
 <html>
 <head>
   <title>Live Super Doppler8 App</title>
-  <script type="text/javascript" src="<?php echo $baseurl; ?>/js/common.js?v=101"></script>
+  <script type="text/javascript" src="<?php echo BASEURL; ?>/js/common.js?v=101"></script>
 <script Language="JavaScript">
 <!--
  set_cookie("extents", '<?php echo $extents; ?>',2019,1,1);
@@ -420,12 +420,12 @@ function setLayerDisplay( layerName, d ) {
 </div>
 
    </td>
-   <td align="center" bgcolor="#000080"><a href="<?php echo $baseurl; ?>tool/clicktru.php?station=CIPCO" target="_new"><img src="<?php echo $baseurl; ?>pics/CIPCO.png" border="0"></a></td>
+   <td align="center" bgcolor="#000080"><a href="<?php echo BASEURL; ?>/tool/clicktru.php?station=CIPCO" target="_new"><img src="<?php echo BASEURL; ?>/pics/CIPCO.png" border="0"></a></td>
 	</tr>
 	<tr>
 <td valign="top">
 <div id="imgmain" style="z-index: 1;"><img name="mymap" src="<?php echo $mapurl; ?>" width="640" height="480"></div>
-<div id="imgmain2" style="margin-top: -480px; z-index: 2;"><input type="image" name="img" src="<?php echo $baseurl; ?>/images/trans640x480.png" width="640" height="480"></div>
+<div id="imgmain2" style="margin-top: -480px; z-index: 2;"><input type="image" name="img" src="<?php echo BASEURL; ?>/images/trans640x480.png" width="640" height="480"></div>
 <div class="ftext">Key for Weather Warnings: <b style="border: #f00 2px solid; background: #8c905a;">Tornado</b> <b style="border: #ff0 solid 2px; background: #8c905a;">Severe Thunderstorm</b> <b style="border: #0f0 solid 2px; background: #8c905a;">Flash Flood</b></div>
 <?php if (strlen($ERROR) > 0) { ?>
 <div style="background: #ff0; color: #f00; border: #000 dashed 1px;">

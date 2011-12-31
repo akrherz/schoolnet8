@@ -169,7 +169,7 @@ while (list ($key, $val) = each ($finalA))  {
   echo "<tr>\n ";
   echo "<td><input type=\"checkbox\" name=\"str[]\" 
                value=\"".$key."\"></td>\n";
-  echo "<th><a href=\"javascript:new_window('". $baseurl ."gen/kcci_fe.php?station=".$key."');\">". $locs->table[$key]['sname'] . "</a></th>";
+  echo "<th><a href=\"javascript:new_window('". BASEURL ."/gen/kcci_fe.php?station=".$key."');\">". $locs->table[$key]['sname'] . "</a></th>";
 
 
   echo "<td ";
@@ -201,15 +201,15 @@ while (list ($key, $val) = each ($finalA))  {
  <td></td>
  <td></td>
  <td></td>
- <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=tmpf&<?php echo $cgiStr ; ?>');">Plot</a></td>
- <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=dwpf&<?php echo $cgiStr ; ?>');">Plot</a></td>
- <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=feel&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php?var=tmpf&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php?var=dwpf&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php?var=feel&<?php echo $cgiStr ; ?>');">Plot</a></td>
  <td></td>
- <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=sknt&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php?var=sknt&<?php echo $cgiStr ; ?>');">Plot</a></td>
  <td></td>
- <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=max_sknt&<?php echo $cgiStr ; ?>');">Plot</a></td>
- <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=pday&<?php echo $cgiStr ; ?>');">Plot</a></td>
- <td><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?var=pmonth&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php?var=max_sknt&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php?var=pday&<?php echo $cgiStr ; ?>');">Plot</a></td>
+ <td><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php?var=pmonth&<?php echo $cgiStr ; ?>');">Plot</a></td>
 
 </tr>
  

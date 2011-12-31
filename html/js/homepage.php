@@ -7,8 +7,8 @@ var map, jsonlayer;
 
 function updater(){
   var d = new Date();
-  document.getElementById("lsdimage").innerHTML = '<a href="<?php echo $baseurl; ?>/site.phtml?station='+ selectedSite +'"><img src="<?php echo $baseurl; ?>static/radar/'+ selectedSite +'/'+ selectedSite +'_0.png?'+ d.getTime() +'" border="1" width="320" height="240" alt="Live Super Doppler" style=\"float: right;\"/></a><br />Click on map for more details.';
-  document.getElementById("webcamimage").innerHTML = '<a href="<?php echo $baseurl; ?>/camera/"><img src="<?php echo $baseurl; ?>camera/stills/'+ eval("webcamlookup."+ selectedSite ) +'.jpg?'+ d.getTime() +'" border="1" width="320" height="240" alt="Webcam" style=\"float: right;\"/></a><br />Click on image for other cameras.';
+  document.getElementById("lsdimage").innerHTML = '<a href="<?php echo BASEURL; ?>/site.phtml?station='+ selectedSite +'"><img src="<?php echo BASEURL; ?>/static/radar/'+ selectedSite +'/'+ selectedSite +'_0.png?'+ d.getTime() +'" border="1" width="320" height="240" alt="Live Super Doppler" style=\"float: right;\"/></a><br />Click on map for more details.';
+  document.getElementById("webcamimage").innerHTML = '<a href="<?php echo BASEURL; ?>/camera/"><img src="<?php echo BASEURL; ?>/camera/stills/'+ eval("webcamlookup."+ selectedSite ) +'.jpg?'+ d.getTime() +'" border="1" width="320" height="240" alt="Webcam" style=\"float: right;\"/></a><br />Click on image for other cameras.';
 
 };
 
@@ -86,7 +86,7 @@ function olinit(){
 
 
   jsonlayer = new OpenLayers.Layer.GML("KCCI SchoolNet8", 
-    "<?php echo $baseurl; ?>geojson/kcci.txt",
+    "<?php echo BASEURL; ?>/geojson/kcci.txt",
             {
                 projection: new OpenLayers.Projection('EPSG:4326'),
                 format: OpenLayers.Format.GeoJSON, 

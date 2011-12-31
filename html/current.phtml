@@ -20,7 +20,7 @@ function new_window_big(url) {
 	window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600");
 }
 function selectWindow() {
- window.open('<?php echo $baseurl; ?>/select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=450,height=600');}
+ window.open('<?php echo BASEURL; ?>/select.phtml', 'Select', 'toolbar=0,location=0,directories=0,status=0,menubar=no,scrollbars=yes,resizable=yes,width=450,height=600');}
 //END Script-->
 </script>
 </head>
@@ -39,7 +39,7 @@ You can access this information in a variety of ways.</p>
 <ul>
 <li><a href="javascript: selectWindow();">View Single Site Conditions</a>
 <br>The most recent conditions from your SchoolNet8 site.</li>
-<li><a href="<?php echo $baseurl; ?>cc.phtml">View All Sites (Sortable Currents)</a>
+<li><a href="<?php echo BASEURL; ?>/cc.phtml">View All Sites (Sortable Currents)</a>
 <br>Quickly browse conditions from all SchoolNet8 sites in a sortable
 HTML table.</li>
 </ul>
@@ -50,15 +50,15 @@ HTML table.</li>
 <div class="nb_content">
 
 <ul>
-<li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php');">Live Super Doppler8 App</a> 
+<li><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php');">Live Super Doppler8 App</a> 
 <br>Pick your sites and your variable to plot, this application does the 
 rest!</li>
 <li><a href="display.phtml">Loopable Live Super Doppler8</a>
 <br />Statwide and sector views of Live Super Doppler8.</li>
-<li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php');">View On-Air Graphic</a> 
+<li><a href="javascript:new_window('<?php echo BASEURL; ?>/gen/kcci_fe.php');">View On-Air Graphic</a> 
 <br>In a new window, open a graphical view of the latest station information.</li>
 <!--
-<li><a href="<?php echo $baseurl; ?>GIS/apps/raining/index.phtml">Where's it raining?</a>
+<li><a href="<?php echo BASEURL; ?>/GIS/apps/raining/index.phtml">Where's it raining?</a>
 <br>Compare current radar with 15 minute rainfall totals.</li>
 -->
 </ul>
@@ -68,13 +68,13 @@ rest!</li>
 <h3>Unique Data Access:</h3>
 <div class="nb_content">
 <ul>
-<li><a href="<?php echo $baseurl; ?>sview/">SchoolNet8 Viewer</a><br>Download this free Sun Java&trade; application to monitor SchoolNet8 data
+<li><a href="<?php echo BASEURL; ?>/sview/">SchoolNet8 Viewer</a><br>Download this free Sun Java&trade; application to monitor SchoolNet8 data
 and live Super Doppler on your desktop!</li>
-<li><a href="<?php echo $baseurl; ?>wap/index.phtml">Obs for wireless users!</a> <br>Information how you can get current KCCI SchoolNet8 obs with your wireless WAP enabled device.</li>
-<li><a href="<?php echo $baseurl; ?>tool/walerts.phtml">Email Wind Gust Alerts</a>
+<li><a href="<?php echo BASEURL; ?>/wap/index.phtml">Obs for wireless users!</a> <br>Information how you can get current KCCI SchoolNet8 obs with your wireless WAP enabled device.</li>
+<li><a href="<?php echo BASEURL; ?>/tool/walerts.phtml">Email Wind Gust Alerts</a>
 <br>Stay alert, with severe wind gusts from SchoolNet8 automatically
  emailed to your account.</li>
-<li><a href="<?php echo $baseurl; ?>current_rss.php">RSS feed of currents</a> <img src="images/rss.gif">
+<li><a href="<?php echo BASEURL; ?>/current_rss.php">RSS feed of currents</a> <img src="images/rss.gif">
 <br />RSS of current temperatures and rainfall from the SchoolNet8.</li>
 
 </ul>
@@ -115,8 +115,8 @@ and live Super Doppler on your desktop!</li>
 <h3>Historical Data:</h3>
 <div class="nb_content">
 <ul>
- <li><a href="<?php echo $baseurl; ?>dl/index.phtml">Download</a> from the archive!</a></li>
- <li><a href="<?php echo $baseurl; ?>hist.phtml">Monthly Charts</a> of daily extremes</li>
+ <li><a href="<?php echo BASEURL; ?>/dl/index.phtml">Download</a> from the archive!</a></li>
+ <li><a href="<?php echo BASEURL; ?>/hist.phtml">Monthly Charts</a> of daily extremes</li>
 </ul>
 </div></div>
 
@@ -147,7 +147,7 @@ a/snet/snet_alti.gif">inches</a></li>
 <h3>Time Series:</h3>
 <div class="nb_content">
 <ul>
- <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml">1 minute data trace!</a>
+ <li><a href="<?php echo BASEURL; ?>/plotting/1trace_fe.phtml">1 minute data trace!</a>
  <br>A detailed look at how conditions are changing minute-by-minute at your site.</li>
 </ul>
 </div></div>

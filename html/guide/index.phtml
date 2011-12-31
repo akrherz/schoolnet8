@@ -9,7 +9,6 @@ $THISPAGE = "training-guide"; include("$nwnpath/include/bar.inc.php");
 
 function printModule($module) {
   global $pages;
-  global $baseurl;
 ?>
 
 <h2><?php echo $pages[$module]; ?></h2>
@@ -70,7 +69,7 @@ to highlight various features of the website:
 </ul>
 
 <p>As with the rest of SchoolNet8.com, this guide is a work in progress.
-Your comments and feedback are <a href="<?php echo $baseurl; ?>/contact.phtml">certainly welcome</a>.
+Your comments and feedback are <a href="<?php echo BASEURL; ?>/contact.phtml">certainly welcome</a>.
 
 
 <?php } ?>

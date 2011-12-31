@@ -23,13 +23,13 @@ don't hesitate to <a href="../contact.phtml">contact us</a>.  All of the
 applications listed below return an image.  So in most cases, you will want 
 to place the URL in an image HTML tag like so:
 <pre>
- &lt;img src="<?php echo $baseurl; ?>insert_custom_url_here"&gt;
+ &lt;img src="<?php echo BASEURL; ?>/insert_custom_url_here"&gt;
 </pre>
 
 <p>Determining this custom URL is the goal of the documentation below.  For those of you that are impatient, here is a simple page of <a href="webdevel_example.phtml">examples</a> with HTML included.  Again, if you have any questions, please <a href="../contact.phtml">let us know</a>!
 
 <div class="urllink">
-<img src="<?php echo $baseurl; ?>images/redhat-web-browser.png">
+<img src="<?php echo BASEURL; ?>/images/redhat-web-browser.png">
 <h5>Hint: Know your site's ID!</h5>
 <p class="details">Each of the participating sites in the schoolnet8.com 
 project have been assigned a 5 character identifier by the National Weather
@@ -56,7 +56,7 @@ you will need to use the dynamic plot version below.
 
 <p><b>Temperature+winds plot (fast!):</b>
 <pre>
-URL: <?php echo $baseurl; ?>static/radar/<?php echo $s; ?>/<?php echo $s; ?>_#.png
+URL: <?php echo BASEURL; ?>/static/radar/<?php echo $s; ?>/<?php echo $s; ?>_#.png
 
 - Where <?php echo $s; ?> is the site identifier you wish the image to be centered on
 - And # is the image age number.  0 being the newest and 9 the oldest (30 minutes)
@@ -64,7 +64,7 @@ URL: <?php echo $baseurl; ?>static/radar/<?php echo $s; ?>/<?php echo $s; ?>_#.p
 
 <p><b>Dynamic variable plot (slower):</b>
 <pre>
-URL: <?php echo $baseurl; ?>GIS/apps/radar/site.php?station=<?php echo $s; ?>&var=myvariable
+URL: <?php echo BASEURL; ?>/GIS/apps/radar/site.php?station=<?php echo $s; ?>&var=myvariable
 
 - Where <?php echo $s; ?> is the site identifier you wish the image to be centered on
 - And myvariable is the choice of 
@@ -85,7 +85,7 @@ saves it on the website.  Normally, this process happens every 5 minutes, but
 during severe weather, it will happen every minute.
 
 <p>The webcamera images are available in two sizes.  
-<br /><b>320x240</b> version: <a href="<?php echo $baseurl; ?>camera/stills/"><?php echo $baseurl; ?>camera/stills/</a>
+<br /><b>320x240</b> version: <a href="<?php echo BASEURL; ?>/camera/stills/"><?php echo BASEURL; ?>/camera/stills/</a>
 <br /><b>640x480</b> version: <a href="http://mesonet.agron.iastate.edu/data/camera/640x480/">http://mesonet.agron.iastate.edu/data/camera/640x480/</a>
 
 <p>If you are interested in archived webcamera images, here is a URL template to rip images from the Iowa Mesonet archive.  The timestamps used here are in Greenich Mean Time (GMT/UTC).
@@ -107,7 +107,7 @@ There is not much dynamic about this image.  The only CGI variable you
 need to set is the site ID.
 
 <pre>
-  <?php echo $baseurl; ?>gen/kcci.php?station=<?php echo $s; ?>
+  <?php echo BASEURL; ?>/gen/kcci.php?station=<?php echo $s; ?>
 </pre>
 
 <hr>
@@ -118,7 +118,7 @@ App. All of the
 maps are generated dynamically via a call to a web application. Here is the 
 base url you will need to use:
 <pre>
-URL: <?php echo $baseurl; ?>GIS/map.php?
+URL: <?php echo BASEURL; ?>/GIS/map.php?
 </pre>
 
 <p>The customization of this plot is done by a good number of variables

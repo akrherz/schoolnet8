@@ -8,8 +8,7 @@ $iemdbhost = 'host=mesonet.agron.iastate.edu user=nobody dbname=snet';
 $iemaccess = 'host=mesonet.agron.iastate.edu dbname=iem user=nobody';
 $mesosite = 'host=mesonet.agron.iastate.edu dbname=mesosite user=nobody';
 
-$server = 'http://schoolnet8.local';
-$baseurl = 'http://schoolnet8.local/';
+define("BASEURL", 'http://schoolnet8.local');
 $basecgi = 'http://schoolnet8.local/cgi-bin/';
 $GMAPS_KEY = 'ABQIAAAArXt77YptylBNPFEy0AgJxBTKM1pydaAG3ALFS_17Yg_JzDhv_hSQNTnSOgubglUfDHP1Nnwy-r-EsQ';
 

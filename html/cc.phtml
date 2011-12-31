@@ -31,7 +31,7 @@ function new_window(url) {
 <h2>Current SchoolNet8 Conditions</h2>
 <br>This page will automatically refresh every minute.  You 
 can click on a column to sort it.  You can <b>Add</b> stations
-to your <a href="<?php echo $baseurl; ?>ccfav.phtml">favorites list</a> and restrict 
+to your <a href="<?php echo BASEURL; ?>/ccfav.phtml">favorites list</a> and restrict 
 the number of sites displayed in this table.
 
 <?php
@@ -50,7 +50,7 @@ echo "<p>Sorted by: <b>". $vals[$sortcol] ."</b><br>\n";
 
 ?>
 
-<form method="POST" action="<?php echo $baseurl; ?>ccfav.phtml">
+<form method="POST" action="<?php echo BASEURL; ?>/ccfav.phtml">
 
 <table border=1 cellspacing=0 cellpadding=2 style="font-size: 10pt; float: left;">
 <tr>
@@ -153,7 +153,7 @@ while (list ($key, $val) = each ($finalA))  {
   echo ">\n ";
   $oddRow = ! $oddRow;
   echo "<td><input type=\"checkbox\" name=\"st[]\"  value=\"".$key."\"></td>";
-  echo "<th align=\"left\"><a href=\"javascript:new_window('". $baseurl ."gen/kcci_fe.php?station=".$key."');\">". $locs->table[$key]['sname'] . "</a></th>";
+  echo "<th align=\"left\"><a href=\"javascript:new_window('". BASEURL ."/gen/kcci_fe.php?station=".$key."');\">". $locs->table[$key]['sname'] . "</a></th>";
 
 
   echo "<td ";
@@ -192,7 +192,7 @@ while (list ($key, $val) = each ($skippedStations) ) {
   echo ">\n ";
   $oddRow = ! $oddRow;
   echo "<td><input type=\"checkbox\" name=\"st[]\" value=\"".$key."\"></td>";
-  echo "<th align='left'><a href=\"javascript:new_window('$baseurl/gen/kcci_fe.php?station=".$key."');\">". $locs->table[$key]['sname'] . "</a></th>";
+  echo "<th align='left'><a href=\"javascript:new_window('". BASEURL ."/gen/kcci_fe.php?station=".$key."');\">". $locs->table[$key]['sname'] . "</a></th>";
   echo "<td";
   if ($tdiff < 300){
     echo ">". strftime("%I:%M %p", $parts['ts']);

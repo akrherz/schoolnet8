@@ -20,7 +20,7 @@ applications on this website.</p>
 <?php
 while ( list($sid, $tbl) = each($locs->table) )
 {
-  echo '<tr><th>'. $sid .'</th><td>'. $tbl['city'] .'</td><td><a href="'. $baseurl .'tool/clicktru.php?station='. $sid .'">'. $sponsors[$sid]['sponsor'] .'</a></td></tr>';
+  echo '<tr><th>'. $sid .'</th><td>'. $tbl['city'] .'</td><td><a href="'. BASEURL .'/tool/clicktru.php?station='. $sid .'">'. $sponsors[$sid]['sponsor'] .'</a></td></tr>';
 
 }
 ?>

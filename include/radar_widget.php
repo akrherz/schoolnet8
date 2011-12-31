@@ -11,9 +11,8 @@ function radarWidget($station, $var){
 }
 
 function printHTML(){
-  global $baseurl;
   global $backupbaseurl;
-  $imgbase = "$baseurl/static/radar/". $this->station ."/". $this->station;
+  $imgbase = BASEURL ."/static/radar/". $this->station ."/". $this->station;
   $t = time();
 ?>
 <script language="JavaScript1.2" type="text/javascript">
@@ -34,7 +33,7 @@ last_image = 10;
 current_image = first_image;
 -->
 </script>
-<script language="JavaScript" type="text/javascript" src="<?php echo $baseurl; ?>js/animation.js"></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo BASEURL; ?>/js/animation.js"></script>
 
 <form method="get" action="site.phtml" name="radSelect">
   <a href="javascript: switchLayers('radlayerstill')" style="background: #C0DBFF;"> &nbsp; Latest Image &nbsp; </a><a href="javascript: switchLayers('radlayerloop')" style="background: #FFC0CB;"> &nbsp; Show Loop &nbsp; </a>
@@ -48,7 +47,7 @@ current_image = first_image;
   ?><img width="320" height="240" src="<?php echo $imgbase; ?>_0.png?<?php echo $t; ?>" alt="Image" /><?php
  } else 
  {
- ?><img src="<?php echo $baseurl; ?>GIS/apps/radar/site.php?station=<?php echo $this->station;?>&amp;var=<?php echo $this->var;?>" width="320" height="240" alt="Live Doppler" /><?php
+ ?><img src="<?php echo BASEURL; ?>/GIS/apps/radar/site.php?station=<?php echo $this->station;?>&amp;var=<?php echo $this->var;?>" width="320" height="240" alt="Live Doppler" /><?php
  }
 ?>
 
@@ -76,12 +75,12 @@ current_image = first_image;
 </form>
 <div id="radlayerloop">
 
-<img name="animation" width="320" height="240" src="<?php echo $baseurl; ?>images/pixel.gif" alt="Image" border="2" />
+<img name="animation" width="320" height="240" src="<?php echo BASEURL; ?>/images/pixel.gif" alt="Image" border="2" />
 
   <form method="post" name="control_form" action="#">
-<a href="JavaScript: func()" onclick="change_mode(1);reverse()"><img border="0" src="<?php echo $baseurl; ?>images/rev_button.gif" alt="REV" /></a>
-<a href="JavaScript: func()" onclick="stop()"><img border="0" src="<?php echo $baseurl; ?>images/stp_button.gif" alt="STOP" /></a>
-<a href="JavaScript: func()" onclick="change_mode(1);fwd()"><img border="0" src="<?php echo $baseurl; ?>images/fwd_button.gif" alt="FWD" /></a>
+<a href="JavaScript: func()" onclick="change_mode(1);reverse()"><img border="0" src="<?php echo BASEURL; ?>/images/rev_button.gif" alt="REV" /></a>
+<a href="JavaScript: func()" onclick="stop()"><img border="0" src="<?php echo BASEURL; ?>/images/stp_button.gif" alt="STOP" /></a>
+<a href="JavaScript: func()" onclick="change_mode(1);fwd()"><img border="0" src="<?php echo BASEURL; ?>/images/fwd_button.gif" alt="FWD" /></a>
   <font size="-1" color="#3300CC">Frame No:</font>
   <input type="text" name="frame_nr" value="9" size="2" onfocus="this.select()" onchange="go2image(this.value)"></input>
   </form>

@@ -28,67 +28,56 @@ echo '<tr>
 
 printer("On Air Graphics",
 "gen/kcci.php?station=SAMI4",
-"javascript:new_window('". $baseurl ."gen/kcci_fe.php?station=SAMI4');",
-$baseurl ."gen/kcci_fe.php",
+"javascript:new_window('". BASEURL ."/gen/kcci_fe.php?station=SAMI4');",
+BASEURL ."/gen/kcci_fe.php",
 "View a replicated on-air image of data from your favorite SchoolNet8 site
  just like you would see it on KCCI-TV!  The application will automatically
  update at an interval of your choice.");
 
 printer("SchoolNet8 Live Data + Doppler View ",
-$baseurl ."GIS/apps/radar/site.php",
-$baseurl ."site.phtml",
-$baseurl ."site.phtml",
+BASEURL ."/GIS/apps/radar/site.php",
+BASEURL ."/site.phtml",
+BASEURL ."/site.phtml",
 "Zoomed in view of Live KCCI Super Doppler with Live SchoolNet8 data. The
 radar image is presented centered on the SchoolNet8 site of your choice 
 with neighboring sites also plotted.  You can also pick which variable
 you wish plotted on the image.");
 
 printer("Dynamic Super Doppler + SchoolNet8 Plotter",
-$baseurl ."images/dplotter_big.png",
-"javascript:new_window_big('". $baseurl ."GIS/apps/plotter/currents.php');",
-$baseurl ."GIS/apps/plotter/currents.php",
+BASEURL ."/images/dplotter_big.png",
+"javascript:new_window_big('". BASEURL ."/GIS/apps/plotter/currents.php');",
+BASEURL ."/GIS/apps/plotter/currents.php",
 "Dynamically pick the SchoolNet8 sites you wish to plot with the Live
 Super Doppler image.  You can also pick which variable to plot.  The image
 will dynamically zoom in and out to fit your request.");
 
 printer("Live SchoolNet8 Data",
-$baseurl ."images/currents.png",
-$baseurl ."site.phtml",
-$baseurl ."site.phtml",
+BASEURL ."/images/currents.png",
+BASEURL ."/site.phtml",
+BASEURL ."/site.phtml",
 "A simple text based listing of the current conditions at a school of your
 choice.  You can optionally add another station to the table to give a quick
 comparison to another site.");
 
 printer("1 Minute Data Graphs",
-$baseurl ."images/graphing.png",
-$baseurl ."plotting/1trace_fe.phtml",
-$baseurl ."plotting/1trace_fe.phtml",
+BASEURL ."/images/graphing.png",
+BASEURL ."/plotting/1trace_fe.phtml",
+BASEURL ."/plotting/1trace_fe.phtml",
 "This application generates dynamic 1 minute data graphs for the SchoolNet8 
 site and date of your choice.  You can view graphs of temperature, dew point,
 solar radiation, wind speed, wind direction, pressure and rainfall.");
 
 printer("Historical Data Calendar",
-$baseurl ."images/calendar.png",
-$baseurl ."hist.phtml",
-$baseurl ."hist.phtml",
+BASEURL ."/images/calendar.png",
+BASEURL ."/hist.phtml",
+BASEURL ."/hist.phtml",
 "This application prints out historical data summaries for a SchoolNet8 site
  of your choice in the format of a calendar. You can view past high and low temperatures, rainfall totals, and wind gust information.");
 
-/**
-printer("Where is it Raining?",
-$baseurl ."images/wheresitraining.png",
-$baseurl ."GIS/apps/raining/index.phtml",
-$baseurl ."GIS/apps/raining/index.phtml",
-"This application compares 15 minute rainfall totals from the SchoolNet8 
-network with a RADAR source of your choice.  The plots are interesting to
-monitor during rainfall to see how hard it is raining under those nasty 
-red blobs on the radar!");
-*/
-
 printer("SchoolNet8 Java Viewer",
-$baseurl ."sview/ss/single0.png",
-$baseurl ."sview/",
-$baseurl ."sview/",
+BASEURL ."/sview/ss/single0.png",
+BASEURL ."/sview/",
+BASEURL ."/sview/",
 "Monitor your SchoolNet8 site and the entire SchoolNet8 network with this 
 handy desktop Java application. This app is handy for those on slow 
 Internet connections and still want many of the website functions on

@@ -11,13 +11,13 @@ else if (! isset($station)){
 	 * special clicktru option as well
 	 */
 	$lstation = "MAIN"; 
-	$hextra = sprintf("<a href=\"%stool/clicktru.php?station=TOUCH\">
-	<img src=\"%spics/touchstone.png\" border=\"0\" /></a>", $baseurl, $baseurl);
+	$hextra = sprintf("<a href=\"%s/tool/clicktru.php?station=TOUCH\">
+	<img src=\"%s/pics/touchstone.png\" border=\"0\" /></a>", BASEURL, BASEURL);
 }
 else { $lstation = $station; }
 
-$clickapp = sprintf("%stool/clicktru.php?station=%s", $baseurl, $lstation);
-$sponsorlogo = sprintf("%spics/%s.png", $baseurl, $lstation);
+$clickapp = sprintf("%s/tool/clicktru.php?station=%s", BASEURL, $lstation);
+$sponsorlogo = sprintf("%s/pics/%s.png", BASEURL, $lstation);
 ?>
 <div id="wrapper">
 <div id="imgbar" style="height:60px;">
@@ -82,7 +82,7 @@ while( list($idx, $page) = each($_pages) )
 {
   echo sprintf("<li%s><a href=\"%s\">%s</a></li>", 
       ($ar[0] == $idx) ? " class=\"selected\"" : " ",
-      $baseurl . $page["base"]["url"], $page["base"]["title"]);
+      BASEURL . $page["base"]["url"], $page["base"]["title"]);
   if ($ar[0] == $idx)
   {
     if (sizeof($page) == 1) { $b = ""; continue; }
@@ -92,7 +92,7 @@ while( list($idx, $page) = each($_pages) )
        if ($idx2 == "base") continue;
        $b .= sprintf("<li%s><a href=\"%s\">%s</a></li>", 
          ($ar[1] == $idx2) ? " class=\"selected\"" : " ",
-          $baseurl . $page[$idx2]["url"], 
+          BASEURL . $page[$idx2]["url"], 
      ($ar[1] == $idx2) ? "[ ". $page[$idx2]["title"] ." ]": $page[$idx2]["title"
 ] );
     }

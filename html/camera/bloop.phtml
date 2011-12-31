@@ -61,8 +61,8 @@ for ($i=0; $i < (intval($frames));$i++){
 <p>The <?php echo $cameras[$camid]["name"]; ?> SchoolNet8 web camera is 
 sponsored by <a href="<?php echo $clickapp; ?>"><?php echo $cameras[$camid]["sponsor"]; ?></a>
 <?php 
-if ($cameras[$camid]["hosted"] != ""){ echo sprintf(" and hosted by <a href=\"%stool/clicktru.php?station=%s&stype=2\">%s</a>", $baseurl, $camid, $cameras[$camid]["hosted"]); }
-if ($cameras[$camid]["iservice"] != ""){ echo sprintf(" with internet service provided by <a href=\"%stool/clicktru.php?station=%s&stype=1\">%s</a>", $baseurl, $camid, $cameras[$camid]["iservice"]); }
+if ($cameras[$camid]["hosted"] != ""){ echo sprintf(" and hosted by <a href=\"%s/tool/clicktru.php?station=%s&stype=2\">%s</a>", BASEURL, $camid, $cameras[$camid]["hosted"]); }
+if ($cameras[$camid]["iservice"] != ""){ echo sprintf(" with internet service provided by <a href=\"%s/tool/clicktru.php?station=%s&stype=1\">%s</a>", BASEURL, $camid, $cameras[$camid]["iservice"]); }
 ?>.
 <p>Still images are saved from the SchoolNet8 web cameras every 5 minutes.  
 This page gives you a tool to build animations from this archive of images.

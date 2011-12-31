@@ -46,7 +46,7 @@ include("$nwnpath/include/forms.inc.php");
     if ( filemtime("/home/ldm/data/camera/stills/${id}.jpg") < (time() - 1200)){
       $cameras[$id]["active"] = false;
     }
-    $cameras[$id]["url"] = sprintf("$baseurl/camera/stills/%s.jpg?%s", $id, time() );
+    $cameras[$id]["url"] = sprintf(BASEURL ."/camera/stills/%s.jpg?%s", $id, time() );
  }
 
 }/* End of while */

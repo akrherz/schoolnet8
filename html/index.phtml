@@ -11,7 +11,7 @@
 
 $HEADEXTRA = "<script src=\"http://maps.google.com/maps?file=api&v=2&key=$GMAPS_KEY\" type=\"text/javascript\"></script>
 <script src='http://www.openlayers.org/api/2.10/OpenLayers.js'></script>
-<script src='${baseurl}js/webcams.php'></script>
+<script src='". BASEURL ."/js/webcams.php'></script>
 <script type=\"text/javascript\">
 var selectedSite='$station';
 var map, jsonlayer;
@@ -19,8 +19,8 @@ var map, jsonlayer;
 function updater(){
   var d = new Date();
   cid = eval(\"webcamlookup.\"+ selectedSite );
-  document.getElementById(\"lsdimage\").innerHTML = '<a href=\"${baseurl}/site.phtml?station='+ selectedSite +'\"><img src=\"${baseurl}static/radar/'+ selectedSite +'/'+ selectedSite +'_0.png?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" style=\"float: right;\"/></a><br />Click on map for more details.';
-  document.getElementById('webcamimage').innerHTML = eval(\"webcamsponsor.\"+ cid.replace('-','_') ) +'<a href=\"${baseurl}/camera/viewer.phtml#'+ eval(\"webcamlookup.\"+ selectedSite ) +'\"><img src=\"${baseurl}camera/stills/'+ eval(\"webcamlookup.\"+ selectedSite ) +'.jpg?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float: right;\"/></a><br />Click on image for more details.';
+  document.getElementById(\"lsdimage\").innerHTML = '<a href=\"". BASEURL ."/site.phtml?station='+ selectedSite +'\"><img src=\"". BASEURL ."/static/radar/'+ selectedSite +'/'+ selectedSite +'_0.png?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" style=\"float: right;\"/></a><br />Click on map for more details.';
+  document.getElementById('webcamimage').innerHTML = eval(\"webcamsponsor.\"+ cid.replace('-','_') ) +'<a href=\"". BASEURL ."/camera/viewer.phtml#'+ eval(\"webcamlookup.\"+ selectedSite ) +'\"><img src=\"". BASEURL ."/camera/stills/'+ eval(\"webcamlookup.\"+ selectedSite ) +'.jpg?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float: right;\"/></a><br />Click on image for more details.';
 
 };
 
@@ -136,8 +136,8 @@ $THISPAGE = "homepage"; include("$nwnpath/include/bar.inc.php");
 
 <div style="width:100%; margin-bottom: 5px; margin-left: 10px;">
 <b>Welcome</b> to the KCCI SchoolNet8 website<br />sponsored 
-by <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=KCCI">CIPCO</a> 
-and Iowa <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=TOUCH">Touchstone Energy Cooperatives</a>!</p>
+by <a href="<?php echo BASEURL; ?>/tool/clicktru.php?station=KCCI">CIPCO</a> 
+and Iowa <a href="<?php echo BASEURL; ?>/tool/clicktru.php?station=TOUCH">Touchstone Energy Cooperatives</a>!</p>
 </div>
 
 
@@ -156,7 +156,7 @@ and Iowa <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=TOUCH">Touch
 <h3>Popular links:</h3>
 <div class="nb_content">
 <ul>
- <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php');">Live Super Doppler8 App</a></li>
+ <li><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php');">Live Super Doppler8 App</a></li>
  <li><a href="display.phtml">Loopable Live Super Doppler8</a></li>
  <li><a href="sview/">SchoolNet8 Desktop Java Viewer</a></li>
  <li><a href="camera/bestof.phtml">Best of Webcam Lapes</a></li>
@@ -174,11 +174,11 @@ and Iowa <a href="<?php echo $baseurl; ?>/tool/clicktru.php?station=TOUCH">Touch
 <div class="nb_content">
 <?php
   /** Begin RANDOM RADAR image */
-  $img = sprintf('%sstatic/radar/%s/%s_0.png', $baseurl, $station, $station);
-  $camimg = sprintf('%scamera/stills/%s.jpg', $baseurl, $cxref[$station][0]);
-  $link = sprintf('%ssite.phtml?station=%s', $baseurl, $station);
-  $camlink = sprintf('%scamera/viewer.phtml#%s', $baseurl, $cxref[$station][0]);
-  $ct = sprintf('%stool/clicktru.php?station=%s', $baseurl, $station);
+  $img = sprintf('%s/static/radar/%s/%s_0.png', BASEURL, $station, $station);
+  $camimg = sprintf('%s/camera/stills/%s.jpg', BASEURL, $cxref[$station][0]);
+  $link = sprintf('%s/site.phtml?station=%s', BASEURL, $station);
+  $camlink = sprintf('%s/camera/viewer.phtml#%s', BASEURL, $cxref[$station][0]);
+  $ct = sprintf('%s/tool/clicktru.php?station=%s', BASEURL, $station);
 
   echo "<div id=\"lsdimage\"\"><a href=\"$link\"><img src=\"$img\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" style=\"float: right;\"/></a><br />Click on map for more details.</div>";
 ?>

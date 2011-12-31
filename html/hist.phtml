@@ -83,7 +83,8 @@ if ($mode == "monthly") {
   $db[ $row["dvalid"] ] = $str ;
 
  } /* End of for */
- $htmlout = printMonth($ts, $db, $baseurl .'hist.phtml?station='. $station , $baseurl ."hist.phtml?mode=daily&year=$year&month=$month&day=");
+ $htmlout = printMonth($ts, $db, BASEURL .'/hist.phtml?station='. $station , 
+ 	BASEURL ."/hist.phtml?mode=daily&year=$year&month=$month&day=");
 
  $htmlout .= sprintf('<p><img src="http://mesonet.agron.iastate.edu/sites/month_hilo_plot.php?month=%s&year=%s&network=KCCI&station=%s"><br /><strong>Description:</strong> This chart of the monthly temperature data.  The bars are the observations and the dots are climatology.', $month, $year, $station);
  $htmlout .= sprintf('<p><img src="http://mesonet.agron.iastate.edu/plotting/month/rainfall_plot.php?network=KCCI&station=%s&month=%s&year=%s"><br /><strong>Description:</strong> Here is a chart of the monthly precipitation data.  The red line would be an average month while the blue line and bars are observations.', $station, $month, $year);
@@ -143,7 +144,7 @@ if ($mode == "monthly"){
   echo "&nbsp; Year: &nbsp; ". yearSelect(2002, $year, "year");
   echo "&nbsp; Month: &nbsp; ". monthSelect($month, "month");
   echo "<input type='submit' value='Change'></form>";
-  echo "<br />Switch to <a href=\"".$baseurl ."site.phtml?station=". $station ."\">Current Site Conditions</a><br>";
+  echo "<br />Switch to <a href=\"". BASEURL ."/site.phtml?station=". $station ."\">Current Site Conditions</a><br>";
 } else {
   echo "The chart below lists out the reported summary values for a particular date for all SchoolNet8 sites.";
   echo "<p>Switch date shown:<form name=\"ds\" method=\"get\"><input type=\"hidden\" value=\"daily\" name=\"mode\">". yearSelect(2002, $year, "year") . monthSelect($month, "month") . daySelect($day, "day") ."<input type=\"submit\" value=\"Switch Date\"></form>";
@@ -160,7 +161,7 @@ echo $htmlout;
 <li>Due to some complexities with the wind gusts, peak gusts before 12:15 AM 
 are not included.</li>
 <li>Values that are <strike>crossed out</strike> failed a crude quality control routine.</li>
-<li>You may wish to consult a <a href="<?php echo $baseurl; ?>dl/history.phtml">listing</a> of when stations came online.</li>
+<li>You may wish to consult a <a href="<?php echo BASEURL; ?>/dl/history.phtml">listing</a> of when stations came online.</li>
 <li>Peak wind gusts are unavailable prior to 11 July 2002.</li>
 </ul>
 </div>

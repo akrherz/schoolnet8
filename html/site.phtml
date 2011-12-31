@@ -80,9 +80,9 @@ while( list($pos,$val) = each($ar))
  $rW = new radarWidget($station, $var);
  $app = "02"; include("../include/dblog.inc.php"); 
 $HEADEXTRA = '
-<link rel="stylesheet" type="text/css" href="'. $baseurl .'ext/resources/css/ext-all.css"/>
-<script type="text/javascript" src="'. $baseurl .'ext/adapter/ext/ext-base.js"></script>
-<script type="text/javascript" src="'. $baseurl .'ext/ext-all.js"></script>
+<link rel="stylesheet" type="text/css" href="'. BASEURL .'/ext/resources/css/ext-all.css"/>
+<script type="text/javascript" src="'. BASEURL .'/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="'. BASEURL .'/ext/ext-all.js"></script>
 <style>
 .x-form-item {margin-left: 6px; border-bottom: 1px solid #ccc;}
 .x-panel-header-text {
@@ -122,9 +122,9 @@ function sel($svar, $var, $txt){
 
 function nbheader($title, $pos, $name)
 {
-  global $containers, $baseurl;
+  global $containers;
   $s = "<div class=\"nb\">";
-  $s .= "<div class=\"nb_shader\"><a href=\"javascript: reverseLayer('". $name ."',". $pos .");\"><img src=\"${baseurl}/images/shade.gif\" alt=\"shader\"/></a></div>";
+  $s .= "<div class=\"nb_shader\"><a href=\"javascript: reverseLayer('". $name ."',". $pos .");\"><img src=\"". BASEURL ."/images/shade.gif\" alt=\"shader\"/></a></div>";
   $s .= "<h3>$title</h3>";
   $s .= "<div class=\"nb_content\" id=\"". $name ."\" style=\"display: ". $containers[$pos]['display'] .";\">";
   return $s;
@@ -141,7 +141,7 @@ if (isset($metadata["ftm"])) {
 ?>
 <div id="datagrid"></div>
 
-<p style="margin: 5px;"><?php echo "<b><a href=\"$baseurl/site.phtml?station=$station\">". $metadata["city"] ."</a></b> SchoolNet8 Site is sponsored by <a href=\"". $baseurl ."tool/clicktru.php?station=$station\">". $sponsors[$station]["sponsor"] ."</a>"; ?>. &nbsp; <a href='javascript:addToFavorites("<?php echo $baseurl . $uri; ?>", "SchoolNet8.com | <?php echo $TITLE; ?>");'>Bookmark this page!</a>
+<p style="margin: 5px;"><?php echo "<b><a href=\"". BASEURL ."/site.phtml?station=$station\">". $metadata["city"] ."</a></b> SchoolNet8 Site is sponsored by <a href=\"". BASEURL ."/tool/clicktru.php?station=$station\">". $sponsors[$station]["sponsor"] ."</a>"; ?>. &nbsp; <a href='javascript:addToFavorites("<?php echo BASEURL ."/". $uri; ?>", "SchoolNet8.com | <?php echo $TITLE; ?>");'>Bookmark this page!</a>
 <br />Help report rain and snow in your community by joining <a href="http://iowa.cocorahs.org">CoCoRaHS</a>.</p>
 
 
@@ -205,8 +205,8 @@ if ( filemtime("/home/ldm/data/camera/stills/${cid}.jpg") < (time() - 1200) ){
 else if ($cameras[$cid]["active"])
 {
 		echo "<ul>
-	<li>Build <a href=\"$baseurl/camera/bloop.phtml?station=$cid\">time lapses</a> or view <a href=\"camera/lapses.phtml\">today's movies</a></li>
-	<li>View higher resolution <a href=\"$baseurl/camera/viewer.phtml?id=$cid\">640x480 images</a>.</li>
+	<li>Build <a href=\"". BASEURL ."/camera/bloop.phtml?station=$cid\">time lapses</a> or view <a href=\"camera/lapses.phtml\">today's movies</a></li>
+	<li>View higher resolution <a href=\"". BASEURL ."/camera/viewer.phtml?id=$cid\">640x480 images</a>.</li>
 </ul>
 <img src=\"$backupbaseurl/camera/stills/${cid}.jpg\" width=\"320\" alt=\"WebCam Still\" height=\"240\" />";
 		if ($cameras[$cid]["sponsor"] != "")
@@ -234,13 +234,13 @@ else {
 <!-- Site Resources -->
 <?php echo nbheader("Site Resources:", 5, "links"); ?>
 <ul>
- <li><a href="<?php echo $baseurl; ?>dl/">Download Data</a></li>
- <li><a href="<?php echo $baseurl; ?>hist.phtml?station=<?php echo $station; ?>">Historical Data Calendar</a></li>
- <li><a href="javascript:new_window_big('<?php echo $baseurl; ?>GIS/apps/plotter/currents.php?st[]=<?php echo $station; ?>');">Live SchoolNet8 &amp; Super Doppler </a></li>
- <li><a href="<?php echo $baseurl; ?>GIS/gm.phtml?station=<?php echo $station; ?>">Google Maps Application</a></li>
- <li><a href="<?php echo $baseurl; ?>ortho.phtml?station=<?php echo $station; ?>">Ortho Photography!</a></li>
- <li><a href="<?php echo $baseurl; ?>plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
- <li><a href="javascript:new_window('<?php echo $baseurl; ?>gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
+ <li><a href="<?php echo BASEURL; ?>/dl/">Download Data</a></li>
+ <li><a href="<?php echo BASEURL; ?>/hist.phtml?station=<?php echo $station; ?>">Historical Data Calendar</a></li>
+ <li><a href="javascript:new_window_big('<?php echo BASEURL; ?>/GIS/apps/plotter/currents.php?st[]=<?php echo $station; ?>');">Live SchoolNet8 &amp; Super Doppler </a></li>
+ <li><a href="<?php echo BASEURL; ?>/GIS/gm.phtml?station=<?php echo $station; ?>">Google Maps Application</a></li>
+ <li><a href="<?php echo BASEURL; ?>/ortho.phtml?station=<?php echo $station; ?>">Ortho Photography!</a></li>
+ <li><a href="<?php echo BASEURL; ?>/plotting/1trace_fe.phtml?station=<?php echo $station; ?>">Plot Data Timeseries</a></li>
+ <li><a href="javascript:new_window('<?php echo BASEURL; ?>/gen/kcci_fe.php?station=<?php echo $station; ?>');">View On-Air Graphic</a></li>
  <li><a href="http://www.crh.noaa.gov/forecast/MapClick.php?FcstType=text&amp;textField1=<?php echo $metadata['lat']; ?>&amp;textField2=<?php echo $metadata['lon']; ?>&amp;site=dmx">National Weather Service 7-Day Forecast</a></li>
 </ul>
 </div></div>
@@ -266,8 +266,8 @@ else {
 <ul>
 <?php
  for ($i=0;$i<5;$i++){
-   $s = sprintf('<li><a href="%ssite.phtml?station=%s">%s</a></li>', 
-     $baseurl, $neighbors[$station][$i], $locs->table[$neighbors[$station][$i]]['city']);
+   $s = sprintf('<li><a href="%s/site.phtml?station=%s">%s</a></li>', 
+     BASEURL, $neighbors[$station][$i], $locs->table[$neighbors[$station][$i]]['city']);
    echo $s;
  } 
 ?>

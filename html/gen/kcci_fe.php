@@ -22,13 +22,13 @@ $station = isset($_GET['station']) ? $_GET["station"]: 'SKCI4';
 
 ?>
   <title>SchoolNet* | <?php echo $locs->table[$station]["sname"]; ?></title>
-  <meta http-equiv="refresh" content="<?php echo $secs; ?>; URL=<?php echo $baseurl; ?>gen/kcci_fe.php?min=<?php echo $min; ?>&station=<?php echo $station; ?>">
+  <meta http-equiv="refresh" content="<?php echo $secs; ?>; URL=<?php echo BASEURL; ?>/gen/kcci_fe.php?min=<?php echo $min; ?>&station=<?php echo $station; ?>">
 
 </head>
 <body bgcolor="#96aae7">
 
 <center>
-<form method="POST" action="<?php echo $baseurl; ?>gen/kcci_fe.php" name="st">
+<form method="POST" action="<?php echo BASEURL; ?>/gen/kcci_fe.php" name="st">
 <?php
  
   echo "SchoolNet Site: ";
@@ -38,7 +38,7 @@ reset($locs->table);
 while( list($id,$d) = each($locs->table))
 {
   if ($d["online"] == false){ continue; }
-  echo "<option value=\"". $baseurl ."gen/kcci_fe.php?min=".$min."&station=". $id ."\"";
+  echo "<option value=\"". BASEURL ."/gen/kcci_fe.php?min=".$min."&station=". $id ."\"";
   if ($station == $id){
         echo " SELECTED ";
   }
@@ -51,8 +51,8 @@ echo "</select>\n";
 </form>
 <p>
 <?php
-  echo "<a href=\"". $baseurl ."tool/clicktru.php?station=".$station."\" target=\"_new\"><img src=\"". $baseurl ."spics/".$station .".png\" border=0></a><br>\n";
-  echo "<img src=\"". $baseurl ."gen/kcci.php?station=".$station ."\">\n";
+  echo "<a href=\"". BASEURL ."/tool/clicktru.php?station=".$station."\" target=\"_new\"><img src=\"". BASEURL ."/spics/".$station .".png\" border=0></a><br>\n";
+  echo "<img src=\"". BASEURL ."/gen/kcci.php?station=".$station ."\">\n";
 ?>
 
 <?php if (! isset($mode) ){ ?>

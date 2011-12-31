@@ -9,11 +9,11 @@
  $sw->setShowWarnings(true);
  $sw->logic($_GET);
  if (strlen($sw->selectedSite) > 0){
-  header("Location: $baseurl/site.phtml?station=". $sw->selectedSite );
+  header("Location: ". BASEURL ."/site.phtml?station=". $sw->selectedSite );
   die();
  } 
  if (isset($_GET["station"]) ){
-  header("Location: $baseurl/site.phtml?station=". $_GET["station"] );
+  header("Location: ", BASEURL ."/site.phtml?station=". $_GET["station"] );
   die();
  }
 ?>

@@ -12,11 +12,11 @@ function listItem($url, $ltext, $name, $selected)
 <ul style="background: #fff; margin: 2px; padding-left: 5px;">
  <li><strong style="color: #bdf;">Webcam Tools:</strong></li>
 <?php
-  echo listItem($baseurl."/camera/", "Current/Past Images", "current", $THISPAGE);
-  echo listItem($baseurl."/camera/bloop.phtml", "Lapse Builder", "lapse", $THISPAGE);
-  echo listItem($baseurl."/camera/viewer.phtml", "Live Image", "live", $THISPAGE);
-  echo listItem($baseurl."/camera/movies/", "Daily Movies", "daily", $THISPAGE);
-  echo listItem($baseurl."/camera/bestof.phtml", "Best Of!", "bestof", $THISPAGE);
+  echo listItem(BASEURL."/camera/", "Current/Past Images", "current", $THISPAGE);
+  echo listItem(BASEURL."/camera/bloop.phtml", "Lapse Builder", "lapse", $THISPAGE);
+  echo listItem(BASEURL."/camera/viewer.phtml", "Live Image", "live", $THISPAGE);
+  echo listItem(BASEURL."/camera/movies/", "Daily Movies", "daily", $THISPAGE);
+  echo listItem(BASEURL."/camera/bestof.phtml", "Best Of!", "bestof", $THISPAGE);
 ?>
 </ul>
 </div>
