@@ -146,7 +146,7 @@ END
 LAYER
   TYPE ANNOTATION
   STATUS ON
-  DATA "/mesonet/data/gis/shape/26915/iowa/iaroad_cond_sort.shp"
+  DATA "/home/ldm/data/gis/shape/26915/ia/iaroad_cond.shp"
   NAME "roadcond_label"
   PROJECTION
    "init=epsg:26915"
