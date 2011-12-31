@@ -26,8 +26,7 @@ foreach($locs->table as $key => $value)
 
   $map = ms_newMapObj($mapfile);
   $map->selectOutputFormat("png24");
-  $map->set("width", 320);
-  $map->set("height", 240);
+  $map->setsize(320,240);
 
   $projInObj = ms_newprojectionobj("init=epsg:4326");
   $projOutObj = ms_newprojectionobj($proj);
@@ -124,7 +123,7 @@ foreach($locs->table as $key => $value)
     doppler8logo($map, $img, 260, 27, 53);
   mktitle($map, $img, 0, 230, " Sponsored by ". $sponsors[$sid]["sponsor"] );
   putenv("TZ=CST6CDT");
-  mkstationtitle($map, $img,  5, 10, $locs->table[$sid]["city"] ." @ ". date("h:i A") );
+  mkstationtitle($map, $img,  5, 10, date("h:i A") ." - ". $locs->table[$sid]["city"]  );
 
   $img->saveImage('/tmp/radimages/'. $sid .'.png');
   $img->free();
