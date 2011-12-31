@@ -866,7 +866,7 @@ LAYER
       #BACKGROUNDSHADOWSIZE 1 1
       TYPE TRUETYPE
       SIZE 14
-      FONT 'liberation'
+      FONT 'liberation-narrow'
       POSITION CR
       FORCE TRUE
       PARTIALS TRUE
