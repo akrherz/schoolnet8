@@ -71,9 +71,10 @@ def generator(sid, lat, lon):
         data[tm]['icon'] = val
     
     for val, tm in zip( weather['vals'], tnames[ weather['taxis'] ] ):
+        #print 'Wx Axis', tm, val
         if not data.has_key(tm):
             data[tm] = {'high': None, 'low': None, 'weather': None, 'icon': None}
-        data[tm]['wather'] = val
+        data[tm]['weather'] = val
     
     
     #print "MAX TEMPS", tnames[ temps['Daily Maximum Temperature']['taxis'] ]
