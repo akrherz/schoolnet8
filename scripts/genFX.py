@@ -55,24 +55,28 @@ def generator(sid, lat, lon):
     for val, tm in zip( temps['Daily Maximum Temperature']['vals'],
                 tnames[ temps['Daily Maximum Temperature']['taxis'] ] ):
         if not data.has_key(tm):
+            #print 'Adding tm for high', tm, data.keys()
             data[tm] = {'high': None, 'low': None, 'weather': None, 'icon': None}
         data[tm]['high'] = val
     
     for val, tm in zip( temps['Daily Minimum Temperature']['vals'],
                 tnames[ temps['Daily Minimum Temperature']['taxis'] ] ):
         if not data.has_key(tm):
+            #print 'Adding tm for mintmp', tm, data.keys()
             data[tm] = {'high': None, 'low': None, 'weather': None, 'icon': None}
         data[tm]['low'] = val
     
     for val, tm in zip( icons['vals'],
                 tnames[ icons['taxis'] ] ):
         if not data.has_key(tm):
+            #print 'Adding tm for icons', tm
             data[tm] = {'high': None, 'low': None, 'weather': None, 'icon': None}
         data[tm]['icon'] = val
     
     for val, tm in zip( weather['vals'], tnames[ weather['taxis'] ] ):
         #print 'Wx Axis', tm, val
         if not data.has_key(tm):
+            #print 'Adding tm for weather', tm
             data[tm] = {'high': None, 'low': None, 'weather': None, 'icon': None}
         data[tm]['weather'] = val
     
@@ -81,7 +85,6 @@ def generator(sid, lat, lon):
     #print "MIN TEMPS", tnames[ temps['Daily Minimum Temperature']['taxis'] ]
     #print "WEATHER", tnames[ weather['taxis'] ]
     #print "ICONS", tnames[ icons['taxis'] ]
-    
     o = open('%s.html' % (sid,), 'w')
     o.write("<!-- %s -->" % (sid,))
     o.write("<table cellspacing=\"0\" cellpadding=\"1\" width=\"640\">")
@@ -93,7 +96,10 @@ def generator(sid, lat, lon):
     
     o.write("<tr>")
     for tm in tnames[ icons['taxis'] ][:9]:
-        o.write("<td><img src=\"%s\" alt=\"fx\"/></td>" % (data[tm]['icon'], ) )
+        if data[tm]['icon'] is not None:
+            o.write("<td><img src=\"%s\" alt=\"fx\"/></td>" % (data[tm]['icon'], ) )
+        else:
+            o.write("<td></td>")
     o.write("</tr>")
     
     o.write("<tr>")
