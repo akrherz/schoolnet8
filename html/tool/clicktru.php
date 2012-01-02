@@ -6,7 +6,7 @@ include("../../config/settings.inc.php");
 include("$nwnpath/include/sponsors.inc.php");
 include("$nwnpath/include/cameras.inc.php");
 $REMOTE_ADDR = getenv('REMOTE_ADDR');
-$station = isset($_GET["station"]) ? substr($_GET['station'],0,11): die();
+$station = isset($_GET["station"]) ? strtoupper(substr($_GET['station'],0,11)): die();
 $stype = isset($_GET["stype"]) ? intval($_GET['stype']) : 0;
 /* STYPES
  *  0 - Standard
