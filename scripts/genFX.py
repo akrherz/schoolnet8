@@ -1,4 +1,7 @@
-
+"""
+Create cached forecast html from the NDFD
+$Id: $:
+"""
 import re, pdb, datetime, urllib, time, sys, shutil, traceback
 import mx.DateTime
 from xml.etree import ElementTree
@@ -121,4 +124,5 @@ def generator(sid, lat, lon):
 if (__name__ == "__main__"):
   if not generator(sys.argv[1], sys.argv[2], sys.argv[3]):
       time.sleep(60)
-      generator(sys.argv[1], sys.argv[2], sys.argv[3])
+      generator(sys.argv[1], float(sys.argv[2]) + 0.01, 
+                float(sys.argv[3]) + 0.01)
