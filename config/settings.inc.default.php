@@ -17,4 +17,6 @@ $backupbaseurl = 'http://iem.schoolnet8.com/';
 $nwnpath = '/home/akrherz/projects/nwnwebsite/';
 $mapfile = "$nwnpath/data/GIS/base.map";
 
+$CAMPASS = "";
+
 ?>
