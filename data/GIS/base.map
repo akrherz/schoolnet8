@@ -453,11 +453,11 @@ LAYER
   NAME wsr88d
   STATUS OFF
   TYPE RASTER
-  DATA /home/ldm/data/gis/images/4326/DMX/n0r_0.tif
+  DATA /home/ldm/data/gis/images/4326/ridge/DMX/N0Q_0.png
   PROJECTION
     "init=epsg:4326"
   END
-  OFFSITE 0 0 0
+  OFFSITE 255 255 255
 END
 
 LAYER
@@ -480,11 +480,11 @@ LAYER
   NAME DMX
   STATUS OFF
   TYPE RASTER
-  DATA /home/ldm/data/gis/images/26915/DMX/DMX_N0R_0.png
-  OFFSITE 0 0 0
+  DATA /home/ldm/data/gis/images/4326/ridge/DMX/N0Q_0.png
+  OFFSITE 255 255 255
   TRANSPARENCY 80
   PROJECTION
-    "init=epsg:26915"
+    "init=epsg:4326"
   END
 END
 
