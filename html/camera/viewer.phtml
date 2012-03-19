@@ -69,7 +69,7 @@ function refreshCamera()
 	}
     if (newCameraID == null){ newCameraID = cameraID; }
     if (cameraID != newCameraID && newCameraID != null) {
-      document.getElementById(\"imgbar\").innerHTML = \"<a href='http://localhost/nwnwebsite/tool/clicktru.php?station=\"+ newCameraID +\"' target='_new'><img src='http://localhost/nwnwebsite/pics/\"+ newCameraID +\".png' alt='Banner' style='border: 0px none ;'></a>\";
+      document.getElementById(\"imgbar\").innerHTML = \"<a href='/tool/clicktru.php?station=\"+ newCameraID +\"' target='_new'><img src='/pics/\"+ newCameraID +\".png' alt='Banner' style='border: 0px none ;'></a>\";
       cameraID = newCameraID;
     }
     /* Make the URL Prettier */
