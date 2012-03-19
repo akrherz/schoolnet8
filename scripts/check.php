@@ -7,7 +7,7 @@ $now = time();
 
 /* Filenames of files */
 $fn_lastrun = 'lastrun.ts';
-$fn_kccitime = '/home/ldm/data/kcci/time.txt';
+$fn_kccitime = '/home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt';
 $fn_dmxtime = '/home/ldm/data/gis/images/4326/DMX.ts';
 
 /* For what time did we previously run for */
@@ -17,7 +17,7 @@ $lastrun = strtotime($fc[0]);
 
 /* What time is the KCCI RADAR valid */
 $fc = file($fn_kccitime);
-$kccits = strtotime($fc[0]);
+$kccits = strtotime(date("Y")."/".$fc[0]);
 $kccits = strtotime( date("Y/m/d H:i", $kccits) );
 //echo "KCCI is valid at ". date("Y/m/d H:i", $kccits) ."\n";
 
