@@ -24,7 +24,7 @@ if ( is_file($cache) )
 }
 
 
-$im = @imagecreatefromjpeg("http://root:${CAMPASS}@$ip/-wvhttp-01-/GetOneShot");
+$im = imagecreatefromjpeg("http://root:${CAMPASS}@$ip/-wvhttp-01-/GetOneShot");
 
 if (! $im ) die();
 

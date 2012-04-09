@@ -15,8 +15,8 @@ pre,code,kbd,samp,tt {font-family:monospace;*font-size:108%;line-height:99%;}
   margin: 5px auto;
   padding: 0;
   border: 1px solid #526968;
-  min-width: 650px; 
-  width: 650px;
+  min-width: 620px; 
+  width: 620px;
 }
 #wrapper:after {
     content: "."; 
@@ -50,12 +50,12 @@ a:hover {
 }
 #leftside{
 	float:	left;
-	width:	300px;
+	width:	270px;
     margin-left: 2px;
 }
 #rightside{
 	padding: 2px 0px 0px 0px;
-	margin: 0 0 0 310px;
+	margin: 0 0 0 280px;
 	background: transparent;
 }
 #iem_nav {

@@ -7,7 +7,7 @@ var form = new Ext.FormPanel({
     title     : 'Live Observation',
     renderTo  : 'datagrid',
     id        : 'propGrid',
-    width     : 300,
+    width     : 270,
     url       : '/json/get-site?site='+ nwsli,
     reader    : new Ext.data.JsonReader({
 	    root : 'data'
