@@ -474,7 +474,7 @@ $bar->draw($img);
 mktitle($map, $img, 230, 48, $varDef[$var] ." @ ". $titlets );
 if (($tvgood || $mode == "archive") && $radar == "KCCI")
 {
-  doppler8logo($map, $img, 550, 68, 53);
+  doppler8logo($map, $img, 550, 74, 53);
 } else 
 {
   $subbar->draw($img);
