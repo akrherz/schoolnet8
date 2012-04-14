@@ -105,18 +105,18 @@ foreach($locs->table as $key => $value)
     $rotate =  0 - intval($ob["drct"]);
     $bclass->label->set("angle", doubleval($rotate));
     $pt->draw($map, $barbs, $img, 0, skntChar($ob["sknt"]) );
-    $pt->free();
+
 
     $pt = ms_newPointObj();
     $pt->setXY($lon, $lat, 0);
     $pt->draw($map, $snet, $img, 0, $ob['tmpf'] );
-    $pt->free();
+
   }
 
   $pt = ms_newPointObj();
   $pt->setXY($point->x, $point->y, 0);
   $pt->draw($map, $ponly, $img, 0, " ");
-  $pt->free();
+
 
   $bar->draw($img);
   if ($validRADAR)
@@ -126,7 +126,7 @@ foreach($locs->table as $key => $value)
   mkstationtitle($map, $img,  5, 10, date("h:i A") ." - ". $locs->table[$sid]["city"]  );
 
   $img->saveImage('/tmp/radimages/'. $sid .'.png');
-  $img->free();
+  
 }
 
 chdir("/tmp/radimages");
