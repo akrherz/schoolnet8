@@ -231,23 +231,26 @@ LAYER
 	CLASS
 		NAME "Svr T'storm Warn"
         EXPRESSION ('[type]' = 'SV' and '[sig]' = 'W')
-		COLOR	255 255 0
-		SIZE	3
-		SYMBOL	'circle'
+        STYLE
+			COLOR	255 255 0
+			WIDTH 3
+		END
 	END
 	CLASS
 		NAME "Flash Flood Warn"
         EXPRESSION ('[type]' = 'FF' and '[sig]' = 'W')
-		COLOR	0 255 0
-		SIZE	3
-		SYMBOL	'circle'
+        STYLE
+			COLOR	0 255 0
+			WIDTH	3
+		END
 	END
 	CLASS
 		NAME "Tornado Warn"
         EXPRESSION ('[type]' = 'TO' and '[sig]' = 'W')
-		COLOR	255 0 0
-		SIZE	3
-		SYMBOL	'circle'
+		STYLE
+			COLOR	255 0 0
+			WIDTH	3
+		END	
 	END
     # Advisories
     CLASS
@@ -255,12 +258,12 @@ LAYER
         EXPRESSION (('[type]' = 'BZ' or '[type]' = 'SN' or '[type]' = 'WS' or '[type]' = 'BS' or '[type]' = 'SB' or '[type]' = 'IP' or '[type]' = 'HP' or '[type]' = 'ZR' or '[type]' = 'IS') and '[sig]' = 'Y')
         STYLE
 		  COLOR	176 224 230
-		  SIZE	3
+		  WIDTH	3
 		  SYMBOL	'circle'
         END
         STYLE
 		  COLOR	255 255 255
-		  SIZE	1
+		  WIDTH	1
 		  SYMBOL	'circle'
         END
 	END
@@ -268,33 +271,37 @@ LAYER
     CLASS
         NAME "Heavy Snow Warn"
         EXPRESSION ('[type]' = 'HS' and '[sig]' = 'W')
-        COLOR 138 43 226
-        SIZE 3
-        SYMBOL 'circle'
+        STYLE
+        	COLOR 138 43 226
+        	WIDTH 3
+        END
     END
     # WW Warning
     CLASS
         NAME "Winter Storm Warn"
         EXPRESSION (('[type]' = 'WS' or '[type]' = 'WW') and '[sig]' = 'W')
-		COLOR	255 105 180
-		SIZE	3
-		SYMBOL	'circle'
+        STYLE
+			COLOR	255 105 180
+			WIDTH	3
+		END
 	END
     # Sleet Fz
     CLASS
         NAME "Ice/Frz/Sleet Warn"
         EXPRESSION (('[type]' = 'IP' or '[type]' = 'HP' or '[type]' = 'ZR' or '[type]' = 'IS') and '[sig]' = 'W')
-		COLOR	255 20 147
-		SIZE	3
-		SYMBOL	'circle'
+		STYLE
+			COLOR	255 20 147
+			WIDTH	3
+		END
 	END
     # Blizzard
     CLASS
         NAME "Blizzard Warn"
         EXPRESSION ('[type]' = 'BZ' and '[sig]' = 'W')
-		COLOR	255 0 0
-		SIZE	3
-		SYMBOL	'circle'
+		STYLE
+			COLOR	255 0 0
+			WIDTH	3
+		END
 	END
 END
 
@@ -312,21 +319,24 @@ LAYER
   END
   CLASS
     EXPRESSION /SV/
-    COLOR	255 255 0
-		SIZE	3
-		SYMBOL	'circle'
-	END
+    STYLE
+    		COLOR	255 255 0
+			WIDTH	3
+		END
+  END
 	CLASS
 		EXPRESSION /FF/
+		STYLE
 		COLOR	0 255 0
-		SIZE	3
-		SYMBOL	'circle'
+		WIDTH	3
+		END
 	END
 	CLASS
 		EXPRESSION /TO/
+		STYLE
 		COLOR	255 0 0
-		SIZE	3
-		SYMBOL	'circle'
+		WIDTH	3
+		END
 	END
 
 END
