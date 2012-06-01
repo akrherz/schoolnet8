@@ -59,7 +59,7 @@ function Header()
     $this->SetFont('Arial','B',15);
     $this->Ln(2);
     //Title
-    $mo = date('M Y');
+    $mo = date('M Y', time() - 86400);
     //$this->Cell(180,30,'KCCI SchoolNet8 WebSite Stats for Jan 2005' ,0,0,'C');
     $this->Cell(180,30,'KCCI SchoolNet8 WebSite Stats for '. $mo ,0,0,'C');
     //Line break
