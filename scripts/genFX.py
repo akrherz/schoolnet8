@@ -1,14 +1,20 @@
 """
 Create cached forecast html from the NDFD
-$Id: $:
 """
-import re, pdb, datetime, urllib, time, sys, shutil, traceback
+import re
+import pdb
+import datetime
+import urllib
+import time
+import sys
+import shutil
+import traceback
 import mx.DateTime
 from xml.etree import ElementTree
 
 ENDPOINT = "http://www.weather.gov/forecasts/xml/SOAP_server/ndfdSOAPclientByDay.php?"
 
-def generator(sid, lat, lon):
+def generator(sid, lat, lon, rerun=False):
 
     now = datetime.datetime.now()
     rest_uri = "%slat=%s&lon=%s&format=12+hourly&startDate=%s&numDays=7&Submit=Submit" % (
@@ -48,10 +54,11 @@ def generator(sid, lat, lon):
             icons['vals'].append( v.text )
     
     if not temps.has_key('Daily Maximum Temperature'):
-        print '--------------------------------------------------'
-        print 'Whoa, could not find daily maximum temperature key'
-        print sid
-        print doc
+        if rerun:
+            print '--------------------------------------------------'
+            print 'Whoa, could not find daily maximum temperature key'
+            print sid
+            print doc
         return False
     
     data = {}
@@ -125,4 +132,4 @@ if (__name__ == "__main__"):
   if not generator(sys.argv[1], sys.argv[2], sys.argv[3]):
       time.sleep(60)
       generator(sys.argv[1], float(sys.argv[2]) + 0.01, 
-                float(sys.argv[3]) + 0.01)
+                float(sys.argv[3]) + 0.01, rerun=True)
