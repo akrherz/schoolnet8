@@ -80,23 +80,11 @@ while( list($pos,$val) = each($ar))
  $rW = new radarWidget($station, $var);
  $app = "02"; include("../include/dblog.inc.php"); 
 $HEADEXTRA = '
-<link rel="stylesheet" type="text/css" href="'. BASEURL .'/ext/resources/css/ext-all.css"/>
-<script type="text/javascript" src="'. BASEURL .'/ext/adapter/ext/ext-base.js"></script>
-<script type="text/javascript" src="'. BASEURL .'/ext/ext-all.js"></script>
-<style>
-.x-form-item {margin-left: 6px; border-bottom: 1px solid #ccc;}
-.x-panel-header-text {
-  color: #000;
-  background: #fcb93b;
-  border-bottom: 5px #ff0000 solid;
-}
-.x-panel-header { background: #F6B93B; }
-</style>
 <script>
-Ext.namespace("nwsli");
-nwsli = "'. $station .'";
+  var nwsli = "'. $station .'";
 </script>
-<script type="text/javascript" src="js/site.js?v=3"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/site.v2.js"></script>
 ';
  $TITLE =  $metadata["city"];
  include("$nwnpath/include/header.inc.php");
@@ -138,11 +126,31 @@ function nbheader($title, $pos, $name)
 if (isset($metadata["ftm"])) {
  echo "<div style=\"background: #ff0; color: #f00; padding: 2px; border: #000 dashed 1px;\"><b>Special Message</b><br />". $metadata["ftm"] ."</div>";
 } 
+
+echo nbheader("Realtime Observation", 2, "ob");
 ?>
-<div id="datagrid"></div>
+<br /><strong>Timestamp:</strong> <span id="ds_ts"></span>
+<br /><strong>Air Temperature:</strong> <span id="ds_tmpf"></span> &deg;F
+<br /><strong>Feels Like:</strong> <span id="ds_feel"></span> &deg;F
+<br /><strong>Dew Point:</strong> <span id="ds_dwpf"></span> &deg;F 
+ <strong>Relative Humidity:</strong> <span id="ds_relh"></span>%
+<br /><strong>Wind:</strong> <span id="ds_drct"></span> @ <span id="ds_sped"></span> mph
+<br /><strong>Peak Gust:</strong> <span id="ds_xdrct"></span> @ <span id="ds_xsped"></span> mph
+
+<p><strong>Solar Radiation:</strong> <span id="ds_srad"></span>
+<br /><strong>Max Radiation:</strong> <span id="ds_xsrad"></span>
+
+<p><strong>Today's Rainfall:</strong> <span id="ds_pday"></span> inch
+<br /><strong>Month Rainfall:</strong> <span id="ds_pmonth"></span> inch
+
+<p><strong>Pressure:</strong> <span id="ds_pres"></span> inch
+
+<p><strong>Today's Maximum Temp:</strong> <span id="ds_xtmpf"></span> &deg;F
+<br /><strong>Today's Minimum Temp:</strong> <span id="ds_ntmpf"></span> &deg;F
 
 <p style="margin: 5px;"><?php echo "<b><a href=\"". BASEURL ."/site.phtml?station=$station\">". $metadata["city"] ."</a></b> SchoolNet8 Site is sponsored by <a href=\"". BASEURL ."/tool/clicktru.php?station=$station\">". $sponsors[$station]["sponsor"] ."</a>"; ?>. &nbsp; <a href='javascript:addToFavorites("<?php echo BASEURL ."/". $uri; ?>", "SchoolNet8.com | <?php echo $TITLE; ?>");'>Bookmark this page!</a>
 <br />Help report rain and snow in your community by joining <a href="http://iowa.cocorahs.org">CoCoRaHS</a>.</p>
+</div></div>
 
 
 <!-- Climate -->
