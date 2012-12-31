@@ -125,7 +125,7 @@ foreach($locs->table as $key => $value)
   $bar->draw($img);
   if ($validRADAR)
     doppler8logo($map, $img, 260, 27, 53);
-  mktitle($map, $img, 0, 230, " Sponsored by ". $sponsors[$sid]["sponsor"] );
+  //mktitle($map, $img, 0, 230, " Sponsored by ". $sponsors[$sid]["sponsor"] );
   putenv("TZ=CST6CDT");
   mkstationtitle($map, $img,  5, 10, date("h:i A") ." - ". $locs->table[$sid]["city"]  );
 

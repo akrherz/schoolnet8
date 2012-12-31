@@ -20,9 +20,10 @@ $clickapp = sprintf("%s/tool/clicktru.php?station=%s", BASEURL, $lstation);
 $sponsorlogo = sprintf("%s/pics/%s.png", BASEURL, $lstation);
 ?>
 <div id="wrapper">
+<!--  
 <div id="imgbar" style="height:60px;">
 <a href="<?php echo $clickapp; ?>" target="_new"><img src="<?php echo $sponsorlogo; ?>" alt="Banner" style="border:0px;" height="60"/></a>
-<?php echo $hextra; ?></div>
+<?php echo $hextra; ?></div> -->
 <?php
 $_pages = Array(
  "homepage" => Array(
