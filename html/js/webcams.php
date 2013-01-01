@@ -17,9 +17,9 @@ echo "webcamsponsor = {";
 $data = "";
 while(list($sid, $ar) = each($cameras)){
   $d = "";
-  if ($ar["sponsor"] != ""){
-     $d .= "Sponsored by: <a href=\"". BASEURL ."/tool/clicktru.php?station=$sid&stype=0\">". $ar["sponsor"] ."</a><br />";
-  }
+  //if ($ar["sponsor"] != ""){
+  //   $d .= "Sponsored by: <a href=\"". BASEURL ."/tool/clicktru.php?station=$sid&stype=0\">". $ar["sponsor"] ."</a><br />";
+  //}
 
   if ($ar["iservice"] != "" ){
      $d .= "Internet service by: <a href=\"". BASEURL ."/tool/clicktru.php?station=$sid&stype=1\">". $ar["iservice"] ."</a><br />";

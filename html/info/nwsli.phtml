@@ -15,12 +15,12 @@ Service.  This page lists those identifiers which are used by a number of
 applications on this website.</p>
 
 <table>
- <tr><th>NWS ID</th><th>Site Name</th><th>Sponsor</th></tr>
+ <tr><th>NWS ID</th><th>Site Name</th><!-- <th>Sponsor</th> --></tr>
 
 <?php
 while ( list($sid, $tbl) = each($locs->table) )
 {
-  echo '<tr><th>'. $sid .'</th><td>'. $tbl['city'] .'</td><td><a href="'. BASEURL .'/tool/clicktru.php?station='. $sid .'">'. $sponsors[$sid]['sponsor'] .'</a></td></tr>';
+  echo '<tr><th>'. $sid .'</th><td>'. $tbl['city'] .'</td><!-- <td><a href="'. BASEURL .'/tool/clicktru.php?station='. $sid .'">'. $sponsors[$sid]['sponsor'] .'</a></td> --></tr>';
 
 }
 ?>

@@ -5,7 +5,7 @@
 ?>
 <wml>
   <card id="card1" title="KCCI SCHOOLNET">
-   <p>Mobile SchoolNet8<br />Sponsored by CIPCO</p>
+   <p>Mobile SchoolNet8</p>
    <p>
      <img src="lsd.php?sector=<?php echo $sector . $e; ?>"/>
    </p>

@@ -2,7 +2,7 @@
  header("Content-type: text/vnd.wap.wml"); ?>
 <wml>
   <card id="card1" title="KCCI SCHOOLNET">
-   <p>Mobile SchoolNet8<br />Sponsored by CIPCO</p>
+   <p>Mobile SchoolNet8</p>
    <p>
 <a href="ob.wml">SchoolNet8 Obs</a>
 <br /><a href="lsd.wml">Live Super Doppler</a>
