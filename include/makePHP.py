@@ -1,42 +1,49 @@
 #!/mesonet/python/bin/python
 
-from pyIEM import iemdb, stationTable
 import mx.DateTime
-i = iemdb.iemdb()
-mesosite = i['mesosite']
-st = stationTable.stationTable("/mesonet/TABLES/kcci.stns")
+import iemdb
+import psycopg2.extras
+MESOSITE = iemdb.connect("mesosite", bypass=True)
+mcursor = MESOSITE.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+import network
+nt = network.Table("KCCI")
 
 o = open('cameras.inc.php', 'w')
 o.write("""<?php
 $cxref = Array(
 """)
-for stid in st.ids:
-  sql = "select id, distance(geom,(select geom from stations WHERE id = '%s' and network = 'KCCI'))\
-    as distance  from webcams \
-    WHERE online = 't' and network = 'KCCI' ORDER by distance" % (stid, )
+for stid in nt.sts.keys():
+  sql = """select id, distance(geom,(select geom from stations 
+      WHERE id = '%s' and network = 'KCCI'))
+    as distance  from webcams 
+    WHERE online = 't' and network = 'KCCI' ORDER by distance ASC LIMIT 5""" % (stid, )
 
-  rs = mesosite.query(sql).dictresult()
+  mcursor.execute(sql)
+  rs = mcursor.fetchall()
   if stid == "SAKI4":
-    rs[0]['id'] = 'KCCI-034'
-    rs[1]['id'] = 'KCCI-018'
+    rs[0][0] = 'KCCI-034'
+    rs[1][0] = 'KCCI-018'
 
   o.write("'%s' => Array('%s', '%s', '%s', '%s', '%s'),\n" % (stid, \
-    rs[0]['id'], rs[1]['id'], rs[2]['id'], rs[3]['id'], rs[4]['id']) )
+    rs[0][0], rs[1][0], rs[2][0], rs[3][0], rs[4][0]) )
 
 
 o.write("""); """)
 
-rs = mesosite.query("SELECT *, x(geom), y(geom), case when removed then 'True' else 'False' end as r, case when online then 'True' else 'False' end as c from webcams WHERE network = 'KCCI' ORDER by name ASC").dictresult()
+mcursor.execute("""SELECT *, x(geom), y(geom), 
+    case when removed then 'True' else 'False' end as r, 
+    case when online then 'True' else 'False' end as c from webcams 
+    WHERE network = 'KCCI' ORDER by name ASC""")
 
 o.write("""
 $cameras = Array(
 """);
 
-for i in range(len(rs)):
-  sts = mx.DateTime.strptime(rs[i]['sts'][:16], '%Y-%m-%d %H:%M')
+for row in mcursor:
   estr = "time()"
-  if (rs[i]['ets'] is not None):
-    ets = mx.DateTime.strptime(rs[i]['ets'][:16], '%Y-%m-%d %H:%M')
+  if (row['ets'] is not None):
+    ets =row['ets']
     estr = "mktime(%s,0,0,%s, %s,%s)" % (ets.hour, ets.month, ets.day, ets.year)
 
   o.write("""
@@ -49,13 +56,13 @@ for i in range(len(rs)):
     "iserviceurl" => "%s", "network" => "%s",
     "sponsor" => "%s", "sponsorurl" => "%s",
     "ip" => "%s", "county" => "%s", "port" => "%s"),""" \
-   % (rs[i]['id'], sts.hour, sts.month, sts.day, sts.year, estr, \
-      rs[i]['name'], rs[i]['r'], rs[i]['c'], rs[i]['y'], rs[i]['x'], \
-      rs[i]['hosted'], rs[i]['hostedurl'], rs[i]['moviebase'], \
-      rs[i]['iservice'], rs[i]['iserviceurl'], rs[i]['network'], \
-      rs[i]['sponsor'], rs[i]['sponsorurl'], \
-      rs[i]['ip'], rs[i]['county'], \
-      rs[i]['port']) )
+   % (row['id'], row['sts'].hour, row['sts'].month, row['sts'].day, row['sts'].year, estr, \
+      row['name'], row['r'], row['c'], row['y'], row['x'], \
+      row['hosted'], row['hostedurl'], row['moviebase'], \
+      row['iservice'], row['iserviceurl'], row['network'], \
+      row['sponsor'], row['sponsorurl'], \
+      row['ip'], row['county'], \
+      row['port']) )
 
 o.write("""); ?>""")
 o.close()
