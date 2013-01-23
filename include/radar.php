@@ -26,7 +26,7 @@ function mkstationtitle($map, $imgObj, $x0, $y0, $titlet) {
   $layer = $map->getLayerByName("credits");
 
   $c = $layer->getClass(0);
-  $c->label->set("size", "14");
+  $c->getLabel(0)->set("size", "14");
   // point feature with text for location
   $point = ms_newpointobj();
   $point->setXY($x0, $y0);
