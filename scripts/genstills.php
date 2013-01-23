@@ -107,7 +107,7 @@ foreach($locs->table as $key => $value)
     $pt = ms_newPointObj();
     $pt->setXY($lon, $lat, 0);
     $rotate =  0 - intval($ob["drct"]);
-    $bclass->label->set("angle", doubleval($rotate));
+    $bclass->getLabel(0)->set("angle", doubleval($rotate));
     $pt->draw($map, $barbs, $img, 0, skntChar($ob["sknt"]) );
 
 
