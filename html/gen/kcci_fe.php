@@ -51,8 +51,8 @@ echo "</select>\n";
 </form>
 <p>
 <?php
-  echo "<a href=\"". BASEURL ."/tool/clicktru.php?station=".$station."\" target=\"_new\"><img src=\"". BASEURL ."/spics/".$station .".png\" border=0></a><br>\n";
-  echo "<img src=\"". BASEURL ."/gen/kcci.php?station=".$station ."\">\n";
+ // echo "<a href=\"". BASEURL ."/tool/clicktru.php?station=".$station."\" target=\"_new\"><img src=\"". BASEURL ."/spics/".$station .".png\" border=0></a><br>\n";
+ // echo "<img src=\"". BASEURL ."/gen/kcci.php?station=".$station ."\">\n";
 ?>
 
 <?php if (! isset($mode) ){ ?>
