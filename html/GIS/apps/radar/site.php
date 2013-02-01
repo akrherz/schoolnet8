@@ -147,7 +147,7 @@ foreach ($obs->db as $key => $bzz)
     $pt = ms_newPointObj();
     $pt->setXY($lons[$key], $lats[$key], 0);
     $rotate =  0 - intval($bzz["drct"]);
-    $bclass->label->set("angle", doubleval($rotate));
+    $bclass->getLabel(0)->set("angle", doubleval($rotate));
     $pt->draw($map, $barbs, $img, 0, skntChar($bzz["sknt"]) );
  
 
@@ -165,7 +165,7 @@ foreach ($obs->db as $key => $bzz)
      $pt = ms_newPointObj();
      $pt->setXY($lons[$key], $lats[$key], 0);
      $rotate =  0 - intval($bzz["drct_max"]);
-     $bclass->label->set("angle", doubleval($rotate));
+     $bclass->getLabel(0)->set("angle", doubleval($rotate));
      $pt->draw($map, $barbs, $img, 0, skntChar($bzz["max_sknt"]) );
  
 
