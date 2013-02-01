@@ -54,10 +54,10 @@ function Header()
 {
     global $station;
     //Logo
-    $this->Image('../images/banner.png',40,8, 120);
+    //$this->Image('../images/banner.png',40,8, 120);
     //Arial bold 15
     $this->SetFont('Arial','B',15);
-    $this->Ln(2);
+    //$this->Ln(2);
     //Title
     $mo = date('M Y', time() - 86400);
     //$this->Cell(180,30,'KCCI SchoolNet8 WebSite Stats for Jan 2005' ,0,0,'C');
@@ -71,7 +71,6 @@ function LoadData()
 {
   global $cameras, $sponsors, $station,  $byS, $dbhost, $locs;
   $c = pg_connect($dbhost);
-  pg_exec($c, "set enable_seqscan=off");
   $q0 = "SELECT station, hits, hosts from 
          site_stats_report ORDER by station ASC";
   $r0 = pg_exec($c, $q0);
@@ -183,7 +182,8 @@ function FancyTable($header,$data, $pTotals)
              continue;
            }
            $this->Cell($w[0],5,$row['sname'],'LR',0,'L',$fill);
-           $this->Cell($w[1],5,$row['sponsor'],'LR',0,'L',$fill);
+           //$this->Cell($w[1],5,$row['sponsor'],'LR',0,'L',$fill);
+           $this->Cell($w[1],5,'-','LR',0,'L',$fill);
            $this->Cell($w[2],5,number_format($row['hits']),'LR',0,'R',$fill);
            $this->Cell($w[3],5,number_format($row['hosts']),'LR',0,'R',$fill);
            $this->Cell($w[4],5,number_format($row['c_count']),'LR',0,'R',$fill);
@@ -406,13 +406,13 @@ $pdf->AddPage();
 $pdf->FancyTable($header,array_slice($sdata,33,100), true);
 
 //$pdf->Cell(40,10,'Continued on next page...');
-
+/*
 $pdf->AddPage();
 $header = array('Sponsor', 'Hits', 'Click Thrus');
 $pdf->Cell(30,10,'Stats by Sponsor');
 $pdf->Ln(3);
 $pdf->FancyTable2($header,$byS);
-
+*/
 $pgconn = pg_connect($dbhost);
   pg_exec($pgconn, "set enable_seqscan=off");
 $rs = pg_exec($pgconn, "SELECT  hits,
