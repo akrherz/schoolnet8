@@ -63,6 +63,20 @@ class NWNClientFactory(hubclient.HubClientProtocolBaseFactory):
 
         db[nwsli].parseLineRT(tokens)  
 
+class BaronCSV(resource.Resource):
+
+    def render(self, request):
+    	''' Service request for csv file! '''
+        res = ['ID,DATE,TIME,TEMP']
+        for key in db.keys():
+            if db[key].ts is None:
+                continue
+            res.append('%s,%s,%s,%s' % ( key, db[key].ts.strftime('%m/%d/%Y'),
+          		db[key].ts.strftime("%H:%M"), db[key].tmpf) )
+        request.setHeader('Content-type', 'text/plain')          	
+        request.write( '\n'.join( res ) )
+        request.finish()
+        return server.NOT_DONE_YET
 
 class GetJSON(resource.Resource):
 
@@ -118,11 +132,12 @@ class SiteJson(resource.Resource):
 
 
 class RootResource(resource.Resource):
-    def __init__(self):
-        resource.Resource.__init__(self)
-        self.putChild('get-json', GetJSON())
-        self.putChild('get-site', SiteJson())
 
+	def __init__(self):
+		resource.Resource.__init__(self)
+		self.putChild('get-json', GetJSON())
+		self.putChild('get-site', SiteJson())
+		self.putChild('baron-csv', BaronCSV())
 
 
 application = service.Application("NWN 2 JSON")
