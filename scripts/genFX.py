@@ -9,7 +9,6 @@ import time
 import sys
 import shutil
 import traceback
-import mx.DateTime
 from xml.etree import ElementTree
 
 ENDPOINT = "http://www.weather.gov/forecasts/xml/SOAP_server/ndfdSOAPclientByDay.php?"
@@ -19,7 +18,16 @@ def generator(sid, lat, lon, rerun=False):
     now = datetime.datetime.now()
     rest_uri = "%slat=%s&lon=%s&format=12+hourly&startDate=%s&numDays=7&Submit=Submit" % (
                                                  ENDPOINT, lat, lon, now.strftime("%Y-%m-%d") )
-    doc = ElementTree.XML( urllib.urlopen(rest_uri).read() )
+    try:
+        data = urllib.urlopen(rest_uri).read()
+    except:
+        traceback.print_exc()
+        return False
+    try:
+        doc = ElementTree.XML( data )
+    except Exception, exp:
+        print "%s got exception: %s sample: |%s|" % (sid, exp, data[:100])
+        return False
 
     taxis = {}
     tnames = {}
@@ -28,7 +36,7 @@ def generator(sid, lat, lon, rerun=False):
         taxis[key] = []
         tnames[key] = []
         for elem2 in elem.findall("./start-valid-time"):
-            ts = mx.DateTime.strptime( elem2.text[:16], '%Y-%m-%dT%H:%M') 
+            ts = datetime.datetime.strptime( elem2.text[:16], '%Y-%m-%dT%H:%M') 
             taxis[key].append( ts )
             tnames[key].append( elem2.attrib.get("period-name",None) )
     
