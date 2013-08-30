@@ -137,7 +137,7 @@ class RootResource(resource.Resource):
 		resource.Resource.__init__(self)
 		self.putChild('get-json', GetJSON())
 		self.putChild('get-site', SiteJson())
-		self.putChild('baron-csv', BaronCSV())
+		self.putChild('baron.csv', BaronCSV())
 
 
 application = service.Application("NWN 2 JSON")
