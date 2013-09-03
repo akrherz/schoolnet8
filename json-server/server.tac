@@ -71,9 +71,12 @@ class BaronCSV(resource.Resource):
         for sid in db.keys():
             if db[sid].ts is None:
                 continue
+            now = db[sid].ts
+            if now.dst == 1:
+                now -= mx.DateTime.TimeDelta(hours=1)
             res.append('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s' % ( 
-                sid, db[sid].ts.strftime('%m/%d/%Y'),
-          		db[sid].ts.strftime("%H:%M"), db[sid].tmpf, db[sid].humid,
+                sid, now.strftime('%m/%d/%Y'),
+          		now.strftime("%H:%M"), db[sid].tmpf, db[sid].humid,
                   db[sid].dwpf, round(db[sid].feel,1), 
                   round(db[sid].feel,1), db[sid].drctTxt,
                   db[sid].sped, db[sid].xsped, db[sid].pres, db[sid].pDay,
