@@ -33,7 +33,6 @@ $_pages = Array(
     "base" => Array("title" => "My Site", "url" => "/site.phtml"),
     "main" => Array("title" => "Mainpage", "url" => "/site.phtml"),
     "hist" => Array("title" => "Data Calendar", "url" => "/hist.phtml?station=$lstation"),
-    "google" => Array("title" => "Google Maps", "url" => "/GIS/gm.phtml?station=$lstation"),
     "ortho" => Array("title" => "Orthophotography", "url" => "/ortho.phtml?station=$lstation"),
     "trace" => Array("title" => "1 Minute Timeseries", "url" => "/plotting/1trace_fe.phtml?station=$lstation"),
  ),

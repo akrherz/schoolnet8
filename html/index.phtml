@@ -9,18 +9,20 @@
   $station = array_rand($locs->table);
  $app = "05"; include("../include/dblog.inc.php");
 
-$HEADEXTRA = "<script src=\"http://maps.google.com/maps?file=api&v=2&key=$GMAPS_KEY\" type=\"text/javascript\"></script>
-<script src='http://www.openlayers.org/api/2.10/OpenLayers.js'></script>
-<script src='". BASEURL ."/js/webcams.php'></script>
-<script type=\"text/javascript\">
-var selectedSite='$station';
+$HEADEXTRA = <<<EOF
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false" 
+	type="text/javascript"></script>
+<script src="http://www.openlayers.org/api/2.12/OpenLayers.js"></script>
+<script src="/js/webcams.php"></script>
+<script type="text/javascript">
+var selectedSite='{$station}';
 var map, jsonlayer;
 
 function updater(){
   var d = new Date();
-  cid = eval(\"webcamlookup.\"+ selectedSite );
-  document.getElementById(\"lsdimage\").innerHTML = '<a href=\"". BASEURL ."/site.phtml?station='+ selectedSite +'\"><img src=\"". BASEURL ."/static/radar/'+ selectedSite +'/'+ selectedSite +'_0.png?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Live Super Doppler\" style=\"float: right;\"/></a><br />Click on map for more details.';
-  document.getElementById('webcamimage').innerHTML = eval(\"webcamsponsor.\"+ cid.replace('-','_') ) +'<a href=\"". BASEURL ."/camera/viewer.phtml#'+ eval(\"webcamlookup.\"+ selectedSite ) +'\"><img src=\"". BASEURL ."/camera/stills/'+ eval(\"webcamlookup.\"+ selectedSite ) +'.jpg?'+ d.getTime() +'\" border=\"1\" width=\"320\" height=\"240\" alt=\"Webcam\" style=\"float: right;\"/></a><br />Click on image for more details.';
+  cid = eval("webcamlookup."+ selectedSite );
+  document.getElementById("lsdimage").innerHTML = '<a href="/site.phtml?station='+ selectedSite +'"><img src="/static/radar/'+ selectedSite +'/'+ selectedSite +'_0.png?'+ d.getTime() +'" border="1" width="320" height="240" alt="Live Super Doppler" style="float: right;"/></a><br />Click on map for more details.';
+  document.getElementById('webcamimage').innerHTML = eval("webcamsponsor."+ cid.replace('-','_') ) +'<a href="/camera/viewer.phtml#'+ eval("webcamlookup."+ selectedSite ) +'"><img src="/camera/stills/'+ eval("webcamlookup."+ selectedSite ) +'.jpg?'+ d.getTime() +'" border="1" width="320" height="240" alt="Webcam" style="float: right;"/></a><br />Click on image for more details.';
 
 };
 
@@ -77,9 +79,9 @@ function olinit(){
             );
   
 
-  var superdoppler = new OpenLayers.Layer.WMS.Untiled(\"KCCI Super DopplerHD\",
-     \"http://mesonet.agron.iastate.edu/cgi-bin/wms/iowa/kcci.cgi?\",
-      {layers:\"kccidoppler\",
+  var superdoppler = new OpenLayers.Layer.WMS("KCCI Super DopplerHD",
+     "http://mesonet.agron.iastate.edu/cgi-bin/wms/iowa/kcci.cgi?",
+      {layers:"kccidoppler",
        transparent:true,
        format:'image/png'
       }
@@ -93,13 +95,17 @@ function olinit(){
    nexrad.setVisibility(false);
 
 
-  jsonlayer = new OpenLayers.Layer.GML(\"KCCI SchoolNet8\", 
-    \"/geojson/kcci.txt?\"+ (new Date()).getTime() ,
-            {
-                projection: new OpenLayers.Projection('EPSG:4326'),
-                format: OpenLayers.Format.GeoJSON, 
-                styleMap: styleMap
-             });
+  jsonlayer = new OpenLayers.Layer.Vector("KCCI SchoolNet8", 
+		{
+  		protocol: new OpenLayers.Protocol.HTTP({
+                    url: "/geojson/kcci.txt?"+ (new Date()).getTime(),
+                    format: new OpenLayers.Format.GeoJSON()
+    	}),
+  		projection: new OpenLayers.Projection('EPSG:4326'),
+        format: new OpenLayers.Format.GeoJSON(), 
+        styleMap: styleMap,
+		strategies: [new OpenLayers.Strategy.Fixed()]
+  });
   jsonlayer.setVisibility(true);
   map.addLayers([googleLayer,superdoppler, nexrad, jsonlayer]);
 
@@ -127,7 +133,7 @@ function olinit(){
 
 }; /* End of olinit() */
 </script>
-";
+EOF;
 $BODYEXTRA = "onload=\"olinit()\"";
 $TITLE = "Homepage"; 
 include("$nwnpath/include/header.inc.php");

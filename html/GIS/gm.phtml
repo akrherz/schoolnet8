@@ -12,11 +12,13 @@ $defaultzoom = isset($_GET["station"]) ? 10 : 7;
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
    <style type="text/css" media="screen">@import "../css/main.css";</style>
-    <script src="http://maps.google.com/maps?file=api&v=2&key=<?php echo $GMAPS_KEY; ?>" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false" 
+    type="text/javascript"></script>
   </head>
   <body>
 <?php $THISPAGE="mysite-google"; include("$nwnpath/include/bar.inc.php"); ?>
 <div id="justone">
+<div class="warning">Sorry, this page is depreciated.</div>
 <h2>Google Maps Interface</h2>
     
 <div id="map" style="border: 1px solid #000; margin-left: 5px; width: 620px; height: 530px"></div>
@@ -30,27 +32,31 @@ icons have a web camera near to the site.</p>
 <script type="text/javascript">
     //<![CDATA[
 
- var map = new GMap2(document.getElementById("map"));
- map.addControl(new GLargeMapControl());
- map.addControl(new GMapTypeControl());
- map.addControl(new GOverviewMapControl());
-
-var tileNEX = new GTileLayer(null,null,null); 
-tileNEX.getTileUrl = function(tile,zoom) { 
-   return "http://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0r-900913/"+zoom+"/"+tile.x+"/"+tile.y+".png?"+ (new Date()).getTime(); 
-};
-tileNEX.isPng = function() { return true;};
-tileNEX.getOpacity = function() { return 0.5; }
+ var map = new google.maps.Map(document.getElementById("map"));
+ //map.addControl(new GLargeMapControl());
+ //map.addControl(new GMapTypeControl());
+ //map.addControl(new GOverviewMapControl());
 
 
-var layer4=[G_NORMAL_MAP.getTileLayers()[0],tileNEX]; 
-var custommap4 = new GMapType(layer4, G_SATELLITE_MAP.getProjection(), "Nexrad", G_SATELLITE_MAP);
-map.addMapType(custommap4);
+        tileNEX = new google.maps.ImageMapType({
+            getTileUrl: function(tile, zoom) {
+                return "http://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/" + zoom + "/" + tile.x + "/" + tile.y +".png?"+ (new Date()).getTime(); 
+            },
+            tileSize: new google.maps.Size(256, 256),
+            opacity:0.60,
+            name : 'NEXRAD',
+            isPng: true
+        });
+ 
+
+  map.overlayMapTypes.push(null); // create empty overlay entry
+  map.overlayMapTypes.setAt("0",tileNEX);
+        
 
 
-map.setCenter(new GLatLng(<?php echo $locs->table[$station]["lat"]; ?>, <?php echo $locs->table[$station]["lon"]; ?>), <?php echo $defaultzoom; ?>);
+map.setCenter(new google.maps.LatLng(<?php echo $locs->table[$station]["lat"]; ?>, <?php echo $locs->table[$station]["lon"]; ?>), <?php echo $defaultzoom; ?>);
 
-var icon = new GIcon();
+var icon = new google.maps.Marker();
 icon.image = "http://labs.google.com/ridefinder/images/mm_20_blue.png";
 icon.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
 icon.iconSize = new GSize(12, 20);
@@ -61,9 +67,9 @@ icon.infoWindowAnchor = new GPoint(5, 1);
 function tester(nwsli, marker, site_name, sponsor, ui) {
   var tabs = [];
   var html = "<div style=\" border: 3px; width: 320px; height: 290px;\"><a href='<?php echo BASEURL; ?>/site.phtml?station="+ nwsli +"'>" + site_name + "</a><br /><img src=\"<?php echo BASEURL; ?>/gen/kcci.php?station="+nwsli+"\"><br /><!-- Sponsored by <a href='<?php echo BASEURL; ?>/tool/clicktru.php?station="+ nwsli +"'>"+ sponsor +"</a> --><br />&nbsp;</div> ";
-  tabs.push( new GInfoWindowTab("Current Ob", html) );
+  tabs.push( new InfoBubble("Current Ob", html) );
    if (ui.length > 0){
-     tabs.push( new GInfoWindowTab("Webcam", ui) );
+     tabs.push( new InfoBubble("Webcam", ui) );
    }
 
   marker.openInfoWindowTabsHtml(tabs);
@@ -71,11 +77,11 @@ function tester(nwsli, marker, site_name, sponsor, ui) {
 
 function createMarker(point, site_name, site_abrev, lon, lat, sponsor, ui) {
 
-   myicon = new GIcon(icon);
+   myicon = new google.maps.Marker(icon);
    if (ui.length > 0){
      myicon.image = "http://labs.google.com/ridefinder/images/mm_20_red.png";
    }
-   var marker = new GMarker(point, myicon);
+   var marker = new google.maps.Marker(point, myicon);
 
    GEvent.addListener(marker, "click", function() {
        tester(site_abrev, marker, site_name, sponsor, ui);
@@ -86,7 +92,7 @@ function createMarker(point, site_name, site_abrev, lon, lat, sponsor, ui) {
 <?php 
 while (list($k,$v) = each($locs->table)) {
 ?>
-  var point = new GPoint(<?php echo $v["lon"]; ?>, <?php echo $v["lat"]; ?>);
+  var point = new google.maps.LatLng(<?php echo $v["lon"]; ?>, <?php echo $v["lat"]; ?>);
   var marker = createMarker(point, "<?php echo $v["city"] ?>", "<?php echo $k; ?>", <?php echo $v["lon"]; ?>, <?php echo $v["lat"]; ?>, '<?php echo $sponsors[$k]["sponsor"]; ?>','<?php
 if (array_key_exists($k, $cameras))
 {
