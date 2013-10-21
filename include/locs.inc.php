@@ -11,12 +11,12 @@ class Locations {
     global $dbhost;
     $dbconn = pg_connect($dbhost);
     if ($station){
-      $rs = pg_prepare($dbconn, "SELECT", "SELECT *, x(geom) as lon, 
-            y(geom) as lat from stations WHERE id = $1 and online");
+      $rs = pg_prepare($dbconn, "SELECT", "SELECT *, ST_x(geom) as lon, 
+            ST_y(geom) as lat from stations WHERE id = $1 and online");
       $rs = pg_execute($dbconn, "SELECT", Array($station));
     } else {
-      $rs = pg_query($dbconn, "SELECT *, x(geom) as lon, 
-            y(geom) as lat from stations WHERE online ORDER by city ASC");
+      $rs = pg_query($dbconn, "SELECT *, ST_x(geom) as lon, 
+            ST_y(geom) as lat from stations WHERE online ORDER by city ASC");
     }
     for( $i=0; $row = @pg_fetch_array($rs,$i); $i++)
     {
