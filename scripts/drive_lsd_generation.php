@@ -3,6 +3,9 @@
  * The goal of this script is to figure out if we need to generate images
  * of KCCI RADAR data
  */
+// Don't run too close to top of minute, give chance for file to arrive
+sleep(15);
+
 date_default_timezone_set('UTC');
 
 define("KCCI_TIME_FILE", 
