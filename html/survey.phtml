@@ -2,7 +2,7 @@
 include("../config/settings.inc.php");
 
 
-if (isset($_POST["posting"]))
+if (isset($_REQUEST["posting"]) && isset($_REQUEST["ans"]) && ($_REQUEST["ans"] == "2"))
 {
  $likeleast = $_POST["likeleast"];
  $email = $_POST["email"];
@@ -55,6 +55,8 @@ would rather remain anonymous, don't fill in the email blank.
 
 <p>Other comments or suggestions?
 <br /><textarea cols="60" rows="5" name="comments"> </textarea>
+
+<p>What is <img src="images/spam.png" />?<input type="text" size="5" name="ans" />
 
 <p><input type="submit" value="Submit Survey">
 </form>
