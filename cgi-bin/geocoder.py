@@ -1,26 +1,38 @@
 #!/usr/bin/env python
-# GeoCoder for the NWN website
-# Daryl Herzmann 30 June 2004
-
-import xmlrpclib, cgi
-p = xmlrpclib.ServerProxy('http://rpc.geocoder.us/service/xmlrpc')
-
+"""
+ Geocoder used by:
+  - map app
+"""
+import cgi
+import urllib
+import urllib2
+import sys
+import json
 
 def main():
-	form = cgi.FieldStorage()
-	res = []
-	if (form.has_key("address")):
-		res = p.geocode( form["address"].value )
-	if (form.has_key("street") and form.has_key("city") ):
-		address = "%s, %s, IA" % (form["street"].value, form["city"].value)
-		res = p.geocode( address )
-	if (len(res) > 0 and res[0].has_key("lat") ):
-		print "%s,%s" % (res[0]["lat"], res[0]["long"])
-	else:
-		print "ERROR"
+    ''' Go main go '''
+    form = cgi.FieldStorage()
+    if form.has_key("address"):
+        address = form["address"].value 
+    elif form.has_key("street") and form.has_key("city"):
+        address = "%s, %s" % (form["street"].value, form["city"].value)
+
+    address = urllib.urlencode({'address': address})
+    uri = ('http://maps.googleapis.com/maps/api/geocode/json'
+               +'?'+address+'&sensor=true')
+    data = json.loads( urllib2.urlopen(uri).read() )
+    if len(data['results']) > 0:    
+        print "%s,%s" % (data['results'][0]['geometry']['location']['lat'],
+                         data['results'][0]['geometry']['location']['lng'])
+    else:
+        sys.stderr.write( str(data) )
+        print "ERROR"
+
+sys.stdout.write('Content-type: text/plain \n\n')
 try:
-	print 'Content-type: text/plain \n\n'
-	main()
-except:
-	print "ERROR"
+    main()
+except Exception, exp:
+    sys.stderr.write(str(exp))
+    print "ERROR"
+
 	
