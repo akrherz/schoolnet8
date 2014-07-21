@@ -19,7 +19,7 @@ def generator(sid, lat, lon, rerun=False):
     rest_uri = "%slat=%s&lon=%s&format=12+hourly&startDate=%s&numDays=7&Submit=Submit" % (
                                                  ENDPOINT, lat, lon, now.strftime("%Y-%m-%d") )
     try:
-        data = urllib.urlopen(rest_uri).read()
+        data = urllib.urlopen(rest_uri, timeout=30).read()
     except:
         traceback.print_exc()
         return False
