@@ -4,7 +4,7 @@ Create cached forecast html from the NDFD
 import re
 import pdb
 import datetime
-import urllib
+import urllib2
 import time
 import sys
 import shutil
@@ -19,7 +19,7 @@ def generator(sid, lat, lon, rerun=False):
     rest_uri = "%slat=%s&lon=%s&format=12+hourly&startDate=%s&numDays=7&Submit=Submit" % (
                                                  ENDPOINT, lat, lon, now.strftime("%Y-%m-%d") )
     try:
-        data = urllib.urlopen(rest_uri, timeout=30).read()
+        data = urllib2.urlopen(rest_uri, timeout=30).read()
     except:
         traceback.print_exc()
         return False
