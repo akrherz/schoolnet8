@@ -57,7 +57,7 @@ Ext.onReady(function(){
           autoLoad:true,
           sortInfo: {field: "i", direction: "ASC"},
           proxy: new Ext.data.HttpProxy({
-                url: '/get-json',
+                url: '/json/get-json',
                 method: 'GET'
           }),
           reader: new Ext.data.JsonReader({
