@@ -69,13 +69,13 @@ function refreshCamera()
 	}
     if (newCameraID == null){ newCameraID = cameraID; }
     if (cameraID != newCameraID && newCameraID != null) {
-      document.getElementById(\"imgbar\").innerHTML = \"<a href='/tool/clicktru.php?station=\"+ newCameraID +\"' target='_new'><img src='/pics/\"+ newCameraID +\".png' alt='Banner' style='border: 0px none ;'></a>\";
+      //document.getElementById(\"imgbar\").innerHTML = \"<a href='/tool/clicktru.php?station=\"+ newCameraID +\"' target='_new'><img src='/pics/\"+ newCameraID +\".png' alt='Banner' style='border: 0px none ;'></a>\";
       cameraID = newCameraID;
     }
     /* Make the URL Prettier */
     window.location.href = '#'+ newCameraID;
 
-    document.getElementById(\"webcamsponsor\").innerHTML = eval(\"webcamsponsor.\"+ cameraID.replace('-','_') );
+    //document.getElementById(\"webcamsponsor\").innerHTML = eval(\"webcamsponsor.\"+ cameraID.replace('-','_') );
 
     ts = new Date();
     imgurl = 'http://mesonet.agron.iastate.edu/data/camera/640x480/'+ cameraID +'.jpg?'+ ts.getTime();
