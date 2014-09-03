@@ -1,6 +1,4 @@
-#!/bin/sh
-
-export PATH=/mesonet/python-2.5/bin:$PATH
+# Startup JSON server, called from crontab @reboot
 
 kill -9 `cat twistd.pid`
 sleep 1
