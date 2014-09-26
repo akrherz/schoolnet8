@@ -20,6 +20,8 @@ def generator(sid, lat, lon, rerun=False):
                                                  ENDPOINT, lat, lon, now.strftime("%Y-%m-%d") )
     try:
         data = urllib2.urlopen(rest_uri, timeout=30).read()
+    except URLError:
+        return False
     except:
         traceback.print_exc()
         return False
