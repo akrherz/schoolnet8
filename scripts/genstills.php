@@ -36,7 +36,7 @@ foreach($locs->table as $key => $value)
 
   $warnings_c = $map->getlayerbyname("postgis_warnings_c");
   $warnings_c->set('data', sprintf("geom from (select phenomena, geom, oid 
-  	from warnings_%s WHERE gtype = 'C' and expire > now() 
+  	from warnings_%s WHERE expire > now() 
   	and phenomena in ('SV','TO','FF') ORDER by expire, phenomena ASC) as foo 
   	 using unique oid using SRID=4326", date("Y")));
   $warnings_c->set("status", MS_ON);
