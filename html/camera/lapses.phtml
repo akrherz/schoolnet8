@@ -22,8 +22,8 @@
 <div class="nb_content">
 Each day an automated process captures a movie from each of the webcameras.
 These movies are available for viewing here.  Currently, we are only generating
-movies in Windows Media Video format.  If you have trouble playing them, please
-<a href="../contact.phtml">let us know</a>!
+movies in MPEGv4 format.  If you have trouble playing them, please
+<a href="/contact.phtml">let us know</a>!
 </div>
 </div>
 
@@ -73,7 +73,7 @@ while( list($key, $value) = each($c) )
   reset($iter);
   while( list($k, $v) = each($iter) )
   {
-    echo "<td><a href=\"http://mesonet.agron.iastate.edu/onsite/lapses/auto/${key}_${v}.wmv\"><img src=\"../images/wmv_thumb.jpg\" style=\"border: 0px;\"></a></td>";
+    echo "<td><a href=\"http://mesonet.agron.iastate.edu/onsite/lapses/auto/${key}_${v}.mp4\"><img src=\"/images/wmv_thumb.jpg\" style=\"border: 0px;\"></a></td>";
   }
   echo "</tr>";
 }
