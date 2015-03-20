@@ -133,10 +133,12 @@ foreach($locs->table as $key => $value)
   
 }
 
+$gstamp = gmdate("YmdHi");
+ 
 chdir("/tmp/radimages");
 foreach($locs->table as $sid => $value)
 {
-  system("/home/ldm/bin/pqinsert -p 'lsdimages cr 000000000000 kcci/radar/${sid}/${sid}_ bogus png' ${sid}.png");
+	system("/home/ldm/bin/pqinsert -i -p 'lsdimages cr ${gstamp} kcci/radar/${sid}/${sid}_ bogus png' ${sid}.png");
 }
 
 ?>
