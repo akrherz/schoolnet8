@@ -126,8 +126,8 @@ foreach($locs->table as $key => $value)
     //doppler8logo($map, $img, 255, 37, 53);
   //mktitle($map, $img, 0, 230, " Sponsored by ". $sponsors[$sid]["sponsor"] );
   putenv("TZ=CST6CDT");
-  //mkstationtitle($map, $img,  5, 10, date("h:i A") ." - ". $locs->table[$sid]["city"]  );
-  
+  mkstationtitle($map, $img,  5, 10, date("h:i A") ." - ". $locs->table[$sid]["city"]  );
+  $map->drawLabelCache($img);
   $img->saveImage('/tmp/radimages/'. $sid .'.png');
   
 }

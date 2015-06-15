@@ -9,7 +9,7 @@ function doppler8logo($map, $imgObj, $x0, $y0, $size) {
   $point = ms_newpointobj();
   $point->setXY($x0, $y0);
 
-  $point->draw($map, $layer, $imgObj, 0, "");
+  $point->draw($map, $layer, $imgObj, 0);
 }
 
 function mktitle($map, $imgObj, $x0, $y0, $titlet) {
@@ -26,13 +26,11 @@ function mkstationtitle($map, $imgObj, $x0, $y0, $titlet) {
   $layer = $map->getLayerByName("credits");
 
   $c = $layer->getClass(0);
-  $c->getLabel(0)->set("size", "14");
+  //$c->getLabel(0)->set("size", "14");
   // point feature with text for location
   $point = ms_newpointobj();
   $point->setXY($x0, $y0);
-
-  $point->draw($map, $layer, $imgObj, 0,
-    $titlet);
+  $point->draw($map, $layer, $imgObj, 0, $titlet);
 }
 
 
