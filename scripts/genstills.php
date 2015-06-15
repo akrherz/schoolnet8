@@ -27,7 +27,7 @@ foreach($locs->table as $key => $value)
   $map = ms_newMapObj($mapfile);
   $map->selectOutputFormat("png24");
   $map->setsize(320,240);
-
+  
   $projInObj = ms_newprojectionobj("init=epsg:4326");
   $projOutObj = ms_newprojectionobj($proj);
 
@@ -98,7 +98,7 @@ foreach($locs->table as $key => $value)
   }
   $counties->draw($img);
 	$warnings_c->draw($img);
-
+	
   foreach($obs->db as $key => $ob)
   {
     if (! $ob['iscurrent']) continue;
@@ -110,25 +110,24 @@ foreach($locs->table as $key => $value)
     $bclass->getLabel(0)->set("angle", doubleval($rotate));
     $pt->draw($map, $barbs, $img, 0, skntChar($ob["sknt"]) );
 
-
     $pt = ms_newPointObj();
     $pt->setXY($lon, $lat, 0);
     $pt->draw($map, $snet, $img, 0, $ob['tmpf'] );
 
   }
-
+  
   $pt = ms_newPointObj();
   $pt->setXY($point->x, $point->y, 0);
-  $pt->draw($map, $ponly, $img, 0, " ");
-
+  $pt->draw($map, $ponly, $img, 0);
+  
 
   $bar->draw($img);
-  if ($validRADAR)
-    doppler8logo($map, $img, 255, 37, 53);
+  //if ($validRADAR)
+    //doppler8logo($map, $img, 255, 37, 53);
   //mktitle($map, $img, 0, 230, " Sponsored by ". $sponsors[$sid]["sponsor"] );
   putenv("TZ=CST6CDT");
-  mkstationtitle($map, $img,  5, 10, date("h:i A") ." - ". $locs->table[$sid]["city"]  );
-
+  //mkstationtitle($map, $img,  5, 10, date("h:i A") ." - ". $locs->table[$sid]["city"]  );
+  
   $img->saveImage('/tmp/radimages/'. $sid .'.png');
   
 }
