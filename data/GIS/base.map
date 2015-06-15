@@ -144,7 +144,7 @@ END
 ###
 # Road conditions label
 LAYER
-  TYPE ANNOTATION
+  TYPE POINT
   STATUS ON
   DATA "/home/ldm/data/gis/shape/26915/ia/iaroad_cond.shp"
   NAME "roadcond_label"
@@ -761,7 +761,7 @@ END
 
 LAYER
   NAME interstates_label
-  TYPE ANNOTATION
+  TYPE POINT
   STATUS OFF
   PROJECTION
    "init=epsg:26915"
@@ -819,7 +819,7 @@ END
 
 LAYER
   NAME roads_label
-  TYPE ANNOTATION
+  TYPE POINT
   STATUS OFF
   LABELITEM SIGNN1
   MAXSCALE 1000000
@@ -863,7 +863,7 @@ END
 
 LAYER
   NAME credits
-  TYPE ANNOTATION
+  TYPE POINT
   STATUS OFF
   TRANSFORM FALSE
   LABELCACHE OFF
