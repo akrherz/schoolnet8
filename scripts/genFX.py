@@ -5,6 +5,7 @@ import re
 import pdb
 import datetime
 import urllib2
+import socket
 import time
 import sys
 import shutil
@@ -21,6 +22,9 @@ def generator(sid, lat, lon, rerun=False):
     try:
         data = urllib2.urlopen(rest_uri, timeout=30).read()
     except urllib2.URLError:
+        # python 2.6
+        return False
+    except socket.timeout, _:
         return False
     except:
         traceback.print_exc()
