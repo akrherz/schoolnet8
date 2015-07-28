@@ -420,7 +420,7 @@ function setLayerDisplay( layerName, d ) {
 </div>
 
    </td>
-   <td align="center" bgcolor="#000080"><a href="<?php echo BASEURL; ?>/tool/clicktru.php?station=CIPCO" target="_new"><img src="<?php echo BASEURL; ?>/pics/CIPCO.png" border="0"></a></td>
+   <td align="center" bgcolor="#000080"><!--  <a href="<?php echo BASEURL; ?>/tool/clicktru.php?station=CIPCO" target="_new"><img src="<?php echo BASEURL; ?>/pics/CIPCO.png" border="0"></a> --></td>
 	</tr>
 	<tr>
 <td valign="top">

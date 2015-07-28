@@ -314,10 +314,10 @@ else
   $roads->set("status", 1);
 
   $ilbl = $map->getlayerbyname("interstates_label");
-  $ilbl->set("status", 1);
+  $ilbl->set("status", MS_OFF);
 
   $rlbl = $map->getlayerbyname("roads_label");
-  $rlbl->set("status", 1);
+  $rlbl->set("status", MS_OFF);
 }
 
 
@@ -485,6 +485,7 @@ if ($showRoadCond)
 {
   $roadcond_key->draw($img);
 }
+$map->drawLabelCache($img);
 
 if (isset($_GET["download"]))
 {
