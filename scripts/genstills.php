@@ -57,7 +57,7 @@ foreach($locs->table as $key => $value)
   $interstates->set("status", MS_ON);
                                                                                 
   $ilbl = $map->getlayerbyname("interstates_label");
-  $ilbl->set("status", MS_ON);
+  $ilbl->set("status", MS_OFF);
 
   $bar = $map->getlayerbyname("bar320");
   $bar->set("status", MS_ON);
@@ -85,7 +85,7 @@ foreach($locs->table as $key => $value)
 //  $roads->draw($img);
 //  $rlbl->draw($img);
   $interstates->draw($img);
-  $ilbl->draw($img);
+  //$ilbl->draw($img);
   $map->drawLabelCache($img);
 
   if ($validRADAR)
@@ -104,15 +104,17 @@ foreach($locs->table as $key => $value)
     if (! $ob['iscurrent']) continue;
     $lon = $locs->table[$key]['lon'];
     $lat = $locs->table[$key]['lat'];
+    if ($ob["sknt"] > 0){
+	    $pt = ms_newPointObj();
+	    $pt->setXY($lon, $lat, 0);
+	    $rotate =  0 - intval($ob["drct"]);
+	    $bclass->getLabel(0)->set("angle", doubleval($rotate));
+    	$pt->draw($map, $barbs, $img, 0, skntChar($ob["sknt"]) );
+    }
+    
     $pt = ms_newPointObj();
     $pt->setXY($lon, $lat, 0);
-    $rotate =  0 - intval($ob["drct"]);
-    $bclass->getLabel(0)->set("angle", doubleval($rotate));
-    //$pt->draw($map, $barbs, $img, 0, skntChar($ob["sknt"]) );
-
-    $pt = ms_newPointObj();
-    $pt->setXY($lon, $lat, 0);
-    //$pt->draw($map, $snet, $img, 0, $ob['tmpf'] );
+    $pt->draw($map, $snet, $img, 0, $ob['tmpf'] );
 
   }
   
