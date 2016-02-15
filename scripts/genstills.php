@@ -57,7 +57,7 @@ foreach($locs->table as $key => $value)
   $interstates->set("status", MS_ON);
                                                                                 
   $ilbl = $map->getlayerbyname("interstates_label");
-  $ilbl->set("status", MS_OFF);
+  $ilbl->set("status", MS_ON);
 
   $bar = $map->getlayerbyname("bar320");
   $bar->set("status", MS_ON);
@@ -85,7 +85,7 @@ foreach($locs->table as $key => $value)
 //  $roads->draw($img);
 //  $rlbl->draw($img);
   $interstates->draw($img);
-  //$ilbl->draw($img);
+  $ilbl->draw($img);
   $map->drawLabelCache($img);
 
   if ($validRADAR)
@@ -131,6 +131,7 @@ foreach($locs->table as $key => $value)
   mkstationtitle($map, $img,  5, 10, date("h:i A") ." - ". $locs->table[$sid]["city"]  );
   $map->drawLabelCache($img);
   $img->saveImage('/tmp/radimages/'. $sid .'.png');
+  //die($sid);
   
 }
 

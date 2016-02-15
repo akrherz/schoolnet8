@@ -657,7 +657,7 @@ LAYER
         TYPE truetype
         FONT weather
         ANTIALIAS TRUE
-        SIZE 45
+        SIZE 30
         POSITION UR
         OFFSET -1 -1 # for size 30 UR
         BUFFER 0
@@ -694,27 +694,6 @@ LAYER
 		SIZE 8
 	END
 END
-
-
-
-#LAYER
-#  NAME interstates
-#  TYPE LINE
-#  STATUS OFF
-#  PROJECTION
-#   "init=epsg:4326"
-#  END
-#  DATA shape/unproj/iowa/interstates.shp
-#  CLASS
-#    COLOR 255 0 0
-#    SYMBOL 'circle'
-#    SIZE 4
-#    OVERLAYSYMBOL 'circle'
-#    OVERLAYSIZE 2
-#    OVERLAYCOLOR 0 0 0
-#  END
-#END
-
 
 LAYER
   NAME interstates
@@ -766,19 +745,23 @@ LAYER
   PROJECTION
    "init=epsg:26915"
   END
+  LABELCACHE ON
   LABELITEM "SIGNN1"
   CLASSITEM "SIGNT1"
   DATA /mesonet/data/gis/static/shape/26915/iowa/nhpn_roads.shp
+  SIZEUNITS pixels
   CLASS
     EXPRESSION /I/
-    COLOR -1 -1 -1
-    SYMBOL 'interstate_shield'
     LABEL
+	  STYLE
+	    COLOR -1 -1 -1
+	    SYMBOL 'interstate_shield'
+	  END
       TYPE TRUETYPE
       FONT 'liberation'
       POSITION CC
-      MINDISTANCE 100
-      MINFEATURESIZE 10
+      MINDISTANCE 100000
+      MINFEATURESIZE AUTO
       SIZE 8
       COLOR 255 255 255
       PARTIALS FALSE
