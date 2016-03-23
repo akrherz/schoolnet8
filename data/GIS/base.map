@@ -156,9 +156,12 @@ LAYER
   CLASS
     TEXT ([int1])
     EXPRESSION ([type] = 1 and [int1] < 100)
+    STYLE
     COLOR -1 -1 -1
     SYMBOL 'interstate_shield'
     SIZE 20
+    GAP 40
+    END
     LABEL
       TYPE TRUETYPE
       FONT 'liberation'
@@ -174,9 +177,12 @@ LAYER
   CLASS
     TEXT ([us1])
     EXPRESSION /2/
+    MAXSCALE 1000000
+    STYLE
     COLOR -1 -1 -1
     SYMBOL 'us_highway_shield'
-    MAXSCALE 1000000
+    GAP 40
+    END
     LABEL
       TYPE BITMAP
      # FONT 'liberation'
@@ -348,11 +354,11 @@ LAYER
 	NAME cities
 	STATUS OFF
 	TYPE	POLYGON
-	DATA	"/mesonet/data/gis/static/shape/26915/iowa/incorporated_cities_2000.shp"
+	DATA	"/mesonet/data/gis/static/shape/26915/iowa/incorporated_cities_2010.shp"
 	PROJECTION
 		"init=epsg:26915"
 	END
-	LABELITEM "NAME"
+	LABELITEM "NAME10"
 	LABELMAXSCALE 700000
 	MAXSCALE 1000000
 	LABELCACHE	ON

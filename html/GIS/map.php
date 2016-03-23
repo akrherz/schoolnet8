@@ -303,7 +303,7 @@ if ($showRoadCond)
   $roadcond_key->set("status", 1);
 
   $roadcond_label = $map->getlayerbyname("roadcond_label");
-  $roadcond_label->set("status", 1);
+  $roadcond_label->set("status", MS_OFF); // FIXME
 }
 else 
 {
@@ -328,6 +328,7 @@ if ($radar == "KCCI" && ($tvgood || $mode == "archive") )
 } else 
 {
   if ($radar == "KCCI") $radar = "DMX";
+  if (strtoupper($radar) == "NONE") $radar = "DMX";
   $lradar = $map->getlayerbyname("wsr88d");
   $lradar->set("data", "/home/ldm/data/gis/images/4326/ridge/$radar/N0Q_0.png");
 }
