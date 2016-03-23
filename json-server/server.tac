@@ -17,7 +17,7 @@ import simplejson
 from sys import stdout
 import traceback
 import re, mx.DateTime, sys, os
-import nwnformat
+from pyiem import nwnformat
 
 nwsli_lkp = {}
 import pg
