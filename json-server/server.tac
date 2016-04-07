@@ -122,7 +122,7 @@ class SiteJson(resource.Resource):
           'tmpf': db[sid].tmpf, 
           'dwpf': db[sid].dwpf, 
           'relh': db[sid].humid, 
-          'feel': "%.0f" % (db[sid].feel,), 
+          'feel': 'M' if db[sid].feel is None else "%.0f" % (db[sid].feel,), 
           'xtmpf': db[sid].xtmpf, 
           'ntmpf': db[sid].ntmpf,
           'sped': db[sid].sped, 
