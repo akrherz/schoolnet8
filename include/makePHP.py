@@ -1,5 +1,3 @@
-#!/mesonet/python/bin/python
-
 import mx.DateTime
 import psycopg2.extras
 from pyiem.network import Table as NetworkTable
