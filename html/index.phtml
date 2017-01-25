@@ -10,7 +10,7 @@
  $app = "05"; include("../include/dblog.inc.php");
 
 $HEADEXTRA = <<<EOF
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false" 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnW4i8P24nOMnVynGhYnSVjnoTvB4Ttuc" 
 	type="text/javascript"></script>
 <script src="http://www.openlayers.org/api/2.12/OpenLayers.js"></script>
 <script src="/js/webcams.php"></script>
@@ -46,7 +46,7 @@ function olinit(){
 
   // Build Map Object
   map = new OpenLayers.Map( 'map',{
-        projection: new OpenLayers.Projection('EPSG:900913'),
+        projection: new OpenLayers.Projection('EPSG:3857'),
         displayProjection: new OpenLayers.Projection('EPSG:4326'),
         units: 'm',
         wrapDateLine: false,
@@ -86,13 +86,13 @@ function olinit(){
        format:'image/png'
       }
    );
-   superdoppler.setVisibility(true);
+   superdoppler.setVisibility(false);
 
    // NEXRAD Composite Layer.
    var nexrad = new OpenLayers.Layer.WMS( 'US NEXRAD',
      'http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi?', 
      {layers: 'nexrad-n0r', format: 'image/png', transparent: 'true'});
-   nexrad.setVisibility(false);
+   nexrad.setVisibility(true);
 
 
   jsonlayer = new OpenLayers.Layer.Vector("KCCI SchoolNet8", 
@@ -118,7 +118,7 @@ function olinit(){
 
 
    var proj = new OpenLayers.Projection('EPSG:4326');
-   var proj2 = new OpenLayers.Projection('EPSG:900913');
+   var proj2 = new OpenLayers.Projection('EPSG:3857');
    var point = new OpenLayers.LonLat(-93.8, 41.8);
    point.transform(proj, proj2);
 
@@ -141,7 +141,7 @@ $THISPAGE = "homepage"; include("$nwnpath/include/bar.inc.php");
 ?>
 
 <div style="width:100%; margin-bottom: 5px; margin-left: 10px;">
-<b>Welcome</b> to the KCCI SchoolNet8 website<br /></p>
+<b>Welcome</b> to the KCCI SchoolNet8 website
 </div>
 
 
