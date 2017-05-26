@@ -1,6 +1,7 @@
 """
 Create cached forecast html from the NDFD
 """
+from __future__ import print_function
 import datetime
 import time
 import sys
@@ -15,7 +16,7 @@ ENDPOINT = ("http://www.weather.gov/forecasts/xml/SOAP_server/"
 
 
 def generator(sid, lat, lon, rerun=False):
-
+    """Generate things"""
     now = datetime.datetime.now()
     rest_uri = ("%slat=%s&lon=%s&format=12+hourly&startDate=%s"
                 "&numDays=7&Submit=Submit"
@@ -26,8 +27,8 @@ def generator(sid, lat, lon, rerun=False):
     data = r.content
     try:
         doc = ElementTree.XML(data)
-    except Exception, exp:
-        print "%s got exception: %s sample: |%s|" % (sid, exp, data[:100])
+    except Exception as exp:
+        print("%s got exception: %s sample: |%s|" % (sid, exp, data[:100]))
         return False
 
     taxis = {}
@@ -63,10 +64,10 @@ def generator(sid, lat, lon, rerun=False):
 
     if 'Daily Maximum Temperature' not in temps:
         if rerun:
-            print '--------------------------------------------------'
-            print 'Whoa, could not find daily maximum temperature key'
-            print sid
-            print doc
+            print('--------------------------------------------------')
+            print('Whoa, could not find daily maximum temperature key')
+            print(sid)
+            print(data)
         return False
 
     data = {}
@@ -147,11 +148,13 @@ def generator(sid, lat, lon, rerun=False):
     return True
 
 
-def main():
-    if not generator(sys.argv[1], sys.argv[2], sys.argv[3]):
+def main(argv):
+    """Go Main"""
+    if not generator(argv[1], argv[2], argv[3]):
         time.sleep(60)
-        generator(sys.argv[1], float(sys.argv[2]) + 0.01,
-                  float(sys.argv[3]) + 0.01, rerun=True)
+        generator(argv[1], float(argv[2]) + 0.01,
+                  float(argv[3]) + 0.01, rerun=True)
+
 
 if (__name__ == "__main__"):
-    main()
+    main(sys.argv)

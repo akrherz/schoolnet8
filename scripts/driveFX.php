@@ -9,7 +9,7 @@ foreach($locs->table as $key => $value)
   $sid = $key;
   $lat = $value['lat'];
   $lon = $value['lon'];
-  system("python genFX.py $sid $lat $lon");
+  system("python gen_nwsfx.py $sid $lat $lon");
 }
 
 ?>
