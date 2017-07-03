@@ -183,7 +183,7 @@ $cameras = Array(
     "moviebase" => "humboldt",
     "iservice" => "Goldfield Access Network",
     "iserviceurl" => "http://www.goldfieldaccess.net", "network" => "KCCI",
-    "sponsor" => "Humboldt County REC", "sponsorurl" => "http://www.humboldtrec.coop",
+    "sponsor" => "Midland Power Cooperative", "sponsorurl" => "https://www.midlandpower.coop/",
     "ip" => "208.90.15.91", "county" => "Humboldt", "port" => "80"),
 "KCCI-009" => Array("sts" => mktime(0,0,0,2, 25,2004), "ets" => time(),
     "name" => "Indianola", "removed" => False, "active" => True, "lat" => 41.37, "lon" => -93.55,
