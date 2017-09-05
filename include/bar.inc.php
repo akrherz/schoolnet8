@@ -101,4 +101,10 @@ while( list($idx, $page) = each($_pages) )
 }
 echo "<ul></div> $b";
 ?>
+<div style="border: 2px solid #000; background: #ff0; padding: 10px;">
+As of 1 August 2017, the KCCI-TV SchoolNet Project was discontinued.
+This website will eventually go away as well.
+Thanks for your usage over the years since 2002!
+Questions? <a href="mailto:akrherz@iastate.edu">akrherz@iastate.edu</a>
+</div>
 <br clear="all" />
