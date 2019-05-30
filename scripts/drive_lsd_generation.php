@@ -69,7 +69,6 @@ function write_lastts($ts){
 }
 
 function run(){
-	`php -q genstills.php`;
 	`php -q genLSD.php`;
 }
 
