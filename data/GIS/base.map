@@ -67,7 +67,7 @@ END
 #====================================================================
 LAYER
   NAME "roadcond"
-  DATA "/home/ldm/data/gis/shape/26915/ia/iaroad_cond.shp"
+  DATA "/mesonet/ldmdata/gis/shape/26915/ia/iaroad_cond.shp"
   STATUS OFF
   TYPE LINE
   PROJECTION
@@ -146,7 +146,7 @@ END
 LAYER
   TYPE POINT
   STATUS ON
-  DATA "/home/ldm/data/gis/shape/26915/ia/iaroad_cond.shp"
+  DATA "/mesonet/ldmdata/gis/shape/26915/ia/iaroad_cond.shp"
   NAME "roadcond_label"
   PROJECTION
    "init=epsg:26915"
@@ -229,7 +229,7 @@ LAYER
 	NAME warnings_c
 	STATUS OFF
 	TYPE LINE
-	DATA "/home/ldm/data/gis/shape/4326/us/current_ww.shp"
+	DATA "/mesonet/ldmdata/gis/shape/4326/us/current_ww.shp"
 	PROJECTION
 		"init=epsg:4326"
 	END
@@ -451,7 +451,7 @@ LAYER
   NAME goes_conus_vis4km
   STATUS OFF
   TYPE RASTER
-  DATA /home/ldm/data/gis/images/4326/sat/conus_goes_vis4km.tif
+  DATA /mesonet/ldmdata/gis/images/4326/sat/conus_goes_vis4km.tif
   PROJECTION
     "init=epsg:4326"
   END
@@ -461,7 +461,7 @@ LAYER
   NAME goes_conus_ir4km
   STATUS OFF
   TYPE RASTER
-  DATA /home/ldm/data/gis/images/4326/sat/conus_goes_ir4km.tif
+  DATA /mesonet/ldmdata/gis/images/4326/sat/conus_goes_ir4km.tif
   PROJECTION
     "init=epsg:4326"
   END
@@ -471,7 +471,7 @@ LAYER
   NAME wsr88d
   STATUS OFF
   TYPE RASTER
-  DATA /home/ldm/data/gis/images/4326/ridge/DMX/N0Q_0.png
+  DATA /mesonet/ldmdata/gis/images/4326/ridge/DMX/N0Q_0.png
   PROJECTION
     "init=epsg:4326"
   END
@@ -483,7 +483,7 @@ LAYER
   STATUS OFF
   TYPE RASTER
   #PROCESSING "RESAMPLE=CUBIC"
-  DATA /home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_0.png
+  DATA /mesonet/ldmdata/gis/images/26915/KCCI/KCCI_N0R_0.png
   #DATA /mesonet/www/html/GIS/data/images/kcci2.tif
   PROJECTION
     "init=epsg:26915"
@@ -498,7 +498,7 @@ LAYER
   NAME DMX
   STATUS OFF
   TYPE RASTER
-  DATA /home/ldm/data/gis/images/4326/ridge/DMX/N0Q_0.png
+  DATA /mesonet/ldmdata/gis/images/4326/ridge/DMX/N0Q_0.png
   OFFSITE 255 255 255
   TRANSPARENCY 80
   PROJECTION

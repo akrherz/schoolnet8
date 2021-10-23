@@ -3,43 +3,43 @@ List of how and where non-static data gets to the website!
 Current Obs
   mesonet.agron /mesonet/scripts/snet/collect.py (every minute)
   LDM: "plot c 000000000000 csv/kcci2.dat bogus dat"
-  write: /home/ldm/data/kcci/kcci2.dat
+  write: /mesonet/ldmdata/kcci/kcci2.dat
   * Handled by generic writer... *
 
 KCCI LSD
   dsl.79.171.networkiowa.com  user:radar ~/insert.csh (every minute)
   LDM: "lsd ac 200512292215 gis/images/26915/KCCI/KCCI_N0R_0.png GIS/kcci/KCCI_200512292215.png png"
-  write: /home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_0.png
+  write: /mesonet/ldmdata/gis/images/26915/KCCI/KCCI_N0R_0.png
   * Handled by generic writer... *
   write: /mesonet/ARCHIVE/data/YYYY/mm/dd/GIS/kcci/KCCI_YYYYMMDDHHMI.png
   * Handled by generic archive writer... *
 
   LDM: "data c 200512292227 gis/images/26915/KCCI/KCCI_N0R_tm_0.txt bogus txt"
-  write: /home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt
+  write: /mesonet/ldmdata/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt
   * Handled by generic writer ... *
 
 Generated Site Images
   mesonet.agron /mesonet/www/apps/nwnwebsite/scripts/GEN.csh (every minute)
   LDM: "plot cr 000000000000 kcci/radar/${sid}/${sid}_0 bogus png"
-  write: /home/ldm/data/kcci/radar/$SID/$SID_0.png  (rotate)
+  write: /mesonet/ldmdata/kcci/radar/$SID/$SID_0.png  (rotate)
   * Handled by generic rotate ... *
 
 Current Weather Warnings
   mesonet.agron /mesonet/scripts/GIS/warnings/wwShapefile.py (every 5)
   LDM: "zip c YYYYMMDDHHMI gis/shape/4326/us/current_ww.zip bogus zip"
-  write: /home/ldm/data/gis/shape/4326/us/current_ww.zip (unziped)
+  write: /mesonet/ldmdata/gis/shape/4326/us/current_ww.zip (unziped)
   *Handled by generic zip file action*
 
 Webcamera Shots
   mesonet.agron /mesonet/scripts/camera/acquire.csh (every 5)
   LDM: "webcam ac YYYYMMDDHHMI camera/$RES/$SID.jpg bogus jpg"
-  write: /home/ldm/data/camera/$RES/$SID.jpg
+  write: /mesonet/ldmdata/camera/$RES/$SID.jpg
   * Handled by generic current *
 
 Local 88D stills
   mesonet-director1.agron user:ldm radcomp/RUN.csh (every 5)
   LDM: "gis acr YYYYMMDDHHMI gis/images/4326|26915/$SITE/n0r_ bogus png"
-  write: /home/ldm/data/gis/images/$PROJ/$SITE.png
+  write: /mesonet/ldmdata/gis/images/$PROJ/$SITE.png
   * Handled by generic rotate script *
 
 Road Conditions :(
@@ -60,7 +60,7 @@ EXP	(plot|gis) a?c?r ............ (.*) (.*) (.*)
 
 set BASE="$1"
 set FMT="$2"
-set SSS="/home/ldm/data/${BASE}"
+set SSS="/mesonet/ldmdata/${BASE}"
 mkdir -p ${SSS:h} >& /dev/null
 
 
@@ -70,10 +70,10 @@ if ($FMT == "tif.Z") then
 
   foreach i (9 8 7 6 5 4 3 2 1 0)
     set j = `echo "${i} + 1" | bc `
-    mv /home/ldm/data/${BASE}${i}.${FMT} /home/ldm/data/${BASE}${j}.${FMT}
+    mv /mesonet/ldmdata/${BASE}${i}.${FMT} /mesonet/ldmdata/${BASE}${j}.${FMT}
   end
 
-  cp /tmp/file.$$.Z /home/ldm/data/${BASE}0.${FMT}
+  cp /tmp/file.$$.Z /mesonet/ldmdata/${BASE}0.${FMT}
 
   gunzip /tmp/file.$$.Z
   set FMT="tif"
@@ -84,10 +84,10 @@ endif
 
   foreach i (9 8 7 6 5 4 3 2 1 0)
     set j = `echo "${i} + 1" | bc `
-    mv /home/ldm/data/${BASE}${i}.${FMT} /home/ldm/data/${BASE}${j}.${FMT}
+    mv /mesonet/ldmdata/${BASE}${i}.${FMT} /mesonet/ldmdata/${BASE}${j}.${FMT}
   end
 
-  mv /tmp/file.$$ /home/ldm/data/${BASE}0.${FMT}
+  mv /tmp/file.$$ /mesonet/ldmdata/${BASE}0.${FMT}
 
 
 

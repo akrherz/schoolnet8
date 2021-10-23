@@ -139,7 +139,7 @@ def generator(sid, lat, lon, rerun=False):
     o.write("</table>")
     o.close()
     # LDM insert
-    cmd = ("/home/ldm/bin/pqinsert -p 'data c 000000000000 "
+    cmd = ("pqinsert -p 'data c 000000000000 "
            "kcci/fx/%s.html blah blah' %s.html"
            ) % (sid, sid)
     subprocess.call(cmd, shell=True)

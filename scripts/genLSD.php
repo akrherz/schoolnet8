@@ -92,11 +92,11 @@ draw( Array( 475000, 4600000, 685000, 4825000), "NE.png");
 draw( Array( 275000, 4600000, 485000, 4825000), "NW.png");
 
 $tstamp = gmdate("YmdHi");
-`/home/ldm/bin/pqinsert -i -p "plot r $tstamp kccirad/iowa_ bogus png" iowa.png`;
-`/home/ldm/bin/pqinsert -i -p "plot r $tstamp kccirad/metro_ bogus png" metro.png`;
-`/home/ldm/bin/pqinsert -i -p "plot r $tstamp kccirad/SW_ bogus png" SW.png`;
-`/home/ldm/bin/pqinsert -i -p "plot r $tstamp kccirad/SE_ bogus png" SE.png`;
-`/home/ldm/bin/pqinsert -i -p "plot r $tstamp kccirad/NE_ bogus png" NE.png`;
-`/home/ldm/bin/pqinsert -i -p "plot r $tstamp kccirad/NW_ bogus png" NW.png`;
+`pqinsert -i -p "plot r $tstamp kccirad/iowa_ bogus png" iowa.png`;
+`pqinsert -i -p "plot r $tstamp kccirad/metro_ bogus png" metro.png`;
+`pqinsert -i -p "plot r $tstamp kccirad/SW_ bogus png" SW.png`;
+`pqinsert -i -p "plot r $tstamp kccirad/SE_ bogus png" SE.png`;
+`pqinsert -i -p "plot r $tstamp kccirad/NE_ bogus png" NE.png`;
+`pqinsert -i -p "plot r $tstamp kccirad/NW_ bogus png" NW.png`;
 
 ?>

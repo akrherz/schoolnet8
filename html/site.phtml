@@ -207,7 +207,7 @@ The lavender sticks are <a href="javascript:help_window('windbarbs');">wind barb
 /* webcam section */
 $cid = $cxref[$station][0];
 /* Age of file on disk, will be good enough! */
-if ( filemtime("/home/ldm/data/camera/stills/${cid}.jpg") < (time() - 1200) ){
+if ( filemtime("/mesonet/ldmdata/camera/stills/${cid}.jpg") < (time() - 1200) ){
 	echo "<b>Sorry:</b> The ". $cameras[$cid]["name"] ." webcam is currently offline.";
 }
 else if ($cameras[$cid]["active"])

@@ -9,8 +9,8 @@ sleep(15);
 date_default_timezone_set('UTC');
 
 define("KCCI_TIME_FILE", 
-		"/home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt");
-define("DMX_TIME_FILE", "/home/ldm/data/gis/images/4326/ridge/DMX/N0Q_0.json");
+		"/mesonet/ldmdata/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt");
+define("DMX_TIME_FILE", "/mesonet/ldmdata/gis/images/4326/ridge/DMX/N0Q_0.json");
 define("HISTORY_FILE", "/tmp/last_kcci.json");
 define("DEBUG", false);
 

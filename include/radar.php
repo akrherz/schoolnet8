@@ -52,7 +52,7 @@ function skntChar($sknt){
 
 function kccidopplerrecent() {
 #  return FALSE;
-  $fc =  file('/home/ldm/data/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt');
+  $fc =  file('/mesonet/ldmdata/gis/images/26915/KCCI/KCCI_N0R_tm_0.txt');
   $radar_gts = strtotime($fc[0] ." +00:00");
   $local_gts = (int)gmdate('U');
   $diff = $local_gts - $radar_gts;

@@ -129,7 +129,7 @@ function findradarts($t)
     if (is_file($fp))
     {
 	  copy($fp, "/tmp/KCCI_". gmdate("YmdHi", $i) .".png");
-	  copy("/home/ldm/data/kcci/max.wld", "/tmp/KCCI_". gmdate("YmdHi", $i) .".wld" );
+	  copy("/mesonet/ldmdata/kcci/max.wld", "/tmp/KCCI_". gmdate("YmdHi", $i) .".wld" );
       return $i;
     } 
   }

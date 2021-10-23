@@ -43,7 +43,7 @@ include("$nwnpath/include/forms.inc.php");
     $cameras[$id]["url"] = $url5;
     $cameras[$id]["active"] = true;
  } else if ($cameras[$id]["active"]) {
-    if ( filemtime("/home/ldm/data/camera/stills/${id}.jpg") < (time() - 1200)){
+    if ( filemtime("/mesonet/ldmdata/camera/stills/${id}.jpg") < (time() - 1200)){
       $cameras[$id]["active"] = false;
     }
     $cameras[$id]["url"] = sprintf(BASEURL ."/camera/stills/%s.jpg?%s", $id, time() );

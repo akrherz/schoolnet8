@@ -140,7 +140,7 @@ $gstamp = gmdate("YmdHi");
 chdir("/tmp/radimages");
 foreach($locs->table as $sid => $value)
 {
-	system("/home/ldm/bin/pqinsert -i -p 'lsdimages cr ${gstamp} kcci/radar/${sid}/${sid}_ bogus png' ${sid}.png");
+	system("pqinsert -i -p 'lsdimages cr ${gstamp} kcci/radar/${sid}/${sid}_ bogus png' ${sid}.png");
 }
 
 ?>

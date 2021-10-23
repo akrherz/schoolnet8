@@ -14,7 +14,7 @@ function cdf($fc, $format){
 //___________________________________________________________
 function currentOb(){
   global $nwnpath;
-  $fc = file('/home/ldm/data/csv/kcci2.dat');
+  $fc = file('/mesonet/ldmdata/csv/kcci2.dat');
   $format = split(",", $fc[0] );
   $data = Array();
   for($i=1; $i < sizeof($fc); $i++ ){
